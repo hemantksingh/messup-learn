@@ -1,0 +1,169 @@
+# Kubernetes
+
+Applications needn't care about the infrastructure that they run on. Separating the infrastructure configuration and maintenance of a large cluster of machines from the application lifecycle management, reduces the friction on development of highly distributed and scalable solutions.
+
+Kubernetes allows offloading the infrastructure concerns away from applications by using standard building blocks and provides a platform for managing applications (running in containers) at scale across machines, so developers don't need to worry about the orchestration complexity. It was originally designed by Google, now governed by the Cloud Native Computing Foundation (CNCF) and developed by Google, Red Hat, CoreOS and many others. Kubernetes aims to provide all the features needed to run Docker or Rkt-based applications including
+
+* cluster management and scheduling
+* scaling and deploying new application instances
+* kube-proxy based load balancing
+* DNS based service discovery
+* health checks
+* access control via network policies
+* monitoring
+* secrets management and [more](https://www.thoughtworks.com/insights/blog/macro-trends-tech-industry-nov-2018)
+
+Kubernetes uses declarative desired state in a `manifest` file that describes what the cluster should look like rather than defining the steps to get there. Its control plane runs a reconciliation loop that constantly checks that the actual state of the cluster matches the desired state.
+
+## Installing Kubernetes
+
+* `minikube` - ideal for local dev kubernetes installs, similar to docker for windows or docker for mac but for kubernetes. It runs a simple, single-node Kubernetes cluster inside a virtual machine (VM).
+* `kubeadm` - manually install kubernetes cluster on physical VMs. It requires some pre-reqs then
+
+```sh
+kubeadm init # spin up a new cluster
+
+kubeadm join --token <token> # add nodes to the cluster
+```
+Managing a **self hosted kubernetes cluster** in production requires patching, upgrading, adding additional worker nodes etc in addition to H/A. Therefore deciding on using a manged kubernetes cloud service or self hosting a cluster should be a considered one.
+
+## Kubernetes architecture
+
+[Kubernetes architecture](https://github.com/spiddy/kubernetes-security-workshop/blob/master/kubernetes-architecture/architecture.md) constitutes multiple services:
+
+### Master node
+
+#### cluster store
+
+only stateful component of the Kubernetes cluster - `etcd` a distributed NOSQL key value store for storing state and config of the cluster. It makes sense to back this up and deploy it in a H/A config in production.
+
+#### controller manager
+
+runs a number of distinct controller processes in the background to regulate the shared state of the cluster and perform routine tasks.
+
+e.g. a replication controller controls number of replicas in a pod, endpoints controller populates endpoint objects like services and pods.
+
+#### scheduler
+
+helps schedule the pods on the various nodes based on resource utilization
+
+#### api server
+
+exposes a single api for running commands and queries on the master
+
+### Worker Node
+
+Kubernetes workers
+
+* kubelet is the main kubernetes agent that registers the node with the cluster, watches the apiserver for incoming work and instantiates pods
+    * **pod** is a single unit of deployment with one or more containers packaged together.
+    * exposes endpoint on port: 10255 for node inspection
+    * /spec /healthz /pods
+* container engine (runtime) - docker or rkt
+* kube-proxy - a load balancing service running across multiple pods that proxies traffic to service endpoints (pods) . e.g. if a client pod wants to communicate with a service the kube-proxy routes traffic to one of the pods associated with the service.
+
+## Pods
+
+Just like a VM is a single unit of deployment in the VMWare world and a container in the docker world, pods are single unit of deployment and scaling in Kubernetes world. Containers always run inside of pods. Pod is a single isolated environment with its own:
+
+* network stack - isolated networking resources such as devices, IP4 IP6 protocol stack, ports, firewall rules etc. The shared network namespace means all the containers within the pod share the same network stack.
+* kernel namespaces
+* pause container - first container to be created when a pod is created and the last container to be removed when the pod is removed. It is a program that waits for a signal to cause it to terminate.
+
+### Container communication within a pod
+All containers in a pod share the pod environment. Each container in the same pod not only **share the same IP** but also share a single network namespace, single localhost adapter, same cgroup limits and same volumes. Containers within a pod communicate with each other over the shared **localhost** interface. This effectively means a pod works like a small VM. 
+
+For communication beyond the pod the network namespace is provided with a **virtual network interface** which is allocated an IP address shared with all the containers in the pod.
+
+This allows auto scaling, healing and rolling updates (gradual replacment of running instances of your application with newer ones) and rollbacks quite simple.
+
+### Inter pod communication
+
+The virtual network interface of each pod is attached to a virtual **ethernet bridge** (layer 2) in the host node's network namespace. The bridge routes data packets to connected network segments by resolving IP addresses to corresponding Mac addresses. This enables pods running on the same node to communicate with each other.
+
+### Inter node communication
+
+Kubernetes doesn't itself provide an inter node networking implementation but it requires 3rd party network plugins to obey some rules to provide inter node networking. These rules are:
+
+* All containers can communicate with all other containers without Network Address Translation (NAT)
+* All nodes can communicate with all containers (and vice-versa) without NAT
+* The IP address that a container sees itself as, is the same IP address that others see it as.
+
+By default, Docker uses **host-private networking** so containers can talk to other containers only if they are on the same node. Kubernetes assumes that pods can communicate with other pods, regardless of which host they land on. Each pod is given its own cluster-private-IP address so you do not need to explicitly create links between pods or mapping container ports to host ports. This means that containers within a Pod can all reach each other’s ports on localhost, and all pods in a cluster can see each other without NAT.
+
+Kubernetes in order to provide inter node networking expects the 3rd party plugin that intends to provide pod networking across nodes to adhere to a specification called the **container networking interface** or cni. The cni spec describes what a plugin must provide in order to facilitate container networking. Typically plugins implement pod to pod networking across nodes using layer 3 routing or overlay networks.
+
+This means a pod on one node can seamlessly communicate with a pod on another node without having to deal with any network plumbing configuration. 
+
+## Services
+
+A way of providing stable IPs, DNS names and ports for ephemeral pods in a replication set, so that external clients can access the pods in the cluster. Requests to the service get load balanced to the backend pods running in the cluster via **kube-proxy**. Use **labels** to [connect services to pods](https://kubernetes.io/docs/concepts/services-networking/connect-applications-service/) and allow blue green/canary or rolling deployments.
+
+### Service API
+
+The Kubernetes Service API can be used for basic layer 4 ingress requirements like [exposing services](https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types) for external use but it has the following limitations:
+
+* On-prem clusters will be forced to expose service objects using the *NodePort* type and in order to load balance service requests over cluster nodes, we'd need to manually configure external load balancer and cope with the operational overhead of cluster node failures and IP address changes.
+* Potential latency due to the network hops introduced by kube-proxy. 
+    * Node -> Service cluster IP -> Pod. In addition, client IP addresses are lost in this exercise unless the [external traffic policy is set to local](https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip). This might work for us, but it would remove one of the benefits of the service API implementation, which is to load balance ingress traffic across each of the service endpoints (pods) across nodes.
+* *LoadBalancer* type per service can quickly escalate operational costs.
+
+## Ingress
+
+For advanced [host-based and path-based routing](https://dzone.com/articles/the-three-http-routing-patterns-you-should-know) of external client HTTP/S traffic (layer 7) to services running in the cluster, the [Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/) API allows
+
+* named services to be externally accessible outside the cluster with externally reachable URLs
+* services with load balancing (defining traffic routes to backend services)
+* reliable and secure communication with SSL termination. Since containers are always coming up and going down, clients may be communicating with different containers running on different nodes on different requests. Ingress provides a consistent experience for clients over a secure reliable connection.
+
+Ingress is a Kubernetes API object that manages the routing of external traffic to the services that are running in a cluster. Just like you would with a service object, you define the characteristics of an ingress object in a manifest. Once it's been submitted to the API Server, you'd expect Kubernetes to create the object and then start to act on what's defined using a controller, which moves the actual state towards the desired state. Kubernetes doesn't have a controller that acts on ingress objects, however, and this is by design. Instead, it relies on a cluster administrator to deploy a third-party ingress controller to the cluster. Ingress controllers need to implement the Kubernetes controller pattern, but they also need to route external traffic to cluster workloads. Essentially, this is a reverse proxy of which there are aplenty. 
+
+[Ingress Controller](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/) is responsible for fulfilling the ingress with layer 7 traffic routing. It runs in a loop to get all the ingress resources running in a cluster and can dynamically configure a corresponding L7 proxy. e.g. nginx controller (maintained by Kubernetes project, written in Go) that generates the `nginx.conf` file based on the ingress resources. The ingress controller runs inside the cluster.
+
+## Cert manager
+
+Defining, requesting, applying, renewing, and removing TLS certificates can be a pain, especially when you have a lot of them to manage. Cert manager allows automatically requesting, retrieving and configuring TLS for hosts defined in ingress rules. 
+
+### Certificate Acquisition
+
+Automatically obtaining a certificate from a server that supports the ACME (Automated Certificate Management Environment) protocol, such as the let's encrypt certificate authority requires your request agent to [prove that it controls the specified domain](https://letsencrypt.org/how-it-works/) name by either:
+* Provisioning a DNS record under the domain
+* Provisioning an HTTP resource under a well-known URI on http://example.com/
+
+Certificates are scoped to a namespace, so when you're planning to use them in conjunction with ingress objects, be sure to define both the certificate and ingress objects in the same namespace.
+
+## Kubernetes ecosystem
+
+There are a phenomenal number of [kubernetes supporting services](https://www.thoughtworks.com/insights/blog/macro-trends-tech-industry-nov-2018) for configuration scanning, security auditing, disaster recovery etc.
+
+### Helm
+
+[Helm](https://github.com/helm/helm) is an open-source packaging tool that helps you install and manage the lifecycle of Kubernetes applications. Similar to Linux package managers such as APT and Yum, Helm is used to manage Kubernetes charts, which are packages of pre configured Kubernetes resources. Helm charts are used to deploy applications into a Kubernetes cluster.
+
+```sh
+helm search # Search for pre-created Helm charts
+
+helm repo update # Update the list of charts
+
+helm install stable/wordpress # Install charts with helm, e.g. a basic Wordpress deployment
+```
+
+### Service Mesh
+
+A [servie mesh](https://www.hashicorp.com/resources/what-is-a-service-mesh) allows you to move cross cutting concerns in a microservices architecture like service discovery, service-to-service and origin-to-service security and monitoring capabilities outside your applications into the infrastructure layer that can be configured as code. The policy configurations can be consistently applied to the whole ecosystem of microservices; enforced on both north-south (via the mesh proxy as a gateway) as well east-west traffic (via the same mesh proxy as a sidecar container).
+
+Rather than making your applications aware of the cross cutting concerns (like implementing tracing via OpenTracing Zipkin, instrument applications to produce Prometheus metrics or implement mutual TLS), a service mesh provides these capabilities as a service via a [control plane](https://blog.envoyproxy.io/service-mesh-data-plane-vs-control-plane-2774e720f7fc):
+
+* Service discovery and fine grained routing: Service load balancers often front a service tier and provide a static IP which must be updated as services scale up/down. Service Registry enables services to register and discover each other.
+* Dynamic routing can be used to implement advanced load‑balancing policies, blue/green and canary deployments, and circuit breakers e.g. direct client requests to a particular deployment for AB testing or direct a particular customer to a preferred highly stable deployment or a bleeding edge one.
+* Service to service security: A service mesh allows you to replace traditional host-based network security with service-based security to accommodate the highly dynamic nature of modern runtime environments. Rather than depend on security at the perimeter of the network to filter incoming traffic via firewalls, WAFs and SIEMs, a service mesh allows policy rules at the logical service level to solve security challenges with service identity and security control at the edge using mutual TLS.
+
+* Observability including telemetry and distributed tracing without having to put instrumentation in your apps.
+
+Service mesh isn't a silver bullet to all problems with microservices, [Istio](https://github.com/scotty-c/kubernetes-security-workshop/blob/master/introduction-into-istio/intro.md) is by far the most mature implementation there is right now, others including [Linkerd](https://linkerd.io/) and [Consul](https://learn.hashicorp.com/consul/). Its worth considering [do you really need a service mesh](https://www.nginx.com/blog/do-i-need-a-service-mesh/) for simple containerised applications running on a container orchestration platform like kubernetes. Kubernetes is a very capable platform with a rich networking layer that brings together service discovery, load balancing, health checks, and access control in order to support complex distributed applications. In a kubernetes cluster you may have all the apps i.e. frontend and the backend running within the same cluster without any static network segmentation, because [kubernetes security](https://github.com/scotty-c/kubernetes-security-workshop/) adopts a [dynamic approach](https://skillsmatter.com/skillscasts/13339-securing-and-integrating-legacy-applications-with-kubernetes-and-consul-connect) with **role based access control**.
+
+### Serverless workloads
+
+Serverless architectures allow the underlying platform to handle deploying, scaling and managing applications but most offerings are tied to proprietary implementations which means vendor lock-in. Google's [KNative](https://cloud.google.com/knative/) framework provides an alternative with the ability to build, deploy, and manage serverless workloads on Kubernetes. 
+
+Google have however [declined to donate KNative and Istio to CNCF](https://www.theregister.co.uk/2019/10/02/google_knative_will_not_be_donated_to_any_foundation/) which has led to some concerns over lack of open governance that is applicable to Kubernetes itself. There are many possible factors. Open governance foundations may be less agile than those managed by a corporation, for example, since consensus on decisions could be harder to reach. Both Knative and Istio use the Apache License 2.0 and Google's announcement does confirm that Knative will remain open source and with multi-vendor participation.
