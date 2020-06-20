@@ -1,6 +1,6 @@
 # Mess-up and learn
 
-Learnings from some successes and some failed experiments
+Learnings from some successful and some failed experiments
 
 Mess-up and learn is a sort of a mini wiki - a log of all the self improvement books and blogs that I have read, the training that I have undergone, conferences that I have been to and the stack overflow articles that I have spent hours on.
 
