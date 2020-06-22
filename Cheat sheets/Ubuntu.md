@@ -15,7 +15,7 @@ Install docker by following the 'INSTALL DOCKER ENGINE - COMMUNITY' instructions
 
 ### Installing dev tools
 ```
-sudo apt-get install git make curl net-tools -y
+sudo apt-get install git make curl net-tools docker-compose -y
 ```
 
 ### Installing vscode
