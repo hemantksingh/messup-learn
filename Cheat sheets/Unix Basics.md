@@ -1,11 +1,17 @@
 Each user account on a unix machine is associated with a directory called its "home directory" into which the user is automatically placed upon logging in. This acts as a private application data area for the user. Most installations are also done in the user's home directory.
 
+## Arguments
+```sh
+$* # prints all the arguments passed to a shell script
+$# # prints the number of arguments 
+```
 ## Standard in, out, and error
 There are three standard sources of input and output for a program. These three file descriptors (you can think of them as “data pipes”) are often called STDIN, STDOUT, and STDERR.
 
 Sometimes they’re not named, they’re numbered! The built-in numberings for them are 0, 1, and 2, in that order.
 
 `2>&1 # Redirects stderr to stdout`
+`1>&2 # Redirects stdout to stderr`
 
 ## Users
 
