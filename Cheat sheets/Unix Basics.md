@@ -10,8 +10,10 @@ There are three standard sources of input and output for a program. These three 
 
 Sometimes they’re not named, they’re numbered! The built-in numberings for them are 0, 1, and 2, in that order.
 
-`2>&1 # Redirects stderr to stdout`
-`1>&2 # Redirects stdout to stderr`
+```sh
+2>&1 # Redirects stderr to stdout
+1>&2 # Redirects stdout to stderr
+```
 
 ## Users
 
