@@ -30,5 +30,9 @@ curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 
 ## Keyboard shortcuts
 
+|Function                                                           | Shortcut       |
+|-------------------------------------------------------------------|:--------------:|
+|Switch between windows within an application                       | `Alt` + `key above Tab` |
+
 ### switch between windows within an application
-`Alt` + `key above Tab`
+
