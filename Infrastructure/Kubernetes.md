@@ -136,9 +136,11 @@ Certificates are scoped to a namespace, so when you're planning to use them in c
 
 There are a phenomenal number of [kubernetes supporting services](https://www.thoughtworks.com/insights/blog/macro-trends-tech-industry-nov-2018) for configuration scanning, security auditing, disaster recovery etc.
 
+Helm and Operators allow [managing complex application workloads in kubernetes](https://medium.com/@cloudark/kubernetes-operators-and-helm-it-takes-two-to-tango-3ff6dcf65619). Helm is geared towards performing day-1 operations of templatization and deployment of Kubernetes YAMLs while Operator is geared towards handling day-2 operations of managing stateful/complex application workloads on Kubernetes.
+
 ### Helm
 
-[Helm](https://github.com/helm/helm) is an open-source packaging tool that helps you install and manage the lifecycle of Kubernetes applications. Similar to Linux package managers such as APT and Yum, Helm is used to manage Kubernetes charts, which are packages of pre configured Kubernetes resources. Helm charts are used to deploy applications into a Kubernetes cluster.
+[Helm](https://github.com/helm/helm) is an open-source packaging tool that helps you install and manage the lifecycle of Kubernetes applications. Similar to Linux package managers such as APT and Yum, Helm is used to manage Kubernetes application using YAML artifacts and templates. Helm allows defining Kubernetes YAMLs with marked up properties. The actual values for these properties are defined in a separate file. Helm takes the templatized YAMLs and the values file and merges them before deploying the merged YAMLs into a cluster. The package consisting of templatized Kubernetes YAMLs and the values file is called a ‘Helm chart’. 
 
 ```sh
 helm search # Search for pre-created Helm charts
@@ -147,6 +149,15 @@ helm repo update # Update the list of charts
 
 helm install stable/wordpress # Install charts with helm, e.g. a basic Wordpress deployment
 ```
+
+### Managing kubernetes clusters
+
+Kubernetes clusters come with their own management challenges that require metrics, observability, and a user-friendly interface to present their huge amount of complexity. Few options for managing kubernetes clusters and containers running within:
+
+* https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard
+* https://opensource.com/article/20/6/kubernetes-lens
+* https://docs.openshift.com/container-platform/4.2/web_console/web-console.html
+* https://rancher.com/
 
 ### Service Mesh
 
