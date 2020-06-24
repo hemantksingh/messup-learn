@@ -1,29 +1,53 @@
 # HTTPS
+
 HTTPS allows you to secure the connection between 2 machines on a network, providing
 
-* Confidentiality - your data is protected from eavesdroppers through encryption
-* Integrity - data can't be changed in transit through signing
-* Authenticity - You know who you are talking to through validation of the owner of the resource (e.g. website).
+* Confidentiality - your **data is private** and protected from eavesdroppers through encryption
+* Integrity - your **data hasn't changed** in transit, achieved through signing
+* Authenticity - you know **who** you are talking to through validation of the owner of the resource (e.g. website).
+
 
 Having a secure HTTPS connection allows a site to have:
 
 * Valid [TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security) certificate: The connection to the site is using a valid, trusted server certificate.
 * Secure TLS connection: The connection to the site is using a strong protocol version and cipher suite.
-* Secure Resources: All resources on the page are served securely.
+* Secure resources: All resources on the page are served securely.
+
 
 ## SSL Certificate
 
+In order to secure communication between two devices or machines the following three things are required:
+
+1. Identity - each device needs to have an identity. Like a username provides identity to a person this could be a unique id or IP address
+2. Independently verifiable identity - An external authority should be able to attest the identity of the device by signing the device identity and providing a means to verify that signed identity (e.g. X.509 certificate) to others
+3. Easily accessible and renewable verifiable identity - The verifiable identity should be easy to obtain, renew and revoke.
+
+SSL certificates provide 1 and 2 above but are not so great at 3.
+
 After a [key pair](https://en.wikipedia.org/wiki/Public-key_cryptography) is generated, the public key needs to be distributed for public usage. A certificate adds identity to a public key. The certificate, in addition to containing the public key, contains additional information such as issuer, what the certificate is supposed to be used for, and other types of metadata.
 
-* A **CER** file is used to store X.509 certificate. The file contains information about certificate owner and public key. The file extensions .CRT and .CER are interchangeable. Certificates should be in an ASCII format such as PEM, CER, or DER. A CER file can be in binary (ASN.1 DER) or encoded with Base-64 with header and footer included (PEM).
+Certificate can be in [various formats](https://knowledge.digicert.com/generalinformation/INFO4448.html) depending upon whether they are Base64 ASCII encoded or in binary format.
 
-* **PFX** files Personal Exchange Format, is a PKCS12 file. This contains a variety of cryptographic information, such as certificates, root authority certificates, certificate chains and private keys. It’s cryptographically protected with passwords to keep private keys private and preserve the integrity of the root certificates.
+* A **CER** file is used to store X.509 certificate. The file contains information about certificate owner and public key. The file extensions .CRT and .CER are interchangeable. A CER file can be binary (ASN.1 DER) or encoded with Base-64 with header and footer included (PEM). PEM being the most common format used for certificates.
+
+
+* **PFX/P12/PKCS#12** The PKCS#12 or PFX/P12 format is a binary format for storing the server certificate, intermediate certificates,  root authority certificates, [certificate chains](https://knowledge.digicert.com/solution/SO16297.html) and the private key in one encryptable file. It is cryptographically protected with passwords to keep private keys private and preserve the integrity of the root certificates.
 
 * Windows uses **PVK files** to store private keys for code signing in various Microsoft products. PVK is proprietary format
 
 ### Certificate thumbprint
 
 A thumbprint, much like an [SSH Key fingerprint](https://superuser.com/questions/421997/what-is-a-ssh-key-fingerprint-and-how-is-it-generated) that identifies the public key of a host to connect to, **identifies the public key of the certificate**. The thumbprint is almost certainly contained in the signature of the request to identify the certificate that can be used to verify the signature.
+
+### SAN certificates
+
+The Subject Alternative Name field lets you specify additional host names (sites, IP addresses, common names, etc.) to be protected by a single SSL Certificate, such as a Multi-Domain (SAN) or Extend Validation Multi-Domain Certificate. 
+
+[SAN certificates are different from wildcard certificates](https://opensrs.com/blog/2012/09/san-and-wildcard-certificates-whats-the-difference) While wildcard certificates allow for unlimited subdomains to be protected with a single certificate, a SAN cert allows multiple domain names to be protected with a single certificate.
+
+### Certificate Revocation List (CRL)
+
+A Certificate Revocation List (CRL) is a list of digital certificates that have been revoked by the issuing Certificate Authority (CA) before their scheduled expiration date and should no longer be trusted.
 
 ## How does HTTPS work?
 
