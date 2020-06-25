@@ -18,9 +18,9 @@ Having a secure HTTPS connection allows a site to have:
 
 In order to secure communication between two devices or machines the following three things are required:
 
-1. Identity - each device needs to have an identity. Like a username provides identity to a person this could be a unique id or IP address
-2. Independently verifiable identity - An external authority should be able to attest the identity of the device by signing the device identity and providing a means to verify that signed identity (e.g. X.509 certificate) to others
-3. Easily accessible and renewable verifiable identity - The verifiable identity should be easy to obtain, renew and revoke.
+1. Unique Identity - each device needs to have an identity. Like a username provides identity to a person this could be a unique id or IP address
+2. Identity is independently verifiable - An external authority should be able to attest the identity of the device by signing the device identity and providing a means of verifying that signed identity (e.g. X.509 certificate) to others
+3. Verifiable identity is easily accessible and renewable - The verifiable identity should be easy to obtain, renew and revoke.
 
 SSL certificates provide 1 and 2 above but are not so great at 3.
 
