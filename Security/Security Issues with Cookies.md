@@ -17,9 +17,9 @@ A web server specifies a cookie to be stored by sending an HTTP header called Se
 
 Cookies can have security and privacy implications for the user.
 
-There are a number of restrictions placed on cookies in order to prevent abuse and protect both the browser and the server from detrimental effects. There are two types of restrictions: number of cookies and total cookie size. IE 8 has a maximum of 50 cookies per domain as. Firefox also has a limit of 50 cookies while Opera has a limit of 30 cookies. Safari and Chrome have no limit on the number of cookies per domain.
-
-The maximum size for all cookies sent to the server has remained the same since the original cookie specification: 4 KB. Anything over that limit is truncated and won’t be sent to the server.
+There are a number of restrictions placed on cookies in order to prevent abuse and protect both the browser and the server from detrimental effects
+*  Only a limited number of cookies are available for each domain. IE 8 has a maximum of 50 cookies per domain as. Firefox also has a limit of 50 cookies while Opera has a limit of 30 cookies. Safari and Chrome have no limit on the number of cookies per domain.
+* Because cookies are sent with every request, their size should be kept to a minimum. Ideally, only an identifier should be stored in a cookie with the data stored by the app. The maximum size for all cookies sent to the server has remained the same since the original cookie specification: 4 KB. Anything over that limit is truncated and won’t be sent to the server.
 
 There are a couple of ways to ensure that cookies are sent securely and are not accessed by unintended parties or scripts: the `Secure` attribute and the `HttpOnly` attribute.
 
