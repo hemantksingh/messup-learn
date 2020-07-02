@@ -108,7 +108,8 @@ Getting an EV certificate is [costly and not easy](https://www.troyhunt.com/jour
 
 The only way to know with confidence that a certificate is of a specific type is to know the practices of each CA. **Certificate Transparency (CT)** helps businesses by making certificate information publicly available. In X.509 the way an issuer is supposed to express something like this is via the Certificate Policies extension which is defined in RFC 5280. This allows a CA to express a unique identifier called Object Identifier (OID) in their certificates that maps to a document that describes its practices associated with this certificate.
 
-### What is an Object Identifier (OID)
+#### What is an Object Identifier (OID)
+
 Object Identifiers (OIDs) are used to define policies for processing certificates defined by the X.509 specification. Signatures that do not conform to the specified policies are deemed invalid. Root object identifiers are issued to individuals or organizations by national registration authorities. e.g. on the certificate issued to https://hemantkumar.net Policy Identifier=2.23.140.1.2.1 which belongs to [CA-Browser Forum](https://www.alvestrand.no/objectid/submissions/2.23.140.1.2.1.html)
 
 ```
