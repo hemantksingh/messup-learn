@@ -72,7 +72,7 @@ You can use your existing website or **test websites** to perform security testi
     `Content-Security-Policy: script-src 'self' https://apis.google.com`
 
   * **HTTP Strict Transport Security** Instructs the browser to visit your site only over HTTPS to ensure they only use TLS to support secure transport. It protects
-    * users against passive eavesdropper and active man in the middle attacks
+    * users against passive eavesdropper and active **man in the middle attacks** If your login page page is served over http but the login form posts to https, is it secure? Not really. You cannot have confidence that the login form that has been served over http hasn't been modified by a man in the middle by the time it gets to the end user. Your traffic could still be intercepted before and after HTTPS connection begins and ends.
     * mixed content and click-through certificate overrides
     * against web server mistakes like loading JavaScript over an insecure connection
     

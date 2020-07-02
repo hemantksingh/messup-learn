@@ -39,11 +39,11 @@ Certificate can be in [various formats](https://knowledge.digicert.com/generalin
 
 A thumbprint, much like an [SSH Key fingerprint](https://superuser.com/questions/421997/what-is-a-ssh-key-fingerprint-and-how-is-it-generated) that identifies the public key of a host to connect to, **identifies the public key of the certificate**. The thumbprint is almost certainly contained in the signature of the request to identify the certificate that can be used to verify the signature.
 
-### SAN certificates
+### SSL certificate for multiple domains
 
-The Subject Alternative Name field lets you specify additional host names (sites, IP addresses, common names, etc.) to be protected by a single SSL Certificate, such as a Multi-Domain (SAN) or Extend Validation Multi-Domain Certificate. 
+The Subject Alternative Name (SAN) field lets you specify additional host names (sites, IP addresses, common names, etc.) to be protected by a single SSL Certificate, such as a Multi-Domain (SAN) or Extend Validation Multi-Domain Certificate. To [request an SSL certificate that supports multiple domains](http://www.jasinskionline.com/technicalwiki/%28X%281%29S%28fdjqoj45vcgk5z225tt5qaey%29%29/Print.aspx?Page=Requesting-an-SSL-Certificate-for-Multiple-Domains), you need to generate a Certificate Signing Request (CSR) for SANs.
 
-[SAN certificates are different from wildcard certificates](https://opensrs.com/blog/2012/09/san-and-wildcard-certificates-whats-the-difference) While wildcard certificates allow for unlimited subdomains to be protected with a single certificate, a SAN cert allows multiple domain names to be protected with a single certificate.
+[SAN certificates are different from wildcard certificates](https://opensrs.com/blog/2012/09/san-and-wildcard-certificates-whats-the-difference). While wildcard certificates allow for unlimited subdomains to be protected with a single certificate, a SAN cert allows multiple domain names to be protected with a single certificate. 
 
 ### Certificate Revocation List (CRL)
 
@@ -89,7 +89,7 @@ c -> cipher text*
 
 ## How do you decide the type of SSL certificate
 
-Depending upon the nature of your website and how much do users need to trust your website, you can pay anything from $5 to thousands of dollars for a certificate. What’s the difference?
+Depending upon the nature of your business and how much users need to trust your website, you can pay anything from $5 to thousands of dollars for a certificate. What’s the difference?
 
 * How reputable is the certificate authority (CA)? If they have weak cryptography or a deficient implementation of SSL or TLS, they  get hacked, you get hacked!
 * How well does the CA check you are who you say you are?
@@ -104,4 +104,28 @@ Depending upon the nature of your website and how much do users need to trust yo
 
 Getting an EV certificate is [costly and not easy](https://www.troyhunt.com/journey-to-an-extended-validation-certificate/). You are probably going to pay more than 3 times for and EV certificate as compared to a normal one and you need a legal entity that can own the certificate i.e. a registered business under the laws of the country that you are operating in.
 
-If your login page page is served over http but the login form posts to https, is it secure? Not really. You cannot have confidence that the login form that has been served over http hasn't been modified by a **man in the middle** by the time it gets to the end user in! Your traffic could still be intercepted before and after HTTPS connection begins and ends!
+### How to tell DV and OV certificates apart
+
+The only way to know with confidence that a certificate is of a specific type is to know the practices of each CA. **Certificate Transparency (CT)** helps businesses by making certificate information publicly available. In X.509 the way an issuer is supposed to express something like this is via the Certificate Policies extension which is defined in RFC 5280. This allows a CA to express a unique identifier called Object Identifier (OID) in their certificates that maps to a document that describes its practices associated with this certificate.
+
+### What is an Object Identifier (OID)
+Object Identifiers (OIDs) are used to define policies for processing certificates defined by the X.509 specification. Signatures that do not conform to the specified policies are deemed invalid. Root object identifiers are issued to individuals or organizations by national registration authorities. e.g. on the certificate issued to https://hemantkumar.net Policy Identifier=2.23.140.1.2.1 which belongs to [CA-Browser Forum](https://www.alvestrand.no/objectid/submissions/2.23.140.1.2.1.html)
+
+```
+[1]Certificate Policy:
+     Policy Identifier=2.23.140.1.2.1
+[2]Certificate Policy:
+     Policy Identifier=1.3.6.1.4.1.44947.1.1.1
+     [2,1]Policy Qualifier Info:
+          Policy Qualifier Id=CPS
+          Qualifier:
+               http://cps.letsencrypt.org
+```
+
+The [OID can be used programmatically](https://unmitigatedrisk.com/?p=203) to do make trust decisions about a certificate or to differentiate the user interface in an application based on what type of certificate is being used.
+
+
+
+
+
+
