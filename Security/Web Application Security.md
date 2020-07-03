@@ -57,7 +57,8 @@ You can use your existing website or **test websites** to perform security testi
 
 * Detect pages with mixed content - A page served over https that also has content served over http. Chrome shows a yellow triangle over the padlock to warn the user.
 
-* [Security headers](https://zinoui.com/blog/security-http-headers#referrer-policy) - The core issue exploited by XSS attacks is the browser’s inability to distinguish between script that’s intended to be part of your application, and script that’s been maliciously injected by a third-party. Browsers can block script execution based on the following HTTP headers returned by the server.
+#### Security headers
+OWASP has a list of HTTP Response [Security headers](https://owasp.org/www-project-secure-headers/#tab=Headers) that your application can use  to increase the security of your application. The core issue exploited by XSS attacks is the browser’s inability to distinguish between script that’s intended to be part of your application, and script that’s been maliciously injected by a third-party. Browsers can block script execution based on the following HTTP headers returned by the server. You can [configure IIS for best practice](https://medium.com/@scott.anderson_95492/azure-devsecops-pipelines-web-config-ccdf113f6978) to send these security headers as part of your response. 
 
   * **X-XSS-Protection** is a HTTP response header understood by new browsers. This header lets domains toggle on and off reflective XSS prevention of the browser.
 
@@ -90,7 +91,8 @@ You can use your existing website or **test websites** to perform security testi
   ```
   If a resource has both policies, the `frame-ancestors` policy SHOULD be enforced and the `X-Frame-Options` policy SHOULD be ignored.
 
-* Same Origin Policy - One of the key principles of security is isolation. Same origin policy is designed for segregating web content. Under this policy the web browser only allows Javascript in one web page to access data in another web page if the two pages have the same origin. An **Origin** is [defined as](https://en.wikipedia.org/wiki/Same-origin_policy) a combination of the **protocol**, **domain name**, and **port**.
+#### Same Origin Policy 
+One of the key principles of security is isolation. Same origin policy is designed for segregating web content. Under this policy the web browser only allows Javascript in one web page to access data in another web page if the two pages have the same origin. An **Origin** is [defined as](https://en.wikipedia.org/wiki/Same-origin_policy) a combination of the **protocol**, **domain name**, and **port**.
 
 #### Cross domain vulnerability
 
