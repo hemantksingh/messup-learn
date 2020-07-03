@@ -84,7 +84,11 @@ You can use your existing website or **test websites** to perform security testi
     
     Because HSTS provides protection against a wide array of attacks, is supported widely by browsers, and can be configured with a one-line setting, it is strongly recommended for all internet-facing web applications.
 
-  * **X-Frame-Options (obsolete)** HTTP response header that can be used to indicate whether or not a browser should be allowed to render a page in a `<frame>`, `<iframe>`, `<embed>`  or `<object>`. Sites can use this to avoid [click-jacking](https://developer.mozilla.org/en-US/docs/Web/Security/Types_of_attacks#Click-jacking) attacks, by ensuring that their content is not embedded into other sites.  While the `X-Frame-Options` header is supported by the major browsers, it was never standardized and has been deprecated in favour of the `frame-ancestors` directive from `Content-Security-Policy` HTTP header.
+  * **X-Frame-Options (obsolete)** HTTP response header that can be used to indicate whether or not a browser should be allowed to render a page in a `<frame>`, `<iframe>`, `<embed>`  or `<object>`. Sites can use this to avoid [click-jacking](https://developer.mozilla.org/en-US/docs/Web/Security/Types_of_attacks#Click-jacking) attacks, by ensuring that their content is not embedded into other sites.  While the `X-Frame-Options` header is supported by the major browsers, it was never standardized and has been deprecated in favour of the `frame-ancestors` directive from `Content-Security-Policy` HTTP header. `frame-ancestors` [supports multiple domains and even wildcards](https://stackoverflow.com/questions/10205192/x-frame-options-allow-from-multiple-domains), for example 
+  ```sh
+  Content-Security-Policy: frame-ancestors 'self' example.com *.example.net
+  ```
+  If a resource has both policies, the `frame-ancestors` policy SHOULD be enforced and the `X-Frame-Options` policy SHOULD be ignored.
 
 * Same Origin Policy - One of the key principles of security is isolation. Same origin policy is designed for segregating web content. Under this policy the web browser only allows Javascript in one web page to access data in another web page if the two pages have the same origin. An **Origin** is [defined as](https://en.wikipedia.org/wiki/Same-origin_policy) a combination of the **protocol**, **domain name**, and **port**.
 
