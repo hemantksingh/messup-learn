@@ -58,9 +58,9 @@ You can use your existing website or **test websites** to perform security testi
 * Detect pages with mixed content - A page served over https that also has content served over http. Chrome shows a yellow triangle over the padlock to warn the user.
 
 #### Security headers
-OWASP has a list of HTTP Response [Security headers](https://owasp.org/www-project-secure-headers/#tab=Headers) that your application can use  to increase the security of your application. The core issue exploited by XSS attacks is the browser’s inability to distinguish between script that’s intended to be part of your application, and script that’s been maliciously injected by a third-party. Browsers can block script execution based on the following HTTP headers returned by the server. You can [configure IIS for best practice](https://medium.com/@scott.anderson_95492/azure-devsecops-pipelines-web-config-ccdf113f6978) to send these security headers as part of your response. 
+OWASP has a list of HTTP [Security headers](https://owasp.org/www-project-secure-headers/#tab=Headers) that your application can use  to make it more secure. Best practice configuration for webservers like [IIS](https://gist.github.com/The-Scott/f7b5d03e260036cfc4dce5ad89578377) and [nginx](https://gist.github.com/plentz/6737338) can be used to set these security headers as part of your response. Browsers can block script execution based on the following HTTP headers returned by the server.
 
-  * **X-XSS-Protection** is a HTTP response header understood by new browsers. This header lets domains toggle on and off reflective XSS prevention of the browser.
+  * **X-XSS-Protection** The core issue exploited by XSS attacks is the browser’s inability to distinguish between scripts that are intended to be part of your application and the ones that have been maliciously injected by a third-party. This header lets domains toggle on and off reflective XSS prevention of the browser.
 
     ```sh
     X-XSS-Protection: 0 # disable XSS protection
@@ -82,7 +82,6 @@ OWASP has a list of HTTP Response [Security headers](https://owasp.org/www-proje
     Strict-Transport-Security: max-age=31536000; includeSubDomains # HSTS policy is applied to the domain of the issuing host as well as its subdomains and remains in effect for one year.
     Strict-Transport-Security: max-age=0 #Directs the browser to delete the entire HSTS policy
     ```
-    
     Because HSTS provides protection against a wide array of attacks, is supported widely by browsers, and can be configured with a one-line setting, it is strongly recommended for all internet-facing web applications.
 
   * **X-Frame-Options (obsolete)** HTTP response header that can be used to indicate whether or not a browser should be allowed to render a page in a `<frame>`, `<iframe>`, `<embed>`  or `<object>`. Sites can use this to avoid [click-jacking](https://developer.mozilla.org/en-US/docs/Web/Security/Types_of_attacks#Click-jacking) attacks, by ensuring that their content is not embedded into other sites.  While the `X-Frame-Options` header is supported by the major browsers, it was never standardized and has been deprecated in favour of the `frame-ancestors` directive from `Content-Security-Policy` HTTP header. `frame-ancestors` [supports multiple domains and even wildcards](https://stackoverflow.com/questions/10205192/x-frame-options-allow-from-multiple-domains), for example 
