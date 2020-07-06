@@ -33,10 +33,13 @@ Nginx can address many use cases and provides all the tools for delivering your 
 * Reverse proxy and HTTP web server
 * Serves static content very efficiently and reliably, using relatively little memory
 * Set request limit (request rate) - Effective way to protect against DOS by blacklisting IP addresses. Possible to set the IPs in key value store. Also use Fail2ban.
-* SAAS based monitoring tool - https://amplify.nginx.com. Provides real time monitoring, configuration checking - runs a bunch of tools to determine your configuration is safe e.g. SSL configuration.
-* https://www.datadoghq.com/blog/how-to-monitor-nginx/
 
 In addition to the above **Nginx Plus** provides commercial load balancing, authentication, access control, application‑aware health checks and more configuration and monitoring options. It can be used alongside or as a replacement for hardware load balancers.
+
+### Nginx monitoring
+
+* https://amplify.nginx.com is a SAAS based monitoring tool that provides real time monitoring, alerting and configuration checking - runs a bunch of tools to determine your configuration is safe e.g. SSL configuration. You can use NGINX Amplify for free on up to 5 servers. There is no trial period, so you can monitor those servers, for free, indefinitely.
+* https://www.datadoghq.com/blog/how-to-monitor-nginx
 
 ### Nginx and Apache
 
@@ -48,7 +51,7 @@ Apache runs PHP or Python in  process and utilises *AppArmour* to elevate & down
 
 For most microservices‑based applications, it makes sense to implement an [API Gateway](https://www.nginx.com/blog/building-microservices-using-an-api-gateway), which acts as a single entry point into a system. The API Gateway is responsible for request routing, composition, and protocol translation. It provides each of the application’s clients with a custom API. The API Gateway can also mask failures in the backend services by returning cached or default data.
 
-An API gateway restricts access to your backend servers whereas [WAF](https://www.owasp.org/index.php/Web_Application_Firewall) - Web application firewall protects your application logic from layer 7 attacks including SQL injection, XSS, CSRF and more. It works as an intermediary between external users and web applications. While proxies generally protect a client machine’s identity by using an intermediary, WAFs protect servers.
+An API gateway restricts access to your backend servers whereas [WAF](https://www.owasp.org/index.php/Web_Application_Firewall) - Web application firewall protects your application logic from layer 7 attacks including SQL injection, XSS, CSRF and more. It works as an intermediary between external users and web applications. While proxies generally protect a client machine’s identity by acting as an intermediary, WAFs protect servers.
 
 Like hardware load balancers, WAFs have traditionally been in the realm of hardware appliances and suffered from the same shortcomings - cost and inflexibility to scale up and down. The Nginx WAF module is based on the widely used open source software **ModSecurity** - one of the most trusted names in application security.
 
