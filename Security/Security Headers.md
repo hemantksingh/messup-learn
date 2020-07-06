@@ -1,6 +1,6 @@
 # Security Headers
 
-OWASP has a list of HTTP [Security headers](https://owasp.org/www-project-secure-headers/#tab=Headers) that your application can use  to make it more secure. Best practice configuration for webservers like [IIS](https://gist.github.com/The-Scott/f7b5d03e260036cfc4dce5ad89578377) and [nginx](https://gist.github.com/plentz/6737338) can be used to set these security headers as part of your response. Browsers can block script execution based on the following HTTP headers returned by the server.
+OWASP has a list of HTTP [Security headers](https://owasp.org/www-project-secure-headers/#tab=Headers) that your application can use  to make it more secure. [Hardening your HTTP response headers](https://scotthelme.co.uk/hardening-your-http-response-headers/) require adopting best practice configuration for webservers like [IIS](https://gist.github.com/The-Scott/f7b5d03e260036cfc4dce5ad89578377) and [nginx](https://gist.github.com/plentz/6737338) to set these security headers as part of your response. Browsers can block script execution based on the following HTTP headers returned by the server.
 
 ### X-XSS-Protection
 
@@ -17,6 +17,8 @@ The core issue exploited by XSS attacks is the browser’s inability to distingu
 
 HTTP header allows you to create a **whitelist of sources** of trusted content, and instructs the browser to only execute or render resources from those sources. Even if an attacker can find a hole through which to inject script, the script won’t match the whitelist, and therefore won’t be executed. You can define a policy that only allows script to execute when it comes from one of the two trusted sources: your self and google
     `Content-Security-Policy: script-src 'self' https://apis.google.com`
+
+*Note: CSP can block `inline-eval` in your javascript or Node-js module dependencies without the usual console or on-screen errors.*
 
 ### HTTP Strict Transport Security (HSTS)
 
