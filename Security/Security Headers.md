@@ -1,6 +1,6 @@
 # Security Headers
 
-OWASP has a list of HTTP [Security headers](https://owasp.org/www-project-secure-headers/#tab=Headers) that your application can use  to make it more secure. [Hardening your HTTP response headers](https://scotthelme.co.uk/hardening-your-http-response-headers/) require adopting best practice configuration for webservers like [IIS](https://gist.github.com/The-Scott/f7b5d03e260036cfc4dce5ad89578377) and [nginx](https://gist.github.com/plentz/6737338) to set these security headers as part of your response. Browsers can block script execution based on the following HTTP headers returned by the server.
+OWASP has a list of HTTP [Security headers](https://owasp.org/www-project-secure-headers/#tab=Headers) that your application can use  to make it more secure. [Hardening your HTTP response headers](https://scotthelme.co.uk/hardening-your-http-response-headers/) requires adopting best practice to set these security headers as part of your response. e.g. webserver config for [IIS](https://gist.github.com/The-Scott/f7b5d03e260036cfc4dce5ad89578377) and [nginx](https://gist.github.com/plentz/6737338). Browsers can block script execution based on the following HTTP headers returned by the server.
 
 ### X-XSS-Protection
 
