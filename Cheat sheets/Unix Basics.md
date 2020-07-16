@@ -1,11 +1,33 @@
+# Unix model
+
+Unix is based on a really simple model
+
+* Everything is a file e.g. [/etc/passwd](https://www.digitalocean.com/community/tutorials/how-to-use-passwd-and-adduser-to-manage-passwords-on-a-linux-vps) file contains the login information for all users on the system and '/etc/shadow' file containing the actual hashed password data
+   * Files are files
+   * Devices are files
+   * Processes are files
+   * File handlers are files 
+   * Shared memory wan't files but it is now
+* Everything running is  a process
+* Every file is text or data
+* Each command does one thing well
+* Pipelines allow composition
+   
 Each user account on a unix machine is associated with a directory called its "home directory" into which the user is automatically placed upon logging in. This acts as a private application data area for the user. Most installations are also done in the user's home directory.
 
-## Arguments
+## Shell
+
+* [Basic Shell Scripting](https://linuxconfig.org/bash-scripting-tutorial)
+* [Dev Null](http://askubuntu.com/questions/514748/what-does-dev-null-mean-in-a-shell-script)
+* [Positional parameters](http://stackoverflow.com/questions/5163144/what-are-the-special-dollar-sign-shell-variables)
+* [I/O Redirection](http://www.tldp.org/LDP/abs/html/io-redirection.html)
+
+### Arguments
 ```sh
 $* # prints all the arguments passed to a shell script
 $# # prints the number of arguments 
 ```
-## Standard in, out, and error
+### Standard in, out, and error
 There are three standard sources of input and output for a program. These three file descriptors (you can think of them as “data pipes”) are often called STDIN, STDOUT, and STDERR.
 
 Sometimes they’re not named, they’re numbered! The built-in numberings for them are 0, 1, and 2, in that order.
@@ -14,17 +36,6 @@ Sometimes they’re not named, they’re numbered! The built-in numberings for t
 2>&1 # Redirects stderr to stdout
 1>&2 # Redirects stdout to stderr
 ```
-
-## Users
-
-[/etc/passwd](https://www.digitalocean.com/community/tutorials/how-to-use-passwd-and-adduser-to-manage-passwords-on-a-linux-vps) File
-
-## Shell
-
-* [Basic Shell Scripting](https://linuxconfig.org/bash-scripting-tutorial)
-* [Dev Null](http://askubuntu.com/questions/514748/what-does-dev-null-mean-in-a-shell-script)
-* [Positional parameters](http://stackoverflow.com/questions/5163144/what-are-the-special-dollar-sign-shell-variables)
-* [I/O Redirection](http://www.tldp.org/LDP/abs/html/io-redirection.html)
 
 ## Unix commands
 Basic unix commands can be found [here](http://www.cs.jhu.edu/~joanne/unix.html)
