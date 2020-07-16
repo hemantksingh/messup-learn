@@ -118,7 +118,13 @@ For advanced [host-based and path-based routing](https://dzone.com/articles/the-
 
 Ingress is a Kubernetes API object that manages the routing of external traffic to the services that are running in a cluster. Just like you would with a service object, you define the characteristics of an ingress object in a manifest. Once it's been submitted to the API Server, you'd expect Kubernetes to create the object and then start to act on what's defined using a controller, which moves the actual state towards the desired state. However, Kubernetes doesn't have its own controller that acts on ingress objects and this is by design. Instead, it relies on a cluster administrator to deploy a third-party ingress controller to the cluster. Ingress controllers need to implement the Kubernetes controller pattern, but they also need to route external traffic to cluster workloads. Essentially, this is a reverse proxy of which there are aplenty. 
 
-[Ingress Controller](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/) is responsible for fulfilling the ingress with layer 7 traffic routing. It runs in a loop to get all the ingress resources running in a cluster and can dynamically configure a corresponding L7 proxy. e.g. nginx controller (maintained by Kubernetes project, written in Go) that generates the `nginx.conf` file based on the ingress resources. The ingress controller runs inside the cluster.
+[Ingress Controller](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/) is responsible for fulfilling the ingress with layer 7 traffic routing. It runs in a loop to get all the ingress resources running in a cluster and can dynamically configure a corresponding L7 proxy. e.g. nginx controller (maintained by Kubernetes project, written in Go) generates the `nginx.conf` file based on the ingress resources. The ingress controller runs inside the cluster.
+
+## Custom Resource Definitions
+
+The Ingress API depends on annotations to configure ingress to your services. You may want a more intuitive way to configure your ingress rules. Ingress controller like Contour uses a CRD (an extension of the Kubernetes API that is not necessarily available in a default Kubernetes installation) called HTTpProxy to define your ingress rules.
+
+Before you can start to use your custom CRD you need to register the CRD witht the kubernetes api server.
 
 ## Cert manager
 
