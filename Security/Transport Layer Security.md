@@ -22,7 +22,7 @@ In order to secure communication between two devices or machines the following t
 2. Identity is independently verifiable - An external authority should be able to attest the identity of the device by signing the device identity and providing a means of verifying that signed identity (e.g. X.509 certificate) to others
 3. Verifiable identity is easily accessible and renewable - The verifiable identity should be easy to obtain, renew and revoke.
 
-SSL certificates provide 1 and 2 above but are not so great at 3.
+SSL certificates provide 1 and 2 above but are not so great at 3. A [certificate signing request (CSR)](https://www.globalsign.com/en/blog/what-is-a-certificate-signing-request-csr) is one of the first steps towards getting your own SSL Certificate.
 
 After a [key pair](https://en.wikipedia.org/wiki/Public-key_cryptography) is generated, the public key needs to be distributed for public usage. A certificate adds identity to a public key. The certificate, in addition to containing the public key, contains additional information such as issuer, what the certificate is supposed to be used for, and other types of metadata.
 
