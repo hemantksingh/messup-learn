@@ -10,6 +10,8 @@ Tracers live in your applications and record timing and metadata about operation
 
 [Zipkin](http://zipkin.io/pages/architecture.html) is an open source distributed tracing system from Twitter based on [Google's Dapper](https://research.google.com/pubs/pub36356.html) paper and supports various transports like HTTP, Kafka , Scribe. It helps gather timing data needed to troubleshoot latency problems in microservice architectures. Adopting an open instrumentation standard like [Opentracing](https://opentracing.io/docs/overview/) allows language agnostic monitoring capabilities as opposed to native instrumentation with Application Performance Management (APM) service like *AppInsights*
 
+[Jaeger](https://github.com/jaegertracing/jaeger) is an open source distributed tracing system. Similar to Zipkin, it's been inspired by the Google Dapper paper and complies with OpenTelemetry. Jaeger exposes tracing metrics in the Prometheus format so they can be made available to other tools. Jaeger joined CNCF in 2017 and has recently been elevated to CNCF's highest level of maturity, indicating its widespread deployment into production systems.
+
 ## Application monitoring
 
 Ingesting all the log data from different sources only makes sense if you can connect the dots and get meaningful information about the state of your applications. From production monitoring to security concerns, it is critical for businesses to analyze and review their log data for monitoring and observability. Three of the most popular log management platforms are:
