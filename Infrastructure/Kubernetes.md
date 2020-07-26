@@ -93,7 +93,7 @@ By default, Docker uses **host-private networking** so containers can talk to ot
 
 In order to provide inter node networking Kubernetes expects 3rd party plugins that intend to provide pod networking across nodes to adhere to a specification called the **container networking interface** or cni. The cni spec describes what a plugin must provide in order to facilitate container networking. Typically plugins implement pod to pod networking across nodes using layer 3 routing or overlay networks.
 
-This means a pod on one node can seamlessly communicate with a pod on another node without having to deal with any network plumbing configuration. 
+This means a pod on one node can seamlessly communicate with a pod on another node without having to deal with any network plumbing configuration.
 
 ## Services
 
@@ -116,19 +116,36 @@ For advanced [host-based and path-based routing](https://dzone.com/articles/the-
 * services with load balancing (defining traffic routes to backend services)
 * reliable and secure communication with SSL termination. Since containers are always coming up and going down, clients may be communicating with different containers running on different nodes on different requests. Ingress provides a consistent experience for clients over a secure reliable connection.
 
-Ingress is a Kubernetes API object that manages the routing of external traffic to the services that are running in a cluster. Just like you would with a service object, you define the characteristics of an ingress object in a manifest. Once it's been submitted to the API Server, you'd expect Kubernetes to create the object and then start to act on what's defined using a controller, which moves the actual state towards the desired state. However, Kubernetes doesn't have its own controller that acts on ingress objects and this is by design. Instead, it relies on a cluster administrator to deploy a third-party ingress controller to the cluster. Ingress controllers need to implement the Kubernetes controller pattern, but they also need to route external traffic to cluster workloads. Essentially, this is a reverse proxy of which there are aplenty. 
+Ingress is a Kubernetes API object that manages the routing of external traffic to the services that are running in a cluster. Just like you would with a service object, you define the characteristics of an ingress object in a manifest. Once it's been submitted to the API Server, you'd expect Kubernetes to create the object and then start to act on what's defined using a controller, which moves the actual state towards the desired state. However, Kubernetes doesn't have its own controller that acts on ingress objects and this is by design. Instead, it relies on a cluster administrator to deploy a third-party ingress controller to the cluster. Ingress controllers need to implement the Kubernetes controller pattern, but they also need to route external traffic to cluster workloads. Essentially, this is a reverse proxy of which there are aplenty.
 
 [Ingress Controller](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/) is responsible for fulfilling the ingress with layer 7 traffic routing. It runs in a loop to get all the ingress resources running in a cluster and can dynamically configure a corresponding L7 proxy. e.g. nginx controller (maintained by Kubernetes project, written in Go) generates the `nginx.conf` file based on the ingress resources. The ingress controller runs inside the cluster.
 
-## Custom Resource Definitions
+### Limitations of the Ingress API
 
-The Ingress API depends on annotations to configure ingress to your services. You may want a more intuitive way to configure your ingress rules. Ingress controller like Contour uses a CRD (an extension of the Kubernetes API that is not necessarily available in a default Kubernetes installation) called HTTpProxy to define your ingress rules.
+The ingress API in adopting a lowest common denominator approach has resulted in lack of options that other technologies require for the API to be more expressive
 
-Before you can start to use your custom CRD you need to register the CRD witht the kubernetes api server.
+* Limited by design - intended to be simple and straight forward so that it can be extended by a wide range of technologies including cloud load balancers.
+* Annotations stopgap - provided as a method to overcome this deficiency, resulted in explosion of disparate annotation patterns. Porting annotations from one ingress controller to another doesn't make for a good user experience.
+
+### Ingress controller options
+
+The Kubernetes Network Special Interest Group is likely to facilitate a consensus for a future v2 Ingress API or equivalent. With the given limitations of the ingress API your current choice for an ingress controller may not be future proof.
+
+Currently there are 2 ways to configure ingress to your services:
+
+* annotations used by ingress controllers like [nginx](https://git.k8s.io/ingress-nginx/README.md), [haproxy](https://haproxy-ingress.github.io/)
+* custom resources used by Envoy based [Contour](https://projectcontour.io/) or [Ambassador](https://www.getambassador.io/), v2 of [Traefik](https://github.com/containous/traefik) ingress controllers. While Contour uses custom resources it also supports annotations.
+
+A [custom resource](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources) is an extension of the Kubernetes API that is not necessarily available in a default Kubernetes installation. A **Custom Resource Definition** (CRD) file defines your own object kinds e.g. `HTTPProxy` in the case of Contour and lets the API Server handle the entire lifecycle. Deploying a CRD into the cluster causes the Kubernetes API server to begin serving the specified custom resource. Before you can start to use your custom CRD you need to register the CRD with the kubernetes api server.
 
 ## Cert manager
 
-Defining, requesting, applying, renewing, and removing TLS certificates can be a pain, especially when you have a lot of them to manage. Cert manager allows automatically requesting, retrieving and configuring TLS for hosts defined in ingress rules. 
+Defining, requesting, applying, renewing, and removing TLS certificates can be a pain, especially when you have a lot of them to manage. Cert manager is a Kubernetes operator that allows automatically requesting, retrieving and configuring TLS for hosts defined in ingress rules.
+
+Cert manager uses a Custom Resource Definition (CRD) to perform X.509 certificate management to secure backend services.
+
+The ingress controller relies on the SNI extension of TLS to host multiple certificates for multiple domains and figure out which X.509 certificate to present to an external client.
+The private key and the corresponding X.509 certificate (PEM) for the host is made available to the ingress controller as a Kubernetes secret.
 
 ### Certificate Acquisition
 
@@ -140,13 +157,13 @@ Certificates are scoped to a namespace, so when you're planning to use them in c
 
 ## Kubernetes ecosystem
 
-There are a phenomenal number of [kubernetes supporting services](https://www.thoughtworks.com/insights/blog/macro-trends-tech-industry-nov-2018) for configuration scanning, security auditing, disaster recovery etc.
+There are a huge number of [kubernetes supporting services](https://www.thoughtworks.com/insights/blog/macro-trends-tech-industry-nov-2018) for configuration scanning, security auditing, disaster recovery etc.
 
-Helm and Operators allow [managing complex application workloads in kubernetes](https://medium.com/@cloudark/kubernetes-operators-and-helm-it-takes-two-to-tango-3ff6dcf65619). Helm is geared towards performing day-1 operations of templatization and deployment of Kubernetes YAMLs while Operator is geared towards handling day-2 operations of managing stateful/complex application workloads on Kubernetes.
+Helm and Operators allow [managing complex application workloads in kubernetes](https://medium.com/@cloudark/kubernetes-operators-and-helm-it-takes-two-to-tango-3ff6dcf65619). Helm is geared towards performing templatization and deployment of Kubernetes YAMLs while [Operators](https://coreos.com/blog/introducing-operators.html) is geared towards managing stateful/complex workloads that require application domain knowledge to correctly scale, upgrade, and reconfigure while protecting against data loss or unavailability. e.g. etc Operator, Prometheus Operator
 
 ### Helm
 
-[Helm](https://github.com/helm/helm) is an open-source packaging tool that helps you install and manage the lifecycle of Kubernetes applications. Similar to Linux package managers such as APT and Yum, Helm is used to manage Kubernetes application using YAML artifacts and templates. Helm allows defining Kubernetes YAMLs with marked up properties. The actual values for these properties are defined in a separate file. Helm takes the templatized YAMLs and the values file and merges them before deploying the merged YAMLs into a cluster. The package consisting of templatized Kubernetes YAMLs and the values file is called a ‘Helm chart’. 
+[Helm](https://github.com/helm/helm) is an open-source packaging tool that helps you install and manage the lifecycle of Kubernetes applications. Similar to Linux package managers such as APT and Yum, Helm is used to manage Kubernetes application using YAML artifacts and templates. Helm allows defining Kubernetes YAMLs with marked up properties. The actual values for these properties are defined in a separate file. Helm takes the templatized YAMLs and the values file and merges them before deploying the merged YAMLs into a cluster. The package consisting of templatized Kubernetes YAMLs and the values file is called a ‘Helm chart’.
 
 ```sh
 helm search # Search for pre-created Helm charts

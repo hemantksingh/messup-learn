@@ -6,13 +6,11 @@ HTTPS allows you to secure the connection between 2 machines on a network, provi
 * Integrity - your **data hasn't changed** in transit, achieved through signing
 * Authenticity - you know **who** you are talking to through validation of the owner of the resource (e.g. website).
 
-
 Having a secure HTTPS connection allows a site to have:
 
 * Valid [TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security) certificate: The connection to the site is using a valid, trusted server certificate.
 * Secure TLS connection: The connection to the site is using a strong protocol version and cipher suite.
 * Secure resources: All resources on the page are served securely.
-
 
 ## SSL Certificate
 
@@ -22,14 +20,22 @@ In order to secure communication between two devices or machines the following t
 2. Identity is independently verifiable - An external authority should be able to attest the identity of the device by signing the device identity and providing a means of verifying that signed identity (e.g. X.509 certificate) to others
 3. Verifiable identity is easily accessible and renewable - The verifiable identity should be easy to obtain, renew and revoke.
 
-SSL certificates provide 1 and 2 above but are not so great at 3. A [certificate signing request (CSR)](https://www.globalsign.com/en/blog/what-is-a-certificate-signing-request-csr) is one of the first steps towards getting your own SSL Certificate.
+SSL certificates provide 1 and 2 above but are not so great at 3.
+
+### Certificate generation
 
 After a [key pair](https://en.wikipedia.org/wiki/Public-key_cryptography) is generated, the public key needs to be distributed for public usage. A certificate adds identity to a public key. The certificate, in addition to containing the public key, contains additional information such as issuer, what the certificate is supposed to be used for, and other types of metadata.
 
+A [certificate signing request (CSR)](https://www.globalsign.com/en/blog/what-is-a-certificate-signing-request-csr) is one of the first steps towards getting your own SSL Certificate issued by a Certificate Authority. A CSR is created and sent to the CA to be signed and generate a certificate for your domain.
+
+```sh
+# Create a CSR
+openssl -req mydomain.csr -new -newkey rsa:2048 -nodes -keyout mydomain.key
+```
+
 Certificate can be in [various formats](https://knowledge.digicert.com/generalinformation/INFO4448.html) depending upon whether they are Base64 ASCII encoded or in binary format.
 
-* A **CER** file is used to store X.509 certificate. The file contains information about certificate owner and public key. The file extensions .CRT and .CER are interchangeable. A CER file can be binary (ASN.1 DER) or encoded with Base-64 with header and footer included (PEM). PEM being the most common format used for certificates.
-
+* A **CER** file is used to store X.509 certificate. The file contains information about certificate owner and public key. The file extensions .CRT and .CER are interchangeable. A CER file can be binary (ASN.1 DER) or Base-64 encoded with header and footer included (PEM). **PEM** being the most common format used for an X.509 certificate.
 
 * **PFX/P12/PKCS#12** The PKCS#12 or PFX/P12 format is a binary format for storing the server certificate, intermediate certificates,  root authority certificates, [certificate chains](https://knowledge.digicert.com/solution/SO16297.html) and the private key in one encryptable file. It is cryptographically protected with passwords to keep private keys private and preserve the integrity of the root certificates.
 
@@ -43,7 +49,13 @@ A thumbprint, much like an [SSH Key fingerprint](https://superuser.com/questions
 
 The Subject Alternative Name (SAN) field lets you specify additional host names (sites, IP addresses, common names, etc.) to be protected by a single SSL Certificate, such as a Multi-Domain (SAN) or Extend Validation Multi-Domain Certificate. To [request an SSL certificate that supports multiple domains](http://www.jasinskionline.com/technicalwiki/%28X%281%29S%28fdjqoj45vcgk5z225tt5qaey%29%29/Print.aspx?Page=Requesting-an-SSL-Certificate-for-Multiple-Domains), you need to generate a Certificate Signing Request (CSR) for SANs.
 
-[SAN certificates are different from wildcard certificates](https://opensrs.com/blog/2012/09/san-and-wildcard-certificates-whats-the-difference). While wildcard certificates allow for unlimited subdomains to be protected with a single certificate, a SAN cert allows multiple domain names to be protected with a single certificate. 
+[SAN certificates are different from wildcard certificates](https://opensrs.com/blog/2012/09/san-and-wildcard-certificates-whats-the-difference). While wildcard certificates allow for unlimited subdomains to be protected with a single certificate, a SAN cert allows multiple domain names to be protected with a single certificate.
+
+### Server hosting multiple TLS certificates
+
+Server Name Indication (SNI) allows a server to safely host multiple TLS Certificates for multiple sites, all under a **single IP address**. This is helpful because there is a [shortage of IPv4 addresses](https://simple.wikipedia.org/wiki/Main_Page).   The Internet Protocol version 4 (IPv4) has roughly 4 billion IP addresses. But, there are already more than 4 billion internet connected computers worldwide, so we are facing a shortage of IPv4 addresses. The Internet Protocol version 6 (IPv6) should fix this problem, offering trillions of addresses, but there is still some existing network equipment that does not support IPv6.
+
+SNI is an [extension to the TLS protocol](https://www.globalsign.com/en/blog/what-is-server-name-indication). The client specifies which hostname they want to connect to using the SNI extension in the TLS handshake. This allows a server (for example Apache, Nginx, or a load balancer such as HAProxy) to select the corresponding private key and certificate chain that are required to establish the connection from a list while hosting all certificates on a single IP address.
 
 ### Certificate Revocation List (CRL)
 
@@ -59,7 +71,7 @@ The website presents the browser with its certificate. To verify the authenticit
 
 ![certificate](https://latex.codecogs.com/gif.latex?Certificate%20%3DSign_C_A_s_S_K%20%28dnsName%3ApublicKey%29)
 
-*CA -> Certificate Auhtority  
+*CA -> Certificate Authority  
 SK -> Secret Key*
 
 Web browsers come with a list of public keys of most commonly used CA's in order to verify certificates.
@@ -78,14 +90,13 @@ sk -> website's secret key
 p -> new secret key in plain text  
 c -> cipher text*
 
-
 The [key exchange is vital to secure data transfer](https://www.jscape.com/blog/key-exchange#:~:text=The%20two%20most%20popular%20key,of%20the%20Internet%2C%20especially%20businesswise) between communicating parties. All further communication between the web browser and the website is encrypted with the shared secret key (only known to the 2 communicating parties) using symmetric key encryption. The two most popular key exchange algorithms are RSA (Rivest–Shamir–Adleman) and Diffie-Hellman (now known as Diffie-Helmlman-Merkle).
 
 Encryption ![encryption](https://latex.codecogs.com/gif.latex?E_s_k%28p%29%3Dc) and Decryption ![decryption](https://latex.codecogs.com/gif.latex?D_s_k%28c%29%3Dp)
 
 *sk -> secret key
 p -> plain text
-c -> cipher text* 
+c -> cipher text*
 
 ## How do you decide the type of SSL certificate
 
@@ -123,10 +134,4 @@ Object Identifiers (OIDs) are used to define policies for processing certificate
                http://cps.letsencrypt.org
 ```
 
-The [OID can be used programmatically](https://unmitigatedrisk.com/?p=203) to do make trust decisions about a certificate or to differentiate the user interface in an application based on what type of certificate is being used.
-
-
-
-
-
-
+The [OID can be used programmatically](https://unmitigatedrisk.com/?p=203) to make trust decisions about a certificate or to differentiate the user interface in an application based on what type of certificate is being used.
