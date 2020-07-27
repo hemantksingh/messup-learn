@@ -149,7 +149,7 @@ The private key and the corresponding X.509 certificate (PEM) for the host is ma
 
 ### Certificate Acquisition
 
-Automatically obtaining a certificate from a server that supports the ACME (Automated Certificate Management Environment) protocol, such as the let's encrypt certificate authority requires your request agent to [prove that it controls the specified domain](https://letsencrypt.org/how-it-works/) name by either:
+Automatically obtaining a certificate from a server that supports the ACME (Automated Certificate Management Environment) protocol, such as the let's encrypt certificate authority requires your request agent (cert manager in this case) to [prove that it controls the specified domain](https://letsencrypt.org/how-it-works/) name by either:
 * Provisioning a DNS record under the domain
 * Provisioning an HTTP resource under a well-known URI on http://example.com/
 
