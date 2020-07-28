@@ -12,7 +12,7 @@ Having a secure HTTPS connection allows a site to have:
 * Secure TLS connection: The connection to the site is using a strong protocol version and cipher suite.
 * Secure resources: All resources on the page are served securely.
 
-## SSL Certificate
+## What is a Certificate?
 
 In order to secure communication between two devices or machines the following three things are required:
 
@@ -20,13 +20,15 @@ In order to secure communication between two devices or machines the following t
 2. Identity is independently verifiable - An external authority should be able to attest the identity of the device by signing the device identity and providing a means of verifying that signed identity (e.g. X.509 certificate) to others
 3. Verifiable identity is easily accessible and renewable - The verifiable identity should be easy to obtain, renew and revoke.
 
-SSL certificates provide 1 and 2 above but are not so great at 3.
+A public key or [digital certificate](https://certbot.eff.org/docs/what.html) (formerly called SSL certificate) provides 1 and 2 above but is not so great at 3. The certificate includes information about the key, information about the server identity, and the digital signature of the certificate issuer.
 
 ### Certificate generation
 
-After a [key pair](https://en.wikipedia.org/wiki/Public-key_cryptography) is generated, the public key needs to be distributed for public usage. A certificate adds identity to a public key. The certificate, in addition to containing the public key, contains additional information such as issuer, what the certificate is supposed to be used for, and other types of metadata.
+After a [key pair](https://en.wikipedia.org/wiki/Public-key_cryptography) is generated, the public key needs to be distributed for public usage. A certificate adds identity to a public key. 
 
-A [certificate signing request (CSR)](https://www.globalsign.com/en/blog/what-is-a-certificate-signing-request-csr) is one of the first steps towards getting your own SSL Certificate issued by a Certificate Authority. A CSR is created and sent to the CA to be signed and generate a certificate for your domain.
+A certificate can be self signed or requested from an independent Certificate Authority (CA) that verifies your identity, creates the certificate and signs it for it to be used in clients that trust the CA.
+
+A [certificate signing request (CSR)](https://www.globalsign.com/en/blog/what-is-a-certificate-signing-request-csr) is a message sent from an applicant to a Certificate Authority to apply for a digital identity certificate. A CSR is created and sent to the CA to be signed and generate a certificate for your domain. It usually contains the public key that will be included in your certificate, identifying information such as a common name (CN), organization (O), country (C), key type and key length. The CA will use the data from the CSR to create your certificate. The CSR may be accompanied by other credentials or proofs of identity required by the certificate authority, and the certificate authority may contact the applicant for further information. The certificate, in addition to containing the public key, contains additional information such as issuer, what the certificate is supposed to be used for and other types of metadata.
 
 ```sh
 # Create a CSR
@@ -37,7 +39,7 @@ Certificate can be in [various formats](https://knowledge.digicert.com/generalin
 
 * A **CER** file is used to store X.509 certificate. The file contains information about certificate owner and public key. The file extensions .CRT and .CER are interchangeable. A CER file can be binary (ASN.1 DER) or Base-64 encoded with header and footer included (PEM). **PEM** being the most common format used for an X.509 certificate.
 
-* **PFX/P12/PKCS#12** The PKCS#12 or PFX/P12 format is a binary format for storing the server certificate, intermediate certificates,  root authority certificates, [certificate chains](https://knowledge.digicert.com/solution/SO16297.html) and the private key in one encryptable file. It is cryptographically protected with passwords to keep private keys private and preserve the integrity of the root certificates.
+* **PFX/P12/PKCS#12** The PKCS#12 or PFX/P12 format is a binary format for storing the server certificate, intermediate certificates, root authority certificates, [certificate chains](https://knowledge.digicert.com/solution/SO16297.html) and the private key in one encryptable file. It is cryptographically protected with passwords to keep private keys private and preserve the integrity of the root certificates.
 
 * Windows uses **PVK files** to store private keys for code signing in various Microsoft products. PVK is proprietary format
 
