@@ -142,7 +142,7 @@ A [custom resource](https://kubernetes.io/docs/concepts/extend-kubernetes/api-ex
 
 Defining, requesting, applying, renewing, and removing TLS certificates can be a pain, especially when you have a lot of them to manage. Cert manager is a Kubernetes operator that allows automatically requesting, retrieving and configuring TLS for hosts defined in ingress rules.
 
-Cert manager uses a Custom Resource Definition (CRD) to perform X.509 certificate management to secure backend services. It works like [Certbot](https://certbot.eff.org/docs/intro.html) an easy-to-use ACME client that runs directly on a web server, fetches a certificate from Let’s Encrypt—an open certificate authority and deploys it to the web server.
+Cert manager uses a Custom Resource Definition (CRD) to perform X.509 certificate management to secure backend services. It works like [Certbot](https://certbot.eff.org/docs/intro.html) an easy-to-use ACME client that runs directly on a web server, fetches a certificate from Let’s Encrypt certificate authority (or any other CA that speaks the ACME protocol) and deploys it to the web server.
 
 The ingress controller relies on the SNI extension of TLS to host multiple certificates for multiple domains and figure out which X.509 certificate to present to an external client.
 The private key and the corresponding X.509 certificate (PEM) for the host is made available to the ingress controller as a Kubernetes secret.
