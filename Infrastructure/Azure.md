@@ -44,7 +44,7 @@ Public internet access to your resources is not desirable. Locking down access t
 
 ### Virtual Network service endpoints
 
-Virtual Network (VNet) service endpoints allow you to [secure your critical Azure service](https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-service-endpoints-overview) resources to only your virtual networks. Traffic from your VNet to the Azure service always remains on the Microsoft Azure backbone network.
+Virtual Network (VNet) service endpoints allow you to [secure your critical Azure service](https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-service-endpoints-overview) resources by restricting access to the resources only via your virtual networks. Traffic from your VNet to the Azure service always remains on the Microsoft Azure backbone network.
 
 Endpoints extend your virtual network private address space. The endpoints also extend the identity of your VNet to the Azure services over a direct connection. 
 
