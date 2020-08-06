@@ -53,7 +53,7 @@ For most microservices‑based applications, it makes sense to implement an [API
 
 An API gateway restricts access to your backend servers whereas [WAF](https://www.owasp.org/index.php/Web_Application_Firewall) - Web application firewall protects your application logic from layer 7 attacks including SQL injection, XSS, CSRF and more. It works as an intermediary between external users and web applications. While proxies generally protect a client machine’s identity by acting as an intermediary, WAFs protect servers.
 
-Like hardware load balancers, WAFs have traditionally been in the realm of hardware appliances and suffered from the same shortcomings - cost and inflexibility to scale up and down. The Nginx WAF module is based on the widely used open source software **ModSecurity** - one of the most trusted names in application security.
+Like hardware load balancers, WAFs have traditionally been in the realm of hardware appliances and suffered from the same shortcomings - cost and inflexibility to scale up and down. The Nginx WAF module is based on the widely used open source software **ModSecurity**. ModSecurity is a basic WAF module, if you need performance optimizations there are supported versions of ModSecurity available from F5. Nginx also provides a commercial WAF offering with [Nginx App Protect](https://www.nginx.com/products/nginx-app-protect/)
 
 [IPS](https://www.lanner-america.com/blog/waf-vs-ips-whats-difference/) - Intrusion Prevention System is a layer 3/4 general purpose protection appliance or software. It provides protection from traffic from a wide variety of protocol types, such as DNS, SMTP, TELENT, RDP, SSH and FTP.
 

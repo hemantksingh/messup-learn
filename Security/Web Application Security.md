@@ -5,14 +5,20 @@ Securing web applications is not a single pronged approach. The **Defence in dep
 
 ## Security requirements
 
-We often have well defined tools and techniques for gathering functional requirements of a system. e.g. user stories, acceptance criteria, definition of done within a BDD approach.
-
-But we do not see the same level of maturity amongst teams when it comes to gathering non functional requirements, especially around security:
+We often have well defined tools and techniques for gathering functional requirements of a system. e.g. user stories, acceptance criteria, definition of done within a BDD approach. But we do not see the same level of maturity amongst teams when it comes to gathering non functional requirements, especially around security:
 
 * Deep technical knowledge maybe required
 * Do not always have a security expert on board
 * Business may not be aware of the security cost to revenue and unwilling to invest time and resource.
 * Do you fix a system that is up and running but with certain vulnerabilities? What is the organisation's appetite for risk? You can never be 100% secure. The question worth asking is, does the business understand the risk of letting the system run with vulnerabilities?
+
+### Gates to guardrails
+Traditional approaches to secure development lifecycles have relied on high-touch and process-driven models involving a series of assessments (e.g. design review, threat model, vuln scan) and associated decisions on whether to proceed to the next phase and gate. While this model serves many well, there are an increasing number of organizations embracing concepts like DevOps, agile, cloud, and continuous delivery that are looking for more pragmatic, automated, and dynamic approaches that suit the technology and business environments in which they exist. Tension between SecOps, DevOps and application developers can lead to disjointed teams. How do you apply consistent security policies across multiple architectures?
+
+Moving [from gates to guardrails](https://www.oreilly.com/library/view/devopssec/9781491971413/ch04.html) involves providing guidance and tooling to development teams to insert security policies into your delivery pipelines rather than introducing delays via gates. Some of the [ways Netflix has approached this shift](https://www.youtube.com/watch?v=geumLjxtc54), emphasizing practical methods to problems ranging from continuous assessment to regulatory compliance to team staffing.
+
+Data between the end user and your application flows through the data plane. Thinking of security as a horizontal capability across the data plane and use the metrics and telemetry from the data plane to get visibility of the applied security policies and application threats.
+
 
 ## Security testing
 
@@ -44,7 +50,9 @@ A web application security scanner acts as a *"man in the middle proxy"* and typ
 You can use your existing website or **test websites** to perform security testing against e.g.
 
 * Goolge's firing range - https://github.com/google/firing-range
-* OWASP juice shop - https://github.com/bkimminich/juice-shop
+* OWASP juice shop
+    * https://owasp.org/www-project-juice-shop
+    * https://github.com/bkimminich/juice-shop
 * Hack yourself fist - https://www.troyhunt.com/hack-yourself-first-how-to-go-on/ is a great place to start actively seeking out vulnerabilities
 
 ### Protection offered by the browser
