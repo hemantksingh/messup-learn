@@ -44,7 +44,7 @@ Azure security center provides endpoint threat detection and provides security a
 
 Azure sentinel is a cloud native SIEM and SOAR solution, similar to Splunk or Rapid7. It allows ingestion of data from various sources
 
-![asc_as.png](../Images/asc_as.png ASC v AS)
+![asc_as.png](../Images/asc_as.png "ASC v AS")
 
 ## CIS Hardened Images
 
