@@ -46,6 +46,14 @@ Azure sentinel is a cloud native SIEM and SOAR solution, similar to Splunk or Ra
 
 ![asc_as.png](../Images/asc_as.png "ASC v AS")
 
+## Cloud Security Alliance (CSA)
+
+The Cloud Security Alliance (CSA) is a nonprofit organization that promotes research into best practices for securing cloud computing and the use of cloud technologies to secure other forms of computing. [CSA](https://searchcloudsecurity.techtarget.com/definition/Cloud-Security-Alliance-CSA) leverages the expertise of industry practitioners, associations and governments, as well as its corporate and individual members, to offer research, education, certification, events and products specific to cloud security. The industry group also provides security education and guidance to companies in different stages of cloud adoption and helps cloud service providers address security in their software delivery models.
+
+Cloud Service Providers can register for the [Security Trust Assurance and Risk (STAR)](https://cloudsecurityalliance.org/star) program that documents the security and privacy controls provided by popular cloud computing offerings. This publicly accessible registry allows cloud customers to assess their security providers in order to make the best procurement decisions.
+
+The [Consensus Assessments Initiative Questionnaire (CAIQ)](https://searchcloudsecurity.techtarget.com/definition/CAIQ-Consensus-Assessments-Initiative-Questionnaire) is a survey provided by the Cloud Security Alliance (CSA) for cloud consumers and auditors to assess the security capabilities of a cloud service provider. The CAIQ was developed to create commonly accepted industry standards to document the security controls in infrastructure-as-a-service, platform-as-a-service and software-as-a service applications. This document can be uploaded to the [STAR regsitry](https://cloudsecurityalliance.org/star/registry) for making your security controls publicly accessible. 
+
 ## CIS Hardened Images
 
 CIS (Centre for Internet Security) hardened VM images are configured to meet [CIS Benchmarks](https://www.cisecurity.org/cis-benchmarks/), consensus-based configuration guidelines developed (and relied upon) by cyber security experts around the world. Some of the common threats that can be mitigated by using a CIS Hardened Image include:
