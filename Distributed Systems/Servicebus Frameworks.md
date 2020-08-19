@@ -6,9 +6,9 @@ There maybe valid reasons for directly using the raw messaging system (RabbitMQ,
     * *exactly once* delivery using a distributed transaction. Distributed transactions [incur a significant overhead and are unreliable](http://www-db.cs.wisc.edu/cidr/cidr2007/papers/cidr07p15.pdf). Not all transports support distributed transactions. NServiceBus utilizes **DTC** to support [2PC XA transaction](https://dzone.com/articles/xa-transactions-2-phase-commit) with MSMQ transport.
     * *at least once* delivery using the [Outbox pattern](https://www.kamilgrzybek.com/design/the-outbox-pattern/). This may result in duplicate message delivery. Message [deduplication](https://en.wikipedia.org/wiki/Data_deduplication#Post-process_versus_in-line_deduplication) is required to achieve [idempotence](http://cap.dotnetcore.xyz/user-guide/en/cap/idempotence/) for redelivered messages that are not naturally idempotent.
     * *at most once* delivery
-* Message distribution - Routing published messages to subscribed consumers
-* Retry messages that fail to send or execute. Delayed retries to prevent overloading the consumer if it is not responding.
-* Polling back off strategy. Polling consumers wait longer before trying to pull messages from a **table as queue** if there are no new messages on the queue.
+* Message distribution - **Routing** published messages to subscribed consumers
+* Retry messages that fail to send or execute. **Delayed retries** prevent overloading the consumer if it is not responding.
+* **Polling back off** strategy. Polling consumers wait longer before trying to retrieve messages from a queue if there are no new messages on the queue or if the queueing service is not responding.
 * [Handling failures gracefully](https://medium.com/codait/handling-failure-successfully-in-rabbitmq-22ffa982b60f) by providing appropriate acknowledgements e.g. RabbitMq commands
     * ack - successfully processed
     * nack - [reject or requeue unprocessed message](https://stackoverflow.com/questions/28794123/ack-or-nack-in-rabbitmq)
