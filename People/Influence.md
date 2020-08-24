@@ -1,6 +1,6 @@
 # Influencing others
 
-Influencing others can only begin once you **know your own goal** and what you want to achieve. In a business this could be a shared organisation goal or a team goal. It is only when you have a clear understanding of what you want that you are going to be able to articulate it to others. People are going to take you seriously only if you are clear in your thinking.
+Influencing others can only begin once you **know your own goal** and what you want to achieve. In a business this could be a shared organisation goal or a team goal. It is only when you have a clear understanding of what you want that you are going to be able to articulate it to others. People are going to take you seriously only if you are clear in your thinking. 
 
 ## Know your audience
 
@@ -8,13 +8,15 @@ Once you are clear of your own goal the next step is to know the people you are 
 
 ### Gather information
 
+The key thing to consider before going into a discussion is whether you are going in to win an argument or to learn something that you may not be aware of or have factored in to your position. Going in with a willingness to learn will reassure people that their views are taken seriously and not brushed aside.
+
 * Ask probing, diagnostics questions. e.g. *In what way, are there any patterns, when did this start happening?*
 * Ask single open ended questions. e.g. *What, how, to what extent?*
 * Perform a **fact finding** exercise to understand if any fears or concerns that they may have are perception or opinion based or backed by data.
 
 ### Listen, clarify and test assumptions
 
-* To get to know the other person try and **summarise their position** by clarifying their objective.
+* To get to know the other person try and **summarise their position** by clarifying their objective. [Steel man your opponent's argument](https://constantrenewal.com/steel-man) and assess what is it that you can learn from what they are saying? It is a mechanism of getting feedback on your position. If there is merit in the opposing argument or you can’t respond to the strongest argument from the other side, there’s a good chance you’re wrong. That's okay as long as you're willing to adjust your position.
 * **Get a yes** *"Let me see if I can summarise your position.. what you would like to be able to achieve is... Is that right?"* After a few sessions of back and forth communication, you should get a clear understanding of their viewpoint.
 
 ## Align your goals
