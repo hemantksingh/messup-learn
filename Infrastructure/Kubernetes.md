@@ -159,7 +159,7 @@ Certificates are scoped to a namespace, so when you're planning to use them in c
 
 There are a huge number of [kubernetes supporting services](https://www.thoughtworks.com/insights/blog/macro-trends-tech-industry-nov-2018) for configuration scanning, security auditing, disaster recovery etc.
 
-Helm and Operators allow [managing complex application workloads in kubernetes](https://medium.com/@cloudark/kubernetes-operators-and-helm-it-takes-two-to-tango-3ff6dcf65619). Helm is geared towards performing templatization and deployment of Kubernetes YAMLs while [Operators](https://coreos.com/blog/introducing-operators.html) is geared towards managing stateful/complex workloads that require application domain knowledge to correctly scale, upgrade, and reconfigure while protecting against data loss or unavailability. e.g. etc Operator, Prometheus Operator
+Helm and Operators allow [managing complex application workloads in kubernetes](https://medium.com/@cloudark/kubernetes-operators-and-helm-it-takes-two-to-tango-3ff6dcf65619). Helm is geared towards performing templatization and deployment of Kubernetes YAMLs while [Operators](https://coreos.com/blog/introducing-operators.html) is geared towards managing stateful/complex workloads that require application domain knowledge to automatically scale, upgrade, and reconfigure by watching events without editing Kubernetes config and protecting against data loss or unavailability. e.g. Prometheus Operator, etc Operator, https://github.com/nats-io/nats-operator
 
 ### Helm
 
