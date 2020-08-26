@@ -4,7 +4,7 @@ Plain text log entries are really good for humans to read, but not so good for m
 
 Logging libraries like *nlog* and *serilog* help in writing structured logs and allow log centralisation by providing target agnostic logging APIs e.g. use the same logging interface to push logs to console, file, db, cloud etc with minimal configuration.
 
-Logs, tracing and metrics while partially overlap but [each have different purposes](https://www.reddit.com/r/devops/comments/9hku3v/prometheus_vs_opentracing/)
+Logs, tracing and metrics while partially overlap but [each have different purposes](https://www.reddit.com/r/devops/comments/9hku3v/prometheus_vs_opentracing/) and usecases. Depending upon your monitoring requirements, you may want to [deploy tracing and metrics solutions together](https://developers.redhat.com/blog/2017/07/10/using-opentracing-with-jaeger-to-collect-application-metrics-in-kubernetes) for kubernetes monitoring.
 
 ## Tracing
 
