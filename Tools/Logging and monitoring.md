@@ -4,7 +4,7 @@ Plain text log entries are really good for humans to read, but not so good for m
 
 Logging libraries like *nlog* and *serilog* help in writing structured logs and allow log centralisation by providing target agnostic logging APIs e.g. use the same logging interface to push logs to console, file, db, cloud etc with minimal configuration.
 
-[Logs, tracing and metrics while partially overlap but each have different purposes](https://www.reddit.com/r/devops/comments/9hku3v/prometheus_vs_opentracing/)
+Logs, tracing and metrics while partially overlap but [each have different purposes](https://www.reddit.com/r/devops/comments/9hku3v/prometheus_vs_opentracing/)
 
 ## Tracing
 
@@ -12,7 +12,7 @@ Tracers live in your applications and record timing and metadata about operation
 
 [Zipkin](http://zipkin.io/pages/architecture.html) is an open source distributed tracing system from Twitter based on [Google's Dapper](https://research.google.com/pubs/pub36356.html) paper and supports various transports like HTTP, Kafka , Scribe. It helps gather timing data needed to troubleshoot latency problems in microservice architectures. Adopting an open instrumentation standard like [Opentracing](https://opentracing.io/docs/overview/) allows language agnostic monitoring capabilities as opposed to native instrumentation with Application Performance Management (APM) service like *AppInsights*
 
-[Jaeger](https://github.com/jaegertracing/jaeger) is an open source distributed tracing system. Similar to Zipkin, it's been inspired by the Google Dapper paper and complies with OpenTelemetry. Jaeger exposes tracing metrics in the Prometheus format so they can be made available to other tools. Jaeger joined CNCF in 2017 and has recently been elevated to CNCF's highest level of maturity, indicating its widespread deployment into production systems. [By default Jaeger microservices expose metrics in Prometheus format](https://www.jaegertracing.io/docs/1.17/monitoring/#metrics).
+[Jaeger](https://github.com/jaegertracing/jaeger) is an open source distributed tracing system. Similar to Zipkin, it's been inspired by the Google Dapper paper and complies with OpenTelemetry. Jaeger exposes tracing metrics in the Prometheus format so they can be made available to other tools. Jaeger joined CNCF in 2017 and has recently been elevated to CNCF's highest level of maturity, indicating its widespread deployment into production systems. By default [Jaeger microservices expose metrics in Prometheus format](https://www.jaegertracing.io/docs/1.17/monitoring/#metrics).
 
 ## Metrics
 
