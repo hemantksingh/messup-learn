@@ -8,12 +8,27 @@ Compliance to security standards requires a combination of strong communication 
 The Public-Key Cryptography Standards (PKCS) are a set of inter-vendor standard protocols for making possible secure information exchange on the Internet using a [Public Key 
 Infrastructure (PKI)](https://www.thesslstore.com/blog/wide-world-pki/) devised and published by the computer and network security company RSA Security LLC. The standards include RSA encryption, password-based encryption, extended certificate syntax, and cryptographic message syntax for S/MIME, RSA's proposed standard for secure e-mail.
 
+## Compliance Standards
+
+[Compliance standards](https://docs.microsoft.com/en-gb/microsoft-365/compliance/offering-home?view=o365-worldwide) govern the collection and use of data for
+* global (ISO, SOC) 
+* national (FIPS)
+* industry (PCI, DSS, HIPAA/HITECH)
+* region (GDPR) specific requirements.
+
+### ISO 27001, 27017, 27018 
+
+Security Management Controls, Cloud Specific Controls, Personal Data Protection
+
+### SOC 1, 2, 3
+
+Security, Availability & Confidentiality Reports
+
 ### PCI DSS
 
-In the Payment Card Industry Data Security Standard (PCI DSS) SSL has been removed as an example of strong cryptography and can no longer be used as a security control after June 30, 2016 - [PCI Security Standards Council](https://www.pcisecuritystandards.org/) (PCI SSC)
+In the Payment Card Industry Data Security Standard, SSL has been removed as an example of strong cryptography and can no longer be used as a security control after June 30, 2016 - [PCI Security Standards Council](https://www.pcisecuritystandards.org/) (PCI SSC)
 
 TLS 1.2 currently meets the PCI SSC definition of "strong cryptography". If you are processing credit cards you must be using this version not TLS 1.1 or 1.0
-
 
 ### FIPS
 
