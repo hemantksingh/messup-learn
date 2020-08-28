@@ -65,7 +65,7 @@ A Certificate Revocation List (CRL) is a list of digital certificates that have 
 
 ## How does HTTPS work?
 
-In order to achieve the security guarantees mentioned above, the TLS protocol specifies:
+The TLS protocol is implemented as a transparent wrapper around the HTTP protocol. It doesn't really fit into the OSI model but from a conceptual level it can be thought to [sit between HTTP and TCP](https://security.stackexchange.com/questions/93333/what-layer-is-tls), therefore between layer 4 and 7. In order to achieve the security guarantees mentioned above, the TLS protocol specifies:
 
 Browser ----------------> website (e.g. google.com)
 

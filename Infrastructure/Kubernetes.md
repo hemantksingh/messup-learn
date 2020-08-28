@@ -138,6 +138,15 @@ Currently there are 2 ways to configure ingress to your services:
 
 A [custom resource](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources) is an extension of the Kubernetes API that is not necessarily available in a default Kubernetes installation. A **Custom Resource Definition** (CRD) file defines your own object kinds e.g. `HTTPProxy` in the case of Contour and lets the API Server handle the entire lifecycle. Deploying a CRD into the cluster causes the Kubernetes API server to begin serving the specified custom resource. Before you can start to use your custom CRD you need to register the CRD with the kubernetes api server.
 
+Things to consider before opting for an ingress controller:
+
+* rate limiting 
+* IP whitelisting
+* add request and response headers
+* connection queueing to prevent backends from overloading
+* connection draining
+* client authentication, nginx [provides client certificate authentication](https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/#client-certificate-authentication) using annotations in ingress rule
+
 ## Cert manager
 
 Defining, requesting, applying, renewing, and removing TLS certificates can be a pain, especially when you have a lot of them to manage. Cert manager is a Kubernetes operator that allows automatically requesting, retrieving and configuring TLS for hosts defined in ingress rules.
