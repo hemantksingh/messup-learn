@@ -73,6 +73,8 @@ var res = stocks
 
 * Beware of false positives, sometimes high cyclomatic complexity may be not necessary be bad.
 
+* Global state introduces indeterminism. Local variables localize the scope of a change and restrict the damage by introduction of a bug, however use of global variables increases the scope of the change and can introduce multiple side effects.
+
 ## Cohesion
 
 * Data cohesion - how often is the state used within an object, is there a method that does not use any of the object's state?
