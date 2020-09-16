@@ -25,6 +25,7 @@ sudo snap install --classic code
 curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 
 # Install powershell for Ubuntu 18.04 https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-linux?view=powershell-7#ubuntu-1804
+```
 
 ## Keyboard shortcuts
 
