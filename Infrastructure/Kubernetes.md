@@ -138,14 +138,15 @@ Currently there are 2 ways to configure ingress to your services:
 
 A [custom resource](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources) is an extension of the Kubernetes API that is not necessarily available in a default Kubernetes installation. A **Custom Resource Definition** (CRD) file defines your own object kinds e.g. `HTTPProxy` in the case of Contour and lets the API Server handle the entire lifecycle. Deploying a CRD into the cluster causes the Kubernetes API server to begin serving the specified custom resource. Before you can start to use your custom CRD you need to register the CRD with the kubernetes api server.
 
-Things to consider before opting for an ingress controller:
+[Nginx can cut websocket connections](https://vitobotta.com/2020/03/20/haproxy-kubernetes-hetzner-cloud) whenever it reloads its configuration, therefore it might be useful to deploy ingress controllers per connection type: one for http and another for websockets. Things to consider before opting for an ingress controller:
 
 * rate limiting 
 * IP whitelisting
 * add request and response headers
 * connection queueing to prevent backends from overloading
 * connection draining
-* client authentication, nginx [provides client certificate authentication](https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/#client-certificate-authentication) using annotations in ingress rule
+* client authentication, both [nginx](https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/#client-certificate-authentication) and [haproxy](https://github.com/jcmoraisjr/haproxy-ingress/tree/master/examples/auth/client-certs) provide client certificate authentication using annotations in ingress rule
+* support for WAF, e.g. haproxy provides [configuration of MoDSecurity](https://github.com/jcmoraisjr/haproxy-ingress/tree/master/examples/modsecurity) Web Application Firewall
 
 ## Cert manager
 
