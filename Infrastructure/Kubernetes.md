@@ -68,45 +68,56 @@ Just like a VM is a single unit of deployment in the VMWare world and a containe
 
 * network stack - isolated networking resources such as devices, IP4 IP6 protocol stack, ports, firewall rules etc. The shared network namespace means all the containers within the pod share the same network stack.
 * kernel namespaces
-* pause container - first container to be created when a pod is created and the last container to be removed when the pod is removed. It is a program that waits for a signal to cause it to terminate.
+* pause container -  The network namespace in a pod is implemented by a special container called the pause or the infrastructure container. When a pod is created and started, this container starts up first and sets up the network namespace for the pod. And then application containers, whether it's one or more that are running inside of that pod, will share this network namespace. This pause container enables application containers to be restarted without interrupting the network namespace inside of the pod since the network stack is initialized by the pause container rather than the application container. The pause container has the lifecycle of the pod, and so when the pod is deleted, this container would be deleted along with it.
 
 ### Container communication within a pod
-All containers in a pod share the pod environment. Each container in the same pod not only **share the same IP** but also share a single network namespace, single localhost adapter, same cgroup limits and same volumes. Containers within a pod communicate with each other over the shared **localhost** interface. This effectively means a pod works like a small VM. 
+
+All containers in a pod share the pod environment. Each container in the same pod not only **share the same IP** but also share a single network namespace, single localhost adapter, same cgroup limits and same volumes. Containers within a pod communicate with each other over the shared **localhost** interface. This effectively means a pod works like a small VM.
 
 For communication beyond the pod the network namespace is provided with a **virtual network interface** which is allocated an IP address shared with all the containers in the pod.
 
 This allows auto scaling, healing and rolling updates (gradual replacment of running instances of your application with newer ones) and rollbacks quite simple.
 
-### Inter pod communication
+### Inter pod communication within a node
 
 The virtual network interface of each pod is attached to a virtual **ethernet bridge** (layer 2) in the host node's network namespace. The bridge routes data packets to connected network segments by resolving IP addresses to corresponding Mac addresses. This enables pods running on the same node to communicate with each other.
 
-### Inter node communication
+### Inter pod communication across nodes
 
 Kubernetes doesn't itself provide an inter node networking implementation but it requires 3rd party network plugins to obey some rules to provide inter node networking. These rules are:
 
-* All containers can communicate with all other containers without Network Address Translation (NAT)
+* All pods can communicate with all other pods without Network Address Translation (NAT).
 * All nodes can communicate with all containers (and vice-versa) without NAT
 * The IP address that a container sees itself as, is the same IP address that others see it as.
 
-By default, Docker uses **host-private networking** so containers can talk to other containers only if they are on the same node. Kubernetes assumes that pods can communicate with other pods, regardless of which host they land on. Each pod is given its own cluster-private-IP address so you do not need to explicitly create links between pods or mapping container ports to host ports. This means that containers within a Pod can all reach each other’s ports on localhost, and all pods in a cluster can see each other without NAT.
+Essentially, all pods should be able to reach all other pods running on any node by using the pods real IP address. This results in simple service discovery and application configuration. Services and pods are able to find each other using their real IPs registered in DNS or as environment variables.
 
-In order to provide inter node networking Kubernetes expects 3rd party plugins that intend to provide pod networking across nodes to adhere to a specification called the **container networking interface** or cni. The cni spec describes what a plugin must provide in order to facilitate container networking. Typically plugins implement pod to pod networking across nodes using layer 3 routing or overlay networks.
+By default, Docker uses **host-private networking** so containers can talk to other containers if they are on the same node. Kubernetes assumes that pods can communicate with other pods, regardless of which host they land on. Each pod is given its own cluster-private-IP address so you do not need to explicitly create links between pods or mapping container ports to host ports. This means that containers within a pod can all reach each other’s ports on localhost, and all pods in a cluster can reach each other using the pods IP without NAT.
+
+In order to provide inter node networking Kubernetes expects 3rd party plugins that intend to provide pod networking across nodes to adhere to a specification called the **Container Networking Interface** or CNI. The CNI spec describes what a plugin must provide in order to facilitate container networking. Typically plugins implement pod to pod networking across nodes using layer 2/3 routing or **overlay networks**. An overlay network gives the appearance of a single network between the nodes in a cluster and uses tunnels or other mechanisms to move encapsulated pod network packets between the nodes.
 
 This means a pod on one node can seamlessly communicate with a pod on another node without having to deal with any network plumbing configuration.
 
+To provide inter node network connectivity, AKS clusters can use **kubenet** (basic networking) or **Azure CNI** (advanced networking). [AKS clusters by default use kubenet](https://docs.microsoft.com/en-us/azure/aks/configure-kubenet). With *kubenet*, only the nodes receive an IP address in the virtual network subnet. Pods can't communicate directly with each other. Instead, User Defined Routing (UDR) and IP forwarding is used for connectivity between pods across nodes. By default, UDRs and IP forwarding configuration is created and maintained by the AKS service, but you have to the option to bring your own route table for custom route management.
+
 ## Services
 
-A way of providing stable IPs, DNS names and ports for ephemeral pods in a replication set, so that external clients can access the pods in the cluster. Requests to the service get load balanced to the backend pods running in the cluster via **kube-proxy**. Use **labels** to [connect services to pods](https://kubernetes.io/docs/concepts/services-networking/connect-applications-service/) and allow blue green/canary or rolling deployments.
+A way of providing stable IPs, DNS names and ports for ephemeral pods in a replication set, so that clients both external and internal to the cluster can access the pods depending upon the service type.
+
+**Kube-proxy** exposes services onto the network by configuring IP table rules for the service on all nodes and load balances requests to the backend pods running in the cluster. Kube-proxy runs as a pod on each node in the cluster.
+
+**Labels** and **Selectors** are used to [connect services to pods](https://kubernetes.io/docs/concepts/services-networking/connect-applications-service/) and allow blue green/canary or rolling deployments.
 
 ### Service API
 
-The Kubernetes Service API can be used for basic layer 4 ingress requirements like [exposing services](https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types) for external use but it has the following limitations:
+ClusterIP exposes the service on a cluster internal IP address and is only available inside of the cluster. It's also the default service type if you don't specify one in your services configuration, and it's the foundation that the other service types are built upon. A common use case for ClusterIP is for applications or services that don't need to be accessed outside of the cluster or if we're going to provide access via other means, like ingress
 
-* On-prem clusters will be forced to expose service objects using the *NodePort* type and in order to load balance service requests over cluster nodes, we'd need to manually configure external load balancer and cope with the operational overhead of cluster node failures and IP address changes.
-* Potential latency due to the network hops introduced by kube-proxy. 
-    * Node -> Service cluster IP -> Pod. In addition, client IP addresses are lost in this exercise unless the [external traffic policy is set to local](https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip) to route traffic only to pods running on the same node. This might work for you, but it would remove one of the benefits of the service API implementation, which is to load balance ingress traffic across each of the service endpoints (pods) across nodes.
-* *LoadBalancer* type per service can quickly escalate operational costs.
+The Kubernetes Service API can be used for basic layer 4 ingress requirements like [exposing services](https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types) for internal and external use but it has the following limitations:
+
+* Exposing service objects using the *NodePort* type and in order to load balance service requests over cluster nodes, we'd need to manually configure external load balancer and cope with the operational overhead of cluster node failures and IP address changes.
+*  NodePort Service is back ended by a cluster IP service, so as traffic comes in on the NodePort ports, it will get routed to that cluster IP service.
+    * This can introduce potential latency due to the network hops introduced by kube-proxy. Ingress controllers send requests directly to pod endpoints rather than to kube-proxy which would then route to Pod endpoints and perhaps even routing traffic between nodes. Node -> Service ClusterIP -> Pod. In addition, client IP addresses are lost in this exercise unless the [external traffic policy is set to local](https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip) to route traffic only to pods running on the same node. This might work for you, but it would remove one of the benefits of the service API implementation, which is to load balance ingress traffic across each of the service endpoints (pods) across nodes.
+* *LoadBalancer* type per service means your cloud provider provisions a load balancer and a public IP for each service. This can quickly escalate operational costs. When we access the EXTERNALIP on that cloud load balancer, that cloud load balancer is going to send its traffic to the NodePort service. The NodePort service is then going to send a traffic on to the ClusterIP service, which will then route it to an individual pod that services our deployment.
 
 ## Ingress
 
@@ -140,7 +151,7 @@ A [custom resource](https://kubernetes.io/docs/concepts/extend-kubernetes/api-ex
 
 [Nginx can cut websocket connections](https://vitobotta.com/2020/03/20/haproxy-kubernetes-hetzner-cloud) whenever it reloads its configuration, therefore it might be useful to deploy ingress controllers per connection type: one for http and another for websockets. Things to consider before opting for an ingress controller:
 
-* rate limiting 
+* rate limiting
 * IP whitelisting
 * add request and response headers
 * connection queueing to prevent backends from overloading
