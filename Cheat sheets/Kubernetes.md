@@ -16,6 +16,9 @@ kubectl api-resources
 # nodes
 kubectl get nodes
 
+# get nodes with increased verbosity
+kubectl get nodes -v 6
+
 # scroll through the node information
 kubectl describe nodes | more
 
