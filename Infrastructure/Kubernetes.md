@@ -106,7 +106,7 @@ A way of providing stable IPs, DNS names and ports for ephemeral pods in a repli
 
 **Kube-proxy** exposes services onto the network by configuring IP table rules for the service on all nodes and load balances requests to the backend pods running in the cluster. Kube-proxy runs as a pod on each node in the cluster.
 
-**Labels** and **Selectors** are used to [connect services to pods](https://kubernetes.io/docs/concepts/services-networking/connect-applications-service/) and allow blue green/canary or rolling deployments.
+**Labels** and **Selectors** are used to [connect services to pods](https://kubernetes.io/docs/concepts/services-networking/connect-applications-service/) and facilitate Blue green/canary and rolling deployments. Services define selectors that have to match the labels on the pods.
 
 ### Service API
 
@@ -115,7 +115,7 @@ ClusterIP exposes the service on a cluster internal IP address and is only avail
 The Kubernetes Service API can be used for basic layer 4 ingress requirements like [exposing services](https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types) for internal and external use but it has the following limitations:
 
 * Exposing service objects using the *NodePort* type and in order to load balance service requests over cluster nodes, we'd need to manually configure external load balancer and cope with the operational overhead of cluster node failures and IP address changes.
-*  NodePort Service is back ended by a cluster IP service, so as traffic comes in on the NodePort ports, it will get routed to that cluster IP service.
+* NodePort Service is back ended by a cluster IP service, so as traffic comes in on the NodePort ports, it will get routed to that cluster IP service.
     * This can introduce potential latency due to the network hops introduced by kube-proxy. Ingress controllers send requests directly to pod endpoints rather than to kube-proxy which would then route to Pod endpoints and perhaps even routing traffic between nodes. Node -> Service ClusterIP -> Pod. In addition, client IP addresses are lost in this exercise unless the [external traffic policy is set to local](https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip) to route traffic only to pods running on the same node. This might work for you, but it would remove one of the benefits of the service API implementation, which is to load balance ingress traffic across each of the service endpoints (pods) across nodes.
 * *LoadBalancer* type per service means your cloud provider provisions a load balancer and a public IP for each service. This can quickly escalate operational costs. When we access the EXTERNALIP on that cloud load balancer, that cloud load balancer is going to send its traffic to the NodePort service. The NodePort service is then going to send a traffic on to the ClusterIP service, which will then route it to an individual pod that services our deployment.
 
