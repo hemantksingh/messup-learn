@@ -1,66 +1,58 @@
 # Kubernetes cli
 
-## kubectl
+`kubectl` is the kubernetes client to deploy and manage applications on Kubernetes cluster. The full official kubernetes cheat sheet is available here https://kubernetes.io/docs/reference/kubectl/cheatsheet/
 
-Kubernetes client to deploy and manage applications on Kubernetes cluster
+
+## Kubectl context and configuration
+
+https://kubernetes.io/docs/reference/kubectl/cheatsheet/#kubectl-context-and-configuration
 
 ```sh
-kubectl cluster-info
-
 # get the config, context (you can have multiple contexts for multiple clusters) and users info
 kubectl config view
+
+# get config in raw format (without redactions)
+kubectl config view --raw
 
 # list all the kubernetes apis resources
 kubectl api-resources
 
-# nodes
-kubectl get nodes
+```
+
+## Viewing, finding resources
+
+https://kubernetes.io/docs/reference/kubectl/cheatsheet/#viewing-finding-resources
+
+```sh
 
 # get nodes with increased verbosity
 kubectl get nodes -v 6
 
-# scroll through the node information
+# scroll through all the nodes info
 kubectl describe nodes | more
 
-# service
-kubectl get svc <service-name>
-kubectl get svc <service-name> -o wide
-kubectl get svc <service-name> -o yaml
-
-kubectl edit svc <service-name>
-
-kubectl delete svc <service-name>
-
-# deployment
-kubectl get deployment <deployment-name>
+# get node IPAddress, PodCIDR and the running pods
+kubectl describe node <nodename> | more
 
 # get coredns (cluster dns service that enables service discovery) deployment info
 kubectl describe deployment coredns -n kube-system | more
 
-kubectl apply -f deployment.yaml # create based on the YAML file
-
-kubectl delete deployment <deployment-name>
-
-# replica sets
-kubectl get replicasets
-kubectl describe replicasets
-
-# get fully qualified domain name for a service (performs a named lookup on the service)
-kubectl run -it --rm nwutils --restart=Never --image nbrown/nwutils -- nslookup <service-name>
-
-# get fully qualified domain name for a service running in a specific namespace
-kubectl run -it --rm nwutils --restart=Never --image nbrown/nwutils -n ingress-haproxy -- nslookup http-svc
-
 # get all resources with label query 'app.kubernetes.io/name=ingress-nginx'
 kubectl -n <namespace> get -l app.kubernetes.io/name=ingress-nginx all
-
 ```
 
-## pod networking
+## Creating objects
+
+https://kubernetes.io/docs/reference/kubectl/cheatsheet/#creating-objects
+
+
+You can create deployment based on [here doc](https://stackoverflow.com/questions/2953081/how-can-i-write-a-heredoc-to-a-file-in-bash-script) directly from the command line using `stdin` or define yaml manifests
+
+`kubectl apply -f deployment.yaml`
+
+## Pod networking
 
 ```sh
-# get node IPAddress, PodCIDR and the running pods
-kubectl describe node <nodename> | more
 
 # get ip configuration for a running pod
 kubectl -n <namespace> exec -it <podname> ip addr
@@ -82,11 +74,13 @@ Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
 default         10.244.0.1      0.0.0.0         UG    0      0        0 eth0
 10.244.0.0      *               255.255.255.0   U     0      0        0 eth0
 
+# get fully qualified domain name for a service (performs a named lookup on the service)
+kubectl run -it --rm nwutils --restart=Never --image nbrown/nwutils -- nslookup <service-name>
+
+# get fully qualified domain name for a service running in a specific namespace
+kubectl run -it --rm nwutils --restart=Never --image nbrown/nwutils -n ingress-haproxy -- nslookup http-svc
+
 ```
-
-## Expose a service for external access
-
-Using NodePort: https://kubernetes.io/docs/tasks/access-application-cluster/service-access-application-cluster/
 
 ## Configuration best practices
 
