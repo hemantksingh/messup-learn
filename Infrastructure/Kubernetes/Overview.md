@@ -25,6 +25,7 @@ kubeadm init # spin up a new cluster
 
 kubeadm join --token <token> # add nodes to the cluster
 ```
+
 Managing a **self hosted kubernetes cluster** in production requires patching, upgrading, adding additional worker nodes etc in addition to H/A. Therefore deciding on using a manged kubernetes cloud service or self hosting a cluster should be a considered one.
 
 ## Kubernetes architecture

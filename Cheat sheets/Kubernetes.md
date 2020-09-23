@@ -2,13 +2,14 @@
 
 `kubectl` is the kubernetes client to deploy and manage applications on Kubernetes cluster. The full official kubernetes cheat sheet is available here https://kubernetes.io/docs/reference/kubectl/cheatsheet/
 
-
 ## Kubectl context and configuration
 
 https://kubernetes.io/docs/reference/kubectl/cheatsheet/#kubectl-context-and-configuration
 
+Context is a cluster's location and credentials. You can have multiple contexts for multiple clusters in a config file.
+
 ```sh
-# get the config, context (you can have multiple contexts for multiple clusters) and users info
+# get the config, context and users info
 kubectl config view
 
 # get config in raw format (without redactions)
