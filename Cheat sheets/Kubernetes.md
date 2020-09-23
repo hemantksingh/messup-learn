@@ -81,7 +81,3 @@ kubectl run -it --rm nwutils --restart=Never --image nbrown/nwutils -- nslookup 
 kubectl run -it --rm nwutils --restart=Never --image nbrown/nwutils -n ingress-haproxy -- nslookup http-svc
 
 ```
-
-## Configuration best practices
-
-https://kubernetes.io/docs/concepts/configuration/overview/

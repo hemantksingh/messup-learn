@@ -205,6 +205,10 @@ Kubernetes clusters come with their own management challenges that require metri
 * https://docs.openshift.com/container-platform/4.2/web_console/web-console.html
 * https://rancher.com/
 
+Things that could go wrong in a kubernetes cluster - https://www.youtube.com/watch?v=obB2IvCv-K0&feature=emb_logo
+
+Configuration best practices - https://kubernetes.io/docs/concepts/configuration/overview/
+
 ### Service Mesh
 
 A [servie mesh](https://www.hashicorp.com/resources/what-is-a-service-mesh) allows you to move cross cutting concerns in a microservices architecture like service discovery, service-to-service and origin-to-service security and monitoring capabilities outside your applications into the infrastructure layer that can be configured as code. The policy configurations can be consistently applied to the whole ecosystem of microservices; enforced on both north-south (via the mesh proxy as a gateway) as well east-west traffic (via the same mesh proxy as a sidecar container).

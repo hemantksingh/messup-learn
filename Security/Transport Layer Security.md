@@ -38,13 +38,13 @@ $ openssl req -x509 -sha256 -newkey rsa:4096 \
      -days 356 -nodes \
      -subj '/CN=Demo Cert Authority'
 
-# The applicant creates a CSR for the CA to sign and generate a certificate for the applicant
+# The applicant creates a private key and CSR for the CA to generate and sign a certificate for the applicant
 $ openssl req -new -nodes -newkey rsa:4096 \
 	-out applicant.csr \
 	-keyout applicant.key \
 	-subj '/CN=demo.applicant.com/O=applicant-org'
 
-# The CA generates a certificate for the applicant
+# The CA can approve the CSR or request further information and generates a certificate for the applicant
 $ openssl x509 -req -sha256 -days 365 \
 	-in applicant.csr \
 	-CA ca.crt -CAkey ca.key \
