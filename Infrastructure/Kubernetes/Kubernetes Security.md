@@ -34,3 +34,9 @@ kubectl get serviceaccounts
 kubectl auth can-i list pods --as=system:serviceaccount:default:<serviceaccountname>
 
 ```
+
+## Compliance
+
+How do you embed security and validate compliance against standards like PCI, NIST, and SOC2 across the lifecycle of containers and Kubernetes?
+
+https://sysdig.com/products/kubernetes-security/
