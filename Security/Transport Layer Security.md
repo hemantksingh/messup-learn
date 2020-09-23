@@ -17,7 +17,7 @@ Having a secure HTTPS connection allows a site to have:
 In order to secure communication between two devices or machines the following three things are required:
 
 1. Unique Identity - each device needs to have an identity. Like a username provides identity to a person this could be a unique id or IP address
-2. Identity is independently verifiable - An external authority should be able to attest the identity of the device by signing the device identity and providing a means of verifying that signed identity (e.g. X.509 certificate) to others
+2. Identity is independently verifiable - An external authority should be able to attest the identity of the device by signing the device identity and providing a means of verifying that signed identity (e.g. X.509 certificate) to others.
 3. Verifiable identity is easily accessible and renewable - The verifiable identity should be easy to obtain, renew and revoke.
 
 A public key or [digital certificate](https://certbot.eff.org/docs/what.html) (formerly called SSL certificate) provides 1 and 2 above but is not so great at 3. The certificate includes information about the key, information about the server identity, and the digital signature of the certificate issuer.
@@ -26,13 +26,30 @@ A public key or [digital certificate](https://certbot.eff.org/docs/what.html) (f
 
 After a [key pair](https://en.wikipedia.org/wiki/Public-key_cryptography) is generated, the public key needs to be distributed for public usage. A certificate adds identity to a public key. 
 
-A certificate can be self signed or requested from an independent Certificate Authority (CA) that verifies your identity, creates the certificate and signs it for it to be used in clients that trust the CA.
+A certificate can be self signed or requested from an independent Certificate Authority (CA) that verifies your identity (the process is known as **identity vetting**), creates the certificate and signs it for it to be used in clients that trust the CA.
 
 A [certificate signing request (CSR)](https://www.globalsign.com/en/blog/what-is-a-certificate-signing-request-csr) is a message sent from an applicant to a Certificate Authority to apply for a digital identity certificate. A CSR is created and sent to the CA to be signed and generate a certificate for your domain. It usually contains the public key that will be included in your certificate, identifying information such as a common name (CN), organization (O), country (C), key type and key length. The CA will use the data from the CSR to create your certificate. The CSR may be accompanied by other credentials or proofs of identity required by the certificate authority, and the certificate authority may contact the applicant for further information. The certificate, in addition to containing the public key, contains additional information such as issuer, what the certificate is supposed to be used for and other types of metadata.
 
 ```sh
-# Create a CSR
-openssl -req mydomain.csr -new -newkey rsa:2048 -nodes -keyout mydomain.key
+# Generate the CA key and certificate (A CA will usually have the CA key and certificate already with them)
+$ openssl req -x509 -sha256 -newkey rsa:4096 \
+     -out ca.crt \
+     -keyout ca.key \
+     -days 356 -nodes \
+     -subj '/CN=Demo Cert Authority'
+
+# The applicant creates a CSR for the CA to sign and generate a certificate for the applicant
+$ openssl req -new -nodes -newkey rsa:4096 \
+	-out applicant.csr \
+	-keyout applicant.key \
+	-subj '/CN=demo.applicant.com/O=applicant-org'
+
+# The CA generates a certificate for the applicant
+$ openssl x509 -req -sha256 -days 365 \
+	-in applicant.csr \
+	-CA ca.crt -CAkey ca.key \
+	-set_serial 01 \
+	-out applicant.crt
 ```
 
 Certificate can be in [various formats](https://knowledge.digicert.com/generalinformation/INFO4448.html) depending upon whether they are Base64 ASCII encoded or in binary format.
