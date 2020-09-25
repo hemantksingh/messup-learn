@@ -5,6 +5,7 @@ To get full screen mode and copy-paste working, [install the VirtualBox Guest Ad
 
 
 ## Dev setup runbook
+
 `apt-get` is one of apt's backends so you could also just use `apt` alone
 
 ```sh
@@ -13,7 +14,7 @@ sudo apt-get update
 
 # Install dev tools
 # zsh is z shell, alternative to bash. Install docker by following the 'INSTALL DOCKER ENGINE - COMMUNITY' instructions https://docs.docker.com/install/linux/docker-ce/ubuntu/
-sudo apt-get install git make curl net-tools zsh docker-compose -y
+sudo apt-get install git make curl net-tools zsh vim docker-compose -y
 
 # Instal Oh My Zsh - framework for managing your zsh configuration - https://github.com/ohmyzsh/ohmyzsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
