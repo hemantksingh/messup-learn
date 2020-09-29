@@ -9,7 +9,7 @@ Use Azure cli and azurerm module for interacting with the azure cloud APIs.
 az account show
 
 # On az login you may log into one of the subscriptions that you have access to by default. To set a specific default subscription
-az account set -s <subname or subid> # e.g. az account set -s "Kalibrate CICD"
+az account set -s <subname or subid> # e.g. az account set -s "Visual Studio Enterprise Subscription"
 
 ```
 
