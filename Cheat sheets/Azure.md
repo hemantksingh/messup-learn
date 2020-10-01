@@ -47,6 +47,33 @@ az ad sp show --id http://starter-agent
 az ad sp show --id <appId>
 
 ```
+### Get existing service principal configuration
+
+```powershell
+function Get-AzureServicePrincipal ([Parameter(mandatory = $true)][string] $spName) {
+
+    Write-Host "Getting details for service principal '$spName'"
+    $appId =  az ad sp list --display-name $spName --query '[0].appId' -o tsv
+    
+    if([string]::IsNullOrWhiteSpace($appId)) {
+        throw "No service principal found with name '$spName'"
+    }
+    
+    $account = az account show | ConvertFrom-Json
+    Write-Host "Updating credentials for service principal '$spName'"
+    $newSecret = az ad app credential reset --id $appId `
+        --append --credential-description "auto-generated" `
+        --year 1 `
+        --query 'password' -o tsv
+    
+    return @{
+        clientId        = $appId
+        clientSecret    = $newSecret
+        tenantId        = $account.tenantId
+        subscriptionId  = $account.id
+    }
+}
+```
 
 ## Create app registration
 
