@@ -1,5 +1,9 @@
 # Actors
 
+*"The Actor model retained more of what I thought were the good features of the object idea"* - Alan Kay, pioneer of object orientation and co designer of Smalltalk. 
+
+Alan Kay thought of messaging between components as "the big idea" in object orientated languages that should be the focus, rather than object properties and their internal behaviour.
+
 Actors are a model of concurrent computation based on messaging. When an actor wants to communicate with another actor, it sends a message rather than contacting it directly, all messaging being asynchronous. The messages are put on a queue, and the receiving actor pulls the messages off the queue one at a time to process them. An actor reacts to messages by doing one of 3 things:
 
 * Can create a new actor (a constructor message)
@@ -8,18 +12,15 @@ Actors are a model of concurrent computation based on messaging. When an actor w
 
 Actors can have internal state between processing messages but **do not share mutable state**.
 
-*"The Actor model retained more of what I thought were the good features of the object idea"* - Alan Kay, pioneer of object orientation and co designer of Smalltalk. He commented on messaging between components as "the big idea" that should be the focus, rather than properties of objects and their internal behaviour.
+## Concurrency models
 
-## Other Concurrency Models
-
-There are other [models of concurrent computing](https://en.wikipedia.org/wiki/Concurrent_computing), such as [Communicating Sequential Processing](http://www.usingcsp.com/cspbook.pdf) which is [highly influential](https://godoc.org/github.com/thomas11/csp) in the design of programming languages such as *Go* and *Clojure*.
+There are other [models of concurrent computing](https://en.wikipedia.org/wiki/Concurrent_computing), such as [Communicating sequential processing](http://www.usingcsp.com/cspbook.pdf) which is [highly influential](https://godoc.org/github.com/thomas11/csp) in the design of programming languages such as *Go* and *Clojure*.
 
 *Java* *C++* *C#* *Python* on the other hand use a shared memory model using threads for concurrency. Threads work on **shared mutable state** using locks to get access to data. Locking means threads contend for data access and need  synchronization. This leads to limited fault tolerance - on crashing, a thread can leave other threads in an inconsistent state and sometimes bring the entire process down.
 
 *Nodejs* uses a single threaded [event loop](https://blog.sessionstack.com/how-javascript-works-event-loop-and-the-rise-of-async-programming-5-ways-to-better-coding-with-2f077c4438b5) that dispatches events to handlers executing asynchronously. It is a proven model that solves some concurrency problems but still relies on a single process to handle multiple requests. [Nested callbacks](https://joearms.github.io/published/2013-04-02-Red-and-Green-Callbacks.html) are inevitable and can cause complexity.
 
 *Erlang* is based on the Actor model and has similar semantics to an OS process. In order words it's completely isolated. If it crashes all resources are released and the other processes around it are unaffected to the same degree as an OS process. It has well established design patterns for fault tolerance. Joe Armstrong explains how Erlang is well suited to [run programs on multicore](https://www.youtube.com/watch?v=bo5WL5IQAd0) machines.
-
 
 F# implements a message based approach using `MailboxProcessor` that acts as an Actor.
 
@@ -46,9 +47,9 @@ In the synchronous model you have a sequence of events that execute sequentially
 Apart from the [asynchronous vs synchronous](https://www.infoq.com/presentations/asynchronous-vs-synchronous?utm_source=twitter&utm_medium=link&utm_campaign=qcon
 ) designs [debate](https://www.youtube.com/watch?v=bzkRVzciAZg), actors are considered to be a good fit for real time low latency solutions e.g. a chat system where you can have lots of consumers (think millions).
 
-### Actors or Messaging Systems
+### Actors and messaging systems
 
-Actors are a model of concurrent computation while messaging is a means to pass messages reliably with *transactional persistent queues*.
+Since messaging is a key feature in the Actor model, therefore it often gets confused with messaging systems based on AMQP or JMS. Actors are a model of concurrent computation while messaging is a means to pass messages reliably with *transactional and persistence guarantees*.
 
 Concurrency and parallelism are extremely important for the overall success of reactive, actor-based systems. According to *Amdahl's law*, the speedup of a program using multiple processors in parallel computing is limited by the time needed for the sequential component of the program. For example, if a program needs 20 hours using a single processor core and a part of the program takes 1 hour to execute and cannot be parallelized while the remaining 19 hours (95%) of execution can be parallelized, the minimum execution time for the entire program cannot be less than an hour.
 
@@ -65,7 +66,7 @@ In theory you could use a messaging transport like AMQP to enable communication 
 
 http://stackoverflow.com/questions/5693346/when-to-use-actors-instead-of-messaging-solutions-such-as-websphere-mq-or-tibco
 
-## Further Reading
+## Further reading
 
 http://wiki.c2.com/?ActorsModel
 
