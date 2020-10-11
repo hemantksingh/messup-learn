@@ -16,5 +16,5 @@ Staying aware of one thing for prolonged amount of time and not drift away requi
 
 ## Building will power
 
-* Affirmation with choice of concise words
-* Clear visualization of success - remember the positive feeling you get after completing something and taking it to its logical end.
+* Affirmation - remind yourself of your main goal and how you're going to get there with a clear choice of concise words
+* Clear visualization of success - remind yourself of the fulfillment you get after completing a task and taking it to its logical end on the way to achieving your main goal
