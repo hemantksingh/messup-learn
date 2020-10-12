@@ -21,7 +21,7 @@ The level of intelligence you are functioning at, depends upon your ability to a
 * experience - learn by making mistakes through failures
 * experience without learning - you fail to learn from experiences and make the same mistakes repeatedly
 
-True intelligence is acquired by possessing little knowledge and more thinking. Knowledge in *vedanta* is acquired by 20% reading and 80% thinking. The more time you take in assimilating the information you have gained, thinking about applying it and testing whether it is true, the better you get at internalising it. If you reflect upon an idea, that idea becomes you.
+True intelligence is acquired by possessing little knowledge and applying critical thinking to it. Knowledge in *vedanta* is acquired by 20% reading and 80% thinking. The more time you take to analyze the information you have gained, thinking about applying it and testing whether it is true, the better you get at internalizing the knowledge. If you reflect upon an idea, that idea becomes you. However the practice of critical thinking by looking inwards requires effort, there is no instant joy as you may get by indulging in external pleasures. The joy from critical thinking, acquiring knowledge and applying that knowledge comes far later.
 
 Staying aware of one thing for prolonged amount of time and not drift away requires practice 24 hours a day and 7 days a week. If you can integrate this into everything that you do throughout your life, you can get better at it.
 
