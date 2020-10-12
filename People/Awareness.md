@@ -6,7 +6,9 @@ Not all people are at the same levels of consciousness, they are functioning at 
 
 ## Enhancing consciousness
 
-*Money is not a bad thing if profit is for the purpose of positive impact*
+*Money is not a bad thing if profit is for the purpose of positive impact.*
+
+Just like the human body needs oxygen to survive, a business needs profit to survive and flourish. The drive for profit also ensures the business is run efficiently without waste and the business is accountable to its share holders.
 
 Staying aware of one thing for prolonged amount of time and not drift away requires practice 24 hours a day and 7 days a week. If you can integrate this into everything that you do throughout your life, you can get better at it.
 
