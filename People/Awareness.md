@@ -1,6 +1,6 @@
 # Being aware of your goal
 
-The origins of your personal goal may be due to resentment and agitation within yourselves - the desire to change or fix something in your life that doesn't let you sleep at night. So the pursuit of your goal may have a selfish origin within an agitated mind. However an unstable mind filled with resentment and anger clouds your intellect and you will struggle to have clarity of thought on how to go about achieving your goal. Therefore it becomes necessary to develop purity of thought and unselfishness in your goals with a larger purpose that is beyond your immediate self.
+The origins of your personal goal are due to resentment and agitation within yourselves - the desire to change or fix something in your life that doesn't let you sleep at night. *The more the selfishness in an individual the more is the mental agitation*. So the pursuit of your goal may have a selfish origin within an agitated mind. However *the more the mental agitation the less your intellect can function*. An unstable mind filled with resentment and anger clouds your intellect and you will struggle to have clarity of thought on how to go about achieving your primary goal. Therefore it becomes necessary to develop purity of thought and unselfishness in your pursuits by having a larger purpose that is beyond your immediate self.
 
 *Money is not a bad thing if profit is for the purpose of wider positive impact.*
 
@@ -13,6 +13,15 @@ In order to attract people to you, think in terms of energy, vibration and frequ
 *If you work just for yourself, the whole world seems against you. If you work for others, the whole world works with you*
 
 ## Enhancing consciousness
+
+The level of intelligence you are functioning at, depends upon your ability to attain knowledge. It could be through
+
+* observation - smart people require very little information to know something - they see it they get it
+* education - learn by reading lots and lots of information
+* experience - learn by making mistakes through failures
+* experience without learning - you fail to learn from experiences and make the same mistakes repeatedly
+
+True intelligence is acquired by possessing little knowledge and more thinking. Knowledge in *vedanta* is acquired by 20% reading and 80% thinking. The more time you take in assimilating the information you have gained, thinking about applying it and testing whether it is true, the better you get at internalising it. If you reflect upon an idea, that idea becomes you.
 
 Staying aware of one thing for prolonged amount of time and not drift away requires practice 24 hours a day and 7 days a week. If you can integrate this into everything that you do throughout your life, you can get better at it.
 
