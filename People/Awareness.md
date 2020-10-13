@@ -8,7 +8,7 @@ Just like the human body needs oxygen to survive, a business needs profit to sur
 
 *If you want to go fast travel alone, if you want to go far travel together*
 
-In order to attract people to you, think in terms of energy, vibration and frequency. Life is a manifestation of where you put your energy. If you are able to focus all your energy towards a **single purpose in life**, you are in a heightened state of consciousness because all your decisions are consciously driven by that purpose. However, not all people are at the same levels of consciousness, they are functioning at different frequencies. If you can elevate them towards a heightened state of consciousness - your end goal and provide a future vision of positive change, your engagement with others will be at the same frequency. This leads to deeper engagement and ultimately - harmony.
+In order to attract people to you, think in terms of energy, vibration and frequency. Life is a manifestation of where you put your energy. If you are able to focus all your energy towards a **single purpose in life**, you are in a heightened state of consciousness because all your decisions are consciously driven by that purpose. However, other people are not at the same level of consciousness, they function at different frequencies. If you can elevate them towards a heightened state of consciousness - your end goal and provide a future vision of positive change, your engagement with others will be at the same frequency. This leads to deeper engagement and ultimately - harmony.
 
 *If you work just for yourself, the whole world seems against you. If you work for others, the whole world works with you*
 
