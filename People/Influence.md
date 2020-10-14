@@ -1,6 +1,6 @@
 # Influencing others
 
-Influencing others can only begin once you **know your own goal** and what you want to achieve. In a business this could be a shared organisation goal or a team goal. It is only when you have a clear understanding of what you want that you are going to be able to articulate it to others. People are going to take you seriously only if you are clear in your thinking. 
+Influencing others can only begin once you [know your own goal](Self%20Awareness.md) and have clarity about what you want to achieve. In a business this could be a shared organization goal or a team goal. It is only when you have a clear understanding of what you want that you are going to be able to articulate it to others. People are going to take you seriously only if you are clear in your thinking.
 
 ## Know your audience
 
@@ -49,3 +49,9 @@ The key thing to consider before going into a discussion is whether you are goin
 * Highlight risk and **focus the risk on the their objective**. Basically highlight the risk to them, your risk is most likely of no interest to them. e.g.
   * *We want quick results*  Taking action on incomplete information can result in a low quality product and damage the company's reputation.
   * *We want to rollout all the products together* - Risk of waste and overspend because it may result in not finishing any product.
+
+## Adapt to situations
+
+*Its not about you, its about the wider cause*
+
+There are going to be situations when you are not going to be able to reach an agreement with a contrarian view. In such circumstances rather than being driven by personal ego, emotion or resentment, assess whether the proposed alternative still provides you a route to achieve your broader goals. Focusing your mind on the eventual goal will provide you the perspective to whether support the alternative or not.
