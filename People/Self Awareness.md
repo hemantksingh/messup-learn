@@ -1,10 +1,16 @@
 # Being aware of your goal
 
-The origins of your personal goal are due to resentment and agitation within yourselves - the desire to change or fix something in your life that doesn't let you sleep at night. *The more the selfishness in an individual the more is the mental agitation*. So the pursuit of your goal may have a selfish origin within an agitated mind. However *the more the mental agitation the less your intellect can function*. An unstable mind filled with resentment and anger clouds your intellect and you will struggle to have clarity of thought on how to go about achieving your primary goal. Therefore it becomes necessary to develop purity of thought and unselfishness in your pursuits by having a larger purpose that is beyond your immediate self.
+What’s most important to you? This is a tough question to answer, because it requires you to think long and deep. Knowing yourself and knowing exactly what you want to achieve is a continuous process, therefore depending upon when you ask the question, you may get a different answer.
+
+The origins of your personal goal often start with an agitation or resentment within yourselves - the desire to change or fix something in your life that doesn't let you sleep comfortably at night. *The more the selfishness in an individual the higher is the mental agitation*. So the pursuit of your goal has a selfish origin within an agitated mind.
+
+*The more the mental agitation the less your intellect can function*.
+
+An unstable mind filled with resentment and anger clouds your intellect and diminishes clarity on how to go about achieving your primary goal. How do you overcome this obscured mind? By training it to feel comfortable while being uncomfortable. It becomes necessary to develop purity of thought and unselfishness in your pursuits by having a larger purpose that is beyond your immediate self.
 
 *Money is not a bad thing if profit is for the purpose of wider positive impact.*
 
-Just like the human body needs oxygen to survive, a business needs profit to survive and flourish, however the job of humans is more than just breathing. Similarly, if businesses are run with an intention to serve, profit can be utilized for the wider good. The drive for profit ensures the business is run efficiently without waste and holds the business accountable to its share holders.
+Just like the human body needs oxygen to survive, a business needs profit to survive and flourish, however the job of the human body is more than just breathing. Similarly, if businesses are run with an intention to serve, profit can be utilized for the wider good. The drive for profit ensures the business is run efficiently without waste and holds the business accountable to its share holders.
 
 *If you want to go fast travel alone, if you want to go far travel together*
 
