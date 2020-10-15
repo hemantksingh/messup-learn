@@ -9,34 +9,6 @@
 
 * Partition a big dataset into multiple smaller datasets and send each chunk of the data to a separate node in a cluster to be processed individually and in parallel.
 
-## Data Warehousing and BI
-
-Capture (Ingest Data Sources) -> Curate (Prepare & Analyze) -> Consume (Publish & Visualize)
-
-https://www.thoughtworks.com/insights/blog/agile-data-warehousing-and-business-intelligence-action
-
-## Background processing
-
-[Stream processing or Batch processing](https://medium.com/@gowthamy/big-data-battle-batch-processing-vs-stream-processing-5d94600d8103)?
-
-Stream processing processes the data as it comes in real time e.g. stream audio/video content online the binary content is transmitted over the wire and processed in real time to be rendered for consumption. Stream processing is applicable in low latency scenarios where processing results in real time can affect business and security outcomes e.g.
-
-* fraud detection systems to detect credit card usage patterns in streams of events
-* trading systems to examine price changes in financial markets
-* monitoring systems to identify faults in machines
-* military & intelligence systems to track potential signs of attack
-
-Batch processing processes the data (that has been stored over a period of time) once. It may employ polling to periodically look for data changes and process data in batches. The processing results may be utilized after day(s) or maybe week(s).
-
-what is the use case - [scalable machine learning](https://dzone.com/articles/build-and-deploy-scalable-machine-learning-in-prod)?
-
-* do you want to deploy the new model in production in real time (as soon as it is built)?
-* is latency of the model build process an issue?
-* is the ordering of messages important?
-* analytics of fuel prices and sales volume streams ? - adopt stream analytics (aggregations and statistical metrics over a large number of events) Many open source distributed stream processing frameworks are designed with analytics in mind - Apache Storm, Spark Streaming, Samza and Kafka streams
-* monitoring in place for analysing the outcomes of the applied model?
-* single model per tenant or a single model for the entire system?
-
 ## Technologies
 
 Databases require you to structure data according to a particular model (e.g. relational or documents) whereas files in a distributed filesystem are just byte sequences which can be written using any data model and encoding. They might be collections of database records but they can equally well be text, images, videos, sensor readings, genome sequences or any other kind of data.
@@ -82,9 +54,9 @@ Supercomputer power with GPUs on demand
 Shazam - music recognition app that uses Google cloud.
 Audio recognition algorithm runs on GPUs. Google provides elastic GPU clusters.
 
-### Azure Data Bricks
+### Azure Databricks
 
-Big data analytics and AI with the ability to run ML workloads (R, Python, Scala, Java) in Apache Spark workers. [Azure databricks](https://azure.microsoft.com/en-gb/services/databricks/) allows you to spin up clusters in a fully managed Apache Spark environment with global scale and availability.
+Apache Spark-based big data analytics platform with the ability to run ML workloads (R, Python, Scala, Java) in Apache Spark workers. [Azure databricks](https://azure.microsoft.com/en-gb/services/databricks/) allows you to spin up clusters in a fully managed Apache Spark environment with global scale and availability.
 
 ### Azure HDInsight
 
@@ -106,22 +78,4 @@ Data service for visually exploring, cleaning, and preparing structured and unst
 
 Kaggle is the *Github of Data Science*
 
-It offers a no-setup, customizable, Jupyter Notebooks environment. It allows users to find and publish data sets, explore and build models in a web-based data-science environment, work with other data scientists and machine learning engineers, and enter competitions to solve data science challenges
-
-## Data Analysis Pipeline
-
-* Capture - aggregate
-* Curate - analyse via processing tools like R, Python
-* Consume - interpret via visualization and reporting
-
-### Stages of Analytics
-
-* Descriptive
-* Diagnostic
-* Predictive
-* Prescriptive - Prescribe options to consumers
-
-### Modelling
-
-Overtraining the models can lead to information loss. Generic ML models that are based on a wider data set e.g. a model per geographical region than a gas site provide better results.
-  
+It offers a no-setup, customizable, Jupyter Notebooks environment. It allows users to find and publish data sets, explore and build models in a web-based data-science environment, work with other data scientists and machine learning engineers, and enter competitions to solve data science challenges  
