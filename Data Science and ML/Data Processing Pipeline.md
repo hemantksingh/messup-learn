@@ -6,20 +6,27 @@
 
 ## Data ingestion
 
-[Data warehousing and BI system pipelines](https://www.thoughtworks.com/insights/blog/agile-data-warehousing-and-business-intelligence-action) typically employ batch processing to data that has been stored over a period of time. This may involve polling to periodically look for data changes and process data in batches. The processing results may be utilized after day(s) or maybe week(s).
+[Data warehousing and BI system pipelines](https://www.thoughtworks.com/insights/blog/agile-data-warehousing-and-business-intelligence-action) typically employ batch processing to data that has been stored over a period of time. This may involve polling to periodically look for data changes and process data in batches. The processing results may be consumed for visualization and reporting after day(s) or maybe week(s).
 
-However if you are working in low latency scenarios where processing results in real time can affect business and security outcomes, [stream processing](https://medium.com/@gowthamy/big-data-battle-batch-processing-vs-stream-processing-5d94600d8103) will be your preferred choice. 
+However if you are working in low latency scenarios where processing results in real time can affect business and security outcomes, [stream processing](https://medium.com/@gowthamy/big-data-battle-batch-processing-vs-stream-processing-5d94600d8103) will be your preferred choice. Examples of such cases are
 
 * fraud detection systems to detect credit card usage patterns in streams of events
 * trading systems to examine price changes in financial markets
-* monitoring systems to identify faults in machines
+* infrastructure monitoring to identify faults & security risks in machines
 * military & intelligence systems to track potential signs of attack
 
-As opposed to working on already stored data, stream processing allows you to process the data as it arrives in real time e.g. while streaming audio/video content - the binary content is transmitted over the wire and processed in real time to be rendered for consumption.
+As opposed to working with stored data, stream processing allows you to process the data as it arrives in real time e.g. while streaming audio/video content - the binary content is transmitted over the wire and processed in real time to be rendered for consumption.
 
 ## Data processing
 
-Logstash started off as a log aggregator but has evolved into a [powerful data processing tool]( https://opensource.com/article/17/10/logstash-fundamentals) for data ingestion and transformation. At the core it is an ETL tool that can be configured to stream and transform multiple data sources into Elastic Search and [send data to over 70 O/Ps](https://www.elastic.co/blog/archiving-your-event-stream-with-logstash) including S3 buckets. Typically once data has been cleansed, transformed and enriched you can deploy advanced data analytics and ML.
+Logstash started out as a log aggregator for parsing text based files but has evolved into a [powerful data processing tool]( https://opensource.com/article/17/10/logstash-fundamentals) for data ingestion and transformation. At the core it is an ETL tool that can be configured to stream and transform multiple data sources into Elastic Search and [send data to over 70 O/Ps](https://www.elastic.co/blog/archiving-your-event-stream-with-logstash) including S3 buckets. 
+
+The ELK stack due to its impressive set of tooling has been a recent success in data analytics pipelines but [what about data science](https://towardsdatascience.com/elasticsearch-for-data-science-just-got-way-easier-95912d724636)?
+
+Data scientists are generally not used to NoSQL database engines for common tasks or even relying on REST APIs for analysis. Dealing with large amounts of data using Elasticsearch’s low-level python clients, for example, is also not that intuitive and has somewhat of a steep learning curve for someone coming from a field different from Software engineering. Although Elastic made significant efforts in enhancing the ELK stack for Analytics and Data Science use cases, it still lacked an easy interface with the existing Data Science ecosystem (pandas, numpy, scikit-learn, PyTorch,and other popular libraries).
+
+Elasticsearch is trying to achieve widespread adoption in the data science industry, with the release of [Eland](https://eland.readthedocs.io/en/latest/), a brand new Python Elasticsearch client and toolkit with a powerful (and familiar) pandas-like API for analysis, ETL and Machine Learning. however the ELK stack Regression and Classification Machine learning jobs are still experimental.
+
 
 ## Analytics and modelling
 
