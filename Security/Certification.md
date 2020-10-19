@@ -4,6 +4,7 @@
 * CISSP https://en.wikipedia.org/wiki/Certified_Information_Systems_Security_Professional
 * SSCP https://itsecuritycareer.com/cybersecurity-education/certifications/sscp
 * CEH https://www.eccouncil.org/programs/certified-ethical-hacker-ceh/
+* CREST https://www.crest-approved.org/
 
 ## Organisational certifications
 
