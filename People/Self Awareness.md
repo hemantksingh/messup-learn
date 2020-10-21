@@ -1,12 +1,14 @@
 # Being aware of your goal
 
-What’s most important to you? This is a tough question to answer, because it requires you to think long and deep. Knowing yourself and knowing exactly what you want to achieve is a continuous process, therefore depending upon when you ask the question, you may get a different answer.
+What’s most important to you? This is a tough question to answer, because it requires you to think long and deep. Knowing yourself, your strengths and weaknesses and knowing exactly what you want to achieve is a continuous process, therefore depending upon when you ask the question, you may get a different answer. Therefore it is useful to maintain a journal of your continuously evolving goals so that you can reflect regularly upon how well you did against them.
 
-The origins of your personal goal often start with an agitation or resentment within yourselves - the desire to change or fix something in your life that doesn't let you sleep comfortably at night. *The more the selfishness in an individual the higher is the mental agitation*. So the pursuit of your goal has a selfish origin within an agitated mind.
+The origins of a personal goal often start with an agitation or resentment within yourselves - the desire to change or fix something in your life that doesn't let you sleep at night. *The more the selfishness in an individual the higher is the mental agitation*. An agitated mind can thus lead to a personal goal.
+
+## Are you in control of your emotions?
 
 *The more the mental agitation the less your intellect can function*.
 
-An unstable mind filled with resentment and anger clouds your intellect and diminishes clarity on how to go about achieving your primary goal. How do you overcome this obscured mind? By training it to feel comfortable while being uncomfortable. It becomes necessary to develop purity of thought and unselfishness in your pursuits by having a larger purpose that is beyond your immediate self.
+An unstable mind filled with resentment and anger clouds your intellect and diminishes clarity on how to go about achieving your goals. How do you overcome this obscured mind? By training it to feel comfortable while being uncomfortable. It becomes necessary to develop purity of thought and unselfishness in your pursuits by having a larger purpose that is beyond your immediate self.
 
 *Money is not a bad thing if profit is for the purpose of wider positive impact.*
 
@@ -20,20 +22,20 @@ In order to attract people to you, think in terms of energy, vibration and frequ
 
 ## Enhancing consciousness
 
-The level of intelligence you are functioning at, depends upon your ability to attain knowledge. It could be through
+The level of intelligence you are functioning at, depends upon your ability to attain knowledge. Knowledge can be acquired through
 
-* observation - smart people require very little information to know something - they see it they get it
 * education - learn by reading and acquiring information
 * experience - learn by making mistakes through failures
+* observation - smart people require very little information to know something - they see it they get it
 * experience without learning - you fail to learn from experiences and make the same mistakes repeatedly
 
-True intelligence is acquired by possessing little knowledge and applying critical thinking to it. Knowledge in *vedanta* is acquired by 20% reading and 80% thinking. The more time you take to analyze the information you have gained, apply it and test whether it is true, the better you get at internalizing the knowledge. If you reflect upon an idea, that idea becomes you. However the practice of critical thinking by looking inwards requires effort, there is no instant joy as you get by seeking external pleasures. The process of critical thinking, acquiring knowledge and applying that knowledge bears fruit in the long term.
+True intelligence is acquired by possessing little knowledge and applying critical thinking to it. In *Vedanta* knowledge is acquired by 20% reading and 80% thinking. The more time you take to analyze the information you have gained, apply it and test whether it is true, the better you get at internalizing the knowledge. If you reflect upon an idea, that idea becomes you. However the practice of critical thinking by looking inwards requires time and effort. There is no instant joy as you may get by seeking external pleasures. The process of critical thinking, acquiring knowledge and applying that knowledge is a long one and bears fruit in the long term.
 
-Staying aware of one thing for prolonged amount of time without drift away requires practice 24 hours a day and 7 days a week. If you can integrate this into everything that you do throughout your life, you can get better at it.
+Staying aware of one thing for prolonged amount of time without drifting away requires practice 24 hours a day and 7 days a week. If you can integrate this into everything that you do throughout your life, you can get better at it.
 
 * Perform small rituals throughout the day that remind you about your purpose. How many things do we do during the day with our at most concentration to be in a heightened state of awareness ?
 
-* Simplify your day to day life with less material possessions. Life is a manifestation of where you put your energy. Energy flows to where your awareness goes. Material possessions can consume energy. Fewer possessions mean less loss (haemorrhaging) of energy. One of the goals for monks is conservation of energy.
+* Simplify your day to day life with less material possessions. Life is a manifestation of where you put your energy. Energy flows to where your awareness goes. Material possessions e.g. mobile phones or other gadgets are a great source of distraction and energy consumption. Fewer possessions mean less loss (haemorrhaging) of energy. One of the goals for monks is conservation of energy.
 
 ## Building will power
 
