@@ -2,11 +2,23 @@
 
 Use Azure cli and azurerm module for interacting with the azure cloud APIs.
 
-## Subscription details
+## Getting resources
 
 ```sh
-# Get current subscription
-az account show
+# List all the resources of a particular type
+az <resource> list -g <resource-group>
+
+# Get examples queries for a query that returns a list []
+az disk list --query-examples
+
+# Get a resource field when the result is a list '[]' using JMESPath query string. See http://jmespath.org/
+az disk list -g <resource-group> --query "[].name"
+
+# Get examples queries for a query that returns a single instance
+az account show --query-examples
+
+# Get a resource filed when the result is a single instance. e.g current subscription name
+az account show --query name
 
 # On az login you may log into one of the subscriptions that you have access to by default. To set a specific default subscription
 az account set -s <subname or subid> # e.g. az account set -s "Visual Studio Enterprise Subscription"
