@@ -1,14 +1,26 @@
-# Being aware of your goal
+Awareness 
 
-What’s most important to you? This is a tough question to answer, because it requires you to think long and deep. Knowing yourself, your strengths and weaknesses and knowing exactly what you want to achieve is a continuous process, therefore depending upon when you ask the question, you may get a different answer. Therefore it is useful to maintain a journal of your continuously evolving goals so that you can reflect regularly upon how well you did against them.
+In the context of mindfulness, awareness is simply the act of paying attention to what is happening right here, right now.
 
-The origins of a personal goal often start with an agitation or resentment within yourselves - the desire to change or fix something in your life that doesn't let you sleep at night. *The more the selfishness in an individual the higher is the mental agitation*. An agitated mind can thus lead to a personal goal.
+But what precisely does it mean to be self-aware? How did self-awareness emerge as a venerable trait and how do you cultivate it?In order to be self aware, I think it is important to answer the following questions:
 
-## Are you in control of your emotions?
+## Are you aware of your goal?
+
+What’s most important to you? This is a tough question to answer, because it requires you to think long and deep. Knowing yourself, your strengths and weaknesses and knowing exactly what you want to achieve is a continuous process, therefore depending upon when you ask yourself the question, you may get a different answer.
+
+The origins of a personal goal often start with an agitation, a resentment or a fire within yourselves - an angst to change or fix something in your life that doesn't let you sleep at night. It is in your own selfish interest that you may decide to take action to change something that causes extreme anguish. *The more the selfishness in an individual the higher is the mental agitation*. So essentially an agitated mind can lead you to your personal goal.
+
+Nikola Tesla said *“If you wish to understand the Universe think of energy, frequency and vibration.“*
+
+Life is a manifestation of where you put your energy. If you are able to focus all your energy towards a **single purpose in life**, you are in a heightened state of consciousness because all your decisions are consciously driven by that purpose. However, other people are not at the same level of consciousness, they function at different frequencies. If you can elevate them towards a heightened state of consciousness - your end goal and provide a future vision of positive change, your engagement with others will be at the same frequency. This leads to deeper engagement and ultimately - harmony.
+
+Maintaining a journal of your goals over time, gives you the chance to reflect regularly upon your progress and whether the goal needs fine tuning.
+
+## Are you in control of your thoughts emotions and feelings?
 
 *The more the mental agitation the less your intellect can function*.
 
-An unstable mind filled with resentment and anger clouds your intellect and diminishes clarity on how to go about achieving your goals. How do you overcome this obscured mind? By training it to feel comfortable while being uncomfortable. It becomes necessary to develop purity of thought and unselfishness in your pursuits by having a larger purpose that is beyond your immediate self.
+An unstable mind filled with resentment and anger clouds your intellect and diminishes clarity on how to go about achieving your goals. How do you overcome this obscured mind? By training it to feel comfortable while being uncomfortable. It becomes necessary to develop purity of thought and unselfishness in your pursuits by having a larger purpose that is beyond your immediate self. Does this mean you give up everything you have in charity?
 
 *Money is not a bad thing if profit is for the purpose of wider positive impact.*
 
@@ -26,10 +38,10 @@ The level of intelligence you are functioning at, depends upon your ability to a
 
 * education - learn by reading and acquiring information
 * experience - learn by making mistakes through failures
-* observation - smart people require very little information to know something - they see it they get it
+* intuition - smart people require very little information to know something - they see it they get it
 * experience without learning - you fail to learn from experiences and make the same mistakes repeatedly
 
-True intelligence is acquired by possessing little knowledge and applying critical thinking to it. In *Vedanta* knowledge is acquired by 20% reading and 80% thinking. The more time you take to analyze the information you have gained, apply it and test whether it is true, the better you get at internalizing the knowledge. If you reflect upon an idea, that idea becomes you. However the practice of critical thinking by looking inwards requires time and effort. There is no instant joy as you may get by seeking external pleasures. The process of critical thinking, acquiring knowledge and applying that knowledge is a long one and bears fruit in the long term.
+True intelligence is not acquired by reading a book. It is developed through practices in focussing your attention inwards and applying critical thinking to the information that you may have gained through reading or other sources. In *Vedanta* knowledge is acquired by 20% reading and 80% thinking. The more time you take to analyze the information you have gained, apply it and test whether it is true, the better you get at internalizing the knowledge. If you reflect upon an idea, that idea becomes you. However the practice of critical thinking by turning inwards requires time and effort. There is no instant joy as you may get by seeking external pleasures e.g watching a film. The process of critical thinking, acquiring knowledge and applying that knowledge is a long one and bears fruit in the long term.
 
 Staying aware of one thing for prolonged amount of time without drifting away requires practice 24 hours a day and 7 days a week. If you can integrate this into everything that you do throughout your life, you can get better at it.
 
