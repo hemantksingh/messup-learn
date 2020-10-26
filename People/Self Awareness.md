@@ -8,7 +8,7 @@ But what precisely does it mean to be self-aware? How did self-awareness emerge 
 
 What’s most important to you? This is a tough question to answer, because it requires you to think long and deep. Knowing yourself, your strengths and weaknesses and knowing exactly what you want to achieve is a continuous process, therefore depending upon when you ask yourself the question, you may get a different answer.
 
-The origins of a personal goal often start with an agitation, a resentment or a fire within yourselves - an angst to change or fix something in your life that doesn't let you sleep at night. It is in your own selfish interest that you may decide to take action to change something that causes extreme anguish. *The more the selfishness in an individual the higher is the mental agitation*. So essentially an agitated mind can lead you to your personal goal.
+The origins of a personal goal often start with an agitation, a resentment or a fire within yourselves - an angst to change or fix something in your life that doesn't let you sleep at night. In your own selfish interest you may decide to take action to change something that causes this extreme anguish. *The more the selfishness in an individual the higher is the mental agitation*. An agitated mind, therefore can lead you to your personal goal.
 
 Nikola Tesla said *“If you wish to understand the Universe think of energy, frequency and vibration.“*
 
