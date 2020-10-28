@@ -1,8 +1,10 @@
 Awareness 
 
+*Your own self-realization is the greatest service you can render the world* - Ramana Maharishi
+
 In the context of mindfulness, awareness is simply the act of paying attention to what is happening right here, right now.
 
-But what precisely does it mean to be self-aware? How did self-awareness emerge as a venerable trait and how do you cultivate it?In order to be self aware, I think it is important to answer the following questions:
+But what precisely does it mean to be self-aware? How did self-awareness emerge as a venerable trait and how do you cultivate it? In the pursuit of self awareness, it is important to answer the following questions:
 
 ## Are you aware of your goal?
 
@@ -34,14 +36,14 @@ In order to attract people to you, think in terms of energy, vibration and frequ
 
 ## Enhancing consciousness
 
-The level of intelligence you are functioning at, depends upon your ability to attain knowledge. According to Indian epistemology knowledge can be acquired through four '*pramanas*' or valid sources of knowledge
+The level of intelligence you are functioning at, depends upon your ability to attain knowledge. According to Indian epistemology and the ancient Indian philosophy *Vedanta*, knowledge can be acquired through four '*pramanas*' or valid sources of knowledge
 
 * education - learn by reading and acquiring information
 * experience - learn by making mistakes through failures
 * intuition - smart people require very little information to know something - they see it they get it
 * experience without learning - you fail to learn from experiences and make the same mistakes repeatedly
 
-True intelligence is not acquired by reading a book. It is developed through practices in focussing your attention inwards and applying critical thinking to the information that you may have gained through reading or other sources. In *Vedanta* knowledge is acquired by 20% reading and 80% thinking. The more time you take to analyze the information you have gained, apply it and test whether it provides the desired results as you set out to achieve, the better you get at understanding and internalizing the knowledge. If you reflect upon an idea, that idea becomes you. However the practice of critical thinking by turning inwards requires time and effort. There is no instant joy as you may get by seeking external pleasures e.g watching a film. The process of critical thinking, acquiring knowledge and applying that knowledge is a long drawn out process but bears fruit that lasts longer too.
+True intelligence is not acquired by reading a book. It is developed through practices in focussing your attention inwards and applying critical thinking to the information that you may have gained through reading or other sources. In *Vedanta* knowledge is acquired by 20% reading and 80% thinking. The more time you take to analyze the information you have gained, apply it and test whether it provides the desired results as you set out to achieve, the better you get at understanding and internalizing the knowledge. If you reflect upon an idea, that idea becomes you. However the practice of critical thinking by turning inwards requires time and effort. There is no instant joy as you may get by seeking external pleasures e.g watching a film. Critical thinking, acquiring knowledge and applying that knowledge is a long drawn out process and bears fruit in the long term.
 
 Staying aware of one thing for prolonged amount of time without drifting away requires practice 24 hours a day and 7 days a week. If you can integrate this into everything that you do throughout your life, you can get better at it.
 
