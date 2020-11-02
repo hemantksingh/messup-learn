@@ -21,7 +21,7 @@ As opposed to working with stored data, stream processing allows you to process 
 
 Logstash started out as a log aggregator for parsing text based files but has evolved into a [powerful data processing tool]( https://opensource.com/article/17/10/logstash-fundamentals) for data ingestion and transformation. At the core it is an ETL tool that can be configured to stream and transform multiple data sources into Elastic Search and [send data to over 70 O/Ps](https://www.elastic.co/blog/archiving-your-event-stream-with-logstash) including S3 buckets. 
 
-The ELK stack due to its impressive set of tooling has been a recent success in data analytics pipelines but [what about data science](https://towardsdatascience.com/elasticsearch-for-data-science-just-got-way-easier-95912d724636)?
+The ELK stack due to its impressive set of tooling has been a success in data analytics pipelines but what about [elastic search for data science](https://towardsdatascience.com/elasticsearch-for-data-science-just-got-way-easier-95912d724636)?
 
 Data scientists are generally not used to NoSQL database engines for common tasks or even relying on REST APIs for analysis. Dealing with large amounts of data using Elasticsearch’s low-level python clients, for example, is also not that intuitive and has somewhat of a steep learning curve for someone coming from a field different from Software engineering. Although Elastic made significant efforts in enhancing the ELK stack for Analytics and Data Science use cases, it still lacked an easy interface with the existing Data Science ecosystem (pandas, numpy, scikit-learn, PyTorch,and other popular libraries).
 
