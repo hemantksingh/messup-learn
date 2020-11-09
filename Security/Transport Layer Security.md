@@ -62,14 +62,14 @@ Certificate can be in [various formats](https://knowledge.digicert.com/generalin
 
 ### Self signed certificates
 
-As mentioned above a certificate can be self signed or requested from an independent Certificate Authority (CA). Self signed certificates do not go through the independent **identity vetting** process therefore, understandably they are not fit for public usage, however they can be used in development and test environments, provided:
+As mentioned above a certificate can be self signed or requested from an independent Certificate Authority (CA). Self signed certificates do not go through the independent **identity vetting** process, therefore understandably they are not fit for public usage. However they may be used in development and test environments, provided:
 
-* Trust is added in your own browsers to a self-signed certificate, then those browsers will accept that certificate. 
-* You create your own local CA that can issue certificates and then add trust in your browsers for that CA.
+* Trust is added in your own browsers to a self-signed certificate, those browsers will then accept that certificate
+* You create your own private/internal CA that can issue certificates and add trust in your browsers for that CA
 
 In both of these cases, the key point is that the general public will not accept self signed certificates, which is by design — there is no reason that everyone else should believe the contents of your self signed certificates. So developers have to take some action to modify their browsers’ trust behavior in order to accept something that’s not publicly-trusted.
 
-Alternatively, some developers might work with a public domain name that they have registered and do control and then get a publicly-trusted certificate for it, even for development purposes.
+Alternatively, you can purchase a public domain name from https://www.namecheap.com/, get it registered and then get a publicly-trusted certificate for it, even for development purposes.
 
 ### Certificate thumbprint
 
