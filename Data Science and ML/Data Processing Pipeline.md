@@ -17,7 +17,7 @@ However if you are working in low latency scenarios where processing results in 
 
 As opposed to working with stored data, stream processing allows you to process the data as it arrives in real time e.g. while streaming audio/video content - the binary content is transmitted over the wire and processed in real time to be rendered for consumption.
 
-### Logstash for data ingestion and transformation
+### Data ingestion and transformation tools
 
 Logstash started out as a log aggregator for parsing text based files but has evolved into a [powerful data processing tool]( https://opensource.com/article/17/10/logstash-fundamentals) for data ingestion and transformation. At the core it is an ETL tool that can be configured to stream and transform multiple data sources into Elastic Search and [send data to over 70 O/Ps](https://www.elastic.co/blog/archiving-your-event-stream-with-logstash) including S3 buckets.
 
@@ -29,6 +29,13 @@ Data scientists are generally not used to NoSQL database engines for common task
 
 Elasticsearch is trying to achieve widespread adoption in the data science industry, with the release of [Eland](https://eland.readthedocs.io/en/latest/), a brand new Python Elasticsearch client and toolkit with a powerful (and familiar) pandas-like API for analysis, ETL and Machine Learning. however the ELK stack Regression and Classification Machine learning jobs are still experimental.
 
+#### Logstash and Fluentd comparison
+
+[Logz.io](https://logz.io/blog/fluentd-logstash/) provides a good comparison of the two log collectors. Logstash is most known for being part of the ELK Stack while Fluentd (part of CNCF) has become increasingly used by communities of users of software such as Docker, GCP and Elasticsearch.
+
+![logstash-fluentd-comparison](../Images/logstash-fluentd-comparison.png)
+
+Fluentd has built in reliability for persistence across restarts and has a configurable in-memory or on-disk buffering system while [Logstash is limited to an in-memory queue](https://platform9.com/blog/kubernetes-logging-comparing-fluentd-vs-logstash) that holds 20 events and, therefore, relies on an external persistence, like Redis.
 
 ## Analytics and modelling
 
