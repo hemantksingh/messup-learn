@@ -99,21 +99,21 @@ Browser ----------------> website (e.g. google.com)
 
 The website presents the browser with its certificate. To verify the authenticity of the certificate, a certificate is itself signed by a certificate authority (CA) using CA's private or secret key .
 
-![certificate](https://latex.codecogs.com/gif.latex?Certificate%20%3DSign_C_A_s_S_K%20%28dnsName%3ApublicKey%29)
+![certificate](https://latex.codecogs.com/png.latex?Certificate=Sign_C_As_S_K(dnsName:publicKey))
 
 *CA -> Certificate Authority  
 SK -> Secret Key*
 
 Web browsers come with a list of public keys of most commonly used CA's in order to verify certificates.
 
-![verify](https://latex.codecogs.com/gif.latex?Verify_C_A_s_P_K%28m%2Ccertificate%29%3D%20ok%3F)
+![verify](https://latex.codecogs.com/png.latex?Verify_C_As_P_K(m,certificate)=ok?)
 
-*PK -> Public Key  
+*PK -> Public Key
 m -> message*
 
 On establishing the validity of the certificate, the web browser then generates a new secret key and encrypts it with the websites public key so that the secret can be shared with the website using asymmetric key cryptography.
 
-Encryption ![encryption](https://latex.codecogs.com/gif.latex?E_p_k%28p%29%3Dc) and Decryption ![decryption](https://latex.codecogs.com/gif.latex?D_s_k%28c%29%3Dp)
+Encryption ![encryption](https://latex.codecogs.com/png.latex?E_p_k(p)=c) and Decryption ![decryption](https://latex.codecogs.com/png.latex?D_s_k(c)=p)
 
 *pk -> website's public key  
 sk -> website's secret key  
@@ -122,10 +122,10 @@ c -> cipher text*
 
 The [key exchange is vital to secure data transfer](https://www.jscape.com/blog/key-exchange#:~:text=The%20two%20most%20popular%20key,of%20the%20Internet%2C%20especially%20businesswise) between communicating parties. All further communication between the web browser and the website is encrypted with the shared secret key (only known to the 2 communicating parties) using symmetric key encryption. The two most popular key exchange algorithms are RSA (Rivest–Shamir–Adleman) and Diffie-Hellman (now known as Diffie-Helmlman-Merkle).
 
-Encryption ![encryption](https://latex.codecogs.com/gif.latex?E_s_k%28p%29%3Dc) and Decryption ![decryption](https://latex.codecogs.com/gif.latex?D_s_k%28c%29%3Dp)
+Encryption ![encryption](https://latex.codecogs.com/png.latex?E_s_k(p)=c) and Decryption ![decryption](https://latex.codecogs.com/png.latex?D_s_k(c)=p)
 
-*sk -> secret key
-p -> plain text
+*sk -> secret key  
+p -> plain text  
 c -> cipher text*
 
 ## How do you decide the type of SSL certificate
