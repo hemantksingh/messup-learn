@@ -85,6 +85,14 @@ resource "null_resource" "post_config" {
 
 ## Workspaces
 
-To support multiple environments from a Common configuration, terraform has individual state files:
+The persistent data stored in the backend belongs to a workspace. Initially the backend has only one workspace, called "default", and thus there is only one Terraform state associated with that configuration.
+
+Certain backends support multiple named workspaces, allowing multiple states to be associated with a single configuration. This can possibly also be achieved using different state files for the same configuration stored in the same backend.
+
+## Modules
+
+A module is a container for multiple resources that are used together. Modules can be used to create lightweight abstractions, so that you can describe your infrastructure in terms of its architecture, rather than directly in terms of physical objects.
+
+Using a standard [module structure](https://www.terraform.io/docs/modules/index.html#module-structure) is recommended for reusable modules. Terraform tooling is built to understand the standard module structure and use that structure to generate documentation, index modules for the module registry, and more.
 
 `terraform.workspace`
