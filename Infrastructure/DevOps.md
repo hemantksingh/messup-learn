@@ -20,7 +20,7 @@ Picking the right tools for the right job is crucial while adopting DevOps pract
 
 Adopting Infra as Code approaches to delivering infrastructure
 
-* separattion of concern
+* separation of concern
     * separation of infrastructure provisioning & configuration management - are you managing snowflake or ephemeral servers? think cattle not pets
     * separate application build, deployment and release
     * separate code deployment from config deployment - is your config auditable & version controlled?
@@ -36,7 +36,8 @@ Adopting Infra as Code approaches to delivering infrastructure
 * encapsulation and abstraction
    * ensure deployments are scriptable and decoupled from CI/CD tooling to facilitate migration & local testing
    * modularise reusable scripts to prevent duplication
-* security baked into your pipeline 
+* secure by default
+    * security baked into your pipelines
     * no secrets in source code
     * store secrets in a vault not in auto-generated files on a CI server
     * run with least privileges
