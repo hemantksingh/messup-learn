@@ -38,6 +38,12 @@ In order to attract people to you, think in terms of energy, vibration and frequ
 
 The level of intelligence you are functioning at, depends upon your ability to attain knowledge. According to Indian epistemology and the ancient Indian philosophy *Vedanta*, knowledge can be acquired through four '*pramanas*' or valid sources of knowledge
 
+- physical senses - sense perceptions are vital to knowledge but incomplete in themselves. They can be deceptive. e.g. a cold day might be too hot to someone else, the colour green can be perceived differently by various people. Since senses cannot be used as the sole arbitrator, the need arises for thinking.
+- inference - through deduction logic and reason
+- analogy/comparison - stories and ideas developed through art, literature and culture
+- testimony/authority/revelation - go to the experts for knowledge
+- experience - you learn lessons from your failures, however you may still learn the wrong lessons
+
 * education - learn by reading and acquiring information
 * experience - learn by making mistakes through failures
 * intuition - smart people require very little information to know something - they see it they get it
