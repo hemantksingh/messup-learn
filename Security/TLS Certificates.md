@@ -37,12 +37,27 @@ $ openssl x509 -req -sha256 -days 365 \
 	-set_serial 01 \
 	-out applicant.crt
 ```
+### Certificate encoding formats
 
-Certificate can be in [various formats](https://knowledge.digicert.com/generalinformation/INFO4448.html) depending upon whether they are Base64 ASCII encoded or in binary format.
+Multitude of server and device types that allow an SSL to be installed and configured require the digital certificate file to be encoded and formatted in a certain way. There are various [certificate encoding formats](https://www.ssls.com/knowledgebase/what-are-certificate-formats-and-what-is-the-difference-between-them/) depending upon whether they are Base64 (ASCII) encoded or in binary format.
 
-* A **CER** file is used to store X.509 certificate. The file contains information about certificate owner and public key. The file extensions .CRT and .CER are interchangeable. A CER file can be binary (ASN.1 DER) or Base-64 encoded with header and footer included (PEM). **PEM** being the most common format used for an X.509 certificate.
+#### Base64 (ASCII)
 
-* **PFX/P12/PKCS#12** The PKCS#12 or PFX/P12 format is a binary format for storing the server certificate, intermediate certificates, root authority certificates, [certificate chains](https://knowledge.digicert.com/solution/SO16297.html) and the private key in one encryptable file. It is cryptographically protected with passwords to keep private keys private and preserve the integrity of the root certificates.
+* **PEM**
+  * .pem - the most common format for an X.509 certificate. This is a (Privacy-enhanced Electronic Mail) Base64 encoded DER certificate, enclosed between “—–BEGIN CERTIFICATE—–” and “—–END CERTIFICATE—–
+  * .crt - you can inspect a certificate `openssl x509 -in admin.crt -text -noout | more`
+* **PKCS#7**
+  * .p7b
+  * .p7s
+
+#### Binary
+
+* **DER**
+  * .der
+  * .cer
+* **PKCS#12**
+  * .pfx - an archive file format for storing several cryptographic objects. A .pfx file must contain the end-entity certificate (issued for your domain), a matching private key, and may optionally include an intermediate certification authority (a.k.a. CA Bundle). All this is wrapped up in a single file which is then protected with a pfx password.  (end entity certificate, intermediate certificates, root authority certificates and private key) in a single file.
+  * .p12
 
 * Windows uses **PVK files** to store private keys for code signing in various Microsoft products. PVK is proprietary format
 
