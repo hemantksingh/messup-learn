@@ -61,7 +61,11 @@ Some other options for application logging and monitoring include:
 
 ### What to log?
 
-The quality of the design and code structure affects the quality of your logs. Public Apis with coarse grained interfaces are important logging boundaries. However, identifying where to log in fragmented APIs that expose internal state can be a tricky. Logging application state (generally held in DTOs in statically typed languages) at various stages can be useful for debugging purposes.
+The quality of the design and code structure affects the quality of your logs. Public APIs with coarse grained interfaces are important logging boundaries. However, identifying where to log in fragmented APIs that expose internal state can be a tricky. Logging application state (generally held in DTOs in statically typed languages) at various stages can be useful for debugging purposes.
+
+* Centralize error handling and logging in an exception filter or middleware to control your error logging and provide consistent API error responses
+  * Allow application to bubble up all exceptions up to the exception filter or middleware
+  * Define exceptions for known issues and allow the exception middleware to handle these
 
 ### When to log?
 
