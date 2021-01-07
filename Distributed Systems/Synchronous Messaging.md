@@ -55,7 +55,7 @@ At first glance, it appears very verbose obfuscating your resource data under JS
 
 We should not confuse and API with a transport protocol (which is what JSON API seems to do). Making transports human readable appears to be a waste of resources. Those API's are meant to be consumed by machines and debugging can and should be done with tools, not by enforcing a standard. Lets work on improving the semantics and documentation around what constitutes an API e.g. Swagger.
 
-If you have large and/or public API which needs to be stable, extensible, will be developed for years, JSON API maybe a good choice. It is a lot of overhead for a private API between one client and one server which might be compeltely reworked in a year.
+If you have large and/or public API which needs to be stable, extensible, will be developed for years, JSON API maybe a good choice. It is a lot of overhead for a private API between one client and one server which might be completely reworked in a year.
 
 ## RPC
 
