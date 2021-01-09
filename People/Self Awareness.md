@@ -4,7 +4,7 @@
 
 In the context of mindfulness, awareness is simply the act of paying attention to what is happening right here, right now.
 
-But what precisely does it mean to be self-aware? How did self-awareness emerge as a venerable trait and how do you cultivate it? In the pursuit of self awareness, it is important to know your goal, be continuously aware of that goal and work with others to achieve that goal.
+But what precisely does it mean to be self-aware? How did self-awareness emerge as a venerable trait and how do you cultivate it? In the pursuit of self awareness, it is important to know your goal, be continuously aware of that goal and work with others to achieve that goal. There are a few things that we all should learn and know. Firstly, how the mind works. Then learning to focus. Followed by the understanding of how our energy works. And once we have a decent understanding of this, then knowing our purpose in life. Why do I think the above items are crucial? If you don’t understand how your mind works and you can’t focus it, then it is going to be difficult to begin the journey of getting to know yourself. And if you can’t get to know yourself then it’s going to be difficult to know your purpose in life. Your purpose tells you where you put your energy.
 
 ## Are you aware of your goal?
 
