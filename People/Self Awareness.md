@@ -1,14 +1,22 @@
-# Awareness
+# Self awareness
 
 *Your own self-realization is the greatest service you can render the world* - Ramana Maharishi
 
-Your greatest contribution to humanity is your own self realization. As you uplift yourself you uplift everyone else around you. But what precisely does it mean to be self-aware? How did self-awareness emerge as a venerable trait and how do you cultivate it? Our lives are mostly busy and lived with an outward focus, self awareness is finding time to sit with yourself, look inwards and get to know yourself better.
+Your greatest contribution to humanity is your own self realization. As you uplift yourself you uplift everyone else around you. But what precisely does it mean to be self-aware? How did self-awareness emerge as a venerable trait and how do you cultivate it? We lead busy lives and they are mostly lived with an outward focus while concentrating on things happening around us rather than within us. Self awareness is about taking time to sit with yourself, look inwards and get to know your body, get to know your mind and get to know yourself better.
 
-There are a few things that we all should learn and know. Firstly, how the mind works. Then learning to focus. Followed by the understanding of how our energy works. And once we have a decent understanding of this, then knowing our purpose in life. Why do I think the above items are crucial? If you don’t understand how your mind works and you can’t focus it, then it is going to be difficult to begin the journey of getting to know yourself. And if you can’t get to know yourself then it’s going to be difficult to know your purpose in life. Your purpose tells you where you put your energy. In the pursuit of self awareness, it is important to know your goal, be continuously aware of that goal and work with others to achieve that goal.
+In the pursuit of self awareness, there are a few things that we all should learn and know. Firstly, how the mind works. Then learning to focus. Followed by the understanding of how our energy works. And once we have a decent understanding of this, then knowing our purpose in life. Why do I think the above items are crucial? If you don’t understand how your mind works and you can’t focus it, then it is going to be difficult to begin the journey of getting to know yourself. And if you can’t get to know yourself then it’s going to be difficult to know your purpose in life. Your purpose tells you where you put your energy.
 
-Awareness is simply the act of keeping your attention on a particular area of the mind for an extended amount of time. In the context of mindfulness, it is often said to be in the moment, to be present right here, right now. That just means to be able to sustain your awareness on a single thing and not let it wander away into different areas of the mind. This could be while you are working, reading, training or talking to someone. Therefore the goal is not to control your mind but to control where awareness goes within your mind. Prolonged sates of concentration is where the magic happens. It leads to high engagement, deeper relationships and develops the power of observation. Power of observation allows you to stay out of the weeds and see things from a birds eye view where you can clearly see opportunities, pitfalls and make better decisions.
+Believe that you have the ability to create whatever you want in your life. Young kids these days can only concentrate for a length of seven seconds. How do you expect to solve problems in the world when your average attention span is seven seconds?
 
-## Are you aware of your goal?
+## How the mind works ?
+
+Repetition, patience and slow hard work.
+
+In the context of mindfulness it is often said: to be in the moment, to be present right here, right now. That just means to be able to sustain your awareness on a single thing and not let it wander away into different areas of the mind. This could be while you are at work, reading a book, talking to someone or experiencing a beautiful sight. Concentration is the very core of all human endeavours and success and allows you to truly enjoy every experience in your life and be present.
+
+[Dandapani](https://dandapani.org/) describes concentration as the act of keeping your awareness on a particular area of the mind for an extended amount of time.  Therefore the goal is not to control your mind but to control where awareness goes within your mind. Prolonged sates of concentration is where the magic happens. It leads to high engagement, deeper relationships and building the power of observation. Power of observation allows you to stay out of the weeds and see things from a birds eye view where you can clearly see opportunities, pitfalls and make better decisions. The byproduct of pursuing a lifestyle with high concentration and focus results in happiness.
+
+## Knowing your goal
 
 What’s most important to you? This is a tough question to answer, because it requires you to think long and deep. Knowing yourself, your strengths and weaknesses and knowing exactly what you want to achieve is a continuous process, therefore depending upon when you ask yourself the question, you may get a different answer.
 
@@ -22,14 +30,14 @@ Maintaining a journal of your goals over time, gives you the chance to reflect r
 
 ## Enhancing consciousness
 
-How many things do we do during the day with our at most concentration? Staying aware of one thing for prolonged amount of time without drifting away requires practice 24 hours a day and 7 days a week. If you can integrate this into everything that you do throughout your day and throughout your life you can be in a heightened state of awareness.
+How many things do we do during the day with our at most concentration? Staying aware of one thing for prolonged amount of time without drifting away requires practice 24 hours a day and 7 days a week. If you can integrate this into everything that you do throughout your day and throughout your life you can be in a heightened state of consciousness.
 
 * Build extraordinary habits by performing small rituals that constantly remind you of your goals.
-* Simplify your day to day life with less material possessions. Life is a manifestation of where you put your energy. Energy flows to where your awareness goes. Material possessions e.g. mobile phones and social media are a great source of distraction and energy consumption. Fewer possessions mean less loss (haemorrhaging) of energy. One of the goals for monks is conservation of energy.
+* Simplify your day to day life with less material possessions. Life is a manifestation of where you put your energy. Energy flows to where your awareness goes. Material possessions e.g. mobile phones and social media are a great source of distraction and energy consumption. Fewer possessions mean less haemorrhaging of energy.
 
 ### Build will power
 
-You use your will to take your awareness from one area of the mind to another. Will is like a muscle and it needs to be cultivated.
+You use your will to take your awareness from one area of the mind to another. Will power is like a muscle and it needs to be cultivated.
 
 * Finish what you begin. Starting something is easier than finishing it. At the start of a project you have loads of energy and excitement but it takes huge amount of effort to finish what you started. Every time you finish something, you develop will. Finish it well and do a bit more than what you think you can do.
 * Affirmation - remind yourself of your main goal and how you're going to get there with a clear choice of concise words
@@ -54,7 +62,7 @@ True intelligence is not acquired by reading a book. It is developed through pra
 
 ## Are you in control of your thoughts emotions and feelings?
 
-So you have a clear understanding of your goal, you are practicing self awareness and consciousness in the pursuit of your goal. You very quickly discover that other people are not at the same level of consciousness as you, they function at different frequencies. They have different hopes, aspirations, fears and desires that may be in conflict with your own. This brings your plans to a quick halt which can lead to frustration, distress and often anger within yourselves. It almost can feel like the world is working against you?
+So you have a clear understanding of your goal, you are practicing self awareness and consciousness in the pursuit of your goal. You very quickly discover that other people are not at the same level of consciousness as you, they function at different frequencies. They have different hopes, aspirations, fears and desires that may be in conflict with your own. This brings your plans to a quick halt which can lead to frustration, distress and often anger within yourselves. It almost can feel like the world is working against you.
 
 *The more the mental agitation the less your intellect can function*.
 
@@ -62,11 +70,13 @@ An unstable mind filled with resentment and anger clouds your intellect and dimi
 
 *If you want to go fast travel alone, if you want to go far travel together*
 
-In order to attract people to you, think in terms of energy, vibration and frequency. Life is a manifestation of where you put your energy. If you are able to focus all your energy towards a **single purpose in life**, you are in a heightened state of consciousness because all your decisions are consciously driven by that purpose. However, other people are not at the same level of consciousness, they function at different frequencies. If the pursuit of your goal is solely for personal gain, others aren't going to play ball. However if you provide a future vision of positive change and make it about the wider good rather than just yourself, this can can elevate others towards a heightened state of consciousness - your end goal and your engagement with others will be at the same frequency. Rather than thinking about extracting from others think about serving others. This leads to deeper engagement and ultimately - harmony.
+In order to attract people to you, think in terms of energy, vibration and frequency. Life is a manifestation of where you put your energy. If you are able to focus all your energy towards a **single purpose in life**, you are in a heightened state of consciousness because all your decisions are consciously driven by that purpose. However, other people are not at the same level of consciousness, they function at different frequencies.
+
+If the pursuit of your goal is solely for personal gain, others aren't going to play ball. However if you provide a future vision of positive change and make it about the wider good rather than just yourself, this can can elevate others towards a heightened state of consciousness - your end goal and your engagement with others will be at the same frequency. Rather than thinking about extracting from others think about serving others. This leads to deeper engagement and harmony.
 
 *If you work just for yourself, the whole world seems against you. If you work for others, the whole world works with you*
 
-Does this mean you give up everything you own in charity or start social service? Well you may very well decide to and that maybe a perfectly valid choice for some, however most of us want to get ahead financially in life to have the freedom to do things that we love and enjoy most. This may mean getting your dream job, get better at investing or start a new venture.
+Does this mean you give up everything you own in charity and start social service? Well you may very well decide to and that maybe a perfectly valid choice, however some of us may want to get ahead financially in life to have the freedom to do things that we love and enjoy most. This may mean getting your dream job, getting better at investing or starting a new venture.
 
 *Money is not a bad thing if profit is for the purpose of wider positive impact.*
 
