@@ -2,7 +2,7 @@
 
 *Your own self-realization is the greatest service you can render the world* - Ramana Maharishi
 
-Your greatest contribution to humanity is your own self realization. As you uplift yourself you uplift everyone else around you. But what precisely does it mean to be self-aware? How did self-awareness emerge as a venerable trait and how do you cultivate it? We lead busy lives and they are mostly lived with an outward focus while concentrating on things happening around us rather than within us. Self awareness is about taking time to sit with yourself, look inwards and get to know your body, get to know your mind and get to know yourself better.
+Your greatest contribution to humanity is your own self realization. As you uplift yourself you uplift everyone else around you. But what precisely does it mean to be self-aware? How did self-awareness emerge as a venerable trait and how do you cultivate it? We lead busy lives, mostly lived with an outward focus while concentrating on things happening around us rather than within us. Self awareness is about taking time to sit with yourself, look inwards and get to know your body, get to know your mind and get to know yourself better.
 
 In the pursuit of self awareness, there are a few things that we all should learn and know. Firstly, how the mind works. Then learning to focus. Followed by the understanding of how our energy works. And once we have a decent understanding of this, then knowing our purpose in life. Why do I think the above items are crucial? If you don’t understand how your mind works and you can’t focus it, then it is going to be difficult to begin the journey of getting to know yourself. And if you can’t get to know yourself then it’s going to be difficult to know your purpose in life. Your purpose tells you where you put your energy.
 
@@ -10,15 +10,30 @@ Believe that you have the ability to create whatever you want in your life. Youn
 
 ## How the mind works ?
 
-Repetition, patience and slow hard work.
+In the context of mindfulness it is often said: to be in the moment, to be present right here, right now. That just means to be able to sustain your awareness on a single thing or person and not let it wander away into different areas of the mind. This could be while you are at work, reading a book, talking to someone or experiencing a beautiful sight. Concentration is the very core of all human endeavours and success and allows you to truly enjoy every experience in your life and be present.
 
-In the context of mindfulness it is often said: to be in the moment, to be present right here, right now. That just means to be able to sustain your awareness on a single thing and not let it wander away into different areas of the mind. This could be while you are at work, reading a book, talking to someone or experiencing a beautiful sight. Concentration is the very core of all human endeavours and success and allows you to truly enjoy every experience in your life and be present.
+[Dandapani](https://dandapani.org/) describes concentration as the act of keeping your awareness on a particular area of the mind for an extended amount of time. Therefore the goal is not to control your mind but to control where awareness goes within your mind. Prolonged sates of concentration is where the magic happens. It leads to high engagement, deeper relationships and building the power of observation. Power of observation allows you to stay out of the weeds and see things from a birds eye view where you can clearly see opportunities, pitfalls and make better decisions. The byproduct of pursuing a lifestyle with high concentration and focus results in happiness.
 
-[Dandapani](https://dandapani.org/) describes concentration as the act of keeping your awareness on a particular area of the mind for an extended amount of time.  Therefore the goal is not to control your mind but to control where awareness goes within your mind. Prolonged sates of concentration is where the magic happens. It leads to high engagement, deeper relationships and building the power of observation. Power of observation allows you to stay out of the weeds and see things from a birds eye view where you can clearly see opportunities, pitfalls and make better decisions. The byproduct of pursuing a lifestyle with high concentration and focus results in happiness.
+Repetition, patience, slow hard work and seemingly mundane things are required to be done to train the mind for concentration. Like you train the body e.g. an old school boxing coach will literally make you do footwork for a year or throw a jab in the air before teaching you any other boxing moves.
 
-## Knowing your goal
+## Knowing yourself and your goal
 
-What’s most important to you? This is a tough question to answer, because it requires you to think long and deep. Knowing yourself, your strengths and weaknesses and knowing exactly what you want to achieve is a continuous process, therefore depending upon when you ask yourself the question, you may get a different answer.
+What’s most important to you? This is a tough question to answer, because it requires you to think long and deep. The level of intelligence you are functioning at, depends upon your ability to attain knowledge. Being humble enough to know your problems, knowing yourself, your strengths and weaknesses and knowing exactly what you want to achieve is a continuous process, therefore depending upon when you ask yourself the question, you may get a different answer.
+
+According to Indian epistemology and the ancient Indian philosophy *Vedanta*, knowledge can be acquired through four '*pramanas*' or valid sources of knowledge
+
+- physical senses - sense perceptions are vital to knowledge but incomplete in themselves. They can be deceptive. e.g. a cold day might be too hot to someone else, the colour green can be perceived differently by various people. Since senses cannot be used as the sole arbitrator, the need arises for thinking.
+- inference - through deduction logic and reason
+- analogy/comparison - stories and ideas developed through art, literature and culture
+- testimony/authority/revelation - go to the experts for knowledge
+- experience - you learn lessons from your failures, however you may still learn the wrong lessons
+
+* education - learn by reading and acquiring information
+* experience - learn by making mistakes through failures
+* intuition - smart people require very little information to know something - they see it they get it
+* experience without learning - you fail to learn from experiences and make the same mistakes repeatedly
+
+True intelligence is not acquired by reading a book. It is developed through practices in focussing your attention inwards and applying critical thinking to the information that you may have gained through reading or through your experiences. In *Vedanta* knowledge is acquired by 20% reading and 80% thinking. The more time you take to analyze the information you have gained, apply it and test whether it provides the desired results you set out to achieve, the better you get at understanding and internalizing the knowledge. If you reflect upon an idea, that idea becomes you. However the practice of critical thinking by turning inwards requires time and effort. Seeking external pleasures e.g watching a film, eating your favorite food provide you instant joy. Critical thinking, acquiring knowledge and applying that knowledge is a long drawn out process and bears fruit in the long term.
 
 The origins of a personal goal often start with an agitation, a resentment or an angst within to change or fix something in your life that doesn't let you sleep at night. In your own selfish interest you may decide to take action to change something that causes this extreme anguish. *The more the selfishness in an individual the higher is the mental agitation*. An agitated mind, therefore can lead you to your personal goal.
 
@@ -43,23 +58,6 @@ You use your will to take your awareness from one area of the mind to another. W
 * Affirmation - remind yourself of your main goal and how you're going to get there with a clear choice of concise words
 * Clear visualization of success - remind yourself of the fulfillment you get after completing a task and taking it to its logical end on the way to achieving your main goal
 
-### Improve your intellect
-
-The level of intelligence you are functioning at, depends upon your ability to attain knowledge. According to Indian epistemology and the ancient Indian philosophy *Vedanta*, knowledge can be acquired through four '*pramanas*' or valid sources of knowledge
-
-- physical senses - sense perceptions are vital to knowledge but incomplete in themselves. They can be deceptive. e.g. a cold day might be too hot to someone else, the colour green can be perceived differently by various people. Since senses cannot be used as the sole arbitrator, the need arises for thinking.
-- inference - through deduction logic and reason
-- analogy/comparison - stories and ideas developed through art, literature and culture
-- testimony/authority/revelation - go to the experts for knowledge
-- experience - you learn lessons from your failures, however you may still learn the wrong lessons
-
-* education - learn by reading and acquiring information
-* experience - learn by making mistakes through failures
-* intuition - smart people require very little information to know something - they see it they get it
-* experience without learning - you fail to learn from experiences and make the same mistakes repeatedly
-
-True intelligence is not acquired by reading a book. It is developed through practices in focussing your attention inwards and applying critical thinking to the information that you may have gained through reading or other sources. In *Vedanta* knowledge is acquired by 20% reading and 80% thinking. The more time you take to analyze the information you have gained, apply it and test whether it provides the desired results you set out to achieve, the better you get at understanding and internalizing the knowledge. If you reflect upon an idea, that idea becomes you. However the practice of critical thinking by turning inwards requires time and effort. Seeking external pleasures e.g watching a film, eating your favorite food provide you instant joy. Critical thinking, acquiring knowledge and applying that knowledge is a long drawn out process and bears fruit in the long term.
-
 ## Are you in control of your thoughts emotions and feelings?
 
 So you have a clear understanding of your goal, you are practicing self awareness and consciousness in the pursuit of your goal. You very quickly discover that other people are not at the same level of consciousness as you, they function at different frequencies. They have different hopes, aspirations, fears and desires that may be in conflict with your own. This brings your plans to a quick halt which can lead to frustration, distress and often anger within yourselves. It almost can feel like the world is working against you.
@@ -76,7 +74,7 @@ If the pursuit of your goal is solely for personal gain, others aren't going to 
 
 *If you work just for yourself, the whole world seems against you. If you work for others, the whole world works with you*
 
-Does this mean you give up everything you own in charity and start social service? Well you may very well decide to and that maybe a perfectly valid choice, however some of us may want to get ahead financially in life to have the freedom to do things that we love and enjoy most. This may mean getting your dream job, getting better at investing or starting a new venture.
+Does this mean you give up everything you own in charity and start social service? Well you may very well decide to and that maybe a perfectly valid choice, however someone may just decide to want to make money. This may mean getting your dream job, getting better at investing or starting a new venture.
 
 *Money is not a bad thing if profit is for the purpose of wider positive impact.*
 
