@@ -71,6 +71,8 @@ RBAC can be employed to run multi-tenant application in kubernetes. The namespac
 
 ## Compliance
 
-How do you embed security and validate compliance against standards like PCI, NIST, and SOC2 across the lifecycle of containers and Kubernetes?
+How do you embed security and validate compliance against standards like PCI, NIST, and SOC2 across the lifecycle of containers and Kubernetes? 
+* https://sysdig.com/products/kubernetes-security/
 
-https://sysdig.com/products/kubernetes-security/
+Check cluster against CIS kubernetes benchmarks
+* https://github.com/aquasecurity/kube-bench
