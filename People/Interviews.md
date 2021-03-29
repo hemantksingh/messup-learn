@@ -1,10 +1,10 @@
 
 ## Software Engineer 
 
-Technical skills that you are looking for:
+Technical skills that you are looking for if the candidate has an understanding of:
 
-* TDD - different levels of tests and best practices
-* CICD - good understanding of branching techniques, frequent releases, feature toggling, blue green deployments
+* TDD - different levels of tests e.g. testing pyramid , best practices e.g. testing behaviour as opposed to implementation and the test writing process
+* CICD - branching techniques, frequent releases, feature toggling, blue green deployments
 * REST APIs - authentication techniques
 
 [Amazon leadership questions](https://www.yoreoyster.com/blog/amazon-leadership-principles-questions/) is a good place to start looking for potential behavioral questions to ask, epecially around:
