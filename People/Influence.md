@@ -36,6 +36,8 @@ The key thing to consider before going into a discussion is whether you are goin
 ## Deliver a positive message that suits them
 
 * Once you have understood the other person's motivations and desires and how these align with the shared goal, deliver a message that appeals to them even though the intention behind it is to meet your own goals. *bait the hook to suit the fish* rather than suit yourself.
+
+* Let others come up with the solution or recommendation that you wish to put forward. They are more likely to buy-in and commit to an idea if they come up with it. Make the idea bigger than yourself, make it ours. 
   
 * Use positive language in your message: 'problems' become 'challenges', "weaknesses" become "opportunities for action" e.g.
   * Q: *Is the project going to be delivered in x weeks/months?*
@@ -56,6 +58,6 @@ The key thing to consider before going into a discussion is whether you are goin
 
 There are going to be situations when you are not going to be able to reach an agreement with a contrarian view. In such circumstances rather than being driven by personal ego, emotion or resentment, assess whether the proposed alternative still provides you a route to achieve your main goals. Focusing your mind on the eventual goal will provide you the perspective to whether support the alternative or not.
 
-## Expand your network
+## Expand your network by finding allies
 
-Getting others to help your cause is crucial in going beyond the power of your personal brand. Expand your power and influence by building on your personal and professional networks. You need to think about who in the organization - departments, people - do I need to have successful relationships with in order to influence effectively as I go about being successful at my role?
+Getting others to help your cause is crucial in going beyond the power of your personal brand. In most organizations, goals get accomplished because a critical mass of people agree on those goals. Expand your power and influence by building on your personal and professional networks. You need to think about who in the organization - departments, people - do I need to have successful relationships with in order to influence effectively as I go about being successful at my role?

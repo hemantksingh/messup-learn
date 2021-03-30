@@ -1,7 +1,6 @@
+# Software Engineer
 
-## Software Engineer 
-
-Technical skills that you are looking for if the candidate has an understanding of:
+Technical skills that you are looking for in a candidate:
 
 * TDD - different levels of tests e.g. testing pyramid , best practices e.g. testing behaviour as opposed to implementation and the test writing process
 * CICD - branching techniques, impact of frequent releases, feature toggling, blue green deployments
