@@ -12,3 +12,8 @@ Technical skills that you are looking for in a candidate:
 * Ownership - Tell me about an unpopular decision of yours?
 * Action oriented - What is more important - getting things right or delivering value to customers?
 * Simplification - Tell me about a time when you simplified or innovated something and it went wrong?
+
+## Selling the role
+
+* Talk about where you currently are and where you want to get to in the future - the why, how and what now
+* Culture and the working environment - autonomy, collaboration and support
