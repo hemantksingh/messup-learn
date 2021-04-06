@@ -17,3 +17,5 @@ Technical skills that you are looking for in a candidate:
 
 * Talk about where you currently are and where you want to get to in the future - the why, how and what now
 * Culture and the working environment - autonomy, collaboration and support
+  * continuous delivery
+  * architecture decisions
