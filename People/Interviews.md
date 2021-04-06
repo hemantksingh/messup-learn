@@ -19,3 +19,4 @@ Technical skills that you are looking for in a candidate:
 * Culture and the working environment - autonomy, collaboration and support
   * continuous delivery
   * architecture decisions
+  * automation focus
