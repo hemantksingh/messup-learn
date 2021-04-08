@@ -15,8 +15,10 @@ Technical skills that you are looking for in a candidate:
 
 ## Selling the role
 
-* Talk about where you currently are and where you want to get to in the future - the why, how and what now
+* Find out what they are looking for and the motivations of leaving their current role
+* You can talk about where you currently are and where you want to get to in the future - the why, how and what now
 * Culture and the working environment - autonomy, collaboration and support
   * continuous delivery
   * architecture decisions
   * automation focus
+* While seeking answers to questions you can provide specific examples in your current environment that maybe a good fit for the candidate
