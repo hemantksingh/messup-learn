@@ -7,18 +7,21 @@ Technical skills that you are looking for in a candidate:
 * REST APIs - significance of REST interface, idempotent operations, authentication techniques
 * DBs - relational and non-relational DB trade offs
 
-[Amazon leadership questions](https://www.yoreoyster.com/blog/amazon-leadership-principles-questions/) is a good place to start looking for potential behavioral questions to ask, especially around:
+## Fact finding techniques
+
+[Amazon leadership questions](https://www.yoreoyster.com/blog/amazon-leadership-principles-questions/) is a good place to look for potential behavioral questions to ask to kick off a conversation:
 
 * Ownership - Tell me about an unpopular decision of yours?
 * Action oriented - What is more important - getting things right or delivering value to customers?
 * Simplification - Tell me about a time when you simplified or innovated something and it went wrong?
 
-## Techniques
-
-* You can adopt the labels and mirrors technique to learn more about the person
-  * It looks like
-  * It sounds like 
-* Active listening
+### Active listening
+* After starting a conversation, you can adopt the [labels and mirrors](https://blog.blackswanltd.com/the-edge/7-negotiation-techniques-for-introverts) technique to learn more about the person 
+  * Use lables to dig deep into a persons core emotional drives
+    * It looks like
+    * It sounds like 
+  * Seek clarification using mirrors 
+    * by repeating the last one to three words that were spoken in an inquisitive, questioning tone
 
 ## Selling the role
 
