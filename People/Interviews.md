@@ -13,6 +13,13 @@ Technical skills that you are looking for in a candidate:
 * Action oriented - What is more important - getting things right or delivering value to customers?
 * Simplification - Tell me about a time when you simplified or innovated something and it went wrong?
 
+## Techniques
+
+* You can adopt the labels and mirrors technique to learn more about the person
+  * It looks like
+  * It sounds like 
+* Active listening
+
 ## Selling the role
 
 * Find out what they are looking for and the motivations of leaving their current role
