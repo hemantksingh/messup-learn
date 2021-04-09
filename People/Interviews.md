@@ -19,14 +19,14 @@ Technical skills that you are looking for in a candidate:
 * After starting a conversation, you can adopt the [labels and mirrors](https://blog.blackswanltd.com/the-edge/7-negotiation-techniques-for-introverts) technique to learn more about the person 
   * Use lables to dig deep into a persons core emotional drives
     * It looks like
-    * It sounds like 
-  * Seek clarification using mirrors 
+    * It sounds like
+  * Seek clarification using mirrors
     * by repeating the last one to three words that were spoken in an inquisitive, questioning tone
 
 ## Selling the role
 
 * Find out what they are looking for and the motivations of leaving their current role
-* You can talk about where you currently are and where you want to get to in the future - the why, how and what now
+* You can talk about where you currently are and where you want to get to in the future - the why, how and what now. Highlight the importance of the opportunity to improve and innovate
 * Culture and the working environment - autonomy, collaboration and support
   * continuous delivery
   * architecture decisions
