@@ -33,9 +33,9 @@ The key thing to consider before going into a discussion is whether you are goin
   * *"We can help you with..."*
   * *"There are several other options..."*
 
-## Deliver a positive message that suits them
+## Deliver a positive message that suits them - WIIFT
 
-* Once you have understood the other person's motivations and desires and how these align with the shared goal, deliver a message that appeals to them even though the intention behind it is to meet your own goals. *bait the hook to suit the fish* rather than suit yourself.
+* Once you have understood the other person's motivations and desires and how these align with the shared goal, deliver a message that appeals to them even though the intention behind it is to meet your own goals. *bait the hook to suit the fish* rather than suit yourself. Rather than thinking about WiiFM (What’s in it for Me) think about the WiiFT (What’s in it for Them)
 
 * Let others come up with the solution or recommendation that you wish to put forward. They are more likely to buy-in and commit to an idea if they come up with it. Make the idea bigger than yourself, make it ours. 
   
