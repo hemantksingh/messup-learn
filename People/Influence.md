@@ -37,8 +37,6 @@ The key thing to consider before going into a discussion is whether you are goin
 
 * Once you have understood the other person's motivations and desires and how these align with the shared goal, deliver a message that appeals to them even though the intention behind it is to meet your own goals. *bait the hook to suit the fish* rather than suit yourself. Rather than thinking about WiiFM (What’s in it for Me) think about the WiiFT (What’s in it for Them)
 
-* Let others come up with the solution or recommendation that you wish to put forward. They are more likely to buy-in and commit to an idea if they come up with it. Make the idea bigger than yourself, make it ours. 
-  
 * Use positive language in your message: 'problems' become 'challenges', "weaknesses" become "opportunities for action" e.g.
   * Q: *Is the project going to be delivered in x weeks/months?*
   * A: *"There is a lot we can achieve in x weeks/months but the answer to your question is No.*
@@ -46,18 +44,23 @@ The key thing to consider before going into a discussion is whether you are goin
 * Use word for word quotations from your fact findings for impact.
 * Link your recommendations back to the findings e.g. Focus on Non functional requirements is based on the recent outage and security attacks on the website.
 
+## Expand your network by finding allies amd building relationships
+
+* Let others come up with the solution or recommendation that you wish to put forward. They are more likely to buy-in and commit to an idea if they have a sense of ownership. In order for an idea to spread throughout the organisation or even the world, sometimes it means to give up our own individual ownership of that to share with others. Make your idea bigger than yourself, make it ours.
+
+* Getting others to help your cause is crucial in going beyond the power of your personal brand. In most organizations, goals get accomplished because a critical mass of people agree on those goals. Expand your power and influence by building on your personal and professional networks. You need to think about who in the organization - departments, people - do I need to have successful relationships with in order to influence effectively as I go about being successful at my role?
+
 ## Use objective criteria
 
+* Draw attention to the need of the opportunity. Why is your idea so important? In a business context you want to think about the cost, resources, timeline and the customer impact of implementing your idea.
 * Highlight risk and **focus the risk on the their objective**. Basically highlight the risk to them, your risk is most likely of no interest to them. e.g.
   * *We want quick results*  Taking action on incomplete information can result in a low quality product and damage the company's reputation.
   * *We want to rollout all the products together* - Risk of waste and overspend because it may result in not finishing any product.
 
 ## Adapt to situations
 
+* Adjust your goals to avoid resistance, stepping on other's toes is never a good idea especially in its early stages.
+
 *Its not about you, its about the wider cause*
 
-There are going to be situations when you are not going to be able to reach an agreement with a contrarian view. In such circumstances rather than being driven by personal ego, emotion or resentment, assess whether the proposed alternative still provides you a route to achieve your main goals. Focusing your mind on the eventual goal will provide you the perspective to whether support the alternative or not.
-
-## Expand your network by finding allies
-
-Getting others to help your cause is crucial in going beyond the power of your personal brand. In most organizations, goals get accomplished because a critical mass of people agree on those goals. Expand your power and influence by building on your personal and professional networks. You need to think about who in the organization - departments, people - do I need to have successful relationships with in order to influence effectively as I go about being successful at my role?
+* In situations when you are not able to reach an agreement with a contrarian view, think about trade-offs and compromise. In such circumstances rather than being driven by personal ego, emotion or resentment, assess whether the proposed alternative still provides you a route to achieve your main goal. Focusing your mind on the common goals will provide you the perspective to whether support the alternative or not.

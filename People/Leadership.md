@@ -14,14 +14,15 @@ Leadership is about empowering others to achieve their full potential.
 
 Influence helps frame direction, alignment, and commitment among individuals, teams, groups, organizations. It enables you to get the kind of results you really want through others and that's what leadership is all about.
 
+A confidence score on a proposal at the end of a meeting is a good way to guage the commitment levels of a team.
+
 ## Communication
 
 Why, what, how and now what? Know your audience, if you are presenting to senior leadership, they are probably going to be interested in the cost, timeline, resource required and the customer impact of your initiative.
 
 ## Motivation
 
-- Inspire commitment 
-
+- Inspire commitment
 
 ## Resources
 
