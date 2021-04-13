@@ -21,7 +21,7 @@ The key thing to consider before going into a discussion is whether you are goin
 
 ## Align your goals
 
-"*If there is one secret of success, it lies in the ability to get the other person's point of view and see things from that persons's angle as well as your own*" - Henry Ford
+"*If there is one secret of success, it lies in the ability to get the other person's point of view and see things from that person's angle as well as your own*" - Henry Ford
 
 * Put yourself in the other person's shoes and try to think how they are thinking?
 * What are the questions brewing in their mind. How will they react to your suggestions?
@@ -44,7 +44,9 @@ The key thing to consider before going into a discussion is whether you are goin
 * Use word for word quotations from your fact findings for impact.
 * Link your recommendations back to the findings e.g. Focus on Non functional requirements is based on the recent outage and security attacks on the website.
 
-## Expand your network by finding allies amd building relationships
+## Expand your network by finding allies and building relationships
+
+* Agreeing on common goals is key to building high quality relationships.
 
 * Let others come up with the solution or recommendation that you wish to put forward. They are more likely to buy-in and commit to an idea if they have a sense of ownership. In order for an idea to spread throughout the organisation or even the world, sometimes it means to give up our own individual ownership of that to share with others. Make your idea bigger than yourself, make it ours.
 
@@ -59,8 +61,12 @@ The key thing to consider before going into a discussion is whether you are goin
 
 ## Adapt to situations
 
-* Adjust your goals to avoid resistance, stepping on other's toes is never a good idea especially in its early stages.
-
 *Its not about you, its about the wider cause*
+
+* Adjust your goals to avoid resistance, stepping on other's toes is never a good idea especially in its early stages.
+  
+* Allow people to surface any disagreements, counter arguments, and frustrations. Acknowledge that you've heard them. Engage them by allowing them to have some ownership of the outcome.
+
+* Think about how you can use resistance to get critical feedback on your ideas and test underlying assumptions. Reframe the issue using questions like “How might we…?" to help people think differently about the issue. Invite them to explore different alternatives.
 
 * In situations when you are not able to reach an agreement with a contrarian view, think about trade-offs and compromise. In such circumstances rather than being driven by personal ego, emotion or resentment, assess whether the proposed alternative still provides you a route to achieve your main goal. Focusing your mind on the common goals will provide you the perspective to whether support the alternative or not.

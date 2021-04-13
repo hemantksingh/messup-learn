@@ -1,6 +1,6 @@
 # Leadership
 
-Leadership is about empowering others to achieve their full potential. 
+Leadership is empowering others to achieve their true potential.
 
 ## Delegation
 
@@ -12,9 +12,9 @@ Leadership is about empowering others to achieve their full potential.
 
 ## Direction Alignment and Commitment (DAC)
 
-Influence helps frame direction, alignment, and commitment among individuals, teams, groups, organizations. It enables you to get the kind of results you really want through others and that's what leadership is all about.
+Questions about goals, priorities and measures of success are key in determining the team direction. Influence helps frame direction, alignment, and commitment among individuals, teams, groups, organizations. It enables you to get the kind of results you really want through others and that's what leadership is all about.
 
-A confidence score on a proposal at the end of a meeting is a good way to guage the commitment levels of a team.
+A confidence score on a proposal at the end of a meeting is a good way to gauge the commitment levels of a team.
 
 ## Communication
 
