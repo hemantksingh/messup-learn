@@ -29,7 +29,25 @@ VirusTotal's aggregated data is the output of many different
 
 The file and URL characterization tools that are aggregated cover a wide range of purposes: heuristic (shortcut approximations) engines, known-bad signatures, metadata extraction, identification of malicious signals, etc
 
+#### Interpretting the VirusTotal Scan
+
 The [VirusTotal Public API](https://developers.virustotal.com/v3.0/reference#overview) based on the  http://jsonapi.org/ specification provides the aggregated antivirus scanning and URL/domain balcklisting services.
+
+Most AV vendoes work on signature based technology that relies on hash value of a file. The VT API provides static analysis data about a file but is not sufficient by itself to provide reputation https://www.cynet.com/attack-techniques-hands-on/what-are-lolbins-and-how-do-attackers-use-them-in-fileless-attacks/. In addition to VT, other sources can be used to establish reputation of an application:
+
+- https://github.com/fireeye/capa
+- https://github.com/JusticeRage/Manalyze
+- https://cybergordon.com/
+
+An [overview of the VT scan](https://www.reddit.com/r/antivirus/comments/gozqc1/understanding_virustotal_results_it_is_not/) can help in understanding each section of the scan result. [Interpreting the VT scan result](https://security.stackexchange.com/questions/231161/how-to-interpret-virustotal-virusscan-scan) requires you to consider your risk appetite.
+
+- Trust some scanners more than others
+- Only trust files that may have been around for a while
+- Other unrelated file names with the same hash value
+- File is signed with a valid signature - valid code signer, counter signers
+- Community score
+
+Based on the VT fraction percentage, a graded reputation score can be calculated using [two point form](https://math.stackexchange.com/questions/1417845/higher-the-percentage-lower-the-value)
 
 #### Malware hunting
 
