@@ -39,13 +39,20 @@ Most AV vendoes work on signature based technology that relies on hash value of 
 - https://github.com/JusticeRage/Manalyze
 - https://cybergordon.com/
 
+Other useful sites that can run the application and perform analysis in a sandbox environment:
+- https://any.run/
+- https://www.hybrid-analysis.com/
+
 An [overview of the VT scan](https://www.reddit.com/r/antivirus/comments/gozqc1/understanding_virustotal_results_it_is_not/) can help in understanding each section of the scan result. [Interpreting the VT scan result](https://security.stackexchange.com/questions/231161/how-to-interpret-virustotal-virusscan-scan) requires you to consider your risk appetite.
 
-- Trust some scanners more than others
-- Only trust files that may have been around for a while
-- Other unrelated file names with the same hash value
-- File is signed with a valid signature - valid code signer, counter signers
-- Community score
+- do you trust some scanners more than others?
+- check the malware names to see if the results are serious e.g. [not-a-virus](https://encyclopedia.kaspersky.com/knowledge/riskware/) is a helpful clarification that the file isn't malicious in and of itself, just that it can be (mis)used
+- only trust files that may have been around for a while? Look at the first submission date, if it's before the date that the software or file you're testing was actually released, it's probably recycled malware
+- make sure the file type is what it claims to be. 
+- look at the other names used for the file, if they refer to something completely unrelated, it's likely renamed malware (though names like update.exe, test.pdf, or a series of random letters, can usually be ignored)
+- file is signed with a valid signature - valid code signer, counter signers
+- check behaviour - look at the files read, deleted, written, the registry actions, see if it's going where it doesn't need to be
+- community score - can be useful but the score needs to be taken with a grain of salt.  Comments tend to be of more use than just the votes.
 
 Based on the VT fraction percentage, a graded reputation score can be calculated using [two point form](https://math.stackexchange.com/questions/1417845/higher-the-percentage-lower-the-value)
 
