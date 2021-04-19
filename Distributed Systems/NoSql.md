@@ -29,9 +29,9 @@ result, they are subject to replication lag and might be missing some of the lat
 
 NoSQL databases trade some of the query and transaction capabilities of relational databases for a more flexible data model that seamlessly scales horizontally.
 
-Size and nature of data: Relational databases store aggregate data in various tables ending up with sliced and diced data. This supports higher order querying capabilities but makes distributing this data across multiple nodes for scalability and performance difficult.
+* Size and nature of data: Relational databases store aggregate data in various tables ending up with sliced and diced data. This supports higher order querying capabilities but makes distributing this data across multiple nodes for scalability and performance difficult.
 
-Ease of Development: Aggregate oriented databases get rid of the **aggregate impedance mismatch**. Adoption of NoSql is primarily driven by the ability to rapidly develop new systems. Original idea for looking at alternative to RDBMS was ability to store large amounts of data on distributed nodes, however the initial cost of setting up and configuring an RDBMS also means adoption of NoSql databases can aid agility.
+* Ease of Development: Adoption of NoSql is primarily driven by the ability to rapidly develop new systems. Aggregate oriented databases get rid of the **aggregate impedance mismatch**.Original idea for looking at alternative to RDBMS was ability to store large amounts of data on distributed nodes, however the initial cost of setting up and configuring an RDBMS also means adoption of NoSql databases can aid agility.
 
 ### Aggregate Oriented Databases - Key Value Stores, Document Stores, Column family
 
