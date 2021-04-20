@@ -71,7 +71,7 @@ Sagas are conceptually similar to a distributed transaction coordinator (DTC) bu
 
 * Udi Dahan's [Saga Persistence in Event Driven Architecture](http://udidahan.com/2009/04/20/saga-persistence-and-event-driven-architectures/) - https://particular-1.wistia.com/medias/a2h268abx8
 
-## Choice of a messaging system
+## Choosing a messaging system
 
 Open source messaging systems e.g. RabbitMQ, Apache Kafka, Apache ActiveMQ, and NSQ. Underlying messaging protocols
 
@@ -80,20 +80,15 @@ Open source messaging systems e.g. RabbitMQ, Apache Kafka, Apache ActiveMQ, and 
 * MQTT - (Message Queue Telemetry Transport) specifically designed for resource-constrained devices and low bandwidth, high latency networks
 * Kafka uses its own binary [protocol](https://kafka.apache.org/protocol) over TCP to allow clients persistent connections for request pipelining.
 
+### Kafka
+
+Kafka is a *log-based message broker* different from AMQP/JMS-style traditional brokers. It combines the durable storage of databases with low-latency notification facilities of messaging. Databases as we know them are global shared mutable state, Kafka provides centralized immutable state based on a distributed append-only log. This allows you to [turn the database inside out](https://martin.kleppmann.com/2015/11/05/database-inside-out-at-oredev.html) and move the data processing (querying) out of the data store into a distributed stream processor (e.g. Apache Samza - developed at LinkedIn, Apache Storm). As opposed to storing your data in a database, running ETL functions and querying it later, you can take the streams of facts as they come in, and functionally process them in real-time. Layered on top of Kafka distributed stream processors provide simple but powerful tools for joining streams and managing large amounts of data reliably.
+
 ### Kafka and RabbitMQ
 
-https://stackoverflow.com/questions/42151544/is-there-any-reason-to-use-rabbitmq-over-kafka
+Kafka stores events in categories called topics which are partitioned so that these topics can scale beyond a single server. These partitions are replicated across multiple nodes in case if one node goes down, the data is not going to be lost. RabbitMQ sends messages via exchanges to queues to which consumers bind to retrieve the messages.
 
-*To share a database turn it inside out* - Martin Kleppmann
-
-Kafka is a *log-based message broker* different from AMQOP/JMS-style traditional brokers. It combines the durable storage approach of databases with low-latency notification facilities of messaging. It is built on 2 fundamental ideas:
-
-* Centralize immutable state to a distributable append-only log
-* Decentralize query processing - move data processing (querying) out of the data store into a stream processor (e.g. Apache Samza, Apache Storm)
-
-Kafka stores streams of records in categories called topics. RabbitMQ sends messages via exchanges to queues to which consumers bind to retrieve the messages.
-
-Kafka employs a dumb broker and uses smart consumers to read its buffer. This means the onus is on the consumer to keep track of messages that it has read in the past (by tracking their location in each log - consumer state). Kafka cluster retains all published messages -whether or not they have been consumed for a configurable amount of time.
+Kafka employs a dumb broker and uses smart consumers to read its buffer. This means the onus is on the consumer to keep track of messages that it has read in the past (by tracking their location in each log - consumer state). Kafka cluster retains all published messages - whether or not they have been consumed for a configurable amount of time.
 
 Kafka is a durable message store and provides some database like ACID guarantees. This means clients can "replay" the event stream on demand as opposed to more traditional message brokers like RabbitMQ where even though messages are written to disk, once a message has been delivered, it is removed from the queue and deleted. Such message brokers are not suitable for long-term data storage. However, RabbitMQ is often used with Apache Cassandra to support durable storage and stream history, or with the LevelDB plugin for applications that need an “infinite” queue, but neither feature ships with RabbitMQ itself.
 
@@ -101,19 +96,21 @@ Kafka supports **log compaction** (state snapshots) using key based compaction o
 
 AMQP or JMS style messaging systems in order to guarantee message delivery, expect an acknowledgement from consumers after they have processed the message. In case the consumer crashes without sending the ack to the broker for message m1, the only option the broker is left with is to retry delivery of m1.  Meanwhile the consumer could recover and process the next message m2. Depending upon when the retry occurs, the consumer could end up receiving m2 and then m1 (on redelivery). This results in **out-of-order arrival** of messages. Fundamentally Kafka does not suffer from this issue as it uses a time ordered event log to store messages.
 
-Therefore for disjointed job queue use case where order of execution of jobs is not important e.g.
+Therefore for disjointed job queue use case where order of execution of jobs is not important AMQP and JMS style brokers are a good fit e.g.
 
 * send email
 * charge credit card
 
-AMQP and JMS style brokers are exactly what you need, where as if the order of the messages is important e.g. a series of events that occur in sequence:
+However if the order of the messages is important Kafka is a better choice. e.g. a series of events that occur in sequence:
 
 * user viewed a webpage
-* customer x purchased product y
+* customer purchased a product
 
-Kafka is a better choice.
+#### References
 
-A detailed [comparison](https://dzone.com/articles/understanding-when-to-use-rabbitmq-or-apache-kafka) of Apache Kafka and RabbitMQ is available in [this](http://kth.diva-portal.org/smash/get/diva2:813137/FULLTEXT01.pdf) thesis.
+* https://stackoverflow.com/questions/42151544/is-there-any-reason-to-use-rabbitmq-over-kafka
+* https://dzone.com/articles/understanding-when-to-use-rabbitmq-or-apache-kafka
+* http://kth.diva-portal.org/smash/get/diva2:813137/FULLTEXT01.pdf
 
 ### MSMQ
 
