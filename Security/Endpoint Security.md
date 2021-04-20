@@ -52,7 +52,7 @@ An [overview of the VT scan](https://www.reddit.com/r/antivirus/comments/gozqc1/
 - look at the other names used for the file, if they refer to something completely unrelated, it's likely renamed malware (though names like update.exe, test.pdf, or a series of random letters, can usually be ignored)
 - file is signed with a valid signature - valid code signer, counter signers
 - check behaviour - look at the files read, deleted, written, the registry actions, see if it's going where it doesn't need to be
-- community score - can be useful but the score needs to be taken with a grain of salt.  Comments tend to be of more use than just the votes.
+- community score - can be useful but the score needs to be taken with a grain of salt.  Comments tend to be of more useful than just the votes.
 
 Based on the VT fraction percentage, a graded reputation score can be calculated using [two point form](https://math.stackexchange.com/questions/1417845/higher-the-percentage-lower-the-value)
 
