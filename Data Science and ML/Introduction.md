@@ -6,7 +6,7 @@ Given a dataset, ML is used to make sense of the data by finding patterns in the
 
 ## Machine learning and data science
 
-Data science and machine learning [share a lot of common ground](https://www.analyticsvidhya.com/blog/2019/10/mathematics-behind-machine-learning/) but there are subtle differences in their focus on mathematics. In data science our primary goal is to explore and analyse the data, generate hypotheses and test them. On the other hand, Machine learning focuses more on the concepts of [Linear Algebra](https://www.analyticsvidhya.com/blog/2017/05/comprehensive-guide-to-linear-algebra/?utm_source=blog&utm_medium=mathematics-behind-machine-learning) as it serves as the main stage for all the complex processes to take place. Multivariate calculus, or partial differentiation to be more precise - the driving force behind most machine learning algorithms is used for the mathematical optimisation of a given function (mostly convex).
+Data science and machine learning [share a lot of common ground](https://www.analyticsvidhya.com/blog/2019/10/mathematics-behind-machine-learning/) but there are subtle differences in their focus on mathematics. In data science our primary goal is to explore and analyse the data, generate hypotheses and test them. On the other hand, machine learning focuses more on the concepts of [Linear algebra](https://www.analyticsvidhya.com/blog/2017/05/comprehensive-guide-to-linear-algebra/?utm_source=blog&utm_medium=mathematics-behind-machine-learning) as it serves as the main stage for all the complex processes to take place. Multivariate calculus, or partial differentiation to be more precise - the driving force behind most machine learning algorithms is used for the mathematical optimisation of a given function (mostly convex).
 
 Mathematical optimization - maximizing or minimizing a real function by systematically choosing input values from within an allowed set and computing the value of the function.
 
@@ -35,15 +35,19 @@ e.g.
 
 * Classifying the type of car in an image.
 
+[**Regression**](https://en.wikipedia.org/wiki/Regression_analysis) is another supervised machine learning technique which is used to predict continuous values. It is often used for estimating the relationships amongst data variables. The ultimate goal of the regression algorithm is to plot a best-fit line or a curve between the data.
+
 ## Unsupervised
 
-Most data is unstructured, complex and unlabelled (with no available class information), so we do not always have the privilege of classification based on labelled data. In unsupervised learning, groups of data that share the same traits are identified. The data model gets no feedback, it has to figure out the structure of the data by itself to perform a given task. This is harder to do but more convenient. [**Regression**](https://en.wikipedia.org/wiki/Regression_analysis) is often used for estimating the relationships amongst data variables.
+Most data is unstructured, complex and unlabelled (with no available class information), so we do not always have the privilege of classification based on labelled data. In unsupervised learning, groups of data that share the same traits are identified. The data model gets no feedback, it has to figure out the structure of the data by itself to perform a given task. This is harder to do but more convenient.
 
-In supervised learning you get feedback at every move (input/output pairs are present), whereas in the unsupervised approach you do not get feedback at all.
+In supervised learning you can get feedback at every move because expected input/output pairs are present, but in the unsupervised approach you do not get feedback at all.
 
 **Clustering** is an unsupervised machine learning technique. Data is grouped into a cluster: a group where all group members are similar in nature in some way and members of one cluster are dissimilar to the members of another cluster. e.g. *gene cluster*. Clustering can be very helpful with unlabelled data. It is used in applications like
 
 * Document classification: Google news uses various clustering techniques to group news, posts and articles on the web.
+* [Bloomberg](https://www.bloomberg.com/professional/tech-decoded/) reviews vast quantities of previously published news stories and social posts to assign a positive, negative or neutral score to each, giving investors a directional sentiment score, which they can use to understand the impact of the current news story or social post on the price of the security. They use Natural Language Processing (NLP) in making sense of the human language to read and decipher the data contained in words to reveal meaning in the data of the financial world.
+
 * City planning, grouping houses by type, value, location.
 
 `Input data + Number of clusters => Learning process => Clustered data`

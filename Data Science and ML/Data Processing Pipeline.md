@@ -1,5 +1,7 @@
 # Data Pipeline
 
+A [data pipeline](https://www.youtube.com/watch?v=VtzvF17ysbc) facilitates [data flow management](https://docs.cloudera.com/HDPDocuments/HDF3/HDF-3.4.0/hdf-overview/content/overview.html) and fits into the "Curate" stage of your data analytics solution.
+
 * Capture - ingest and aggregate data from different data sources
 * Curate -  analyse, filter, transform, correlate and enhance data with processing tools e.g. R, Python
 * Consume - interpret via visualization and reporting

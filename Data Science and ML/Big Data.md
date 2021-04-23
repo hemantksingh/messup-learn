@@ -9,29 +9,32 @@
 
 * Partition a big dataset into multiple smaller datasets and send each chunk of the data to a separate node in a cluster to be processed individually and in parallel.
 
-## Technologies
+## Big Data Architectures
 
-Databases require you to structure data according to a particular model (e.g. relational or documents) whereas files in a distributed filesystem are just byte sequences which can be written using any data model and encoding. They might be collections of database records but they can equally well be text, images, videos, sensor readings, genome sequences or any other kind of data.
+A [big data architecture](https://docs.microsoft.com/en-us/azure/architecture/data-guide/big-data/) is designed to handle the ingestion, processing, and analysis of data that is too large or complex for traditional database systems. This is usually achieved via a [data pipeline](./Data%20Processing%20Pipeline.md).
+
+A Lambda architecture separates batch processing from stream processing whereas the Kappa architecture enables you to build your streaming and batch processing system on a single technology. With a sufficiently fast stream processing engine (like Hazelcast Jet), you may not need a separate technology that is optimized for batch processing. While the Lambda Architecture does not specify the technologies that must be used, the batch processing component is often done on a large-scale data platform like Apache Hadoop. The Hadoop Distributed File System (HDFS) can economically store the raw data that can then be transformed via Hadoop tools into an analyzable format. While Hadoop is used for the batch processing component of the system, a separate engine designed for stream processing is used for the real-time analytics component. One advantage of the Lambda Architecture, however, is that much larger data sets (in the petabyte range) can be stored and processed more efficiently in Hadoop for large-scale historical analysis.
+
+### Hadoop
+
+Hadoop is a platform for distributing computing across a number of servers in a cluster. It is an open source implementation of MapReduce. It combines a **MapReduce** engine with a **Hadoop distributed file system (HDFS)**. HDFS allows the disks local to individual nodes in a Hadoop cluster to operate as a single pool of storage. Files are replicated across various nodes so that loss of one node will not cause loss of data. Facebook uses A MySQL database to store the core user data which is then derived on to Hadoop servers. After computations the data is then transferred to MySQL database for pages served to the users.
+
+When working with very large data sets, it can take a long time to run the sort of queries that clients need. These queries can't be performed in real time, and often require algorithms such as **MapReduce** that operate in parallel across the entire data set. The results are then stored separately from the raw data and used for querying.
+
+* Map: split the data and distribute the computation over multiple servers in parallel. For that computation to take place each server must have access to the data. HDFS makes this possible.
+* Reduce: take the O/P from the map phase (in a key value format) and aggregate the results
+
+![hadoop-stack.png](../Images/hadoop-stack.png "Hadoop Stack")
+
+Databases require you to structure data according to a particular model (e.g. relational or document) whereas files in a distributed filesystem are just byte sequences which can be written using any data model and encoding. They might be collections of database records but they can equally well be text, images, videos, sensor readings, genome sequences or any other kind of data.
 
 Hadoop opened up the possibility of indiscriminately dumping data into HDFS, and only later figuring out how to process it further. By contrast, MPP (Massively Parallel Processing) databases typically require careful **up-front modelling** of the data and query patterns before importing the data into the database's proprietary storage format.
 
-From a purist's point of view, it may seem that careful modelling and import is desirable, because it means the users of the database have better-quality data to work with. However, in practice, it appears that simply making data available quickly - even if it is in a quirky, difficult-to-use, raw format - is often valuable than trying to decide on the ideal data model up front.
+From a purist's point of view, it may seem that careful modelling and import is desirable, because it means the users of the database have better-quality data to work with. However, in practice, it appears that simply making data available quickly - even if it is in a quirky, difficult-to-use, raw format is often valuable than trying to decide on the ideal data model up front.
 
 The idea is similar to a **data warehouse**: simply bringing data from various parts of a large organisation together in one place is valuable, because it enables joins across datasets that were previously disparate.
 
 SQL is completely relational, while your **data lakes** are completely unstructured — they can be any kind of data.
-
-### MapReduce
-
-Map: split the data and distribute the computation over multiple servers in parallel. For that computation to take place each server must have access to the data. The Hadoop distributed file system (HDFS) makes this possible.
-
-Reduce: take the O/P from the map phase (in a key value format) and aggregate the results
-
-### Hadoop
-
-Hadoop is a platform for distributing computing across a number of servers in a cluster. It is an open source implementation of MapReduce. It combines a **MapReduce** engine with a **Hadoop distributed file system (HDFS)**. HDFS allows the disks local to individual nodes in a Hadoop cluster to operate as a single pool of storage. Files are replicated across various nodes so that loss of one node will not cause loss of data. Facebook uses Hadoop. A MySQL database stores the core data which is derived on to Hadoop servers. After computations the data is then transferred to MySQL database for pages served to the users.
-
-![hadoop-stack.png](../Images/hadoop-stack.png "Hadoop Stack")
 
 ### Apache Spark
 
