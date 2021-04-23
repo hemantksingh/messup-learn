@@ -46,7 +46,12 @@ The key thing to consider before going into a discussion is whether you are goin
 
 ## Expand your network by finding allies and building relationships
 
-* Agreeing on common goals is key to building high quality relationships.
+* Connections come from conversations - making purposeful connections requires intentionally devoting time for conversations
+  * you feel connected and energised while speaking to someone who are at the same frequency as you with shared experiences, struggles, motivations or passions
+  * active listening - engaging in the conversation by asking questions (labels and mirrors)
+  * provide psychological safety - be genuine and listen without any preconceived notions. The fact that someone hasn't opened up with you is likely because they may not feel psychologically safe to speak out. Realizing that you are not the finished article and showing your vulnerabilites allows others the space to open up about their own anxieties and fears
+ 
+* Agreeing on common goals is key to expanding your influence across teams.
 
 * Let others come up with the solution or recommendation that you wish to put forward. They are more likely to buy-in and commit to an idea if they have a sense of ownership. In order for an idea to spread throughout the organisation or even the world, sometimes it means to give up our own individual ownership of that to share with others. Make your idea bigger than yourself, make it ours.
 
@@ -65,7 +70,7 @@ The key thing to consider before going into a discussion is whether you are goin
 
 * Adjust your goals to avoid resistance, stepping on other's toes is never a good idea especially in its early stages.
   
-* Allow people to surface any disagreements, counter arguments, and frustrations. Acknowledge that you've heard them. Engage them by allowing them to have some ownership of the outcome.
+* Allow people to surface any disagreements, counter arguments, and frustrations. Acknowledge that you've heard them and understand their point of view. *Get curious not furious* Engage them by allowing them to have some ownership of the outcome.
 
 * Think about how you can use resistance to get critical feedback on your ideas and test underlying assumptions. Reframe the issue using questions like “How might we…?" to help people think differently about the issue. Invite them to explore different alternatives.
 
