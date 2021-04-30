@@ -1,5 +1,7 @@
 # Endpoint Security
 
+[What is endpoint security and why is it important?](https://www.beyondtrust.com/resources/glossary/endpoint-security) 
+
 Securing endpoints in an enterprise has traditionally relied on antivirus software which is suitable if you have a limited number of devices that need protection and a small budget to protect them. On the other end, endpoint detection and response (EDR) e.g. [Crowdstrike Falcon](https://www.crowdstrike.co.uk/endpoint-security-products/crowdstrike-falcon-faq/#:~:text=CrowdStrike%20is%20the%20pioneer%20of,via%20a%20single%20lightweight%20agent.) may be your best option for securing numerous devices with a larger budget.
 
 EDR provides real-time anomaly detection and alerting, forensic analysis and endpoint remediation capabilities. It is also preferable if you need to monitor your endpoint security from a higher vantage point.
