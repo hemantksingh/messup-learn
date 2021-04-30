@@ -65,6 +65,10 @@ Apache Spark-based big data analytics platform with the ability to run ML worklo
 
 Hadoop type big data clusters on demand, require cluster management.
 
+### Dataform (part of Google Cloud)
+
+Cloud data warehousing is changing the way companies approach data management and analytics. Cloud warehouses which store and process data cost effectively means more and more companies are moving away [from an ETL approach and towards an ELT approach](https://dataform.co/etl-vs-elt) for managing analytical data. [Dataform](https://dataform.co/pricing) helps in converting captured data to curated data in your data warehouse.
+
 ### Goolge BigQuery
 
 Google's fully managed, serverless data warehouse that scales with your storage and computing power needs.
