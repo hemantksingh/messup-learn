@@ -4,12 +4,11 @@ Empowering others to achieve their true potential. The foundations of strong lea
 
 - Delegation
   - Getting results through others
-  - From player to coach
-  - From doing to leading. Avoid being the bottleneck by taking on work, let others take ownership of initiatives where you provide guidance and support. 
-  - Putting the team before you. Committed to the success and well-being of the collective team above your individual success.
+  - From player to coach. From doing to leading. Avoid being the bottleneck by taking on too much work yourself, let others take ownership of initiatives where you provide guidance and support.
+  - Putting the team before you. Commit to the success and well-being of the collective team above your individual success.
 
 - Direction Alignment and Commitment (DAC)
-  - Trying to set expectations across the board while working with distributed teams and getting everyone to pull in the same direction can be a challenge. Getting the team to agree on a set of principles that everyone buys into and has a shared understanding is one way of driving DAC. This allows decisions to be made objectively and if personal motivations do not align, the principles can be revisited and changed if needed so that they work for everyone.
+  - Trying to set expectations across the board while working with distributed teams and getting everyone to pull in the same direction can be a challenge. Getting the team to agree on a set of principles that everyone buys into and has a shared understanding is one way of driving DAC. This allows decisions to be made objectively. However if personal motivations do not align the principles can be revisited and revised so that they work for everyone.
   - Questions about goals, priorities and measures of success are key in determining the team direction. Influence helps frame direction, alignment, and commitment among individuals, teams, groups, organizations. It enables you to get the kind of results you really want through others and that's what leadership is all about.
   - A good way to gauge the commitment levels of a team is to get a confidence score on a proposal for example at the end of a meeting.
 
