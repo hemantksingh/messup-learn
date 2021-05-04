@@ -5,8 +5,8 @@ Empowering others to achieve their true potential. The foundations of strong lea
 - Delegation
   - Getting results through others
   - From player to coach
-  - From doing to leading, avoid being the bottleneck
-  - Team is more important than you. You're no longer seeking your individual goals but the team goals
+  - From doing to leading. Avoid being the bottleneck by taking on work, let others take ownership of initiatives where you provide guidance and support. 
+  - Putting the team before you. Committed to the success and well-being of the collective team above your individual success.
 
 - Direction Alignment and Commitment (DAC)
   - Trying to set expectations across the board while working with distributed teams and getting everyone to pull in the same direction can be a challenge. Getting the team to agree on a set of principles that everyone buys into and has a shared understanding is one way of driving DAC. This allows decisions to be made objectively and if personal motivations do not align, the principles can be revisited and changed if needed so that they work for everyone.
