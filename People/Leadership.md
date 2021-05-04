@@ -29,14 +29,13 @@ Empowering others to achieve their true potential. The foundations of strong lea
 - Gettting your message across
 - Why, what, how and now what? Focus on the why of your message.
 - Know your audience, if you are presenting to senior leadership, they are probably going to be interested in the cost, timeline, resource required and the customer impact of your initiative.
-- Conisder the impact of body language and non verbal communication on your message.
-- Practicing mindfulnes, deep belly breathing and visualization before an important presentation can help you less nervous and maybe even smile.
+- Conisder the impact of body language and non verbal communication on your message. Practicing mindfulnes, deep breathing and visualization before an important presentation can help in calming nerves and relax.
 
 ## Influence
 
 - [Influencing others](./Influence.md) requires using your relationships and network for supporting your initiatives
-- Reflect on your level of influence and where it comes from
 - Explore how you can engage and include others in the early stages of your challenge to get their buy-in and support
+- Reflect on your level of influence and where it comes from
 
 ## Political savy
 
