@@ -11,9 +11,10 @@ Technical skills that you are looking for in a candidate:
 
 [Amazon leadership questions](https://www.yoreoyster.com/blog/amazon-leadership-principles-questions/) is a good place to look for potential behavioral questions to ask to kick off a conversation:
 
-* Ownership - Tell me about an unpopular decision of yours?
-* Action oriented - What is more important - getting things right or delivering value to customers?
-* Simplification - Tell me about a time when you simplified or innovated something and it went wrong?
+* Ownership/Accountability - Tell me about an unpopular decision of yours?
+* Action/Results oriented - What is more important - getting things right or delivering value to customers?
+* Simplification/Passion - Tell me about a time when you simplified or innovated something and it went wrong?
+* Teamwork/Humility - What do you do to gain the trust of your teammates?
 
 ### Active listening
 * During a conversation, you can adopt the [labels and mirrors](https://blog.blackswanltd.com/the-edge/7-negotiation-techniques-for-introverts) technique to learn more about the person 
@@ -25,8 +26,8 @@ Technical skills that you are looking for in a candidate:
 
 ## Selling the role
 
-* Find out what they are looking for and the motivations of leaving their current role
-* You can talk about where you currently are and where you want to get to in the future - the why, how and what now. Highlight the importance of the opportunity to improve and innovate
+* Find out what they are looking for and the motivations for leaving their current role
+* You can talk about where your team currently is and where you want to get to in the future - the why, how and what now. Highlight the importance of the opportunity to improve and innovate
 * Culture and the working environment - autonomy, collaboration and support
   * continuous delivery
   * architecture decisions
