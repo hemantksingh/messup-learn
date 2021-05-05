@@ -16,7 +16,7 @@ Technical skills that you are looking for in a candidate:
 * Simplification - Tell me about a time when you simplified or innovated something and it went wrong?
 
 ### Active listening
-* After starting a conversation, you can adopt the [labels and mirrors](https://blog.blackswanltd.com/the-edge/7-negotiation-techniques-for-introverts) technique to learn more about the person 
+* During a conversation, you can adopt the [labels and mirrors](https://blog.blackswanltd.com/the-edge/7-negotiation-techniques-for-introverts) technique to learn more about the person 
   * Use lables to dig deep into a persons core emotional drives
     * It looks like
     * It sounds like
