@@ -9,23 +9,26 @@ RAM, CPU, I/O, or networking capabilities. This way of scaling can eventually re
 
 ## Horizontal scaling
 
-A network load balancers operates at **layer 4** of the OSI model to handle millions of requests per second. An Application Load Balancer like Nginx provides Layer 7 of the OSI model and supports content based routing of requests based on application traffic.
+Historically load balancers have been deployed as hardware on the edge in the data centre. Hardware load balancers like Citrix NetScalar Application Delivery Controller (ADCs) and F5 require proprietary, rack-and-stack hardware appliances. In order to scale, network load balancer hardware is typically over provisioned — in other words, they are sized to be able to handle occasional peak traffic loads. In addition, each hardware device must be paired with an additional device for high availability in case the other load balancer fails. This means that most load balancers stay idle until peak traffic times.
 
-Hardware load balancers like Citrix NetScalar Application Delivery Controller (ADCs) and F5 require proprietary, rack-and-stack hardware appliances, while software load balancers are simply installed on standard virtual machines. Network load balancer hardware is typically over provisioned — in other words, they are sized to be able to handle occasional peak traffic loads. In addition, each hardware device must be paired with an additional device for high availability in case the other load balancer fails.
-
-Another critical difference between hardware and software load balancers lies in the ability to scale. As network traffic grows, data centres must provision enough load balancers to meet peak demand. For many enterprises, this means that most load balancers stay idle until peak traffic times (e.g. Black Friday)
-
-Software load balancers also bridge the divide between NewOps and DevOps. Historically load balancers have been deployed as hardware on the edge in the data centre. With a shift in cloud native and microservices architecture running on dynamic runtimes like kubernetes, the supporting application infrastructure needs to be more programmable and maintainable by cross functional teams.
+With a shift in cloud native and microservices architecture running on dynamic runtimes like kubernetes, the supporting application infrastructure needs to be more programmable and maintainable by cross functional teams. Software load balancers bridge the divide between NewOps and DevOps, they are simply installed on standard virtual machines.
 
 ## HAProxy
 
-* Software load balancer and reverse proxy for both TCP and HTTP requests
+HAProxy or High Availability proxy is the most popular open source software load balancer that provides high availability for TCP-based services. It is written in C and supports SSL, keep-alive and compression.
+
+* Fast and lightweight proxy server and load balancer with a small memory footprint and low CPU usage.
+  * Haproxy consistently [performs on par or better](https://www.datadoghq.com/blog/monitoring-haproxy-performance-metrics/) in benchmarks against other popular reverse proxies like http-proxy or the Nginx webserver. However Nginx [claim](https://www.nginx.com/blog/nginx-and-haproxy-testing-user-experience-in-the-cloud) to be more performant using *latency percentile distribution* as a metric. 
+* Protocol agnostic - it can handle anything sent over TCP
+  * Haproxy can run in Layer 4 TCP mode and Layer 7 HTTP mode. In Layer 4 TCP mode, HAProxy forwards the RAW TCP packets from the client to the application servers. In the Layer 7 HTTP mode, HAProxy parses HTTP headers before forwarding them to the application servers.
+  * Nginx supports only the Layer 7 HTTP mode. If you want to use Layer 4 TCP mode, you can use other web servers like apache.
+  * You can [configure Haproxy and Nginx to work together](https://www.howtoforge.com/tutorial/how-to-setup-haproxy-as-load-balancer-for-nginx-on-centos-7/) as a load balancer and web server.
 * Only deals with the network and never touches the file system, therefore it cannot serve static content
-* https://www.datadoghq.com/blog/monitoring-haproxy-performance-metrics/
+* On CentOS 7, HAProxy is available in the default repository which makes it easy to install and configure.
 
 ## Nginx
 
-Nginx started off as basic reverse proxy, created by *Igor Sysoev* while he was working as a sysadmin at Rambler (Russian equivalent of yahoo). He was looking at ways to improve Apache's performance. Due to the several inherent design choices Apache had the inability to handle more than 10k simultaneous users, commonly known as the **C10k problem**.
+While Nginx is primarily a webserver it also provides layer 7 load balancing capabilities. Nginx started off as basic reverse proxy, created by *Igor Sysoev* while he was working as a sysadmin at Rambler (Russian equivalent of yahoo). He was looking at ways to improve Apache's performance. Due to the several inherent design choices Apache had the inability to handle more than 10k simultaneous users, commonly known as the **C10k problem**.
 
 Nginx can address many use cases and provides all the tools for delivering your applications reliably with a low resource footprint. As a web server, it serves static content directly and reverse proxies to other application servers accepting TCP connections and making new TCP connections to upstream servers. As a caching engine it handles both static and dynamic content.
 
