@@ -18,13 +18,19 @@ With a shift in cloud native and microservices architecture running on dynamic r
 HAProxy or High Availability proxy is the most popular open source software load balancer that provides high availability for TCP-based services. It is written in C and supports SSL, keep-alive and compression.
 
 * Fast and lightweight proxy server and load balancer with a small memory footprint and low CPU usage.
-  * Haproxy consistently [performs on par or better](https://www.datadoghq.com/blog/monitoring-haproxy-performance-metrics/) in benchmarks against other popular reverse proxies like http-proxy or the Nginx webserver. However Nginx [claim](https://www.nginx.com/blog/nginx-and-haproxy-testing-user-experience-in-the-cloud) to be more performant using *latency percentile distribution* as a metric. 
+  * Haproxy consistently [performs on par or better](https://www.datadoghq.com/blog/monitoring-haproxy-performance-metrics/) in benchmarks against other popular reverse proxies like http-proxy or the Nginx webserver. However Nginx [claim](https://www.nginx.com/blog/nginx-and-haproxy-testing-user-experience-in-the-cloud) to be more performant using *latency percentile distribution* as a metric.
 * Protocol agnostic - it can handle anything sent over TCP
   * Haproxy can run in Layer 4 TCP mode and Layer 7 HTTP mode. In Layer 4 TCP mode, HAProxy forwards the RAW TCP packets from the client to the application servers. In the Layer 7 HTTP mode, HAProxy parses HTTP headers before forwarding them to the application servers.
-  * Nginx supports only the Layer 7 HTTP mode. If you want to use Layer 4 TCP mode, you can use other web servers like apache.
+  * Nginx only supports layer 7 HTTP mode. For load balancing services like LDAP, MYSQL if you want to use TCP mode, then you can use Nginx Plus or other web servers like Apache.
   * You can [configure Haproxy and Nginx to work together](https://www.howtoforge.com/tutorial/how-to-setup-haproxy-as-load-balancer-for-nginx-on-centos-7/) as a load balancer and web server.
 * Only deals with the network and never touches the file system, therefore it cannot serve static content
 * On CentOS 7, HAProxy is available in the default repository which makes it easy to install and configure.
+
+### HAProxy monitoring
+
+* Monitor frontend connections between the client and HAProxy, connections between HAProxy and your backend servers, and combined metrics such as error codes and server status using [Datadog dashboard](https://www.datadoghq.com/dashboards/haproxy-dashboard/).
+
+* By [enabling the Prometheus endpoint](https://docs.datadoghq.com/integrations/haproxy/?tab=host#using-prometheus) on HAProxy.
 
 ## Nginx
 
