@@ -74,6 +74,10 @@ VT's [YARA](https://yara.readthedocs.io/en/stable) is a tool aimed at (but not l
 - create heuristic rules to detect suspicious files
 - track threat actors, and, in general, enjoy the benefits of YARA's versatility acting on the huge amount of files processed by VirusTotal every day
 
+### Integrating VirusTotal in 3rd party security products
+
+Corporate cybersecurity stacks are increasingly complex: too many tools and services, information scattered across numerous databases, arduous stitching together of disparate sources, etc. Incident response and threat hunting have become a time consuming quest across multiple browser tabs. For a single pane of glass experience you can [integrate VirusTotal threat context and reputation](https://blog.virustotal.com/2021/05/compliant-easy-and-actionable.html) to be displayed in your security product.
+
 ## Vulnerability Management
 
 When originally deployed, [vulnerability management](https://en.wikipedia.org/wiki/Vulnerability_management) companies acted almost like antivirus vendors in that they tried to get their scanners to uncover as many potential threats as possible. They would even brag about being able to detect more vulnerabilities hiding in testbeds than their competitors. The trouble with that logic is that unlike viruses and other types of malware, vulnerabilities are only potentially a problem. For a vulnerability to be truly dangerous, it must be accessible to an attacker and relatively easy to exploit. So, a vulnerability sitting on an internal resource isn’t much of a potential threat, nor is one that requires additional components like secure access to other network services. Knowing what is truly dangerous is important so that you can plan what to fix now, and what to put off until later or even ignore.
