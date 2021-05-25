@@ -11,8 +11,8 @@ Technical skills that you are looking for in a candidate:
 
 [Amazon leadership questions](https://www.yoreoyster.com/blog/amazon-leadership-principles-questions/) is a good place to look for potential behavioral questions to ask to kick off a conversation:
 
-* Ownership/Accountability - Tell me about an unpopular decision of yours?
-* Action/Results oriented - What is more important - getting things right or delivering value to customers?
+* Ownership/Accountability - Tell me about an unpopular decision of yours? Are they individually driven or lean on decisions made by the team?
+* Action/Results oriented - What is more important - getting things right or meeting deadlines/delivering value to customers? Understand how they manage competing priorities.
 * Simplification/Passion - Tell me about a time when you simplified or innovated something and it went wrong?
 * Teamwork/Humility - What do you do to gain the trust of your teammates?
 
