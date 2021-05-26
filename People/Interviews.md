@@ -2,7 +2,13 @@
 
 Technical skills that you are looking for in a candidate:
 
-* TDD - different levels of tests e.g. testing pyramid , best practices e.g. testing behaviour as opposed to implementation and the test writing process
+* TDD - demonstrate understanding of 
+  * different levels of tests in the testing pyramid
+  * approaches to testing - top down, bottom up
+  * best practices 
+    * testing behaviour as opposed to implementation
+    * separation of production code from test code
+    * mocking at architectural boundaries
 * CICD - branching techniques, impact of frequent releases, feature toggling, blue green deployments
 * REST APIs - significance of REST interface, idempotent operations, authentication techniques
 * DBs - relational and non-relational DB trade offs
