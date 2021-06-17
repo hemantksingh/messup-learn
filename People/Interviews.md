@@ -18,7 +18,7 @@
 * Get buyin for tech debt, ability to sell your ideas
 * Demonstrate progress transparently with the ability to switch from individual contributor to collaborate with the wider team
 * Drive innovation responsibly (by running small experiments)
-* Drive quality keeping delivery timescales in mind
+* Drive quality (via automation, adopting best practices) keeping delivery timescales in mind
 
 To kick off a conversation [Amazon leadership questions](https://www.yoreoyster.com/blog/amazon-leadership-principles-questions/) is a good place to start looking for potential behavioral questions:
 
