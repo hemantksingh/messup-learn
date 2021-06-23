@@ -17,11 +17,13 @@ Apart from the ones listed above [Windows provides a few additional IPC options]
 
 ## Sockets
 
+Taken from [difference between Unix socket and TCP/IP socket](https://stackoverflow.com/questions/46151707/is-there-a-difference-between-tcp-and-unix-socket)
+
 A [UNIX socket](https://en.wikipedia.org/wiki/Unix_domain_socket), or Unix Domain Socket, is an inter-process communication mechanism that allows bidirectional data exchange between processes running on the same machine.
 
-[IP sockets](https://en.wikipedia.org/wiki/Network_socket) (especially TCP/IP sockets) are a mechanism allowing communication between processes over the network. In some cases, you can use TCP/IP sockets to talk with processes running on the same computer (by using the loopback interface).
+[IP sockets](https://en.wikipedia.org/wiki/Network_socket) (especially TCP/IP sockets) are a mechanism allowing communication between processes over the network. In some cases, you can use TCP/IP sockets to talk with processes running on the same computer (by using TCP loopback address: 127.0.0.1).
 
-UNIX domain sockets know that they’re executing on the same system, so they can avoid some checks and operations (like routing); which makes them faster and lighter than IP sockets. So if you plan to communicate with processes on the same host, this is a better option than IP sockets.
+UNIX domain sockets know that they’re executing on the same system, so they can avoid some checks and operations (like routing); which makes them **faster and lighter than IP sockets**. So if you plan to communicate with processes on the same host, this is a better option than IP sockets.
 
 UNIX domain sockets are subject to file system permissions, while TCP sockets can be controlled only on the packet filter level.
 

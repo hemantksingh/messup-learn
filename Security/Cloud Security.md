@@ -45,14 +45,13 @@ There are exceptional cases like paedophilia, organised crime and imminent death
 
 ## Cloud security auditing tools
 
-* [Scout suite](https://github.com/nccgroup/ScoutSuite) - open source multi-cloud security-auditing tool from the NCC Group, which enables security posture assessment of cloud environments. Using the APIs exposed by cloud providers, Scout Suite gathers configuration data for manual inspection and highlights risk areas. 
-
+* [Scout suite](https://github.com/nccgroup/ScoutSuite) - open source multi-cloud security-auditing tool from the NCC Group, which enables security posture assessment of cloud environments. Using the APIs exposed by cloud providers, Scout Suite gathers configuration data for manual inspection and highlights risk areas.
 
 ### SIEM and SOAR
 
 Although security information and event management (SIEM) and security orchestration, automation and response (SOAR) have capabilities that complement each other, they are not the same thing. SIEM system helps in identifying and analysing security incidents and SOAR allows you to respond to these incidents in an automated way.
 
-Firewalls, network appliances and intrusion detection systems generate an immense amount of event-related data—more data than security teams can reasonably expect to interpret. A SIEM makes sense of all of this data by collecting and aggregating and then identifying, categorizing and analyzing incidents and events. This is often done using machine learning, specialized analytics software and dedicated sensors. 
+Firewalls, network appliances and intrusion detection systems generate an immense amount of event-related data—more data than security teams can reasonably expect to interpret. A SIEM makes sense of all of this data by collecting and aggregating and then identifying, categorizing and analyzing incidents and events. This is often done using machine learning, specialized analytics software and dedicated sensors.
 
 SIEM tools usually need regular tuning to continually understand and differentiate between anomalous and normal activity. The need for regular tuning leads to security analysts and engineers wasting precious time on making the tool work for them instead of triaging the constant influx of data. Manual incident response processes, insufficient workflows and difficulty hiring security personnel leave security operations teams struggling to keep up with the growing volume of alerts. 
 
@@ -78,4 +77,3 @@ Azure sentinel is a cloud native SIEM and SOAR solution, similar to Splunk or Ra
 * SOR - Security automation and orchestration
 * SOC - Security Operations center
 * PRA - Probabilistic risk assessment
-
