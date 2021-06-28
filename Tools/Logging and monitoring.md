@@ -18,7 +18,7 @@ Another [key differentiation](https://www.n-able.com/blog/siem-vs-log-management
 
 ## Log Collection
 
-Log collectors like Logstash and fluentd
+Log forwarders like Logstash and Fluentd can receive Syslog messages and ship them to a central log aggregator.
 
 Logging libraries like *nlog* and *serilog* help in writing structured logs and allow log centralisation by providing target agnostic logging APIs e.g. use the same logging interface to push logs to console, file, db, cloud etc with minimal configuration.
 
