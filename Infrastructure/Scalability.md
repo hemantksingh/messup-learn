@@ -28,9 +28,9 @@ HAProxy or High Availability proxy is the most popular open source software load
 
 ### HAProxy monitoring
 
-* Monitor frontend connections between the client and HAProxy, connections between HAProxy and your backend servers, and combined metrics such as error codes and server status using [Datadog dashboard](https://www.datadoghq.com/dashboards/haproxy-dashboard/).
+* [Datadog dashboard](https://www.datadoghq.com/dashboards/haproxy-dashboard/) allows you to monitor frontend connections between the client and HAProxy, connections between HAProxy and your backend servers, and combined metrics such as error codes and server status.
 
-* By [enabling the Prometheus endpoint](https://docs.datadoghq.com/integrations/haproxy/?tab=host#using-prometheus) on HAProxy.
+* HAProxy 2.0 has native support for Prometheus, allowing you to export metrics directly by [enabling the built-in Prometheus endpoint](https://www.haproxy.com/blog/haproxy-exposes-a-prometheus-metrics-endpoint/) on HAProxy. You then [configure Prometheus](https://www.haproxy.com/blog/haproxy-exposes-a-prometheus-metrics-endpoint/#configuring-prometheus) to scrape the `/metrics` path
 
 ## Nginx
 
