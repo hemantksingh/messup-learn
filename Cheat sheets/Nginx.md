@@ -11,7 +11,7 @@ Get the list of all running nginx processes: `ps -ax | grep nginx`
 
 By default the nginx configuration file is called `nginx.conf` and placed in the directory:
 
-* `/usr/local/nginx/conf` 
+* `/usr/local/nginx/conf`
 * `/etc/nginx` 
 * `/usr/local/etc/nginx`
 
@@ -36,12 +36,3 @@ Default log location: `/var/log/nginx`
 
 * access logs: `/var/log/nginx/access.log`
 * error logs: `/var/log/nginx/error.log`
-
-
-
-
-
-
-
-
-
