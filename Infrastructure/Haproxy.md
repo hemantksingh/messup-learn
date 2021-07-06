@@ -40,7 +40,7 @@ With HAProxy 2.0 you can trigger retries on certain events. The `retry-on` direc
 
 ### Circuit breaker
 
-A circuit breaker is more pessimistic. After errors exceed a threshold, it assumes that the disruption is likely to be long-lived. To protect clients from continuously calling the faulty service, it shuts off access for a specified period of time. The hope is that, given enough time, the service will recover.
+A circuit breaker is more pessimistic. After errors exceed a threshold, it assumes that the disruption is likely to be long-lived. Using retries carelessly could result in creating a Denial of Service (DoS) attack within your own service. As a service fails or performs slowly, multiple clients might repeatedly retry failed requests. That creates a dangerous risk of exponentially increasing traffic targeted at the failing service. To protect clients from continuously calling the faulty service, the circuit breaker shuts off access for a specified period of time. The hope is that, given enough time, the service will recover.
 
 Unlike active health checks, a circuit breaker monitors live traffic for errors, so it will catch errors in any part of the service. You can [implement a circuit breaker](https://www.haproxy.com/blog/circuit-breaking-haproxy/#implement-a-circuit-breaker-the-simple-way) to monitor live traffic for detecting errors.
 
