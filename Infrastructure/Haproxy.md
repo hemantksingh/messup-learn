@@ -11,6 +11,13 @@ The [HAProxy configuration file](https://www.haproxy.com/documentation/hapee/lat
 * `frontend` defines the IP addresses and ports that clients can connect to
 * `backend` defines a group of servers that will be load balanced and assigned to handle requests
 
+### Dynamic configuration
+
+As services are containerised and become ephemeral, keeping your configurations becomes a daunting task, especially in service mesh architectures. You can dynamically configure HAProxy using the
+
+* TCP and Unix sockets based [Runtime API](https://www.haproxy.com/blog/dynamic-configuration-haproxy-runtime-api/)
+* REST based [Data plane API](https://www.haproxy.com/blog/new-haproxy-data-plane-api/). This can be [installed](https://www.haproxy.com/documentation/hapee/latest/api/data-plane-api/installation/haproxy-community/) by downloading the Data Plane API binary from the GitHub repository.
+
 ## Resilience
 
 Haproxy allows you to combine active health checks, retries and circuit breaking to get full coverage protection for your services.
