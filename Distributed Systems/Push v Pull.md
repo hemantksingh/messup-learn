@@ -34,6 +34,12 @@ One TCP connection per origin (domain). Takes advantage of streams to transfer d
 * REST APIs on HTTP/2 benefit from the more efficient wire format in particular due to multiplexing and compression.
 * HTTP/2 impacts the choice of [ Websockets](https://www.infoq.com/articles/websocket-and-HTTP/2-coexist) for multiplexing requests over a single TCP connection and bidirectional streaming.
 
+### HTTP/3
+
+QUIC moves multiplexing to the transport protocol i.e. the reliability of receiving HTTP/3 frames for the right resources in the right order is moved down into the transport and leaves UDP just for the packetisation, therefore simplifying HTTP.
+
+![http-stacks.png](../Images/http-stacks.png "HTTP stacks")
+
 ## Polling
 
 ![polling.png](../Images/polling.png "Polling")
