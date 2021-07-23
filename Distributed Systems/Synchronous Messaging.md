@@ -59,26 +59,36 @@ If you have large and/or public API which needs to be stable, extensible, will b
 
 ## RPC
 
-RPC is the technique of making a local call and having it execute on a remote service somewhere. RPC-over-HTTP enables client programs to use the internet to execute procedures provided by server programs on distant networks. HTTP and RPC run on top of (use) TCP. TCP allows computers to send arbitrary length data to each other with guaranteed delivery. RPC is at layer 5 (Session) in the OSI model. It is dependent on having a **common interface definition** for describing message data types and service definition (available service methods) which happens to be either
+Remote Procedure Call (RPC) is a protocol that one program can use to request a service from a program located in another computer on a network without having to understand the network's details. RPC spans the transport layer (TCP) and the application layer in the OSI model of network communication. It is dependent on having a **common interface definition** for describing message data types and service definition (available service methods) which happens to be either
 
-* SOAP: SOAP uses **UDDI** - XML based registry for service description and discovery and **WSDL** for interface definition.
-* [Thrift](https://thrift.apache.org/) originally developed by Facebook based on their Scalable cross-language services  [paper](https://thrift.apache.org/static/files/thrift-20070401.pdf)
-* [Protocol buffers](https://developers.google.com/protocol-buffers/docs/overview) by Google used in gRPC - is a stricter type system than Xml or Json
+### RPC Frameworks
 
-In earlier RPC implementations like *.Net Remoting* and *Java RMI* the interface definition was platform dependent. This meant a Java based service could not be invoked by a .Net client and vice versa. Xml being platform independent, XML-RPC or SOAP based APIs attempted to resolve this interoperability problem.
+In earlier RPC implementations like *.Net Remoting* and *Java RMI* the interface definition was platform dependent. This meant a Java based service could not be invoked by a .Net client and vice versa.
 
-However ensuring data types of XML payloads in XML-RPC is tough. In XML, a lot of things are just strings, so you need to layer meta data on top in order to describe things such as which fields correspond to which data types. This means a SOAP envelope (message) can be incredibly verbose as compared to a JSON message in a JSON based API such as [Slack](https://api.slack.com/web)
+#### SOAP
+
+Xml being platform independent, XML-RPC or SOAP based APIs attempted to resolve the interoperability problem. SOAP uses **UDDI** - XML based registry for service description and discovery and **WSDL** for interface definition.
+
+Ensuring data types of XML payloads in XML-RPC is tough. In XML you layer meta data on top in order to describe things such as which fields correspond to which data types. This means a SOAP envelope (message) can be incredibly verbose as compared to a JSON message in a JSON based API such as [Slack API](https://api.slack.com/web)
 
 SOAP is a network protocol which is routed over HTTP but ignores the existing well understood HTTP specification (HTTP verbs and the error codes are ignored). Moreover there are inconsistencies in different implementations of SOAP by different vendors therefore it still suffered from some degree of **platform coupling**.
 
-### Thrift and gRPC
+#### Thrift
 
-gRPC largely follows HTTP semantics over HTTP/2 but explicitly allows for full-duplex streaming.
+* [Thrift](https://thrift.apache.org/) originally developed by Facebook to expedite development of efficient and scalable backend services is based on their scalable cross-language services [paper](https://thrift.apache.org/static/files/thrift-20070401.pdf)
+* Thrift allows developers to define datatypes and service interfaces in a single language-neutral file and generate all the necessary code to build RPC clients and servers.
 
-* It diverges from typical REST conventions as it uses static paths during call dispatch for performance reasons. Parsing call parameters from paths, query parameters and payload body adds latency and complexity.
-* It also has a formalized set of errors that are more directly applicable to API use cases than the HTTP status codes.
+#### gRPC
 
-A comparison of Thrift and gRPC can be found [here](https://groups.google.com/forum/#!msg/grpc-io/JeGybvbz8nc/wpqQdAfuBwAJ)
+* Modern, high-performance, lightweight RPC framework. It diverges from typical REST conventions as it uses static paths during call dispatch for performance reasons. Parsing call parameters from paths, query parameters and payload body adds latency and complexity.
+* Contract-first API development, using [protocol buffers](https://developers.google.com/protocol-buffers/docs/overview) - a stricter type system than Xml or Json by default, allowing for language agnostic implementations
+* Tooling available for many languages to generate strongly-typed servers and clients.
+* Supports client, server, and bi-directional streaming calls. Largely follows HTTP semantics over HTTP/2 but explicitly allows for full-duplex streaming.
+* Reduced network usage with Protobuf binary serialization.
+
+One limitation with gRPC is not every platform can use it. Browsers don't fully support HTTP/2, making REST and JSON the primary way to get data into browser apps. Even with the benefits that gRPC brings, REST and JSON have an important place in modern apps.
+
+gRPC comes with an overhead as [compared to Thrift](https://groups.google.com/forum/#!msg/grpc-io/JeGybvbz8nc/wpqQdAfuBwAJ) since it uses HTTP2 at the transport layer which is a multiplexing wire protocol, but provides a variety of benefits like metadata exchange - allowing non-business data such as authentication tokens, standardized status codes for error handling, to be handled separately from actual business data.
 
 ## REST or RPC
 
@@ -86,12 +96,12 @@ https://www.smashingmagazine.com/2016/09/understanding-rest-and-rpc-for-http-api
 
 REST helps you model your domain as resource or entities whereas RPC based APIs are great for actions i.e. commands. RPC may be a better fit if you are writing your API in a functional language.
 
-The fact that a remote procedure appears to be executing locally may lead to
+The fact that a remote procedure appears to be executing locally can lead to
 
 * over use and over reliance on the network. Assumption that the network is reliable is a **fallacy of distributed computing**.
 * chatty APIs that break encapsulation and expose the API's internal behavior and state leading to **behavioral coupling**.
 
-Rather than coupling to procedures in RPC a so called REST based API could easily suffer from coupling to URLs that expose functions. Therefore a single URL per resource in HTTP based REST is quite crucial to avoid behavioral coupling. Adopting a design based upon **coarse-grained message exchange** can help alleviate over reliance on the network and behavioral coupling.
+Rather than coupling to procedures in RPC a badly implemented REST API could easily suffer from coupling to URLs that expose functions. Therefore adopting a design based upon **coarse-grained message exchange** e.g. having a single URL per resource can help alleviate over reliance on the network and behavioral coupling.
 
 Compared to REST conventions RPC uses static paths during call dispatch for performance reasons as parsing call parameters from paths, query parameters and payload body adds latency.
 
