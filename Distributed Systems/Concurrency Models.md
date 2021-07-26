@@ -1,10 +1,30 @@
-# Actors
+# Concurrency models
 
-*"The Actor model retained more of what I thought were the good features of the object idea"* - Alan Kay, pioneer of object orientation and co designer of Smalltalk. 
+Languages like *Java* *C++* *C#* *Python* use a **shared memory** model using threads for concurrency. Threads work on shared memory (shared mutable state) using locks to access/write to it at the same time. Locking means threads contend for data access and need synchronization. This typically leads to race conditions and limited fault tolerance - on crashing, a thread can leave other threads in an inconsistent state and sometimes bring the entire process down.
 
-Alan Kay thought of messaging between components as "the big idea" in object orientated languages that should be the focus, rather than object properties and their internal behaviour.
+## Communicating Sequential Processing (CSP)
 
-Actors are a model of concurrent computation based on messaging. When an actor wants to communicate with another actor, it sends a message rather than contacting it directly, all messaging being asynchronous. The messages are put on a queue, and the receiving actor pulls the messages off the queue one at a time to process them. An actor reacts to messages by doing one of 3 things:
+There are other models of [concurrent computing](https://en.wikipedia.org/wiki/Concurrent_computing), such as [Communicating Sequential Processing](http://www.usingcsp.com/cspbook.pdf) based on **message passing** which tend to be far easier to reason about than shared-memory concurrency, and is typically considered a more robust form of concurrent programming.
+
+*Do not communicate by sharing memory, instead share memory by communicating*
+
+The exchange of messages may be carried out asynchronously as in the case of *Actors*, or may use a synchronous "rendezvous" style in which the sender blocks until the message is received. Asynchronous message passing may be reliable or unreliable (sometimes referred to as "send and pray").
+
+CSP is [highly influential](http://www.minaandrawos.com/2015/12/06/concurrency-in-golang/) in the design of programming languages such as *Go* and *Clojure*. *Go* or *Golang* was originally designed at Google in 2007. At the time, Google was growing quickly, and code being used to manage their infrastructure was also growing quickly in both size and complexity. Some Google engineers began to feel that this large and complex codebase was slowing them down. So they decided that they needed a new programming language focused on simplicity and quick performance. Go is the result of rethinking system programming from the ground up, creating a lean, mean, and compiled solution that allows for massive multithreading, concurrency, and performance. Go really shines the most when it comes to infrastructure. Some of the most popular infrastructure tools today are written in Go — such as Kubernetes, Docker, and Prometheus.
+
+* designed to run on multiple cores, it is built to support concurrency and scale as cores are added. Goroutines let you run concurrent jobs e.g. a data call, a transaction, a queue entry and if one blocks, others still continue execution. Thousands of goroutines can run on a single thread in a program. A goroutine is basically a function that can run concurrently with other goroutines in the same address space.
+* speed - it is so fast, you’ll want to use it for nearly everything you used command line interpreters for, thereby replacing your bash scripts, Python sketches
+* statically typed and complies to a single binary
+
+*Nodejs* uses a single threaded [event loop](https://blog.sessionstack.com/how-javascript-works-event-loop-and-the-rise-of-async-programming-5-ways-to-better-coding-with-2f077c4438b5) that dispatches events to handlers executing asynchronously. It is a proven model that solves some concurrency problems but still relies on a single process to handle multiple requests. [Nested callbacks](https://joearms.github.io/published/2013-04-02-Red-and-Green-Callbacks.html) are inevitable and can cause complexity.
+
+*Erlang* is based on the Actor model and has similar semantics to an OS process. In order words it's completely isolated. If it crashes all resources are released and the other processes around it are unaffected to the same degree as an OS process. It has well established design patterns for fault tolerance. Joe Armstrong [explains](https://www.youtube.com/watch?v=bo5WL5IQAd0) how Erlang is well suited to run programs on multicore machines.
+
+F# implements a message based approach using `MailboxProcessor` that acts as an Actor.
+
+## Actors
+
+Actors are a model of concurrent computation based on message passing. When an actor wants to communicate with another actor, it sends a message rather than contacting it directly, all messaging being asynchronous. The messages are put on a queue, and the receiving actor pulls the messages off the queue one at a time to process them. An actor reacts to messages by doing one of 3 things:
 
 * Can create a new actor (a constructor message)
 * Can send a message to an existing actor or
@@ -12,19 +32,11 @@ Actors are a model of concurrent computation based on messaging. When an actor w
 
 Actors can have internal state between processing messages but **do not share mutable state**.
 
-## Concurrency models
+*"The Actor model retained more of what I thought were the good features of the object idea"* - Alan Kay, pioneer of object orientation and co designer of Smalltalk.
 
-There are other [models of concurrent computing](https://en.wikipedia.org/wiki/Concurrent_computing), such as [Communicating sequential processing](http://www.usingcsp.com/cspbook.pdf) which is [highly influential](https://godoc.org/github.com/thomas11/csp) in the design of programming languages such as *Go* and *Clojure*.
+Alan Kay thought of messaging between components as "the big idea" in object orientated languages that should be the focus, rather than object state and internal behaviour.
 
-*Java* *C++* *C#* *Python* on the other hand use a shared memory model using threads for concurrency. Threads work on **shared mutable state** using locks to get access to data. Locking means threads contend for data access and need  synchronization. This leads to limited fault tolerance - on crashing, a thread can leave other threads in an inconsistent state and sometimes bring the entire process down.
-
-*Nodejs* uses a single threaded [event loop](https://blog.sessionstack.com/how-javascript-works-event-loop-and-the-rise-of-async-programming-5-ways-to-better-coding-with-2f077c4438b5) that dispatches events to handlers executing asynchronously. It is a proven model that solves some concurrency problems but still relies on a single process to handle multiple requests. [Nested callbacks](https://joearms.github.io/published/2013-04-02-Red-and-Green-Callbacks.html) are inevitable and can cause complexity.
-
-*Erlang* is based on the Actor model and has similar semantics to an OS process. In order words it's completely isolated. If it crashes all resources are released and the other processes around it are unaffected to the same degree as an OS process. It has well established design patterns for fault tolerance. Joe Armstrong explains how Erlang is well suited to [run programs on multicore](https://www.youtube.com/watch?v=bo5WL5IQAd0) machines.
-
-F# implements a message based approach using `MailboxProcessor` that acts as an Actor.
-
-## Actor characteristics
+### Actor characteristics
 
 * Actors are an abstraction over processes and threads.
 
@@ -40,7 +52,7 @@ F# implements a message based approach using `MailboxProcessor` that acts as an 
 
 Actors can be created as needed or can be long lived. As a request comes in it is served by an actor that terminates after processing the request. Long lived actors hold some state and do the work based on previous state aka **process managers**
 
-## When is it a good idea to use actors?
+### When is it a good idea to use actors?
 
 In the synchronous model you have a sequence of events that execute sequentially (in a given order) which in theory is easy (read familiar) to program and reason about, whereas in the event driven asynchronous model the order of execution of concurrent code is not guaranteed. This leads to non determinism and can make it very hard to debug concurrent programs. Depending upon the underlying business problem you may have to explicitly impose ordering on the incoming requests (e.g. by using **correlation**). There may be a practicality limit to parallelizing certain areas of your specific system, if further parallelization could complicate the system beyond your team's ability to reason on it. Therefore it is important to design a system to execute as concurrently as is practical to manage complexity.
 
@@ -64,13 +76,10 @@ Messaging is better fit if you have long running tasks blocking for IO (frequent
 
 In theory you could use a messaging transport like AMQP to enable communication between actors but Actors do have their own [remoting](http://doc.akka.io/docs/akka/snapshot/scala/remoting.html) capability with a TCP transport.
 
-http://stackoverflow.com/questions/5693346/when-to-use-actors-instead-of-messaging-solutions-such-as-websphere-mq-or-tibco
-
 ## Further reading
 
-http://wiki.c2.com/?ActorsModel
-
-https://www.amazon.co.uk/Reactive-Messaging-Patterns-Actor-Model/dp/0133846830
-
-http://doc.akka.io/docs/akka/2.0.1/
-https://www.chrisstucchio.com/blog/2013/actors_vs_futures.html
+* http://wiki.c2.com/?ActorsModel
+* https://www.amazon.co.uk/Reactive-Messaging-Patterns-Actor-Model/dp/0133846830
+* http://doc.akka.io/docs/akka/2.0.1/
+* https://www.chrisstucchio.com/blog/2013/actors_vs_futures.html
+* http://stackoverflow.com/questions/5693346/when-to-use-actors-instead-of-messaging-solutions-such-as-websphere-mq-or-tibco
