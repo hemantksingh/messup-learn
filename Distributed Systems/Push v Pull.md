@@ -44,12 +44,28 @@ QUIC moves multiplexing to the transport protocol i.e. the reliability of receiv
 
 ![polling.png](../Images/polling.png "Polling")
 
-* Inefficient because you cannot be sure that the requested data has changed.
-* Results in wastage of CPU and bandwidth resources to transfer stale data.
+* Not responsive - you cannot be sure that the requested data has changed
+* Not efficient - results in wastage of CPU and bandwidth resources to transfer stale data
 
 ## Websockets
 
-Websocket protocol standardized in RFC6455 provides full-duplex bidirectional communication between a client and server over a long running TCP connection. It works on top of TCP and does not use the HTTP protocol, therefore it may not be compliant with your existing IT infrastructure (load balancers, firewalls) and may need additional security and monitoring capabilities.
+Websocket protocol standardized in RFC6455 provides full-duplex bidirectional communication between a client and server over a long running TCP connection.
+
+Client sends HTTP GET request with the following headers
+  - Connection: Upgrade
+  - Upgrade: websocket
+  - Sec-WebSocket-Key: key (to ensure anti-tampering of the connection)
+
+Server responds with HTTP status code "101" - indicates to the client that in order to communicate it will be Switching protocols from HTTP to websockets or WS. The server then responds with the following headers:
+  - Upgrade: websocket
+  - Connection: Upgrade
+  - Sec-WebSocket-Accept: key (modifies the key sent by the client to allow the client to verify the communication)
+
+Both the client and the server will then start to communicate using an open Websocket connection where either side is able to send data to the other. This is particularly useful for real-time applications like Chat apps, Stock tickers or system dashboards for real-time monitoring.
+
+### Load balancing Websockets
+
+Websockets work on top of TCP and do not use the HTTP protocol, therefore your load balancer needs to work in TCP mode. This enables load balancing of any type of TCP connections including WebSockets. A server can handle 65,536 sockets per single IP address, however the quantity can be easily extended by [adding additional network interfaces to a server](https://dzone.com/articles/load-balancing-of-websocket-connections)
 
 ## Server-Sent Events
 
