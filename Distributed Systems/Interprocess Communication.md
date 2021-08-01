@@ -46,6 +46,8 @@ So in essence a pipe with a default security descriptor can only be accessed by 
 
 ## gRPC
 
-gRPC calls between a client and service are usually sent over TCP sockets. TCP was designed for communicating across a network. Inter-process communication (IPC) is more efficient than TCP when the client and service are on the same machine. This document explains how to use gRPC with custom transports in IPC scenarios.
+gRPC calls between a client and service are usually sent over TCP sockets. TCP was designed for communicating across a network. Inter-process communication (IPC) is more efficient than TCP when the client and service are on the same machine. Consider using a transport like Unix domain sockets (UDS) or named pipes for gRPC calls between processes on the same machine. 
 
-https://docs.microsoft.com/en-us/aspnet/core/grpc/interprocess?view=aspnetcore-5.0
+UDS are supported on Linux, macOS and modern versions of Windows. Support for the unix socket has existed both in BSD and Linux for the longest time, but, not on Windows. On Windows, there were some alternatives for local IPC, such as named pipes. But, calling conventions are different between the named pipes and sockets, making writing low-maintenance cross-platform applications difficult. [Windows 10 build 17063 provides support for unix socket](https://devblogs.microsoft.com/commandline/af_unix-comes-to-windows/) (AF_UNIX) address family on Windows to communicate between Win32 processes.
+
+* How to do [IPC with gRPC on UDS](https://docs.microsoft.com/en-us/aspnet/core/grpc/interprocess?view=aspnetcore-5.0)
