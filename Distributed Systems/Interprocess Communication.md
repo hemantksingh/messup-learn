@@ -4,7 +4,7 @@ Windows and Unix-variant operating systems provide different approaches to inter
 
 * Pipes
 * Sockets
-* Shared memory
+* Shared memory -e.g. [memory mapped files](https://docs.microsoft.com/en-us/dotnet/standard/io/memory-mapped-files) contain the contents of a file in virtual memory that enables a process to treat the contents of a file as if they were a block of memory in the process's address space.
 * Mailslots
 
 Apart from the ones listed above [Windows provides a few additional IPC options](https://docs.microsoft.com/en-us/windows/win32/ipc/interprocess-communications#using-pipes-for-ipc)
@@ -13,7 +13,6 @@ Apart from the ones listed above [Windows provides a few additional IPC options]
 * COM
 * Data Copy
 * DDE
-* File Mapping
 
 ## Sockets
 
