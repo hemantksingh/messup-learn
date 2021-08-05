@@ -36,13 +36,15 @@ QUIC moves multiplexing to the transport protocol i.e. the reliability of receiv
 
 ## Persistent connections
 
-According to [RFC-2616](http://www.ietf.org/rfc/rfc2616.txt) persistent connections allow HTTP requests and responses to be **pipelined** i.e., send multiple requests without waiting for each response on a single connection. Pipelining allows a single TCP connection to be used much more efficiently, by reducing latency.
+HTTP is a session-less protocol. Each request and response sequence is independent from each other, which means that, on its own, HTTP requires each request to have its own connection. To make it more efficient, we need [HTTP Keep-Alive](https://www.haproxy.com/blog/http-keep-alive-pipelining-multiplexing-and-connection-pooling/#history-of-keep-alive-in-http). HTTP Keep-alive is the mechanism that instructs the client and server to maintain a persistent TCP connection, decoupling the one-to-one relationship between TCP and HTTP, effectively increasing the scalability of the server.
 
-The HTTP protocol has a feature called HTTP `Keep-Alive`, or HTTP connection reuse that uses a single TCP connection to send and receive multiple HTTP requests and responses. It doesn't work out of the box; your server and client should be configured to use it.
+The HTTP 1.0 protocol does not support persistent connections by default. In order to do so, the client has to send a `Connection` header with its value set to `keep-alive` to indicate to the server that the connection should remain open for any subsequent requests. That said, this is not a hard and fast rule and the server can close said connection after the first response—or any response actually. In short, the keep-alive mode in HTTP 1.0 is explicit. Both the client and server have to announce it.
 
-A client can add a `Connection` HTTP header with value `Keep-Alive` to indicate a preference for persistent connections. When added the client makes persistent connections to the servers that support them.
+HTTP 1.0 is very old (almost 25 years old) and is almost no longer used on the Internet.
 
-When using HTTP/1.1, `Keep-Alive` is on by default. Sending header `Connection: Close` to the server can be used to turn it off.
+HTTP 1.1 supports persistent connections by default. There is no need to send the Connection header field to announce support for keep-alive. Each party expects that the peer supports it, although it is possible for any peer of the transaction to change this behavior by sending a `Connection: close` header. A persistent connection can be closed after any full response is sent or after some time when the connection has become idle, the purpose of which is to save resources on the server side.
+
+Because HTTP 1.1 relies on persistent connections, you can use it to send multiple queries in a row and expect responses in the same order. This is called **HTTP pipelining**, it allows a single TCP connection to be used much more [efficiently](https://www.w3.org/Protocols/rfc2616/rfc2616-sec8.html).
 
 There are several protocols where long-lived TCP connections are utilized:
 
