@@ -1,8 +1,10 @@
 # Machine Learning
 
-Traditional programming is about defining the steps to achieve an outcome.  Machine learning defines the outcome in the data & letting your algorithm learn the steps to get there.
+There are two ways of programming computer systems. The traditional way is by defining the steps to achieve an outcome e.g. providing a recipie to the computer to perform a task. The other way is by providing the computer lots and lots of data and the computer learns to classify this data by ingesting this data. This method didn't catch on until recently because there wasn't enough data. But with the advent of the smart phones, social media we now collect lots and lots of data. 
 
-Given a dataset, ML is used to make sense of the data by finding patterns in the data. Patterns could be found by a human just looking at the data if the dataset is small or by using an **algorithm** e.g. linear regression `y = mx + b` to fit points to a line. The values of `m` and `b` are derived mathematically using an algorithm to best fit the line, thus giving you a **model** like `y = 10x + 4` that can recognize patterns. Applications can then supply new data to the model to see if the new data matches this known pattern based on the value of `m` and `b`.
+Given a dataset, machine learning is used to make sense of  data by finding patterns in the data. Patterns could be found by a human just looking at the data if the dataset is small or by using an **algorithm** e.g. linear regression `y = mx + b` to fit points to a line. The values of `m` and `b` are derived mathematically using an algorithm to best fit the line, thus giving you a **model** like `y = 10x + 4` that can recognize patterns. Applications can then supply new data to the model to see if the new data matches this known pattern based on the value of `m` and `b`.
+
+Algorithms are designed to be efficient. Being fully efficient, always doing what you are told, always doing what you are programmed to do is not always the most human thing to do. Sometimes its disobeying, sometimes its saying "No I'm not gonna do this". If you automate everything and the algorithms do what they are supposed to do, sometimes it can lead to very inhumane things.  
 
 ## Machine learning and data science
 
