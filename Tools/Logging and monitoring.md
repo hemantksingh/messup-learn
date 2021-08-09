@@ -1,10 +1,14 @@
 # Logging
 
-Application logging requires you to think about
+## What is the log?
+
+The business value of log data cannot be under estimated. Error logs tell developers what went wrong in their applications. User event logs give product managers insights on usage. If the CEO has a question about the next quarter’s revenue forecast, the answer ultimately comes from payment/CRM logs.
+
+Apache Kafka Architect Jay Kreps starts with the question - "What is the log?" and has written about [storing and processing log data](https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying). For steps before storing and processing data you need a [unified logging layer](https://www.oreilly.com/content/the-log-the-lifeblood-of-your-data-pipeline/) - a pluggable architecture that can take data input from various sources and output the data to multiple destinations.
 
 ## What to log?
 
-The quality of the design and code structure affects the quality of your logging code. Public APIs with coarse grained interfaces are important logging boundaries. Consider logging
+Building applications requires you to think about what to log? The quality of the design and code structure affects the quality of your logging code. Public APIs with coarse grained interfaces are important logging boundaries. Consider logging
 
 * Entry and exit points of the application e.g. API endpoints, outgoing network calls, DB interactions.
 * Boundaries where crucial business decisions are made in the code and the execution flow can take multiple paths.
@@ -24,7 +28,7 @@ Centralize error handling and logging within your application to provide consist
 * Allow application to bubble up all exceptions up to the exception filter or middleware
 * Use [exception guidelines](https://msdn.microsoft.com/en-us/library/ms229014(v=vs.80).aspx) for exception handling e.g. define your own exceptions to wrap 3rd party library exceptions if they aren't going to mean anything to the consumers of your app
 
-## Centralized Log Management
+## Centralized log management
 
 Plain text log entries are really good for humans to read, but not so good for machines to process. Manually reading log files in a distributed architecture with logs from disparate applications that may be running on VMs, containers or serverless infrastructure, quickly becomes unmanageable. In order to be automatically processed for alerting, auditing, searching and efficient sorting, logs need to be **structured** and **centralized** for machine readability.
 
@@ -40,9 +44,9 @@ SIEM systems are security applications first and foremost, while log management 
 
 Another [key differentiation](https://www.n-able.com/blog/siem-vs-log-management) is that SIEM is a fully automated system, while log management is not. SIEM features real-time threat analysis, while log management does not. For MSPs, the solution you choose will largely depend on what you have the means, personnel, and time to accomplish. What’s more important is that you have a system in place to analyze your customers’ logs and are able to craft a cybersecurity plan based on that information.
 
-### Log Collection
+### Log collection
 
-Log forwarders like Logstash and Fluentd can receive Syslog messages and ship them to a central log aggregator.
+Log forwarders like Logstash and Fluentd can receive Syslog messages and ship them to a central log aggregator. They can collect, filter, buffer and output logs across multiple sources and destinations.
 
 Logging libraries like *nlog* and *serilog* help in writing structured logs and allow log centralisation by providing target agnostic logging APIs e.g. use the same logging interface to push logs to console, file, db, cloud etc with minimal configuration.
 

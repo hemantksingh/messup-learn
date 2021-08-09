@@ -21,7 +21,7 @@ As opposed to working with stored data, stream processing allows you to process 
 
 ### Data ingestion and transformation tools
 
-Logstash started out as a log aggregator for parsing text based files but has evolved into a [powerful data processing tool]( https://opensource.com/article/17/10/logstash-fundamentals) for data ingestion and transformation. At the core it is an ETL tool that can be configured to stream and transform multiple data sources into Elastic Search and [send data to over 70 O/Ps](https://www.elastic.co/blog/archiving-your-event-stream-with-logstash) including S3 buckets.
+Logstash started out as a log aggregator for parsing text based files but has evolved into a [powerful data processing tool]( https://opensource.com/article/17/10/logstash-fundamentals) for data ingestion and transformation (aggregation, filtering and enrichment). At the core it is an ETL tool that can be configured to stream and transform multiple data sources into Elastic Search and [send data to over 70 O/Ps](https://www.elastic.co/blog/archiving-your-event-stream-with-logstash) including S3 buckets.
 
 ![elastic-stack](../Images/elastic-stack.jpeg)
 
@@ -38,6 +38,8 @@ Elasticsearch is trying to achieve widespread adoption in the data science indus
 ![logstash-fluentd-comparison](../Images/logstash-fluentd-comparison.png)
 
 Fluentd has built in reliability for persistence across restarts and has a configurable in-memory or on-disk buffering system while [Logstash is limited to an in-memory queue](https://platform9.com/blog/kubernetes-logging-comparing-fluentd-vs-logstash) that holds 20 events and, therefore, relies on an external persistence, like Redis.
+
+[Logstash can have performance issues](https://logz.io/blog/filebeat-vs-logstash/), it requires JVM to run, and this dependency coupled with the implementation in Ruby became the root cause of significant memory consumption, especially when multiple pipelines and advanced filtering are involved.
 
 ## Analytics and modelling
 
