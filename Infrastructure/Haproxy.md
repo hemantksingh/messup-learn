@@ -39,6 +39,16 @@ backend apiservers
 
 Health checks target a service's IP and port or a specific URL, therefore active health checks monitor a narrow range of the service. They work well for detecting when a service is 100% down. But what if the error happens only when a certain API function is called, which is not monitored by the health checks? The health checks would report that the service is functioning properly, even if 70 or 80% of requests are calling the critical function and failing.
 
+### Pasive health checks
+
+Active checks are easy to configure and provide a simple monitoring strategy. They work well in a lot of cases, but you may also wish to monitor real traffic for errors, which is known as passive health checking. In HAProxy, a passive health check is [configured](https://www.haproxy.com/blog/using-haproxy-as-an-api-gateway-part-3-health-checks/#passive-health-checks) by adding an `observe` parameter to a `server` line. You can monitor at the TCP or HTTP layer.
+
+### Queue length as a health indicator
+
+An early warning sign of a server with deteriorating health is **queue length**. Queue length is the number of sessions in HAProxy that are waiting for the next available connection slot to a server. Rather than simply failing when there are no servers ready to receive connections, HAProxy queues clients until a one becomes available.
+
+Giving feedback to downstream components about the health of a server is known as **backpressure**. It’s a mechanism for letting the client react to early warning signs, such as by backing off
+
 ### Automatic retries
 
 Automatic retries is a mechanism built into HAProxy, which let you attempt a failed connection or HTTP request again. When HAProxy receives a request, but can’t establish a TCP connection to the selected backend server, it automatically tries again after an interval set by `timeout connect`. Retrying is an intrinsically optimistic operation: It expects that calling the service a second time will succeed, which is perfect for transient errors such as those caused by a momentary network disruption. Retries do not work as well when the errors are long-lived, such as those that happen when a bad version of the service has been deployed.

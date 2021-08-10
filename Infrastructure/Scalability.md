@@ -15,7 +15,7 @@ With a shift in cloud native and microservices architecture running on dynamic r
 
 ## HAProxy
 
-HAProxy or High Availability proxy is the most popular open source software load balancer that provides high availability for TCP-based services. It is written in C and supports SSL, keep-alive and compression.
+HAProxy or High Availability proxy is the most popular open source software load balancer that provides high availability for TCP-based services. It is written in C and supports SSL termination, persistent connections, health checks, compression and more.
 
 * Fast and lightweight proxy server and load balancer with a small memory footprint and low CPU usage.
   * Haproxy consistently [performs on par or better](https://www.datadoghq.com/blog/monitoring-haproxy-performance-metrics/) in benchmarks against other popular reverse proxies like http-proxy or the Nginx webserver. However Nginx [claim](https://www.nginx.com/blog/nginx-and-haproxy-testing-user-experience-in-the-cloud) to be more performant using *latency percentile distribution* as a metric.
