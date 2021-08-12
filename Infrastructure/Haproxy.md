@@ -4,7 +4,7 @@ HAProxy can be used as a load balancer, reverse proxy or application delivery co
 
 ## HAProxy configuration
 
-The [HAProxy configuration file](https://www.haproxy.com/documentation/hapee/latest/onepage/#2) has [four essential sections](https://www.haproxy.com/blog/the-four-essential-sections-of-an-haproxy-configuration/):
+The [HAProxy configuration file](https://www.haproxy.com/documentation/hapee/latest/onepage/) has [four essential sections](https://www.haproxy.com/blog/the-four-essential-sections-of-an-haproxy-configuration/):
 
 * `global` define process-wide security and performance tunings
 * `defaults` helps reduce duplication, its settings apply to all of the `frontend` and `backend` sections that come after it
@@ -15,7 +15,7 @@ The [HAProxy configuration file](https://www.haproxy.com/documentation/hapee/lat
 
 As services are containerised and become ephemeral, keeping your configurations up-to-date becomes a daunting task, especially in service mesh architectures. You can dynamically configure HAProxy using the
 
-* TCP and Unix sockets based [Runtime API](https://www.haproxy.com/blog/dynamic-configuration-haproxy-runtime-api/)
+* TCP and Unix sockets based [Runtime API](https://www.haproxy.com/blog/dynamic-configuration-haproxy-runtime-api/). Since this is a TCP based API you can communicate with it [using telnet or socat](https://www.youtube.com/watch?v=JjXUH0VORnE). Changes made through the runtime API do not persist i.e. after making a change via the API if haproxy is restarted the changes will be lost.
 * REST based [Data plane API](https://www.haproxy.com/blog/new-haproxy-data-plane-api/). This can be [installed](https://www.haproxy.com/documentation/hapee/latest/api/data-plane-api/installation/haproxy-community/) by downloading the Data Plane API binary from the GitHub repository.
 
 ## Resilience
@@ -43,7 +43,9 @@ Health checks target a service's IP and port or a specific URL, therefore active
 
 Active checks are easy to configure and provide a simple monitoring strategy. They work well in a lot of cases, but you may also wish to monitor real traffic for errors, which is known as passive health checking. In HAProxy, a passive health check is [configured](https://www.haproxy.com/blog/using-haproxy-as-an-api-gateway-part-3-health-checks/#passive-health-checks) by adding an `observe` parameter to a `server` line. You can monitor at the TCP or HTTP layer.
 
-### Queue length as a health indicator
+Circuit breaker is implemeted using a passive health check. A backend that develops problems should automatically stop receiving traffic.
+
+### Connection queueing
 
 An early warning sign of a server with deteriorating health is **queue length**. Queue length is the number of sessions in HAProxy that are waiting for the next available connection slot to a server. Rather than simply failing when there are no servers ready to receive connections, HAProxy queues clients until a one becomes available.
 
