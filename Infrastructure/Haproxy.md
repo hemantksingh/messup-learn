@@ -63,6 +63,20 @@ A circuit breaker is more pessimistic. After errors exceed a threshold, it assum
 
 Unlike active health checks, a circuit breaker monitors live traffic for errors, so it will catch errors in any part of the service. You can [implement a circuit breaker](https://www.haproxy.com/blog/circuit-breaking-haproxy/#implement-a-circuit-breaker-the-simple-way) to monitor live traffic for detecting errors.
 
+You can also use the HAProxy [agent-check](http://cbonte.github.io/haproxy-dconv/2.0/configuration.html#5.2-agent-check) that runs independently of a regular health check to trigger the circuit breaker. An agent check allows HAProxy to [guage health with an external agent](https://www.haproxy.com/fr/blog/using-haproxy-as-an-api-gateway-part-3-health-checks/). The external agent is a piece of software (.net e.g. https://github.com/LuccaSA/Haproxy.AgentCheck) running on the server that’s separate from the application you’re load balancing.
+
+### Rate limiting
+
+Rate Limiters are pretty dumb (they can be complex, but generally dumb). There is a threshold, anything above the threshold is limited. Thresholds are decided based on the capacity of the underlying service or based on your application requirements (like SLA: say 1 user makes 5 API calls max per minute). Sometimes even to thwart DoS.
+
+Circuit breakers are more of resiliency patterns and more intelligent than Rate limiters. They ensure failure to one component of the system does not bring down the entire system by backing off for some time, assuming the backoff interval would suffice for the failure to heal/recover. When the 3rd party does not respond, you trip open the circuit on some percentage of failures and keep trying after some backoff interval. You close the circuit when 3rd party starts to respond again. Helps your system to be responsive and not hog resources when no work is being done downstream.
+
+At what level do you need to have them - As usual, that depends. Generally, Rate limiters are your first line of defense to DDoS, and are implemented at the load balancer/Reverse proxy level. More application-aware thresholds can be placed in your reverse proxy, keeping them abstracted from the application.
+
+Circuit breakers - use then when you making an unreliable call downstream, when the downstream can either take more time than you intend or you want your service to function for some time regardless of the 3rd party's availability. You can also use this to make your application responsive at the expense of the result of 3rd party. For example - if your downstream did not respond within 100ms with live results, you trip your circuit at 100ms and show the use older cached/default results.
+
+You should not enable circuit breaking between your application and end users, since this could lead to a bad user experience. Use it between backend services, such as between proxied microservices.
+
 ## Monitoring
 
 Keeping an eye on server health status is critical for knowing how many servers are passing the health-check probes that HAProxy sends. HAProxy publishes the up/down status of every server along with the pass/fail result of the most recent health check. For a basic quick view you can [enable the built-in HAProxy stats page](https://www.haproxy.com/blog/using-haproxy-as-an-api-gateway-part-4-metrics/)
