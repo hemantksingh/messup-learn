@@ -16,7 +16,9 @@
 ## Competency skills
 
 * Get buyin for tech debt, ability to sell your ideas
-* Demonstrate progress transparently with the ability to switch from individual contributor to collaborate with the wider team
+* Demonstrate progress transparently
+  * run demos and share progress with others
+  * ability to switch from individual contributor to collaborate with the wider team
 * Drive innovation responsibly (by running small experiments)
 * Drive quality (via automation, adopting best practices) keeping delivery timescales in mind
 
