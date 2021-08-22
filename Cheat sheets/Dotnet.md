@@ -26,7 +26,7 @@ dotnet new -l
 dotnet new -i IdentityServer4.Templates
 
 # create a new project (ASP.NET Core Empty) from an installed template
-dotnet new web -n client-webapp
+dotnet new web -n example-project
 ```
 
 ### solution
