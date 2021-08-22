@@ -24,6 +24,9 @@ dotnet new -l
 
 # install new template
 dotnet new -i IdentityServer4.Templates
+
+# create a new project (ASP.NET Core Empty) from an installed template
+dotnet new web -n client-webapp
 ```
 
 ### solution
@@ -35,5 +38,3 @@ dotnet new sln -n Example
 # add project to solution
 dotnet sln add ./src/example-project/example-project.csproj
 ```
-
-
