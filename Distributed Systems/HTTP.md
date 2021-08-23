@@ -36,7 +36,7 @@ QUIC moves multiplexing to the transport protocol i.e. the reliability of receiv
 
 ## Persistent connections
 
-HTTP is a session-less protocol. Each request and response sequence is independent from each other, which means that, on its own, HTTP requires each request to have its own connection. To make it more efficient, we need [HTTP Keep-Alive](https://www.haproxy.com/blog/http-keep-alive-pipelining-multiplexing-and-connection-pooling/#history-of-keep-alive-in-http). HTTP Keep-alive is the mechanism that instructs the client and server to maintain a persistent TCP connection, decoupling the one-to-one relationship between TCP and HTTP, effectively increasing the scalability of the server.
+HTTP is a session-less protocol. Each request and response sequence is independent from each other, which means that, on its own, HTTP requires each request to have its own connection.  The client establishes a connection, requests an update, gets a response from the server, then closes the connection. Imagine this process being repeated endlessly, by thousands of concurrent users – it’s incredibly taxing on the server at scale. To make it more efficient, we need [HTTP Keep-Alive](https://www.haproxy.com/blog/http-keep-alive-pipelining-multiplexing-and-connection-pooling/#history-of-keep-alive-in-http). HTTP Keep-alive is the mechanism that instructs the client and server to maintain a persistent TCP connection, decoupling the one-to-one relationship between TCP and HTTP, effectively increasing the scalability of the server.
 
 The HTTP 1.0 protocol does not support persistent connections by default. In order to do so, the client has to send a `Connection` header with its value set to `keep-alive` to indicate to the server that the connection should remain open for any subsequent requests. That said, this is not a hard and fast rule and the server can close said connection after the first response—or any response actually. In short, the keep-alive mode in HTTP 1.0 is explicit. Both the client and server have to announce it.
 
@@ -64,26 +64,36 @@ Polling is
 
 As in regular polling, rather than making repeated requests to a server by establishing a connection every time for every client until new data for a given client becomes available, Long polling is where the server elects to hold a client connection open for as long as possible, delivering a response only after data becomes available or timeout threshold has been reached. After receiving response client may immediately send a new long-polling request to the server to emulate real-time transaction of data.
 
+Approaches like long polling require many hops between servers and devices, and these gateways/reverse proxies often have different ideas of how long a typical connection is allowed to stay open. If it stays open too long something may kill it, maybe even when it was doing something important.
+
 ### Websockets
 
-Websocket protocol standardized in RFC6455 provides full-duplex bidirectional communication between a client and server over a long running TCP connection.
+Generally, WebSockets will be the better choice in the context of realtime, ongoing communication. HTTP-based techniques tend to be much more resource intensive on servers whereas WebSockets have an extremely lightweight footprint on servers.
 
-Client sends HTTP GET request with the following headers
+Websocket protocol standardized in RFC6455 provides:
+
+* Bi-directional protocol - either client/server can send a message to the other party (In HTTP, the request is always initiated by the client and the response is processed by the server – making HTTP a uni-directional protocol)
+* Full-duplex communication - client and server can talk to each other independently at the same time over a long running TCP connection.
+* Single TCP connection - After upgrading the HTTP connection in the beginning, client and server communicate over that same TCP connection (persistent connection) throughout the lifecycle of WebSocket connection. This allows browsers to apply *origin based security model* e.g. Same-origin policy to establish trust between client and server.
+
+WebSockets is essentially a thin transport layer built on top of a device’s TCP/IP stack. The intent was to provide what is essentially a TCP communication layer to web applications that's as close to raw as possible, bar a few abstractions to eliminate certain security-based complications and other concerns. [Websockets is different from HTTP](https://ably.com/topic/websockets-vs-http) but the WebSocket handshake is compatible with HTTP, using the HTTP Upgrade facility to upgrade the connection from HTTP to WebSocket. Client sends HTTP GET request with the following headers
 
 * Connection: Upgrade
 * Upgrade: websocket
 * Sec-WebSocket-Key: key (to ensure anti-tampering of the connection)
 
-Server responds with HTTP status code "101" - indicates to the client that in order to communicate it will be Switching protocols from HTTP to websockets or WS. The server then responds with the following headers:
+Server responds with HTTP status code "101" - indicates to the client that in order to communicate it will be switching protocols from `http://` to websockets or `ws://` or preferably `wss://` (WebSockets over SSL/TLS). The server then responds with the following headers:
   - Upgrade: websocket
   - Connection: Upgrade
   - Sec-WebSocket-Accept: key (modifies the key sent by the client to allow the client to verify the communication)
 
 Both the client and the server will then start to communicate using an open Websocket connection where either side is able to send data to the other. This is particularly useful for real-time applications like Chat apps, Stock tickers or system dashboards for real-time monitoring.
 
-* WebSocket can often be a source of pain when considering compatibility with existing web infrastructure as it upgrades an HTTP connection to a completely different protocol that has nothing to do with HTTP.
-
-* Scale and security: Web components (Firewalls, Intrusion Detection, Load Balancers) are built, maintained and configured with HTTP in mind, an environment that large/critical applications will prefer in terms of resiliency, security and scalability.
+* HTTP compatibility allows WebSocket applications to more easily fit into existing infrastructures. For example, WebSocket applications can use the standard HTTP ports 80 and 443, thus allowing the use of existing firewall rules.
+  
+* Scale and security: There are some [challenges that a reverse proxy server faces in supporting WebSocket](https://www.nginx.com/blog/websocket-nginx/).
+  - One is that WebSocket is a hop‑by‑hop protocol, so when a proxy server intercepts an Upgrade request from a client it needs to send its own Upgrade request to the backend server, including the appropriate headers
+  - Since WebSocket connections are long lived, as opposed to the typical short‑lived connections used by HTTP, the reverse proxy needs to allow these connections to remain open, rather than closing them because they seem to be idle.  
 
 ### Server-Sent Events
 
@@ -95,9 +105,11 @@ HTTP/2 introduces Server Push which enables the server to proactively send resou
 
 ### Scaling persistent connections
 
-The number of concurrent TCP connections that a web server can support is limited. Standard HTTP clients use ephemeral connections. These connections can be closed when the client goes idle and reopened later. On the other hand, long-lived TCP connections like Websockets stay open even when the client goes idle. In a high-traffic app that serves many clients, these persistent connections can cause servers to hit their maximum number of connections. A server can handle 65,536 sockets per single IP address, however the quantity can be extended by [adding additional network interfaces to a server](https://dzone.com/articles/load-balancing-of-websocket-connections). The [number of connections is not the primary problem](https://stackoverflow.com/questions/17448061/how-many-system-resources-will-be-held-for-keeping-1-000-000-websocket-open) (that's mostly just a question of kernel tuning and enough memory - used to track each connection), it is the processing and sending/receiving data to/from each of those connections. If the incoming connections are spread out over a long period, and they are mostly idle or infrequently sending small chunks of static data then you could probably get much higher than even 1m simultaneous connections. However, even under those conditions (slow connections that are mostly idle) you will still run into problems with networks, server systems and server libraries that aren't configured and designed to handle large numbers of connections.
+The number of concurrent TCP connections that a web server can support is limited. Standard HTTP clients use ephemeral connections. These connections can be closed when the client goes idle and reopened later. On the other hand, long-lived TCP connections like Websockets stay open even when the client goes idle. In a high-traffic app that serves many clients, these persistent connections can cause servers to hit their maximum number of connections. A server can handle 65,536 sockets per single IP address, however the quantity can be extended by [adding additional network interfaces to a server](https://dzone.com/articles/load-balancing-of-websocket-connections). However, the [number of concurrent connections is not the primary problem](https://stackoverflow.com/questions/17448061/how-many-system-resources-will-be-held-for-keeping-1-000-000-websocket-open) (that's mostly just a question of kernel tuning and enough memory - used to track each connection).
 
-[Load balancing persistent connections](https://docs.microsoft.com/en-us/aspnet/core/grpc/performance?view=aspnetcore-5.0#load-balancing) with L4 load balancers can be ineffective, however L7 load balancers or proxies understand HTTP/2 and are able to distribute calls multiplexed to the proxy on one HTTP/2 connection across multiple endpooints.
+The real issue is the workload required to process and respond to messages once the WebSocket server process has handled receipt of the actual data. If the incoming connections are spread out over a long period, and they are mostly idle or infrequently sending small chunks of static data then you could probably get much higher than even 1m simultaneous connections. However, even under those conditions (slow connections that are mostly idle) you will still run into problems with networks, server systems and server libraries that aren't configured and designed to handle large numbers of connections.
+
+As soon as one machine is unable to cope with the workload, you’ll need to start adding additional servers, which means now you’ll need to start thinking about load-balancing, synchronization of messages among clients connected to different servers, generalized access to client state irrespective of connection lifespan or the specific server that the client is connected to – the list goes on and on. [Load balancing persistent connections](https://docs.microsoft.com/en-us/aspnet/core/grpc/performance?view=aspnetcore-5.0#load-balancing) with L4 load balancers can be ineffective, however L7 load balancers or proxies understand HTTP/2 and are able to distribute calls multiplexed to the proxy on one HTTP/2 connection across multiple endpooints.
 
 Websockets work on top of TCP and do not use the HTTP protocol, therefore your load balancer needs to work in TCP mode. This enables load balancing of any type of TCP connections including WebSockets. The heavy use of connection-related resources by Websocket can affect other web apps that are hosted on the same server. When Websockets opens and holds the last available TCP connections, other web apps on the same server also have no more connections available to them. Therefore it may make sense to run your real-time applications based on websockets on their own dedicated server.
 
