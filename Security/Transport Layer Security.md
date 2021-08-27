@@ -86,3 +86,9 @@ Object Identifiers (OIDs) are used to define policies for processing certificate
 ```
 
 The [OID can be used programmatically](https://unmitigatedrisk.com/?p=203) to make trust decisions about a certificate or to differentiate the user interface in an application based on what type of certificate is being used.
+
+## TLS Client authentication
+
+Rather than only the server identifying itself, clients can also identify themselves to the server by using certificates. The client sends a TLS client certificate for every request to the server, the server validates the client certificate it received against one or more configured root CAs. Only if the certificate is valid, and only if the DN of the certificate matches a list of trusted DNs, the client is deemed trustworthy. [Proxy authentication](https://search-guard.com/elasticsearch-proxy-authentication-certificates/) allows delegating authentication and authorization to a proxy sitting in front of a service. It can use TLS client authentication to establish trust between the proxy and the service.
+
+Traditionally **IP based trust** has been used to identify clients where you had to tell the server the list of IPs that should be deemed trustworthy. Only requests from the specified IPs are treated as trustworthy requests, and only those are accepted for processing. Although you can specify multiple IPs and also use wildcards and regular expressions, the flexibility of this approach is limited, especially in dynamic environments where services come up and go down frequently and may not have fixed IPs.
