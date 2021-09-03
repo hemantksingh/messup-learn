@@ -8,6 +8,20 @@ Katana - Implementation of OWIN specification by Microsoft
 
 .Net core replaced Katana
 
+## ASP.NET
+
+Server side technology for creating dynamic web content using HTML and C#. A View Engine in MVC is the component used to produce HTML that is sent back to the client browser. The preferred view engine for ASP.NET MVC is Razor. The Razor view engine basically allows you to write C# code inside HTML that is converted to plain HTML for the browser.
+
+Template + Data = Generated Data
+
+* .cshtml -> C# Razor 
+* .vbhtml -> VB Razor
+* .aspx, .ascx -> WebForms (Legacy)
+
+For client side apps ASP.NET integrates with JavaScript frameworks like React or Angular, using preconfigured templates. Rendering a Mini SPA view can be done in isolation based on Html CSS and JS. The data for this SPA can be pulled through a web api using fully qualified URLs and Cross Origin Support configuration - needed for making AJAX calls across different domains. (For example: going from http://example.com to http://actual.com)
+
+View Engine's like Razor can help in preventing XSS by HTML encoding the data i.e treating the script embedded in the data as raw text. This ensures that the browser does not run unwanted scripts and renders it as text only.
+
 ## Dotnet cli
 
 ### list .net sdk and runtime (s) installed
