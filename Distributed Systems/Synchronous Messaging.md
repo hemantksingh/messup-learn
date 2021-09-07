@@ -61,11 +61,9 @@ If you have large and/or public API which needs to be stable, extensible, will b
 
 Remote Procedure Call (RPC) is a protocol that one program can use to request a service from a program located in another computer on a network without having to understand the network's details. RPC spans the transport layer (TCP) and the application layer in the OSI model of network communication. It is dependent on having a **common interface definition** for describing message data types and service definition (available service methods) which happens to be either
 
-### RPC Frameworks
+In earlier RPC implementations like *.Net Remoting* and *Java RMI* the interface definition was platform dependent. This meant a Java based service could not be invoked by a .Net client and vice versa. However a bunch of RPC frameworks made interoperability possible
 
-In earlier RPC implementations like *.Net Remoting* and *Java RMI* the interface definition was platform dependent. This meant a Java based service could not be invoked by a .Net client and vice versa.
-
-#### SOAP
+### SOAP
 
 Xml being platform independent, XML-RPC or SOAP based APIs attempted to resolve the interoperability problem. SOAP uses **UDDI** - XML based registry for service description and discovery and **WSDL** for interface definition.
 
@@ -73,20 +71,20 @@ Ensuring data types of XML payloads in XML-RPC is tough. In XML you layer meta d
 
 SOAP is a network protocol which is routed over HTTP but ignores the existing well understood HTTP specification (HTTP verbs and the error codes are ignored). Moreover there are inconsistencies in different implementations of SOAP by different vendors therefore it still suffered from some degree of **platform coupling**.
 
-#### Thrift
+### Thrift
 
 * [Thrift](https://thrift.apache.org/) originally developed by Facebook to expedite development of efficient and scalable backend services is based on their scalable cross-language services [paper](https://thrift.apache.org/static/files/thrift-20070401.pdf)
 * Thrift allows developers to define datatypes and service interfaces in a single language-neutral file and generate all the necessary code to build RPC clients and servers.
 
-#### gRPC
+### gRPC
 
 * Modern, high-performance, lightweight RPC framework. It diverges from typical REST conventions as it uses static paths during call dispatch for performance reasons. Parsing call parameters from paths, query parameters and payload body adds latency and complexity.
-* Contract-first API development, using [protocol buffers](https://developers.google.com/protocol-buffers/docs/overview) - a stricter type system than Xml or Json by default, allowing for language agnostic implementations
+* Contract-first API development, using [protocol buffers](https://developers.google.com/protocol-buffers/docs/overview) by default - a stricter type system than Xml or Json, allowing for language agnostic implementations.
 * Tooling available for many languages to generate strongly-typed servers and clients.
-* Supports client, server, and bi-directional streaming calls. Largely follows HTTP semantics over HTTP/2 but explicitly allows for full-duplex streaming.
+* Supports client, server bi-directional streaming calls. Largely follows HTTP semantics over HTTP/2 but explicitly allows for full-duplex streaming.
 * Reduced network usage with Protobuf binary serialization.
 
-One limitation with gRPC is not every platform can use it. Browsers don't fully support HTTP/2, making REST and JSON the primary way to get data into browser apps. Even with the benefits that gRPC brings, REST and JSON have an important place in modern apps.
+A limitation with gRPC is that not every platform can use it. Browsers don't fully support HTTP/2, making REST and JSON the primary way to get data into browser apps. Even with the benefits that gRPC brings, REST and JSON have an important place in modern apps.
 
 gRPC comes with an overhead as [compared to Thrift](https://groups.google.com/forum/#!msg/grpc-io/JeGybvbz8nc/wpqQdAfuBwAJ) since it uses HTTP2 at the transport layer which is a multiplexing wire protocol, but provides a variety of benefits like metadata exchange - allowing non-business data such as authentication tokens, standardized status codes for error handling, to be handled separately from actual business data.
 
@@ -103,15 +101,33 @@ The fact that a remote procedure appears to be executing locally can lead to
 
 Rather than coupling to procedures in RPC a badly implemented REST API could easily suffer from coupling to URLs that expose functions. Therefore adopting a design based upon **coarse-grained message exchange** e.g. having a single URL per resource can help alleviate over reliance on the network and behavioral coupling.
 
-Compared to REST conventions RPC uses static paths during call dispatch for performance reasons as parsing call parameters from paths, query parameters and payload body adds latency.
-
 ## GraphQL
 
-https://philsturgeon.uk/api/2017/01/24/graphql-vs-rest-overview/
+GraphQL is a [query language for your API](https://graphql.org/learn/), and a server-side runtime for executing queries using a type system you define for your data.
 
-GraphQL allows you to specify the fields you would like to be returned (**sparse fieldsets**), allowing you to skip all data that is not relevant to your response. This makes the request a little bit faster to download over the network, as the tubes do not get quite so full.
+GraphQL is [typically served over HTTP](https://graphql.org/learn/serving-over-http/) via a single endpoint which expresses the full set of capabilities of the service. This is in contrast to REST APIs which expose a suite of URLs each of which expose a single resource. HTTP is commonly associated with REST, which used "resources" as its core concept. In contrast, GraphQL's conceptual model is an entity graph. As a result, entities in GraphQL are not identified by URLs. Instead, a GraphQL server operates on a single URL/endpoint, usually `/graphql`, and all GraphQL requests for a given service should be directed at this endpoint. Your GraphQL HTTP server should handle the HTTP GET and POST methods.
 
-GraphQL allows to track field usage by clients that prevents introduction of breaking changes into your API, thus makes deprecations easy.
+GraphQL allows clients to specify the fields they would like to be returned (**sparse fieldsets**) in the GraphQl query, allowing you to skip all data that is not relevant to the response. GraphQL's query language moves the responsibility out of the hands of the API devs and into the clients. For example, the query:
+
+```sh
+{
+  me {
+    name
+  }
+}
+```
+
+Could produce the following JSON result:
+
+```sh
+{
+  "me": {
+    "name": "Luke Skywalker"
+  }
+}
+```
+
+Die to less data going over the wire, this can have performance benefits. It also allows tracking of field usage by clients that prevents introduction of breaking changes in your APIs, thus makes deprecations easy.
 
 GraphQL devloves power to clients by allowing them to write their own queries - Having diverse client apps like iOS, Andrioid and web app accessing the same API can be a limiting choice as the data required by each could be very different. In the REST world this might mean:
 
@@ -119,4 +135,6 @@ GraphQL devloves power to clients by allowing them to write their own queries - 
 * Create custom representations using `Content-Type: application/vnd.turtlefans.com+v1+iphone+json`
 * Custom APIs - APIS for each client (Back ends for Front ends)
 
-GraphQL's query language moves the responsibility out of the hands of the API devs and into the clients.
+Your API I/O mechanism can be REST, GraphQL or RPC but you can fulfill requests coming through each I/O channel with the same business logic layer
+
+![business-layer.png](../Images/business-layer.png "HTTP stacks")
