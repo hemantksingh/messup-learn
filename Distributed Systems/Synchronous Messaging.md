@@ -78,13 +78,13 @@ SOAP is a network protocol which is routed over HTTP but ignores the existing we
 
 ### gRPC
 
-* Modern, high-performance, lightweight RPC framework. It diverges from typical REST conventions as it uses static paths during call dispatch for performance reasons. Parsing call parameters from paths, query parameters and payload body adds latency and complexity.
-* Contract-first API development, using [protocol buffers](https://developers.google.com/protocol-buffers/docs/overview) by default - a stricter type system than Xml or Json, allowing for language agnostic implementations.
+* Modern, high-performance, lightweight RPC framework mainly suitable for machine to machine synchronous communication that requires quick message parsing with less overhead. It diverges from typical REST conventions as it uses static paths during call dispatch for performance reasons. Parsing call parameters from paths, query parameters and payload body adds latency and complexity.
+* Contract-first API development, using [protocol buffers](https://developers.google.com/protocol-buffers/docs/overview) by default - a stricter type system than Xml or Json, allowing for language agnostic implementations. ProtoBuf's goal was to be really faster in both encoding, but especially decoding. Because it knows the structure so well and it's binary, the size of the messages are smaller and inferring the types and the serialization becomes incredibly fast.
 * Tooling available for many languages to generate strongly-typed servers and clients.
 * Supports client, server bi-directional streaming calls. Largely follows HTTP semantics over HTTP/2 but explicitly allows for full-duplex streaming.
 * Reduced network usage with Protobuf binary serialization.
 
-A limitation with gRPC is that not every platform can use it. Browsers don't fully support HTTP/2, making REST and JSON the primary way to get data into browser apps. Even with the benefits that gRPC brings, REST and JSON have an important place in modern apps.
+A limitation with gRPC is that not every platform can use it. Browsers don't fully support HTTP/2, making REST and JSON the primary way to get data into browser apps. Because of gRPC's binary format it is harder for Javascript to parse it and contracts aren't suitable for web apps. Even with the benefits that gRPC brings, REST and JSON have an important place in web apps.
 
 gRPC comes with an overhead as [compared to Thrift](https://groups.google.com/forum/#!msg/grpc-io/JeGybvbz8nc/wpqQdAfuBwAJ) since it uses HTTP2 at the transport layer which is a multiplexing wire protocol, but provides a variety of benefits like metadata exchange - allowing non-business data such as authentication tokens, standardized status codes for error handling, to be handled separately from actual business data.
 
@@ -103,7 +103,7 @@ Rather than coupling to procedures in RPC a badly implemented REST API could eas
 
 ## GraphQL
 
-GraphQL is a [query language for your API](https://graphql.org/learn/), and a server-side runtime for executing queries using a type system you define for your data.
+GraphQL is a [query language for your API](https://graphql.org/learn/), and a server-side runtime for executing queries using a type system you define for your data. With GraphQL, you model your business domain as a graph  by defining a schema; within your schema, you define different types of nodes and how they connect/relate to one another. This allows you to do open querying, craft the kinds of data queries especially against large datasets e.g. Facebook graph or even the LinkedIn graph that Microsoft has. GraphQL is a natural extension of being able to look at these very complex models from a simple web call. Not that trivial to set up, but it certainly is much more useful than trying to invent your own query language and strap it on top of REST.
 
 GraphQL is [typically served over HTTP](https://graphql.org/learn/serving-over-http/) via a single endpoint which expresses the full set of capabilities of the service. This is in contrast to REST APIs which expose a suite of URLs each of which expose a single resource. HTTP is commonly associated with REST, which used "resources" as its core concept. In contrast, GraphQL's conceptual model is an entity graph. As a result, entities in GraphQL are not identified by URLs. Instead, a GraphQL server operates on a single URL/endpoint, usually `/graphql`, and all GraphQL requests for a given service should be directed at this endpoint. Your GraphQL HTTP server should handle the HTTP GET and POST methods.
 
