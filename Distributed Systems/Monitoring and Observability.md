@@ -105,18 +105,19 @@ Ingesting all the telemetry data from different sources only makes sense if you 
 
 * https://www.splunk.com/
 * https://www.sumologic.com/
-* ELK stack (Elasticsearch, Logstash, and Kibana) with different hosted offerings:
-    * https://cloud.elastic.co/ [Elastic APM agents](https://www.elastic.co/guide/en/apm/agent/dotnet/current/intro.html) automatically measures the performance of your application and tracks errors. The agent auto-instruments and records interesting events, like HTTP requests and database queries. I
+* ELK stack (Elasticsearch, Logstash, and Kibana) [Elastic APM agents](https://www.elastic.co/guide/en/apm/agent/dotnet/current/intro.html) automatically measures the performance of your application and tracks errors. The agent auto-instruments and records events, like HTTP requests and database queries. ELK is avaialble in different hosted offerings:
+    * https://cloud.elastic.co/ 
     * https://logit.io/
 
 While Splunk is a one stop solution for your infrastructure, security and application monitoring needs, it comes at a price. You may not need all the operational intelligence that it provides. The ELK stack provides a rich API for developers to integrate with, Sumo Logic provides a better search facility.
 
-Some other options for application logging and monitoring include:
+You can consider [open source APM options](https://techbeacon.com/enterprise-it/5-open-source-apm-tools-compared) or [APM vendors listed by Gartner](https://www.gartner.com/reviews/market/application-performance-monitoring):
 
+* https://www.appdynamics.com/
+* https://www.dynatrace.com/
+* https://newrelic.com
 * https://www.datadoghq.com/
-* https://www.graylog.org/
 * https://raygun.com/
-* [New Relic](https://newrelic.com/)
 
 ### OpenTelemetry
 
