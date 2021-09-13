@@ -23,15 +23,25 @@ As opposed to working with stored data, stream processing allows you to process 
 
 Logstash started out as a log aggregator for parsing text based files but has evolved into a [powerful data processing tool]( https://opensource.com/article/17/10/logstash-fundamentals) for data ingestion and transformation (aggregation, filtering and enrichment). At the core it is an ETL tool that can be configured to stream and transform multiple data sources into Elastic Search and [send data to over 70 O/Ps](https://www.elastic.co/blog/archiving-your-event-stream-with-logstash) including S3 buckets.
 
-![elastic-stack](../Images/elastic-stack.jpeg)
+Logstash acts as an aggregator — pulling data from various sources before pushing it down the pipeline, usually into Elasticsearch but also into a buffering component in larger production environments. It’s worth mentioning that the latest version of Logstash also includes support for persistent queues when storing message queues on disk.
 
-The ELK stack due to its impressive set of tooling has been a success in data analytics pipelines but what about [elastic search for data science](https://towardsdatascience.com/elasticsearch-for-data-science-just-got-way-easier-95912d724636)?
+Filebeat, and the other members of the Beats family, acts as a lightweight agent deployed on the edge host, pumping data into Logstash for aggregation, filtering and enrichment. Filebeat is one of the best log file shippers out there today — it’s lightweight, supports SSL and TLS encryption, supports back pressure with a good built-in recovery mechanism, and is extremely reliable. It cannot, however, in most cases, turn your logs into easy-to-analyze structured log messages using filters for log enhancements. That’s the role played by Logstash.
 
-Data scientists are generally not used to NoSQL database engines for common tasks or even relying on REST APIs for analysis. Dealing with large amounts of data using Elasticsearch’s low-level python clients, for example, is also not that intuitive and has somewhat of a steep learning curve for someone coming from a field different from Software engineering. Although Elastic made significant efforts in enhancing the ELK stack for Analytics and Data Science use cases, it still lacked an easy interface with the existing Data Science ecosystem (pandas, numpy, scikit-learn, PyTorch,and other popular libraries).
+Beats are used as lightweight agents installed on the different servers in your infrastructure for shipping logs or metrics. These can be 
+* log files (Filebeat)
+* network metrics (Packetbeat)
+* server metrics (Metricbeat)
+* any other type of data - write your own (Libbeat)
+
+![elastic-stack](../Images/elastic-log-shippers.jpg)
+
+The ELK stack due to its impressive set of tooling has been a success in data analytics pipelines but [is elastic search a good fit for data science](https://towardsdatascience.com/elasticsearch-for-data-science-just-got-way-easier-95912d724636)?
+
+Data scientists are generally not used to NoSQL database engines for common tasks or even relying on REST APIs for analysis. Dealing with large amounts of data using Elasticsearch’s low-level python clients, for example, is also not that intuitive and has somewhat of a steep learning curve for someone coming from a field different from Software Engineering. Although Elastic made significant efforts in enhancing the ELK stack for Analytics and Data Science use cases, it still lacked an easy interface with the existing Data Science ecosystem (pandas, numpy, scikit-learn, PyTorch,and other popular libraries).
 
 Elasticsearch is trying to achieve widespread adoption in the data science industry, with the release of [Eland](https://eland.readthedocs.io/en/latest/), a brand new Python Elasticsearch client and toolkit with a powerful (and familiar) pandas-like API for analysis, ETL and Machine Learning. however the ELK stack Regression and Classification Machine learning jobs are still experimental.
 
-#### Logstash and Fluentd comparison
+#### Logstash and Fluentd
 
 [Logz.io](https://logz.io/blog/fluentd-logstash/) provides a good comparison of the two log collectors. Logstash is most known for being part of the ELK Stack while Fluentd (part of CNCF) has become increasingly used by communities of users of software such as Docker, GCP and Elasticsearch.
 
