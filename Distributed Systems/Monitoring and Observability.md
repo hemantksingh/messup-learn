@@ -60,8 +60,6 @@ Logging libraries like *nlog* and *serilog* help in writing structured logs and 
 
 With tracing the question you're looking to answer is - *How are system components interacting with each other*?
 
-Depending upon your monitoring requirements, if you need to analyse both metrics and tracing data, then you may decide to [deploy tracing and metrics solutions together](https://developers.redhat.com/blog/2017/07/10/using-opentracing-with-jaeger-to-collect-application-metrics-in-kubernetes) as opposed to a standalone analysis backend.
-
 Debugging distributed microservices poses a challenge in understanding and reasoning about the overall system interactions. Call stacks are used to debug monoliths showing the flow of execution (Method A called Method B, which called Method C), but how do we bug when the call is across a process boundary, not simply a reference on the local stack? This is where [distributed tracing](https://docs.microsoft.com/en-us/azure/azure-monitor/app/distributed-tracing) comes in. It helps in gathering timing data needed to troubleshoot latency problems in microservice architectures.
 
 Tracers live in your applications and record timing and metadata about operations that took place. They intercept application calls to record how long a request took to process and asynchronously report this info **out-of-band** (outside the application request pipeline) to the tracing system for storage. 
@@ -96,6 +94,11 @@ Implementing a reliable Prometheus monitoring system requires a tight integratio
 * Both AlertManager and Sysdig PromQL alerts definition.
 * Recording rules, in order to pre-calculate metrics when you have tons of them.
 
+[thanos.io](https://thanos.io) is an open source, highly available Prometheus setup with long term storage capabilities.
+
+Depending upon your monitoring requirements, if you need to analyse both metrics and tracing data, then you may decide to [deploy tracing and metrics solutions together](https://developers.redhat.com/blog/2017/07/10/using-opentracing-with-jaeger-to-collect-application-metrics-in-kubernetes) as opposed to a standalone analysis backend.
+
+
 ## Application monitoring
 
 Ingesting all the telemetry data from different sources only makes sense if you can connect the dots and get meaningful information about the state of your applications. From performance monitoring to security monitoring, it is critical for businesses to analyze and review their telemetry data for monitoring and observability. Three of the most popular log management platforms are:
@@ -103,7 +106,7 @@ Ingesting all the telemetry data from different sources only makes sense if you 
 * https://www.splunk.com/
 * https://www.sumologic.com/
 * ELK stack (Elasticsearch, Logstash, and Kibana) with different hosted offerings:
-    * https://cloud.elastic.co/
+    * https://cloud.elastic.co/ [Elastic APM agents](https://www.elastic.co/guide/en/apm/agent/dotnet/current/intro.html) automatically measures the performance of your application and tracks errors. The agent auto-instruments and records interesting events, like HTTP requests and database queries. I
     * https://logit.io/
 
 While Splunk is a one stop solution for your infrastructure, security and application monitoring needs, it comes at a price. You may not need all the operational intelligence that it provides. The ELK stack provides a rich API for developers to integrate with, Sumo Logic provides a better search facility.
