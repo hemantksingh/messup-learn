@@ -1,19 +1,14 @@
 # Monitoring and Observability
 
-There is a distinction between monitoring and observability. Monitoring allows us to gauge application health and identify system health.
+While monitoring enables us to understand the overall health of our systems, observability empowers us with detailed insights into the behavior of our systems through *telemetry data* such as traces, metrics, and logs. Observability allows us to know or infer the internal state of something from the outside. How do we know that our application is working well and doing what it is supposed to do without having to look inside or access its source code?
 
-Observability on the other hand allows us to know or infer the internal state of something from the outside. How we know that our application is working well and doing what it is supposed to do without having to look inside or access its source code. 
-
-This can involve understanding the life of a request as it passes through the services
-    * Map cyclic service dependencies
-    * Identify Performance bottlenecks
-    * OpenTrace based Tracers
-
-The [observability pyramid](https://medium.com/geekculture/monitoring-microservices-part-1-observability-b2b44fa3e67e) for monitoring distributed systems comprises of  Probes, Logs, Metrics, and Traces.
+The [observability pyramid](https://medium.com/geekculture/monitoring-microservices-part-1-observability-b2b44fa3e67e) for monitoring distributed systems comprises of logs, metrics, and traces. While all of then partially overlap, [each has a different purpose](https://www.reddit.com/r/devops/comments/9hku3v/prometheus_vs_opentracing).
 
 ## Logging
 
-The business value of log data cannot be under estimated. Error logs tell developers what went wrong in their applications. User event logs give product managers insights on usage. If the CEO has a question about the next quarter’s revenue forecast, the answer ultimately comes from payment/CRM logs.
+Logs answer the queston - *what happened in my system*?
+
+Error logs tell developers what went wrong in their applications. User event logs give product managers insights on usage. If the CEO has a question about the next quarter’s revenue forecast, the answer ultimately comes from payment/CRM logs.
 
 Apache Kafka Architect Jay Kreps starts with the question - "What is the log?" and has written about [storing and processing log data](https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying). For steps before storing and processing data you need a [unified logging layer](https://www.oreilly.com/content/the-log-the-lifeblood-of-your-data-pipeline/) - a pluggable architecture that can take data input from various sources and output the data to multiple destinations.
 
@@ -63,7 +58,9 @@ Logging libraries like *nlog* and *serilog* help in writing structured logs and 
 
 ## Tracing
 
-[Tracing and metrics](https://opentelemetry.io/docs/) while partially overlap but [each have different purposes](https://www.reddit.com/r/devops/comments/9hku3v/prometheus_vs_opentracing/) and usecases. Depending upon your monitoring requirements, if you need to analyse both metrics and tracing data, then you may decide to [deploy tracing and metrics solutions together](https://developers.redhat.com/blog/2017/07/10/using-opentracing-with-jaeger-to-collect-application-metrics-in-kubernetes) as opposed to a standalone analysis backend.
+With tracing the question you're looking to answer is - *How are system components interacting with each other*?
+
+Depending upon your monitoring requirements, if you need to analyse both metrics and tracing data, then you may decide to [deploy tracing and metrics solutions together](https://developers.redhat.com/blog/2017/07/10/using-opentracing-with-jaeger-to-collect-application-metrics-in-kubernetes) as opposed to a standalone analysis backend.
 
 Debugging distributed microservices poses a challenge in understanding and reasoning about the overall system interactions. Call stacks are used to debug monoliths showing the flow of execution (Method A called Method B, which called Method C), but how do we bug when the call is across a process boundary, not simply a reference on the local stack? This is where [distributed tracing](https://docs.microsoft.com/en-us/azure/azure-monitor/app/distributed-tracing) comes in. It helps in gathering timing data needed to troubleshoot latency problems in microservice architectures.
 
@@ -79,7 +76,9 @@ Adopting an open instrumentation standard like [Opentracing](https://opentracing
 
 ## Metrics
 
-Metrics are a key aspect of observability, along with logging and tracing. They contain the data that inform you about the state of your systems, which in turn allows you to see patterns and make course corrections as needed. Metrics give you essential feedback about how well, or unwell, things are going: Are customers using the new features? Did traffic rates drop after that last deployment? If there’s an error, how long has it been happening and how many customers have likely been affected?
+Metrics answer the question - *How does the system performance change over time* ?
+
+Metrics contain the data that inform you about the state of your systems, which in turn allows you to see patterns and make course corrections as needed. Metrics give you essential feedback about how well, or unwell, things are going: Are customers using the new features? Did traffic rates drop after that last deployment? If there’s an error, how long has it been happening and how many customers have likely been affected?
 
 [Prometheus](https://prometheus.io/) is an open source monitoring tool focussed on metrics and alerting with Grafana integration for visualization. Tools like Nagios/Icinga/Sensu are suitable for host/network/service monitoring, classical sysadmin tasks. Nagios, for example, is host-based. However, if you want to get internal detail about the state of each of your micro-services (aka whitebox monitoring), Prometheus is a more appropriate tool.
 
@@ -99,7 +98,7 @@ Implementing a reliable Prometheus monitoring system requires a tight integratio
 
 ## Application monitoring
 
-Ingesting all the log data from different sources only makes sense if you can connect the dots and get meaningful information about the state of your applications. From production monitoring to security concerns, it is critical for businesses to analyze and review their log data for monitoring and observability. Three of the most popular log management platforms are:
+Ingesting all the telemetry data from different sources only makes sense if you can connect the dots and get meaningful information about the state of your applications. From performance monitoring to security monitoring, it is critical for businesses to analyze and review their telemetry data for monitoring and observability. Three of the most popular log management platforms are:
 
 * https://www.splunk.com/
 * https://www.sumologic.com/
@@ -107,7 +106,7 @@ Ingesting all the log data from different sources only makes sense if you can co
     * https://cloud.elastic.co/
     * https://logit.io/
 
-While Splunk is a one stop solution for all your infrastructure and application monitoring needs, it comes at a price. You may not need all the operation intelligence features that it provides. While the ELK stack provides a rich API for developers to integrate with, Sumo Logic provides a better search facility.
+While Splunk is a one stop solution for your infrastructure, security and application monitoring needs, it comes at a price. You may not need all the operational intelligence that it provides. The ELK stack provides a rich API for developers to integrate with, Sumo Logic provides a better search facility.
 
 Some other options for application logging and monitoring include:
 
@@ -115,3 +114,9 @@ Some other options for application logging and monitoring include:
 * https://www.graylog.org/
 * https://raygun.com/
 * [New Relic](https://newrelic.com/)
+
+### OpenTelemetry
+
+With the rise of many different APM (Application Performance Monitoring) vendors, developers want flexibility in choosing vendor backends to visualize their metrics, such as Grafana, Splunk, Amazon CloudWatch, Azure Monitor and others. This flexibility also drives a need for unity within the realm of observability. The [OpenTelemetry](https://opentelemetry.io/docs/) project aims to provide that support by defining a new open standard—the OpenTelemetry Protocol (OTLP) for collecting traces, metrics, and logs. The OpenTelemetry Collector (OTel Collector) can be deployed as an agent on each host within an environment and configured to send telemetry data to the user’s desired back-end(s). OpenTelemetry instrumentation libraries should then be added to each application. By default, these instrumentation libraries are configured to export their data to a locally running Collector. Optionally, a pool of Collector instances can be deployed in a region.
+
+AWS has built its own [AWS-supported distribution of OpenTelemetry](https://aws.amazon.com/blogs/opensource/building-a-reliable-metrics-pipeline-with-the-opentelemetry-collector-for-aws-managed-service-for-prometheus/) to integrate with AWS managed Prometheus
