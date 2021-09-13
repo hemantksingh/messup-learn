@@ -16,11 +16,14 @@
 ## Competency skills
 
 * Get buyin for tech debt, ability to sell your ideas
+  * provide solid building blocks for rapid delivery
+  * reduce the number of support issues in a particular area of the code
 * Demonstrate progress transparently
+  * able to switch from individual contributor to collaborate with the wider team
   * run demos and share progress with others
-  * ability to switch from individual contributor to collaborate with the wider team
 * Drive innovation responsibly (by running small experiments)
 * Drive quality (via automation, adopting best practices) keeping delivery timescales in mind
+  * reduce regression cycles and manual testing effort to allow frequent releases
 
 To kick off a conversation [Amazon leadership questions](https://www.yoreoyster.com/blog/amazon-leadership-principles-questions/) is a good place to start looking for potential behavioral questions:
 

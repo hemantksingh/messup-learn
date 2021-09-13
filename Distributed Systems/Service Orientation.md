@@ -94,27 +94,6 @@ According to **Nginx** the least time algorithm has yielded most valuable result
 
 Service discovery can be achieved by something simple as  DNS based routing using a load balancer or have a centralised service like **Apache zookeeper** as an address/naming registry to determine what service resides where for large distributed systems. For more dynamic runtime environments like kubernetes, service meshes like **Consul** and **Istio**
 
-### Security
-
-Ingress traffic coming into services
-  
-* WAF - Web application firewall
-* DDOS mitigation
-* Rate Limiting
-
-Secure interservice communication
-
-* TLS communication amongst services behind a firewall
-* Adopt [Zero trust model](https://www.cloudflare.com/learning/security/glossary/what-is-zero-trust)
-
-### Monitoring and Observability
-
-There is a big distinction being made between monitoring and observability. Monitoring allows us to gauge application health and identify system health.
-
-Observability on the other hand allows us to understand the life of a request as it passes through the services
-    * Map cyclic service dependencies
-    * Identify Performance bottlenecks
-    * OpenTrace based Tracers
 
 ## Monolith to Microservices
 

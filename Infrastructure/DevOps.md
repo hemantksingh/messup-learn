@@ -1,6 +1,8 @@
 # DevOps capabilites
 
-The union of people, processes and products to enable continuous delivery of value to end users.
+The union of people, processes and products to enable continuous delivery of value to end users. DevOps is a loose set of practices, guidelines, and culture designed to break down silos in IT development, operations, networking, and security. Articulated by John Willis, Damon Edwards, and Jez Humble, CA(L)MS—which stands for Culture, Automation, Lean (as in Lean management; also see continuous delivery), Measurement, and Sharing—is a useful acronym for remembering the key points of DevOps philosophy. 
+
+DevOps and SRE have a lot in common. In the [SRE book by Google](https://sre.google/workbook/how-sre-relates/) *SRE is defined as the class that implements the DevOps interface*.
 
 People who can work with clients to shape and oversee engagements that are primarily infra/ops oriented
 
@@ -14,7 +16,7 @@ People who can work with clients to shape and oversee engagements that are prima
 
 ## DevOps tooling
 
-Picking the right tools for the right job is crucial while adopting DevOps practices. In principle it is preferable to keep infrastructure provisioning separate from configuration management and application deployment.
+Picking th same tools for Operations and Application development is crucial to be successful at DevOps. There is no good way to manage a service that has one tool for the SREs and another for the product developers, behaving differently (and potentially catastrophically so) in different situations. The more divergence you have, the less your company benefits from each effort to improve each individual tool.
 
 ### CI/CD best practices and principles
 

@@ -1,12 +1,23 @@
-# Logging
+# Monitoring and Observability
 
-## What is the log?
+There is a distinction between monitoring and observability. Monitoring allows us to gauge application health and identify system health.
+
+Observability on the other hand allows us to know or infer the internal state of something from the outside. How we know that our application is working well and doing what it is supposed to do without having to look inside or access its source code. 
+
+This can involve understanding the life of a request as it passes through the services
+    * Map cyclic service dependencies
+    * Identify Performance bottlenecks
+    * OpenTrace based Tracers
+
+The [observability pyramid](https://medium.com/geekculture/monitoring-microservices-part-1-observability-b2b44fa3e67e) for monitoring distributed systems comprises of  Probes, Logs, Metrics, and Traces.
+
+## Logging
 
 The business value of log data cannot be under estimated. Error logs tell developers what went wrong in their applications. User event logs give product managers insights on usage. If the CEO has a question about the next quarter’s revenue forecast, the answer ultimately comes from payment/CRM logs.
 
 Apache Kafka Architect Jay Kreps starts with the question - "What is the log?" and has written about [storing and processing log data](https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying). For steps before storing and processing data you need a [unified logging layer](https://www.oreilly.com/content/the-log-the-lifeblood-of-your-data-pipeline/) - a pluggable architecture that can take data input from various sources and output the data to multiple destinations.
 
-## What to log?
+### What to log?
 
 Building applications requires you to think about what to log? The quality of the design and code structure affects the quality of your logging code. Public APIs with coarse grained interfaces are important logging boundaries. Consider logging
 
@@ -28,17 +39,17 @@ Centralize error handling and logging within your application to provide consist
 * Allow application to bubble up all exceptions up to the exception filter or middleware
 * Use [exception guidelines](https://msdn.microsoft.com/en-us/library/ms229014(v=vs.80).aspx) for exception handling e.g. define your own exceptions to wrap 3rd party library exceptions if they aren't going to mean anything to the consumers of your app
 
-## Centralized log management
+### Centralized log management
 
 Plain text log entries are really good for humans to read, but not so good for machines to process. Manually reading log files in a distributed architecture with logs from disparate applications that may be running on VMs, containers or serverless infrastructure, quickly becomes unmanageable. In order to be automatically processed for alerting, auditing, searching and efficient sorting, logs need to be **structured** and **centralized** for machine readability.
 
-### Syslog
+#### Syslog
 
 Standard logging solution on Unix-like systems that allows centralizing of info from the kernel and running programs for auditing, security and monitoring of application behaviour. It has a standard for message logging that allows separation of the software that generates messages, the system that stores them and the software that reports and analyzes them.
 
 Journald - Modern linux distributions are shipped with the service manager `systemd` which introduces `journald` for collecting and storing logs. The journald service is not a Syslog implementation, but it is Syslog compatible since it will listen on the same `/dev/log` socket. It will collect the received logs and allow the user to filter them by facility code and/or severity level using the equivalent journald fields (SYSLOG_FACILITY, PRIORITY)
 
-### SIEM and log management
+#### SIEM and log management
 
 SIEM systems are security applications first and foremost, while log management systems like Syslog are primarily designed for collecting log data. A log management system can be used for security purposes, but it’s more complicated than what it’s worth. If you want a tool that will help you gather all of your logs in one place, choose a log management system. If you need to use logs to manage security for a large or diverse IT infrastructure, choose a SIEM system.
 
