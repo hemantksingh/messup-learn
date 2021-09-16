@@ -36,7 +36,7 @@ Nouns, rather than verbs. Breaking information into hypermedia-linked structures
 
 #### PUT or POST
 
-For creating resources use PUT when the URL of the resource is already known.
+[When to use PUT or POST](https://restfulapi.net/rest-put-vs-post/) can be a puzzle. For creating resources use PUT when the request URL of the resource is already known.
 
 #### PUT or PATCH
 
@@ -77,6 +77,24 @@ PATCH is neither necessarily safe nor idempotent.
 
 The idempotent semantics of PUT, GET and DELETE greatly simplifies dealing with intermittent problems and crash recovery by allowing the operation to be repeated in event of failure. Should PUT or DELETE fail due to a transient network or server error (e.g. a 503 response), the operation can safely be repeated. This helps proxies and caches and even clients and servers to be resilient based on the result of the operation.
 
+### Caching in REST APIs
+
+Being [cacheable](https://restfulapi.net/caching/) is one of the architectural constraints of REST. GET requests should be cachable by default – until special condition arises. Usually, browsers treat all GET requests cacheable. POST requests are not cacheable by default but can be made cacheable if either an Expires header or a Cache-Control header with a directive, to explicitly allows caching, is added to the response. Responses to PUT and DELETE requests are not cacheable at all.
+
+[Caching in HTTP](https://datatracker.ietf.org/doc/html/rfc2616#page-74) supports a bunch of headers: 
+
+* Responses with `Cache-Control: public` can be cached using the normal rules. A proxy will not cache a page if it is marked as `private`. The `no-cache` option just implies that the proxy should verify each time the page is requested if the page is still valid, but it may still store the page. A better option to add is `no-store` which will prevent request and response from being stored by the cache. 
+* Responses to requests with `Authorization` header are automatically private, and aren't be cached by shared caches e.g. reverse proxies
+* The `vary` header is used to ignore certain header fields in requests. You may decide to deliver the same content independent of the user agent, and as a result, `Vary: User-Agent` would help the proxy to identify that you don't care about the user agent.
+
+A safe set of HTTP response headers may look like:
+
+```sh
+Cache-Control: private, no-cache, no-store, max-age=0, no-transform
+Expires: 0
+```
+
+
 ### Modelling states of the business process as resources
 
 Using hypermedia to drive business process through HTTP -> Possible next steps in the process. Instead of explicit choreography, use HTTP and hypermedia- friendly formats to describe transition between resources and allowing clients to choose among them at runtime.
@@ -115,7 +133,7 @@ or
 
 ## Event driven systems
 
-Generally exhibit high degree of loose coupling, which allows failure isolation and allows services and consumers to evolve independently of each other.
+Event driven systems generally exhibit high degree of loose coupling, which allows failure isolation in services and independent evolution of services and consumers.
 
 ### Atom Based Pub Sub
 
