@@ -20,7 +20,6 @@ Moving [from gates to guardrails](https://www.oreilly.com/library/view/devopssec
 
 Data between the end user and your application flows through the data plane. Thinking of security as a horizontal capability across the data plane and use the metrics and telemetry from the data plane to get visibility of the applied security policies and application threats.
 
-
 ## Security testing
 
 In order to understand and address your security requirements it is worth understanding the approaches and tools at hand. The security testing process involves:
