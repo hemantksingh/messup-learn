@@ -1,6 +1,15 @@
 # HAProxy
 
-HAProxy can be used as a load balancer, reverse proxy or application delivery controller
+HAProxy or High Availability proxy is the most popular open source software load balancer that provides high availability for TCP-based services. It is written in C and supports SSL termination, persistent connections, health checks, compression and more. It can be used as a load balancer, reverse proxy or application delivery controller
+
+* Fast and lightweight proxy server and load balancer with a small memory footprint and low CPU usage.
+  * Haproxy consistently [performs on par or better](https://www.datadoghq.com/blog/monitoring-haproxy-performance-metrics/) in benchmarks against other popular reverse proxies like http-proxy or the Nginx webserver. However Nginx [claim](https://www.nginx.com/blog/nginx-and-haproxy-testing-user-experience-in-the-cloud) to be more performant using *latency percentile distribution* as a metric.
+* Protocol agnostic - it can handle anything sent over TCP
+  * Haproxy can run in Layer 4 TCP mode and Layer 7 HTTP mode. In Layer 4 TCP mode, HAProxy forwards the RAW TCP packets from the client to the application servers. In the Layer 7 HTTP mode, HAProxy parses HTTP headers before forwarding them to the application servers.
+  * Nginx only supports layer 7 HTTP mode. For load balancing services like LDAP, MYSQL if you want to use TCP mode, then you can use Nginx Plus or other web servers like Apache.
+  * You can [configure Haproxy and Nginx to work together](https://www.howtoforge.com/tutorial/how-to-setup-haproxy-as-load-balancer-for-nginx-on-centos-7/) as a load balancer and web server.
+* Only deals with the network and never touches the file system, therefore it cannot serve static content
+* On CentOS 7, HAProxy is available in the default repository which makes it easy to install and configure.
 
 ## HAProxy configuration
 
@@ -94,3 +103,7 @@ You can also publish it on an IP address and port of your choosing so that you c
 global
     stats socket ipv4@127.0.0.1:9999 user haproxy group haproxy mode 660 level admin
 ```
+
+* [Datadog haproxy dashboard](https://www.datadoghq.com/dashboards/haproxy-dashboard/) allows you to monitor frontend connections between the client and HAProxy, connections between HAProxy and your backend servers, and combined metrics such as error codes and server status.
+
+* HAProxy 2.0 has native support for Prometheus, allowing you to export metrics directly by [enabling the built-in Prometheus endpoint](https://www.haproxy.com/blog/haproxy-exposes-a-prometheus-metrics-endpoint/) on HAProxy. You then [configure Prometheus](https://www.haproxy.com/blog/haproxy-exposes-a-prometheus-metrics-endpoint/#configuring-prometheus) to scrape the `/metrics` path
