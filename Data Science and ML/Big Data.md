@@ -11,7 +11,7 @@
 
 ## Big Data Architectures
 
-A [big data architecture](https://docs.microsoft.com/en-us/azure/architecture/data-guide/big-data/) is designed to handle the ingestion, processing, and analysis of data that is too large or complex for traditional database systems. This is usually achieved via a [data pipeline](./Data%20Processing%20Pipeline.md).
+A [big data architecture](https://docs.microsoft.com/en-us/azure/architecture/data-guide/big-data/) is designed to handle the ingestion, processing, and analysis of data (usually done via a [data pipeline](./Data%20Processing%20Pipeline.md)) that is too large or complex for traditional database systems.
 
 A Lambda architecture separates batch processing from stream processing whereas the Kappa architecture enables you to build your streaming and batch processing system on a single technology. With a sufficiently fast stream processing engine (like Hazelcast Jet), you may not need a separate technology that is optimized for batch processing. While the Lambda Architecture does not specify the technologies that must be used, the batch processing component is often done on a large-scale data platform like Apache Hadoop. The Hadoop Distributed File System (HDFS) can economically store the raw data that can then be transformed via Hadoop tools into an analyzable format. While Hadoop is used for the batch processing component of the system, a separate engine designed for stream processing is used for the real-time analytics component. One advantage of the Lambda Architecture, however, is that much larger data sets (in the petabyte range) can be stored and processed more efficiently in Hadoop for large-scale historical analysis.
 
@@ -48,41 +48,22 @@ Large scale data processing engine that can run on Hadoop, Mesos, standalone, or
 
 ## Big data in the cloud
 
-GPUs have a massively parallel architecture consisting of thousands of smaller, more efficient cores optimized for taking huge batches of data and performing the same operation over and over very quickly, unlike CPUs which consists of a few cores optimized for sequential serial processing.
+* Azure Databricks - Apache Spark-based big data analytics platform with the ability to run ML workloads (R, Python, Scala, Java) in Apache Spark workers. [Azure databricks](https://azure.microsoft.com/en-gb/services/databricks/) allows you to spin up clusters in a fully managed Apache Spark environment with global scale and availability.
 
-GPUs have thousands of compute cores and when coupled with lightning fast memory access they accelerate machine learning, gaming, database queries, video rendering and transcoding, computational finance, molecular dynamics and many other applications. With GPUs in the cloud, you can scale your calculation-heavy applications without constructing your own data centre.
+* Azure HDInsight - Hadoop type big data clusters on demand, requires cluster management.
 
-Supercomputer power with GPUs on demand
+* AWS Glue - create, run and monitor ETL workflows
+* Amazon Athena - interactive, serverless query service that makes it easy to analyze data in Amazon S3 using standard SQL.
 
-Shazam - music recognition app that uses Google cloud.
-Audio recognition algorithm runs on GPUs. Google provides elastic GPU clusters.
+* Dataform (part of Google Cloud) - Cloud warehouses store and process data cost effectively. This means more and more companies are moving away [from an ETL approach and towards an ELT approach](https://dataform.co/etl-vs-elt) for managing analytical data. [Dataform](https://dataform.co/pricing) helps in converting captured data to curated data in your data warehouse.
+* Goolge BigQuery - Google's fully managed, serverless data warehouse that scales with your storage and computing power needs.
+* Google Cloud ML Engine - Cloud ML Engine allows you to [train machine learning models](https://towardsdatascience.com/how-to-train-machine-learning-models-in-the-cloud-using-cloud-ml-engine-3f0d935294b3) in TensorFlow and other Python ML libraries (such as scikit-learn) without having to manage any infrastructure.
+* Google Cloud Dataprep - Data service for visually exploring, cleaning, and preparing structured and unstructured data for analysis, reporting, and machine learning.
 
-### Azure Databricks
+* Kaggle - the *Github of Data Science*. It offers a no-setup, customizable, Jupyter Notebooks environment. It allows users to find and publish data sets, explore and build models in a web-based data-science environment, work with other data scientists and machine learning engineers, and enter competitions to solve data science challenges  
 
-Apache Spark-based big data analytics platform with the ability to run ML workloads (R, Python, Scala, Java) in Apache Spark workers. [Azure databricks](https://azure.microsoft.com/en-gb/services/databricks/) allows you to spin up clusters in a fully managed Apache Spark environment with global scale and availability.
+### Supercomputer power with GPUs on demand
 
-### Azure HDInsight
+GPUs have a massively parallel architecture consisting of thousands of smaller, more efficient cores optimized for taking huge batches of data and performing the same operation over and over very quickly, unlike CPUs which consists of a few cores optimized for sequential serial processing. GPUs have thousands of compute cores and when coupled with lightning fast memory access they accelerate machine learning, gaming, database queries, video rendering and transcoding, computational finance, molecular dynamics and many other applications. With GPUs in the cloud, you can scale your calculation-heavy applications without constructing your own data centre.
 
-Hadoop type big data clusters on demand, require cluster management.
-
-### Dataform (part of Google Cloud)
-
-Cloud data warehousing is changing the way companies approach data management and analytics. Cloud warehouses which store and process data cost effectively means more and more companies are moving away [from an ETL approach and towards an ELT approach](https://dataform.co/etl-vs-elt) for managing analytical data. [Dataform](https://dataform.co/pricing) helps in converting captured data to curated data in your data warehouse.
-
-### Goolge BigQuery
-
-Google's fully managed, serverless data warehouse that scales with your storage and computing power needs.
-
-### Google Cloud ML Engine
-
-Cloud ML Engine allows you to [train machine learning models](https://towardsdatascience.com/how-to-train-machine-learning-models-in-the-cloud-using-cloud-ml-engine-3f0d935294b3) in TensorFlow and other Python ML libraries (such as scikit-learn) without having to manage any infrastructure.
-
-### Google Cloud Dataprep
-
-Data service for visually exploring, cleaning, and preparing structured and unstructured data for analysis, reporting, and machine learning.
-
-### Kaggle
-
-Kaggle is the *Github of Data Science*
-
-It offers a no-setup, customizable, Jupyter Notebooks environment. It allows users to find and publish data sets, explore and build models in a web-based data-science environment, work with other data scientists and machine learning engineers, and enter competitions to solve data science challenges  
+Shazam - music recognition app that uses audio recognition algorithm running on Google provided elastic GPU clusters.
