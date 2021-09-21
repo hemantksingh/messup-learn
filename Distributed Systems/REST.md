@@ -81,19 +81,37 @@ The idempotent semantics of PUT, GET and DELETE greatly simplifies dealing with 
 
 Being [cacheable](https://restfulapi.net/caching/) is one of the architectural constraints of REST. GET requests should be cachable by default – until special condition arises. Usually, browsers treat all GET requests cacheable. POST requests are not cacheable by default but can be made cacheable if either an Expires header or a Cache-Control header with a directive, to explicitly allows caching, is added to the response. Responses to PUT and DELETE requests are not cacheable at all.
 
-[Caching in HTTP](https://datatracker.ietf.org/doc/html/rfc2616#page-74) supports a bunch of headers: 
+[HTTP Caching](https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching) can be done in the browser/client, at the reverse proxy/CDN or at the origin/server. It supports a bunch of headers:
 
-* Responses with `Cache-Control: public` can be cached using the normal rules. A proxy will not cache a page if it is marked as `private`. The `no-cache` option just implies that the proxy should verify each time the page is requested if the page is still valid, but it may still store the page. A better option to add is `no-store` which will prevent request and response from being stored by the cache. 
-* Responses to requests with `Authorization` header are automatically private, and aren't be cached by shared caches e.g. reverse proxies
-* The `vary` header is used to ignore certain header fields in requests. You may decide to deliver the same content independent of the user agent, and as a result, `Vary: User-Agent` would help the proxy to identify that you don't care about the user agent.
+* [Cache-Control](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control)
+  * `public` means a resource can be cached at the server. A proxy will not cache a resource if it is marked as `private`, the resource could be specific to a user and is only meant to be cached at the client.
+  * `no-cache` option doesn't mean the cache wouldn't store the resource, it can. It just implies that the proxy should verify with the server each time the resource is requested whether the resource is still valid. The server can use an **ETag** which uniquely identifies the resource (e.g. by performing a hash) or **Last-Modified** to check if the resource has changed.
+  * `no-store` option will prevent resources from being stored by the cache at all.
+  * `must-revalidate` doesn't necessarily mean "must revalidate", it means the local resource can be younger than the provided `max-age`, so only revalidate if the content has expired.
+  * `proxy-revalidate` Like `must-revalidate`, but only for shared caches (e.g., proxies). Ignored by private caches.
+  * `max-age` the resource can be cached for the specified duration in seconds. This works well for independent resources but for mutable content with dependencies [max-age is the wrong choice](https://jakearchibald.com/2016/caching-best-practices/) as it can lead to the inter dependent resources getting out of sync.
+* Responses to requests with `Authorization` header are automatically private, and aren't generally cached by shared/public caches e.g. reverse proxies
+* `Vary` - Specifies a header value that can be different for different requests. When a cache receives a request that has a `Vary` header field, it must not use a cached response by default unless all header fields specified in the Vary header match in both the original (cached) request and the new request. For example
+  * `Vary: Accept-Encoding` specifies `Accept-Encoding` value can be different for different requests e.g. `Accept-Encoding: gzip,deflate,sdch` A server can set `Vary: Accept-Encoding` to ensure that a separate version of a resource is cached for all requests that specify support for a particular set of encodings. You may want to allow a resource to be cached in uncompressed and (various) compressed forms, and served appropriately to user agents based on the encodings that they support.
+  * `Vary: User-Agent` specifies `User-Agent` value can be different for mobile and desktop clients. This is useful for serving different content to desktop and mobile users
 
-A safe set of HTTP response headers may look like:
+#### Caching authenticated requests
+
+The rules for caching authenticated responses can be [tricky](https://stackoverflow.com/questions/39060208/authorization-check-for-http-caches). Section 14.8 of [RFC 2616](https://datatracker.ietf.org/doc/html/rfc2616#section-14.8) talks about the conditions under which shared caches can store and reuse such responses. They can be cached only when one of the following Cache-Control headers is present: `s-maxage`, `must-revalidate` or `public`.
+
+The default behavior for responses that require authentication is to not be cached by shared proxies.
 
 ```sh
-Cache-Control: private, no-cache, no-store, max-age=0, no-transform
-Expires: 0
+Cache-Control: private, s-maxage=0
 ```
 
+But if you want to override this behavior you can ignore certain Cache-Control headers from the origin server and set your own Cache-Control header before sending the response. This will depend upon the sensitivity of the data, e.g. if you simply use expiration caching with `public` modifier, you run the risk of storing the data specific to a user in a public cache. This may still be okay as long as the request is being validated and authorized by the origin server.
+
+```sh
+Cache-Control: public ,no-cache 
+# or 
+Cache-Control: public, proxy-revalidate
+```
 
 ### Modelling states of the business process as resources
 

@@ -56,8 +56,6 @@ API gateways provide utility in dealing with some [specific concerns](https://ww
 
 ModSecurity is an open source tool for securing applications, used by over a million sites around the world. It protects against a broad range of Layer 7 attacks, such as SQL injection (SQLi), local file inclusion (LFI), and cross‑site scripting (XSS), which together accounted for 95% of known Layer 7 attacks in Q1 2017, [according to Akamai](https://content.akamai.com/am-en-pg8854-q1-17-soti-security.html).
 
- https://www.nginx.com/blog/compiling-and-installing-modsecurity-for-open-source-nginx/
-
 * Inspects incoming HTTP requests for anomalies
 * Uses database of rules to define behaviours. It supports:
   * free open source OWASP ModSecurity Core Rule Set (CRS) with generic attack detection
