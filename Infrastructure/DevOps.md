@@ -39,6 +39,7 @@ Adopting Infra as Code approaches to delivering infrastructure
    * ensure deployments are scriptable and decoupled from CI/CD tooling to facilitate migration & local testing
    * modularise reusable scripts to prevent duplication
 * secure by default
+    * security enforcement doesn't disrupt the application development and deployment pipeline
     * security baked into your pipelines
     * no secrets in source code
     * store secrets in a vault not in auto-generated files on a CI server
