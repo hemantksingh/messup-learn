@@ -16,8 +16,10 @@ A certificate can be self signed or requested from an independent Certificate Au
 
 A [certificate signing request (CSR)](https://www.globalsign.com/en/blog/what-is-a-certificate-signing-request-csr) is a message sent from an applicant to a Certificate Authority to apply for a digital identity certificate. A CSR is created and sent to the CA to be signed and generate a certificate for your domain. It usually contains the public key that will be included in your certificate, identifying information such as a common name (CN), organization (O), country (C), key type and key length. The CA will use the data from the CSR to create your certificate. The CSR may be accompanied by other credentials or proofs of identity required by the certificate authority, and the certificate authority may contact the applicant for further information. The certificate, in addition to containing the public key, contains additional information such as issuer, what the certificate is supposed to be used for and other types of metadata.
 
+A trusted CA will own their CA key and certificate but you can [create your own CA key and certificate with OpenSSL](https://docs.docker.com/engine/security/protect-access/#create-a-ca-server-and-client-keys-with-openssl)
+
 ```sh
-# Generate the CA key and certificate (A CA will usually have the CA key and certificate already with them)
+# Generate the CA key and certificate
 $ openssl req -x509 -sha256 -newkey rsa:4096 \
      -out ca.crt \
      -keyout ca.key \
@@ -63,9 +65,11 @@ Multitude of server and device types that allow an SSL to be installed and confi
 
 ## Self signed certificates
 
-As mentioned above a certificate can be self signed or requested from an independent Certificate Authority (CA). Self signed certificates do not go through the independent **identity vetting** process, therefore understandably they are not fit for public usage. However they may be used in development and test environments, provided:
+As mentioned above a certificate can be self signed or requested from a known global Certificate Authority (CA). Self signed certificates do not go through the independent **identity vetting** process, therefore understandably they cannot be implicitly trusted and are not fit for public usage. However they may be used in development and test environments, provided:
 
-* Trust is added in your own browsers to a self-signed certificate, those browsers will then accept that certificate
+* The self-signed certificate is trusted by importing it into the host's certificate store. On a Linux host 'trustung' the certificate is different and distro dependent On Windows this can be done using:
+  * [Powershell](https://docs.microsoft.com/en-us/dotnet/core/additional-tools/self-signed-certificates-guide#with-powershell) `Import-PfxCertificate  -FilePath certificate.pfx -CertLocation 'Cert:\LocalMachine\Root' -Password 'password'`
+  * `dotnet dev-certs https --trust`
 * You create your own private/internal CA that can issue certificates and add trust in your browsers for that CA
 
 In both of these cases, the key point is that the general public will not accept self signed certificates, which is by design — there is no reason that everyone else should believe the contents of your self signed certificates. So developers have to take some action to modify their browsers’ trust behavior in order to accept something that’s not publicly-trusted.
