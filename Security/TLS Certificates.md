@@ -16,7 +16,7 @@ A certificate can be self signed or requested from an independent Certificate Au
 
 A [certificate signing request (CSR)](https://www.globalsign.com/en/blog/what-is-a-certificate-signing-request-csr) is a message sent from an applicant to a Certificate Authority to apply for a digital identity certificate. A CSR is created and sent to the CA to be signed and generate a certificate for your domain. It usually contains the public key that will be included in your certificate, identifying information such as a common name (CN), organization (O), country (C), key type and key length. The CA will use the data from the CSR to create your certificate. The CSR may be accompanied by other credentials or proofs of identity required by the certificate authority, and the certificate authority may contact the applicant for further information. The certificate, in addition to containing the public key, contains additional information such as issuer, what the certificate is supposed to be used for and other types of metadata.
 
-A trusted CA will own their CA key and certificate but you can [create your own CA key and certificate with OpenSSL](https://docs.docker.com/engine/security/protect-access/#create-a-ca-server-and-client-keys-with-openssl)
+A trusted CA will own their CA key and certificate but you can [create your own CA key and certificate with OpenSSL](https://docs.docker.com/engine/security/protect-access/#create-a-ca-server-and-client-keys-with-openssl) as shown below
 
 ```sh
 # Generate the CA key and certificate
@@ -74,21 +74,21 @@ As mentioned above a certificate can be self signed or requested from a known gl
 
 In both of these cases, the key point is that the general public will not accept self signed certificates, which is by design — there is no reason that everyone else should believe the contents of your self signed certificates. So developers have to take some action to modify their browsers’ trust behavior in order to accept something that’s not publicly-trusted.
 
-Alternatively, you can purchase a public domain name from https://www.namecheap.com/, get it registered and then get a publicly-trusted certificate for it, even for development purposes.
+Alternatively, you can purchase a public domain name from somewhere like https://www.namecheap.com/, get it registered and then get a publicly-trusted certificate for it, even if it is for development purposes.
 
 ## Certificate thumbprint
 
-A thumbprint, much like an [SSH Key fingerprint](https://superuser.com/questions/421997/what-is-a-ssh-key-fingerprint-and-how-is-it-generated) that identifies the public key of a host to connect to, **identifies the public key of the certificate**. The thumbprint is almost certainly contained in the signature of the request to identify the certificate that can be used to verify the signature.
+A thumbprint, much like an [SSH Key fingerprint](https://superuser.com/questions/421997/what-is-a-ssh-key-fingerprint-and-how-is-it-generated) (that identifies the public key of a host to connect to) **identifies the public key of the certificate**. The thumbprint is almost certainly contained in the signature of the request to identify the certificate that can be used to verify the signature.
 
 ## SSL certificate for multiple domains
 
-The Subject Alternative Name (SAN) field lets you specify additional host names (sites, IP addresses, common names, etc.) to be protected by a single SSL Certificate, such as a Multi-Domain (SAN) or Extend Validation Multi-Domain Certificate. To [request an SSL certificate that supports multiple domains](http://www.jasinskionline.com/technicalwiki/%28X%281%29S%28fdjqoj45vcgk5z225tt5qaey%29%29/Print.aspx?Page=Requesting-an-SSL-Certificate-for-Multiple-Domains), you need to generate a Certificate Signing Request (CSR) for SANs.
+The **Subject Alternative Name** (SAN) field lets you specify additional host names (sites, IP addresses, common names, etc.) to be protected by a single SSL Certificate, such as a Multi-Domain (SAN) or Extend Validation Multi-Domain Certificate. To [request an SSL certificate that supports multiple domains](http://www.jasinskionline.com/technicalwiki/%28X%281%29S%28fdjqoj45vcgk5z225tt5qaey%29%29/Print.aspx?Page=Requesting-an-SSL-Certificate-for-Multiple-Domains), you need to generate a Certificate Signing Request (CSR) for SANs.
 
 [SAN certificates are different from wildcard certificates](https://opensrs.com/blog/2012/09/san-and-wildcard-certificates-whats-the-difference). While wildcard certificates allow for unlimited subdomains to be protected with a single certificate, a SAN cert allows multiple domain names to be protected with a single certificate.
 
 ## Server hosting multiple TLS certificates
 
-Server Name Indication (SNI) allows a server to safely host multiple TLS Certificates for multiple sites, all under a **single IP address**. Hosting multiple sites on a single IP address is helpful because there is a [shortage of IPv4 addresses](https://en.wikipedia.org/wiki/IPv4_address_exhaustion). The Internet Protocol version 4 (IPv4) has roughly 4 billion IP addresses. But, there are already more than 4 billion internet connected computers worldwide, so we are facing a shortage of IPv4 addresses. The anticipated shortage has been the driving factor in creating and adopting several new technologies, including network address translation (NAT), Classless Inter-Domain Routing (CIDR), and IPv6.
+Due to a [shortage of IPv4 addresses](https://en.wikipedia.org/wiki/IPv4_address_exhaustion) it doesn't make sense to host a single site per IP address. **Server Name Indication** (SNI) allows a server to safely host multiple TLS Certificates for multiple sites, all under a single IP address. The Internet Protocol version 4 (IPv4) has roughly 4 billion IP addresses. But, there are already more than 4 billion internet connected computers worldwide, so we are facing a shortage of IPv4 addresses. The anticipated shortage has been the driving factor in creating and adopting several new technologies, including network address translation (NAT), Classless Inter-Domain Routing (CIDR), and IPv6.
 
 SNI is an [extension to the TLS protocol](https://www.globalsign.com/en/blog/what-is-server-name-indication). The client specifies which hostname they want to connect to using the SNI extension in the TLS handshake. This allows a server (for example Apache, Nginx, or a load balancer such as HAProxy) to select the corresponding private key and certificate chain that are required to establish the connection from a list while hosting all certificates on a single IP address.
 
