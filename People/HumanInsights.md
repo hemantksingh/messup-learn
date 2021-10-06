@@ -1,15 +1,13 @@
 # People
 
-Understanding that not all people are the same and that they are driven by different motivations is crucial to knowing them.
-
-* Some technical people may be introverts but contemplative. They feel comfortable in front of a machine but people make them nervous? They do not want to deal with confrontation? Are you sure you want to deal continuously with someone who emotionally confronts us?
-  * Recharge your emotional batteries by being alone, sitting in front of a machine for hours
+Understanding that not all people are the same and that they are driven by different motivations is crucial to knowing them. Some of the [behavioural traits](https://www.scienceofpeople.com/category/behavioral-psychology) to look out for are: 
+* conscientious - people who are execution oriented and love to work towards a plan. Rather than being driven by the bigger picture they may want specific and clear instructions about their day to day activities.
+* neurotic - reactive and often think about the things that could go wrong and press the panic button
+* introverts but contemplative - some technical people may feel comfortable in front of a machine but people make them nervous? They do not want to deal with confrontation? Are you sure you want to deal continuously with someone who emotionally confronts us? Being alone, sitting in front of a machine for hours recharges your emotional batteries.
 
 * People in position of responsibility will check your confidence in your decisions. They will often put pressure on you to get to the facts, sometimes through confrontation.
   * In a *yes/no* decision come to 0 to 100% position e.g. *Based on our fact finding exercise and the data collected we are 100% sure of our recommendations*
   * On discovering new information (e.g. Organisation restructure plan), **bounce a question back**, e.g. *So what impact would the organisation restructure have on the project teams?*
-
-* Some people are more execution oriented. Rather than being driven by the bigger picture may want specific and clear instructions about their day to day activities.
 
 ## Human Insight
 
