@@ -21,8 +21,24 @@ The only way I can get you to do anything is by giving you what you want.
 * A carrot and stick (reward and punishment) policy has limited effect when dealing with people. If you want people to be truly engaged in your vision give them **autonomy, mastery and purpose** - Daniel Pink 
 *A clear vision that is repeated often gives people a purpose*
   
-* Ways to make people like you - become genuinely interested in other people. Go beyond the small talk and have meaningful conversations keeping their interests in mind. Doing some research about your prospect to find out what interests them most and what they are enthusiastic about, before an important meeting can help you in getting their attention.
-
+* Ways to make people like you - become genuinely interested in other people. Go beyond the small talk and have meaningful conversations keeping their interests in mind. Move away from *How are you* to *Who you are* conversations.
+  * Instead of asking 
+    * *Where did you grow up?* ask *Whats your story?* 
+    * *What do you do?* ask *What made you who you are today*?
+    * *What do you do in free time?* ask *Do you have a secret side hussle or passion project?*
+  * People like to know that they are interesting. Doing some research about your prospect to find out what interests them most and what they are enthusiastic about, before an important meeting can help you in getting their attention. 
+  * After they finish what they have to say: *Thats interesting* or if they have been interrupted: *You were saying something interesting, please finish*
+  * Working with you is always so easy
+  * Last time we talked you mentioned you mentioned you were doing this training - how did that go?
+* Use positive phrases while starting conversations:
+  * *Hey Brad I was just thinking about you, How are you?*
+  * Anytime someone calls you - I'm so glad you called, I was just thinking about you the other day
+  * The other day I was watching this Netflix documentary and I thought of you
+  * Hey long time no talk, someone recently talked to me about a great lawyer recommendation and I thougt of you
+ * Expressing vulnerability
+   * People wait for you to share something intimate before opening up to you. After sharing something intimate, you can finish with *What about you?*
+ * Increasing your exposure by showing up increases your likeability
+ 
 * Winning people over to your way of thinking - If you have made a mistake, admit that you're wrong and do it emphatically rather than defending yourself. *Dale Carnegie* suggests you own your mistake and vent how terrible the mistake was so you deflate the other person's anger.
   
 ### Putting your point across
