@@ -29,7 +29,7 @@ The only way I can get you to do anything is by giving you what you want.
   * People like to know that they are interesting. Doing some research about your prospect to find out what interests them most and what they are enthusiastic about, before an important meeting can help you in getting their attention. 
   * After they finish what they have to say: *Thats interesting* or if they have been interrupted: *You were saying something interesting, please finish*
   * Working with you is always so easy
-  * Last time we talked you mentioned you mentioned you were doing this training - how did that go?
+  * Last time we talked you mentioned you were doing this training - how did that go?
 * Use positive phrases while starting conversations:
   * *Hey Brad I was just thinking about you, How are you?*
   * Anytime someone calls you - I'm so glad you called, I was just thinking about you the other day
