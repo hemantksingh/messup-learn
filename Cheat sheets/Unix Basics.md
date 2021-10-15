@@ -23,11 +23,14 @@ Each user account on a unix machine is associated with a directory called its "h
 * [I/O Redirection](http://www.tldp.org/LDP/abs/html/io-redirection.html)
 
 ### Arguments
+
 ```sh
 $* # prints all the arguments passed to a shell script
 $# # prints the number of arguments 
 ```
+
 ### Standard in, out, and error
+
 There are three standard sources of input and output for a program. These three file descriptors (you can think of them as “data pipes”) are often called STDIN, STDOUT, and STDERR.
 
 Sometimes they’re not named, they’re numbered! The built-in numberings for them are 0, 1, and 2, in that order.
@@ -38,17 +41,25 @@ Sometimes they’re not named, they’re numbered! The built-in numberings for t
 ```
 
 ## Unix commands
+
 Basic unix commands can be found [here](http://www.cs.jhu.edu/~joanne/unix.html)
 
 Find the linux distribution
 
-```
-$ lsb_release
+```sh
+$ lsb_release -a
 
 # Not all Debian builds have lsb_release. e.g. even the official Ubuntu Docker image 
 # does not have lsb_release. The alternative is to use 
 
 $ cat /etc/os-release
+
+# OS name and linux kernel version
+$ hostnamectl
+
+# Linux kernel version
+$ uname -r
+
 ```
 
 Copy individual files to a remote system
@@ -174,9 +185,3 @@ Write and Quit `:wq`
 Quit without saving `q!`  
 Insert (Edit mode) `i`  
 Stop diff mode by quitting Vim `qa`
-
-## Windows Subsystem for Linux
-
-There is no linux kernel, sys calls are routed to the windows kernel, but allows linux processes to be run on Windows. e.g. Rails for Unix can be setup in the Windows subsystem
-
-DO NOT modify linux files using Windows apps

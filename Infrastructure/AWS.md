@@ -8,7 +8,9 @@ Identity and Access management for manging users and their access to AWS resourc
 |:---------------------:|:------------------------------|:-------------------------:|
 |A physical person      |Functions such as administrator, developer etc |Internal usage within AWS |
 
-IAM policies are generally applied to Groups as opposed to individual users.
+IAM Policies are generally applied to Groups as opposed to individual users.
+
+IAM Roles can also be identities you can create in IAM that has specific permissions. A role is similar to a user, as it is an AWS identity with permission policies that determine what the identity can and cannot do in AWS. Instead of being uniquely associated with one person, a role is intended to be assumable by anyone who needs it e.g. a role can be assigned to an EC2 instance to allow the instance access to another AWS resource e.g. S3 bucket as opposed to providing credentials to the instance for access to S3
 
 Root Account: The account created when you first set up your AWS account and which has complete admin access. This should be secured with MFA and not meant to be used to log in day to day.
 
@@ -72,3 +74,34 @@ Opening services in a VPC to another VPC, Sharing applications across VPCs. In a
 
 * Doesn;t require VPC peering, no route tables, NAT gateways, internet gateways, etc.
 * Requires a Network LB on the service VPC and an Elastic Network Interface on the customer VPC
+
+## EC2 Instance
+
+You can launch an EC2 instance from the AWS console with the default settings: Amazon Linux, t2.micro and download the private key for connecting to the EC2 instance via ssh
+
+```sh
+# SSH to the ec2 instance
+chmod 400 ~/Downloads/ec2_rsa.pem
+ssh ec2-user@<instance-publicip> -i ~/Downloads/ec2_rsa.pem
+
+# post ssh login
+       __|  __|_  )
+       _|  (     /   Amazon Linux 2 AMI
+      ___|\___|___|
+
+https://aws.amazon.com/amazon-linux-2/
+[ec2-user@ip-172-31-5-104 ~]$
+
+# install apache
+sudo su
+yum update -y
+yum install -y httpd
+systemctl start httpd
+systemctl enable httpd
+systemctl status httpd
+
+# add a webpage
+echo '<html><head><title>Success!</title></head><body><h1>Hello AWS Gurus</h1><iframe width="560" height="315" src="https://www.youtube.com/embed/Js21xKMFdww" frameborder="0" allowfullscreen></iframe></body></html>' > /var/www/html/index.html
+```
+
+Provided you have configured HTTP in your security groups and allowed internet connectivity in your subnet and NACL, you can visit the webpage by going to the public IP of your EC2 instance.
