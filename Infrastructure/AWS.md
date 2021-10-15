@@ -65,3 +65,10 @@ A VPC Endpoint enables you to privately connect your VPC to supported AWS servic
 Traffic between your VPC and other service does not leave the Amazon internal network.
 
 Instances in your VPC do not require public IP addresses to communicate with resources in the service.
+
+### AWS PrivateLink
+
+Opening services in a VPC to another VPC, Sharing applications across VPCs. In a multi tenant system if you have a VPC per customer then connecting 1000s of VPCs to your service VPC may not scale well. AWS PrivateLink allows you to expose a service VPC to tens, hundreds or thousands of customer VPCs.
+
+* Doesn;t require VPC peering, no route tables, NAT gateways, internet gateways, etc.
+* Requires a Network LB on the service VPC and an Elastic Network Interface on the customer VPC
