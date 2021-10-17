@@ -6,7 +6,7 @@ The [observability pyramid](https://medium.com/geekculture/monitoring-microservi
 
 ## Logging
 
-Logs answer the queston - *what happened in my system*?
+Logs answer the question - *what happened in my system*?
 
 Error logs tell developers what went wrong in their applications. User event logs give product managers insights on usage. If the CEO has a question about the next quarter’s revenue forecast, the answer ultimately comes from payment/CRM logs.
 
@@ -98,14 +98,13 @@ Implementing a reliable Prometheus monitoring system requires a tight integratio
 
 Depending upon your monitoring requirements, if you need to analyse both metrics and tracing data, then you may decide to [deploy tracing and metrics solutions together](https://developers.redhat.com/blog/2017/07/10/using-opentracing-with-jaeger-to-collect-application-metrics-in-kubernetes) as opposed to a standalone analysis backend.
 
-
 ## Application monitoring
 
 Ingesting all the telemetry data from different sources only makes sense if you can connect the dots and get meaningful information about the state of your applications. From performance monitoring to security monitoring, it is critical for businesses to analyze and review their telemetry data for monitoring and observability. Three of the most popular log management platforms are:
 
 * https://www.splunk.com/
 * https://www.sumologic.com/
-* ELK stack (Elasticsearch, Logstash, and Kibana) [Elastic APM agents](https://www.elastic.co/guide/en/apm/agent/dotnet/current/intro.html) automatically measures the performance of your application and tracks errors. The agent auto-instruments and records events, like HTTP requests and database queries. ELK is avaialble in different hosted offerings:
+* ELK stack (Elasticsearch, Logstash, and Kibana) [Elastic APM agents](https://www.elastic.co/guide/en/apm/agent/dotnet/current/intro.html) automatically measures the performance of your application and tracks errors. The agent auto-instruments and records events, like HTTP requests and database queries. ELK is available in different hosted offerings:
     * https://cloud.elastic.co/ 
     * https://logit.io/
 
@@ -124,3 +123,11 @@ You can consider [open source APM options](https://techbeacon.com/enterprise-it/
 With the rise of many different APM (Application Performance Monitoring) vendors, developers want flexibility in choosing vendor backends to visualize their metrics, such as Grafana, Splunk, Amazon CloudWatch, Azure Monitor and others. This flexibility also drives a need for unity within the realm of observability. The [OpenTelemetry](https://opentelemetry.io/docs/) project aims to provide that support by defining a new open standard—the OpenTelemetry Protocol (OTLP) for collecting traces, metrics, and logs. The OpenTelemetry Collector (OTel Collector) can be deployed as an agent on each host within an environment and configured to send telemetry data to the user’s desired back-end(s). OpenTelemetry instrumentation libraries should then be added to each application. By default, these instrumentation libraries are configured to export their data to a locally running Collector. Optionally, a pool of Collector instances can be deployed in a region.
 
 AWS has built its own [AWS-supported distribution of OpenTelemetry](https://aws.amazon.com/blogs/opensource/building-a-reliable-metrics-pipeline-with-the-opentelemetry-collector-for-aws-managed-service-for-prometheus/) to integrate with AWS managed Prometheus
+
+## Best practices
+
+* Distinguish between metrics available by default e.g. cloud managed services will provide most metrics by default, however for IAAS e.g. in EC2 instances CPU utilization may come up by default but memory utilization and disk usage will require installing an agent on the instance.
+* Avoid information overload and noise
+  * Configure appropriate logging levels within your application
+  * Avoid configuring aggressive alerts. Adjust your alarm threshold to prevent false positives. Only trigger a single alert for multiple errors of the same kind.
+* Configure actionable alerts. There is no point informing someone about an issue if they do not know how to deal with the issue. Depending upon the type of issue the alerting notification can have a link to a wiki article or a run book to fix the problem at hand.

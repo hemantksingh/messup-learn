@@ -97,14 +97,15 @@ sudo su
 yum update -y
 yum install -y httpd
 systemctl start httpd
+# automatically get it to start on boot 
 systemctl enable httpd
 systemctl status httpd
 
 # add a webpage
-echo '<html><head><title>Success!</title></head><body><h1>Hello AWS Gurus</h1><iframe width="560" height="315" src="https://www.youtube.com/embed/Js21xKMFdww" frameborder="0" allowfullscreen></iframe></body></html>' > /var/www/html/index.html
+echo '<html><head><title>AWS Solution Architect!</title></head><body><h1>Who is an AWS Solution Architect?</h1><iframe width="560" height="315" src="https://www.youtube.com/embed/Js21xKMFdww" frameborder="0" allowfullscreen></iframe></body></html>' > /var/www/html/index.html
 ```
 
-Provided you have configured HTTP in your security groups and allowed internet connectivity in your subnet and NACL, you can visit the webpage by going to the public IP of your EC2 instance.
+Provided you have configured HTTP in your security groups and allowed internet connectivity within your subnet and NACL, you can visit the above webpage by going to the public IP of your EC2 instance.
 
 ### EC2 instance metatdata
 
@@ -142,7 +143,7 @@ You need a minimum of 1 volume per EC2 instance. This is called the [root device
 
 **Snapshots** are a point-in-time copy (a photograph) of a volume that exist on S3. Snapshots are incremental meaning only the delta since the last snapshot is moved to S3. This saves dramatically on space and the time it takes to take the snapshot. Therefore the first snapshot can take considerably longer.
 
-Volume Types
+EBS Volume Types
 
 * General Purpose SSD (gp2, gp3) - suitable for boot disks and general applications
 * Provisioned IOPS SSD (io1 or io2) - for low latency OLTP workloads
