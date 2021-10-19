@@ -1,6 +1,7 @@
 # Terminology
 
 ## Tasks
+
 An AzDo [task](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/tasks?view=azure-devops&tabs=yaml) is the building block for defining automation in a pipeline.
 
 job  
@@ -11,6 +12,7 @@ job
 All tasks run in a sequence, one after the other. To run the same set of **tasks in parallel** on multiple agents, or to run some tasks without using an agent, see [jobs](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/phases?view=azure-devops&tabs=yaml)
 
 ### Custom tasks
+
 Some built-in tasks are provided to enable fundamental build and deployment scenarios. You can also create your own [custom task](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/tasks?view=azure-devops&tabs=yaml#custom-tasks).
 
 ### YAML schema
@@ -28,17 +30,18 @@ In addition, Visual Studio Marketplace offers a number of extensions; each of wh
 ### Agentless job
 Tasks that can be handled by the azure devops services e.g. a manual intervention task where someone has to approve something
 
-
 ## Release Pipeline Definition
+
 Defines the steps required to get the artifact from the artifact location and install the artifact.
 You create a release to kick off a stage (e.g. development) defined in your release pipeline.
 
 ## Release Agent
+
 Runs the tasks defined in the Release pipeline definition in a sequence. An agent may live in an agent pool. Agent pools can be managed by MS or customized with agents that run on-premise or in your own cloud subscription.
 
 ## Deployment group
-Set of predefined machines in a n/w segment normally on-prem but it could also be in the cloud.
 
+Set of predefined machines in a n/w segment normally on-prem but it could also be in the cloud.
 
 ## Release Pipelines
 

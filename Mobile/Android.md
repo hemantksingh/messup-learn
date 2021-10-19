@@ -1,19 +1,18 @@
 # Android Development
 
 ## Environment Setup
+
 * Install the Java SDK. Refer to http://developer.android.com for the correct version.
 * Install Android Development Kid (ADK) or Android Development Studio that includes:  
   IDE, Android SDK tools, Android Platform Tools, Android Virtual Devices (Emulator images)
 
 ![android-tools-architecture.png](../Images/android-tools-architecture.png)
 
-
 ### Enable Debugging using a real device
 
 * Enable USB debugging on the android phone under Developer Options  
 * Install USB drivers on your desktop - The USB driver enables dev tools to communicate with the device. Most Android Developer Phones use the Google USB driver. This can be installed through the **Android SDK Manager**. For other phones you must download the manufacturer drivers.
 * Helpful debug setting is to keep the device awake. There is generally an option 'Stay awake' under Developer Options.
-
 
 ### Android Debug Bridge (ADB) cli
 
@@ -72,9 +71,7 @@ New API levels and SDK tools can be installed through the SDK manager.
 
 ### Android Layouts
 
-Horizontal and vertical orientation can be used to align the views left to right and top to bottom respectively. Linear layout is simple but can be less performant if it contains multiple nested views. 
-
-
+Horizontal and vertical orientation can be used to align the views left to right and top to bottom respectively. Linear layout is simple but can be less performant if it contains multiple nested views.
 
 Relative layout allows you to adjust the **position** and **alignment** with respect to the *parent* or a *sibling*. Default position of a view is TOP LEFT when the horizontal and vertical position of a view is not specified.
 

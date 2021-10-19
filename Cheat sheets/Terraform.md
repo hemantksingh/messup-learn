@@ -4,8 +4,8 @@
 
 Pulls down the module(s) being referenced in your configuration, as well as add the provider plugin e.g. azurerm. It also initializes the .terraform directory: a local cache where terraform retains some files it will need for subsequent operations against this configuration. Its contents are not intended to be included in version control.
 
+### terraform plan
 
-### terraform plan 
 Identify the changes that terraform will apply based on your configuration
 
 Pass inline variables
@@ -19,7 +19,6 @@ Pass variables as file
 ### terraform apply
 
 `terraform apply "my.tfpan" # apply the plan`
-
 
 ## Defining resources
 

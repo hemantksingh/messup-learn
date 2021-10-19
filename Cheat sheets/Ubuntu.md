@@ -1,8 +1,8 @@
 # Ubuntu development setup
 
 ## Running on VirtualBox
-To get full screen mode and copy-paste working, [install the VirtualBox Guest Addition](https://askubuntu.com/questions/73059/how-to-copy-paste-from-ubuntu-virtualbox-guest-to-windows-host) through the Devices menu on your guest VM.
 
+To get full screen mode and copy-paste working, [install the VirtualBox Guest Addition](https://askubuntu.com/questions/73059/how-to-copy-paste-from-ubuntu-virtualbox-guest-to-windows-host) through the Devices menu on your guest VM.
 
 ## Dev setup runbook
 
