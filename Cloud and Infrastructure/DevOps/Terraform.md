@@ -13,7 +13,7 @@ You can run terraform directly in the azure cloud shell, which has the `azcli` a
 
 ## Arm and Terraform
 
-![arm-terraform.png](../Images/arm-terraform.png "Arm Terraform")
+![arm-terraform.png](../../Images/arm-terraform.png "Arm Terraform")
 
 ## Providers
 

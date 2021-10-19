@@ -4,4 +4,4 @@ Ansible can be used for provisioning infrastructure, orchestrating and automatin
 
 In contrast to other configuration management frameworks, Ansible does not require the installation of any agents within managed environments. Instead commands are pushed over SSH and interpreted by a Python runtime. The Ansible **control server**, packages up the configuration in a python package and delivers it to the remote nodes over SSH, which upon execution return the execution result as json. The python package that was delivered is stored in a temp dir on the remote node and deleted after execution, therefore leaving no residual software on the remote node.
 
-![ansible-components.png](../Images/ansible-components.png "Ansible Components")
+![ansible-components.png](../../Images/ansible-components.png "Ansible Components")

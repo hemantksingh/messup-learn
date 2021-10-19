@@ -77,7 +77,7 @@ All containers in a pod share the pod environment. Each container in the same po
 
 For communication beyond the pod the network namespace is provided with a **virtual network interface** which is allocated an IP address shared with all the containers in the pod.
 
-This allows auto scaling, healing and rolling updates (gradual replacment of running instances of your application with newer ones) and rollbacks quite simple.
+This allows auto scaling, healing and rolling updates (gradual replacement of running instances of your application with newer ones) and rollbacks quite simple.
 
 ### Inter pod communication within a node
 
@@ -98,6 +98,8 @@ By default, Docker uses **host-private networking** so containers can talk to ot
 In order to provide inter node networking Kubernetes expects 3rd party plugins that intend to provide pod networking across nodes to adhere to a specification called the **Container Networking Interface** or CNI. The CNI spec describes what a plugin must provide in order to facilitate container networking. Typically plugins implement pod to pod networking across nodes using layer 2/3 routing or **overlay networks**. An overlay network gives the appearance of a single network between the nodes in a cluster and uses tunnels or other mechanisms to move encapsulated pod network packets between the nodes.
 
 This means a pod on one node can seamlessly communicate with a pod on another node without having to deal with any network plumbing configuration.
+
+#### Azure Kubernetes Service (AKS)
 
 To provide inter node network connectivity, AKS clusters can use **kubenet** (basic networking) or **Azure CNI** (advanced networking). [AKS clusters by default use kubenet](https://docs.microsoft.com/en-us/azure/aks/configure-kubenet). With *kubenet*, only the nodes receive an IP address in the virtual network subnet. Pods can't communicate directly with each other. Instead, User Defined Routing (UDR) and IP forwarding is used for connectivity between pods across nodes. By default, UDRs and IP forwarding configuration is created and maintained by the AKS service, but you have to the option to bring your own route table for custom route management.
 
@@ -150,7 +152,7 @@ Currently there are 2 ways to configure ingress to your services:
 
 A [custom resource](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources) is an extension of the Kubernetes API that is not necessarily available in a default Kubernetes installation. A **Custom Resource Definition** (CRD) file defines your own object kinds e.g. `HTTPProxy` in the case of Contour and lets the API Server handle the entire lifecycle. Deploying a CRD into the cluster causes the Kubernetes API server to begin serving the specified custom resource. Before you can start to use your custom CRD you need to register the CRD with the kubernetes api server.
 
-[Nginx can cut websocket connections](https://vitobotta.com/2020/03/20/haproxy-kubernetes-hetzner-cloud) whenever it reloads its configuration, therefore it might be useful to deploy ingress controllers per connection type: one for http and another for websockets. Things to consider before opting for an ingress controller:
+[Nginx can cut websocket connections](https://vitobotta.com/2020/03/20/haproxy-kubernetes-hetzner-cloud) whenever it reloads its configuration, therefore it might be useful to deploy ingress controllers per connection type: one for http and another for websocket. Things to consider before opting for an ingress controller:
 
 * rate limiting
 * IP whitelisting
@@ -172,6 +174,7 @@ The private key and the corresponding X.509 certificate (PEM) for the host is ma
 ### Certificate Acquisition
 
 Automatically obtaining a certificate from a server that supports the ACME (Automated Certificate Management Environment) protocol, such as the let's encrypt certificate authority requires your request agent (cert manager in this case) to [prove that it controls the specified domain](https://letsencrypt.org/how-it-works/) name by either:
+
 * Provisioning a DNS record under the domain
 * Provisioning an HTTP resource under a well-known URI on http://example.com/
 
@@ -212,7 +215,7 @@ Configuration best practices - https://kubernetes.io/docs/concepts/configuration
 
 ### Service Mesh
 
-A [servie mesh](https://www.hashicorp.com/resources/what-is-a-service-mesh) allows you to move cross cutting concerns in a microservices architecture like service discovery, service-to-service and origin-to-service security and monitoring capabilities outside your applications into the infrastructure layer that can be configured as code. The policy configurations can be consistently applied to the whole ecosystem of microservices; enforced on both north-south (via the mesh proxy as a gateway) as well east-west traffic (via the same mesh proxy as a sidecar container).
+A [servie mesh](https://www.hashicorp.com/resources/what-is-a-service-mesh) allows you to move cross cutting concerns in a microservice architecture like service discovery, service-to-service and origin-to-service security and monitoring capabilities outside your applications into the infrastructure layer that can be configured as code. The policy configurations can be consistently applied to the whole ecosystem of microservices; enforced on both north-south (via the mesh proxy as a gateway) as well east-west traffic (via the same mesh proxy as a sidecar container).
 
 Rather than making your applications aware of the cross cutting concerns like implementing timeouts and retry, implementing tracing via OpenTracing Zipkin, instrument applications to produce Prometheus metrics or implement mutual TLS for encryption, a service mesh provides these capabilities as a service configurable via a unified [control plane](https://blog.envoyproxy.io/service-mesh-data-plane-vs-control-plane-2774e720f7fc). Ultimately, the goal of a control plane is to set policy that will eventually be enacted by the data plane.
 

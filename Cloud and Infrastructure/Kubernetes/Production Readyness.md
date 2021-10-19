@@ -6,4 +6,3 @@ Questions to think about before going to production
 * How do we deploy updates to the applications?
 * How do we track and respond to latency?
 * How do we regulating access to resources based on individual roles?
-

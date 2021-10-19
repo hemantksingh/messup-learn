@@ -30,7 +30,7 @@ List all the SPs:  -> Select Role Assignments -> Select Type {Apps}
 
 Lists all the roles: -> Select Roles e.g. 'Owner' 'Contributor' 'Reader' and the Custom roles that you may have defined.
 
-![azure-role-assignment.png](../Images/azure-role-assignment.png)
+![azure-role-assignment.png](../../Images/azure-role-assignment.png)
 
 ### IAM for Active Directory
 
