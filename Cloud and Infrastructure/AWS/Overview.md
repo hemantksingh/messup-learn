@@ -1,5 +1,15 @@
 # AWS
 
+Use the [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html) to interact with AWS services from your command line shell.
+
+In order to configure the AWS CLI you will need an AWS account and your AWS credentials
+
+```bash
+$ aws configure
+```
+
+The configuration process stores your credentials in a file at `~/.aws/credentials` on MacOS and Linux, or `%UserProfile%\.aws\credentials` on Windows.
+
 ## IAM
 
 Identity and Access management for managing users and their access to AWS resources
@@ -30,7 +40,7 @@ VPC or Virtual Private Cloud is a logically isolated part of the AWS cloud, thin
   * [security groups are tied to an instance whereas Network ACLs are tied to the subnet](https://medium.com/awesome-cloud/aws-difference-between-security-groups-and-network-acls-adc632ea29ae)
   * security groups are stateful - if you send request from your instance, the response traffic for that request is allowed to flow in regardless of inbound security rules
 
-![aws-vpc.png](../Images/aws-vpc.png "AWS VPC Setup")
+![aws-vpc.png](../../Images/aws-vpc.png "AWS VPC Setup")
 
 * A **router** routes traffic between different subnets and is required to create subnets.
 * A public subnet requires a route out to the internet (via an internet gateway) and a mapping to a public IP. This allows any EC2 instances within this subnet to reach out to the internet and be publicly available. **1 subnet always spans 1 Availability Zone**

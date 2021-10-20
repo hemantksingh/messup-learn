@@ -2,10 +2,12 @@
 
 Tool to automate the deployment of your infrastructure across multiple clouds, both public and private. This enables Infrastructure as code to provision and manage any cloud, infrastructure or service.
 
-* uses HCL - Hashicorp configuration language
-* supports comments
-* arguably more human readable
-* resource addressing (referencing) is intuitive
+* Friendly custom syntax, uses HCL - Hashicorp configuration language (supports comments) but also has support for JSON
+* Visibility into changes before they actually happen.
+* Built-in graphing feature to visualize the infrastructure.
+* Understands resource relationships. One example is failures are isolated to dependent resources while non-dependent resources still get created, updated, or destroyed. Resource referencing is intuitive.
+* Open source project with a community of thousands of contributors who add features and updates.
+* The ability to break down the configuration into smaller chunks for better organization, re-use, and maintainability. The last part of this article goes into this feature in detail.
 
 ## Terraform on Microsoft Azure
 
