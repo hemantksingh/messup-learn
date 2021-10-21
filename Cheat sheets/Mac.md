@@ -24,8 +24,29 @@ Similar to **Windows** `echo %VARIABLE_NAME%`, find the value of the ENV variabl
 
 List all the path variables `env`
 
-## Terminal ##
-Use sudo prior to a command on the Terminal to run with admin privileges. You are going to be asked for your password before the running the command.
+## Terminal Setup
+
+You can either install [iTerm or use the default Terminal](https://apple.stackexchange.com/questions/25143/what-is-the-difference-between-iterm2-and-terminal). Since the update to version 10.15 Catalina, macOS includes Z shell (zsh) as default instead of Bash in the Terminal app. 
+
+### Oh My ZSH
+
+For managing your zsh configuration you can [install Oh My ZSH](https://ohmyz.sh/#install). Oh My Zsh [plugins](https://github.com/ohmyzsh/ohmyzsh/wiki/Plugins) provide auto completion support and other utilites for various tools. 
+
+List the installed plugins
+
+```sh
+ls ~/.oh-my-zsh/plugins
+```
+
+To enable a plugin, just add its name (as shown from the above command) in `plugins=(...)` in your `.zshrc` file. 
+
+List the enabled plugins
+
+```sh
+echo $plugins
+```
+
+### Other shortcuts 
 
 Find path for xcode developer tools
 ```
