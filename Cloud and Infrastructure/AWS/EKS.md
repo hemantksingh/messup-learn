@@ -1,10 +1,13 @@
 # Elastic Kubernetes Service (EKS)
 
-EKS Fargate - the control and worker nodes (group of VMs) are managed by AWS
+Running a Kubernetes cluster requires management, patching, security, isolation, scaling, etc.
+
+EKS Fargate - allows deploying containers on a kubernetes cluster without thinking about infrastructure where the control and worker nodes (group of VMs) are managed by AWS
 
 EKS Node Managed - the control node is always managed by AWS workload and worker node management is the customer's responsibility, you are responsible for securing and patching them, even if that is simplified by replacing instances using the updated AMIs that AWS provides
 
-https://aws.amazon.com/blogs/containers/saving-money-pod-at-time-with-eks-fargate-and-aws-compute-savings-plans/
+The main supposed [value of Fargate](https://aws.amazon.com/blogs/containers/saving-money-pod-at-time-with-eks-fargate-and-aws-compute-savings-plans/
+) is not having to pay for the hidden costs of operations.
 
 ## EKS Fargate or Managed Node
 

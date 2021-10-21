@@ -12,15 +12,15 @@ The configuration process stores your credentials in a file at `~/.aws/credentia
 
 ## IAM
 
-Identity and Access management for managing users and their access to AWS resources
+Identity and Access Management is used for managing users and their access to AWS resources. On an AWS account it basically allows administrators to define who can access what. IAM also provides a mechanism to monitor and audit access to specific resources by enabling AWS Cloud Trail. It can also integrate with other identity providers like Microsoft Active Directory.
 
-|Users                  |Groups                         |Roles                     |
-|:---------------------:|:------------------------------|:-------------------------:|
-|A physical person      |Functions such as administrator, developer etc |Internal usage within AWS |
+|Users                  |Groups                         |Roles    | Policies  |
+|:---------------------:|:------------------------------|:-------:|:---------:|
+|Specific individual, can receive logins |Collection of users such as administrator, developer etc |Collection of policies e.g. a role with (DB Read, DB Write) permissions |Low level permissions to resources (Allow/Deny) |
 
-IAM Policies are generally applied to Groups as opposed to individual users.
+IAM Roles can be used for [delegated access](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html) on behalf of the signed in user e.g. an IAM Role, also called *instance profile*   can be assigned to an EC2 instance to allow the instance to work on the signed in user's behalf and access another AWS resource e.g. S3 bucket as opposed to providing credentials to the instance for programmatic access to S3. IAM Roles can also be identities you can create in IAM that have specific permissions. A role is similar to a user, as it is an AWS identity with permission policies that determine what the identity can and cannot do in AWS. Instead of being uniquely associated with one person, a [role can be assumed](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html) by using AWS Security Token Service or [switched to a different role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-console.html) in the AWS Management Console to receive a temporary credentials role session.
 
-IAM Roles can also be identities you can create in IAM that has specific permissions. A role is similar to a user, as it is an AWS identity with permission policies that determine what the identity can and cannot do in AWS. Instead of being uniquely associated with one person, a role is intended to be assumable by anyone who needs it e.g. a role can be assigned to an EC2 instance to allow the instance access to another AWS resource e.g. S3 bucket as opposed to providing credentials to the instance for access to S3
+IAM Policies are generally applied to Groups as opposed to individual users. A [policy](https://docs.aws.amazon.com/AmazonS3/latest/userguide/example-bucket-policies.html) can be granted to a specific resource (with an `arn`) or all resources of a particular type (with a wildcard `"*"`)
 
 Root Account: The account created when you first set up your AWS account and which has complete admin access. This should be secured with MFA and not meant to be used to log in day to day.
 
