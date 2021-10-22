@@ -2,7 +2,7 @@
 
 Tool to automate the deployment of your infrastructure across multiple clouds, both public and private. This enables Infrastructure as code to provision and manage any cloud, infrastructure or service.
 
-* Friendly custom syntax, uses HCL - Hashicorp configuration language (supports comments) but also has support for JSON
+* Friendly custom syntax (supports comments), uses HCL - Hashicorp configuration language but also has support for JSON
 * Visibility into changes before they actually happen.
 * Built-in graphing feature to visualize the infrastructure.
 * Understands resource relationships. One example is failures are isolated to dependent resources while non-dependent resources still get created, updated, or destroyed. Resource referencing is intuitive.
@@ -19,11 +19,11 @@ You can run terraform directly in the azure cloud shell, which has the `azcli` a
 
 ## Providers
 
-A provider is responsible for understanding API interactions and exposing resources. Providers generally are an IaaS (e.g. Alibaba Cloud, AWS, GCP, Microsoft Azure, OpenStack), PaaS (e.g. Heroku), or SaaS services (e.g. Terraform Cloud, DNSimple, Cloudflare). There are 3 Azure providers in Terraform
+A provider is responsible for understanding API interactions and exposing resources. [Providers](https://registry.terraform.io/browse/providers) generally are an IaaS (e.g. Alibaba Cloud, AWS, GCP, Microsoft Azure, OpenStack), PaaS (e.g. Heroku), or SaaS services (e.g. Terraform Cloud, DNSimple, Cloudflare). There are 3 Azure providers in Terraform
 
 * Azure - Used to interact with Azure public cloud, Azure gov cloud or one of the sovereign clouds. It uses the Azure Resource Manager (Azure RM) API.
 * Azure Stack - On premise extension of Microsoft Azure. It uses the same ARM API, but some of the versions and resources are different.
-* Azure Active Direcory - Explicitly deals with Azure AD
+* Azure Active Directory - Explicitly deals with Azure AD
 
 Providers have:
 
@@ -46,6 +46,12 @@ Providers have:
         client_secret   = var.client_secret
     }
 ```
+
+## Modules
+
+A module is a container for multiple resources that are used together. Modules can be used to create lightweight abstractions, so that you can describe your infrastructure in terms of its architecture, rather than directly in terms of physical objects.
+
+Using a standard [module structure](https://www.terraform.io/docs/modules/index.html#module-structure) is recommended for reusable modules. Terraform tooling is built to understand the standard module structure and use that structure to generate documentation, index modules for the module registry, and more.
 
 ## Remote state
 
@@ -91,8 +97,43 @@ The persistent data stored in the backend belongs to a workspace. Initially the 
 
 Certain backends support multiple named workspaces, allowing multiple states to be associated with a single configuration. This can possibly also be achieved using different state files for the same configuration stored in the same backend.
 
-## Modules
+## Terraform workflow
 
-A module is a container for multiple resources that are used together. Modules can be used to create lightweight abstractions, so that you can describe your infrastructure in terms of its architecture, rather than directly in terms of physical objects.
+Terraform [Infrastructure as Code (IaC) workflow](https://learn.hashicorp.com/tutorials/terraform/infrastructure-as-code?in=terraform/aws-get-started) uses Terraform plugins called [providers](https://registry.terraform.io/browse/providers) that let Terraform interact with cloud platforms and other services via their application programming interfaces (APIs).
 
-Using a standard [module structure](https://www.terraform.io/docs/modules/index.html#module-structure) is recommended for reusable modules. Terraform tooling is built to understand the standard module structure and use that structure to generate documentation, index modules for the module registry, and more.
+### terraform init
+
+* pulls down and installs all the providers e.g. `azurerm` and modules(written in the Terraform language) being referenced in your configuration
+* initializes the `.terraform` directory: a local cache where terraform retains some files it will need for subsequent operations against this configuration. Its contents are not intended to be included in version control
+* creates or updates the dependency lock file `.terraform.lock.hcl`: determines compatibility between the current terraform configuration and dependencies (providers and modules). At present, the dependency lock file tracks only provider dependencies. Terraform does not remember version selections for remote modules, and so Terraform will always select the newest available module version that meets the specified version constraints.
+
+### terraform plan
+
+Identify the changes that terraform will apply based on your configuration
+
+Pass inline variables
+
+`terraform plan -var client_id=$AZURE_CLIENT_ID -var client_secret=$AZURE_CLIENT_SECRET -out my.tfplan # output the plan to a file 'my.tfplan'`
+
+Pass variables as file
+
+`terraform plan -var-file="terraform.example.tfvars" -out my.tfplan`
+
+### terraform apply
+
+`terraform apply "my.tfpan" # apply the plan`
+
+### Defining resources
+
+```sh
+resource "<type>" "<terraform_identifier>" { # or variable name
+  name     = "resourceGroup1"
+  location = "West US"
+}
+
+# Usage
+resource "azurerm_resource_group" "rg1" {
+  name     = "resourceGroup1"
+  location = "West US"
+}
+```
