@@ -53,6 +53,10 @@ A module is a container for multiple resources that are used together. Modules c
 
 Using a standard [module structure](https://www.terraform.io/docs/modules/index.html#module-structure) is recommended for reusable modules. Terraform tooling is built to understand the standard module structure and use that structure to generate documentation, index modules for the module registry, and more.
 
+### Passing variables to modules
+
+You cannot pass references into variables as variables are initialized before any parsing is done. Rather than passing arguments as `variables` if you need to dynamically obtain the value for a module variable, you can use `local` constructs as they are evaluated later in the plan/apply process. An example of this is provided [here](https://discuss.hashicorp.com/t/passing-values-in-existing-variables-to-modules/4803/3)
+
 ## Remote state
 
 Terraform stores state about your managed infrastructure and configuration. This state is used by Terraform to map real world resources to your configuration, keep track of metadata, and to improve performance for large infrastructures.
@@ -122,6 +126,10 @@ Pass variables as file
 ### terraform apply
 
 `terraform apply "my.tfpan" # apply the plan`
+
+### Logs
+
+For debugging purposes, log levels can be set using the `TF_LOG` environment variable. e.g. `TF_LOG=DEBUG terraform destroy`
 
 ### Defining resources
 
