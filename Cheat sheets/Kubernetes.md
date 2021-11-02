@@ -26,6 +26,9 @@ https://kubernetes.io/docs/reference/kubectl/cheatsheet/#viewing-finding-resourc
 
 ```sh
 
+# get all resources within default namespace
+kubectl get all
+
 # get nodes with increased verbosity
 kubectl get nodes -v 6
 
@@ -45,7 +48,6 @@ kubectl -n <namespace> get -l app.kubernetes.io/name=ingress-nginx all
 ## Creating objects
 
 https://kubernetes.io/docs/reference/kubectl/cheatsheet/#creating-objects
-
 
 You can create deployment based on [here doc](https://stackoverflow.com/questions/2953081/how-can-i-write-a-heredoc-to-a-file-in-bash-script) directly from the command line using `stdin` or define yaml manifests
 
