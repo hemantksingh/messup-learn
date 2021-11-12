@@ -32,7 +32,7 @@ Managing a **self hosted kubernetes cluster** in production requires patching, u
 
 [Kubernetes architecture](https://github.com/spiddy/kubernetes-security-workshop/blob/master/kubernetes-architecture/architecture.md) constitutes multiple services:
 
-### Master node
+### Control plane
 
 #### cluster store
 
@@ -52,7 +52,7 @@ helps schedule the pods on the various nodes based on resource utilization
 
 exposes a single api for running commands and queries on the master
 
-### Worker Node
+### Worker node
 
 Kubernetes workers
 
@@ -60,7 +60,7 @@ Kubernetes workers
     * **pod** is a single unit of deployment with one or more containers packaged together.
     * exposes endpoint on port: 10255 for node inspection
     * /spec /healthz /pods
-* container engine (runtime) - docker or rkt
+* container engine (runtime) to run and manage a container’s lifecycle - docker or rkt. Sometimes, Docker is also referred to as a container runtime, but to be precise, Docker is a platform which uses **containers** as a container runtime.
 * kube-proxy - a load balancing service running across multiple pods that proxies traffic to service endpoints (pods) . e.g. if a client pod wants to communicate with a service the kube-proxy routes traffic to one of the pods associated with the service.
 
 ## Pods
