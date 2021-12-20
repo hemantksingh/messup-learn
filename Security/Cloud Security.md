@@ -14,7 +14,7 @@ A checklist to assess your cloud application security footprint for running clou
 | ---------------------------------------------|:------------------------------------------|
 | Malware Detection and Response               | The cloud solution should have an active system to detect malware, automatically remove an infection, and alert on operational status	|
 | Vulnerability Management                     | The cloud solution should be assessed for vulnerabilities, missing patches, and improperly configured resources in accordance with established procedures |
-| Intrusion Detection and Intrusion Prevent    | The cloud based SaaS offering should detect malicious activity including unauthorized connectivity and when appropriate, prevent inappropriate activity	 |
+| Intrusion Detection and Intrusion Prevent    | IDS and IPS are parts of network infrastructure to detect malicious activity including unauthorized connectivity and when appropriate, prevent inappropriate activity. IDS analyze network traffic for signatures that match known cyberattacks. IPS also analyzes packets, but can also stop the packet from being delivered based on what kind of attacks it detects — helping stop the attack.|
 | Security Information Event Monitoring (SIEM) | All security logs should be consolidated to identify indicators or evidence of compromise |
 | Standard Operating Procedures                | All standard operating procedures should be updated to govern daily operations and exception management	|
 | Penetration Test                             | A third party organization should perform penetration test on the SaaS offering to isolated and determine any weaknesses before general availability |
