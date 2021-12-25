@@ -4,7 +4,7 @@ The Cloud Security Alliance (CSA) is a nonprofit organization that promotes rese
 
 Cloud Service Providers can register for the [Security Trust Assurance and Risk (STAR)](https://cloudsecurityalliance.org/star) program that documents the security and privacy controls provided by popular cloud computing offerings. This publicly accessible registry allows cloud customers to assess their security providers in order to make the best procurement decisions.
 
-The [Consensus Assessments Initiative Questionnaire (CAIQ)](https://searchcloudsecurity.techtarget.com/definition/CAIQ-Consensus-Assessments-Initiative-Questionnaire) is a survey provided by the Cloud Security Alliance (CSA) for cloud consumers and auditors to assess the security capabilities of a cloud service provider. The CAIQ was developed to create commonly accepted industry standards to document the security controls in infrastructure-as-a-service, platform-as-a-service and software-as-a service applications. This document can be uploaded to the [STAR regsitry](https://cloudsecurityalliance.org/star/registry) for making your security controls publicly accessible. 
+The [Consensus Assessments Initiative Questionnaire (CAIQ)](https://searchcloudsecurity.techtarget.com/definition/CAIQ-Consensus-Assessments-Initiative-Questionnaire) is a survey provided by the Cloud Security Alliance (CSA) for cloud consumers and auditors to assess the security capabilities of a cloud service provider. The CAIQ was developed to create commonly accepted industry standards to document the security controls in infrastructure-as-a-service, platform-as-a-service and software-as-a service applications. This document can be uploaded to the [STAR regsitry](https://cloudsecurityalliance.org/star/registry) for making your security controls publicly accessible.
 
 ## Security checklist
 
@@ -12,11 +12,11 @@ A checklist to assess your cloud application security footprint for running clou
 
 | Requirement                                  | Description                               |
 | ---------------------------------------------|:------------------------------------------|
-| Malware Detection and Response               | The cloud solution should have an active system to detect malware, automatically remove an infection, and alert on operational status	|
+| Malware Detection and Response               | The cloud solution should have an active system to detect malware, automatically remove an infection, and alert on operational status|
 | Vulnerability Management                     | The cloud solution should be assessed for vulnerabilities, missing patches, and improperly configured resources in accordance with established procedures |
-| Intrusion Detection and Intrusion Prevent    | IDS and IPS are parts of network infrastructure to detect malicious activity including unauthorized connectivity and when appropriate, prevent inappropriate activity. IDS analyze network traffic for signatures that match known cyberattacks. IPS also analyzes packets, but can also stop the packet from being delivered based on what kind of attacks it detects — helping stop the attack.|
+| Intrusion Detection and Intrusion Prevent    | IDS and IPS are parts of network infrastructure to detect malicious activity including unauthorized connectivity and when appropriate, prevent inappropriate activity. IDS analyze network traffic for signatures that match known cyber attacks. IPS also analyzes packets, but can also stop the packet from being delivered based on what kind of attacks it detects — helping stop the attack.|
 | Security Information Event Monitoring (SIEM) | All security logs should be consolidated to identify indicators or evidence of compromise |
-| Standard Operating Procedures                | All standard operating procedures should be updated to govern daily operations and exception management	|
+| Standard Operating Procedures                | All standard operating procedures should be updated to govern daily operations and exception management|
 | Penetration Test                             | A third party organization should perform penetration test on the SaaS offering to isolated and determine any weaknesses before general availability |
 | Access Control                               | Access control is required for access to Cloud production resources with assigned authorized actions to support the least privilege model |
 | Cryptography                                 | Cryptographic controls should be in place to support data in transit and data at rest for the both the product and the supporting infrastructure |

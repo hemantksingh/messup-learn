@@ -27,14 +27,12 @@ In order to understand and address your security requirements it is worth unders
 * assessment - analysis and discovery of vulnerabilities without attempting to actually exploit those vulnerabilities
 * testing - discovery and attempted exploitation of vulnerabilities
 
-[Security testing classification](https://www.zaproxy.org/getting-started/) is often done according to either the type of vulnerability being tested or the type of testing being done:
+[Security testing methodologies](https://www.zaproxy.org/getting-started/) include:
 
 * Vulnerability assessment – The system is scanned and analyzed for security issues.
 * Penetration testing – The system undergoes analysis and attack from simulated malicious attackers.  It has the advantage of being more accurate because it has fewer false positives (results that report a vulnerability that isn’t actually present), but can be time-consuming to run. **Automated pentesting** part of CI validation can help uncover new vulnerabilities as well as regressions for previous vulnerabilities in an environment which quickly changes.
-* Runtime testing – The system undergoes analysis and security testing from an end-user.
-* Code review – The system code undergoes a detailed review and analysis looking specifically for security vulnerabilities
-
-Dynamic application security testing (DAST) is an application security test run to find vulnerabilities in web applications while they are running (black box testing) while Static application security testing (SAST) is a white box testing method which can involve code reviews.
+* Code review – The system code undergoes a detailed review and analysis looking specifically for security vulnerabilities. This is also known as Static application security testing (SAST) or white box testing method
+* Runtime testing – The system undergoes analysis to discover security vulnerabilities while its running e.g. looking at the request and responses to the system. This is also known as Dynamic application security testing (DAST) or black box testing.
 
 Crowd security testing platforms like https://www.openbugbounty.org allow security researchers to report a vulnerability on any website and submit it to Open Bug Bounty for responsible disclosure. The role of Open Bug Bounty is limited to independent verification of the submitted vulnerabilities and proper notification of website owners. Once notified, the website owner and the researcher are in direct contact to remediate the vulnerability and coordinate its disclosure.
 
