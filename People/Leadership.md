@@ -80,4 +80,5 @@ Leadership is about empowering others to achieve their true potential. The found
 
 ## Resources
 
-https://github.com/ryanburgess/engineer-manager
+* https://github.com/ryanburgess/engineer-manager
+* https://twitter.com/wdmorrisjr/status/1482718036758917122
