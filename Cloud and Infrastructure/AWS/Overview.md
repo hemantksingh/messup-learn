@@ -38,8 +38,7 @@ VPC or Virtual Private Cloud is a logically isolated part of the AWS cloud, thin
 * Security Groups - virtual firewalls for EC2 instances and the last line of defense.
   * by default everything is blocked
   * [security groups are tied to an instance whereas Network ACLs are tied to the subnet](https://medium.com/awesome-cloud/aws-difference-between-security-groups-and-network-acls-adc632ea29ae)
-  * security groups are stateful - if you send request from your instance, the response traffic for that request is allowed to flow in regardless of inbound security rules
-
+  * security groups are stateful - this means any changes applied to an incoming rule will be automatically applied to the outgoing rule. e.g. If you allow an incoming port 80, the outgoing port 80 will be automatically opened.
 ![aws-vpc.png](../../Images/aws-vpc.png "AWS VPC Setup")
 
 * Elastic Network Interface (ENI)s are virtual network cards you can attach to your EC2 instances. They are used to enable network connectivity for your instances, and having more than one of them connected to your instance allows it to communicate on two different subnets. You’re already using them if you’re running on EC2—the default interface, `eth0`, is attached to an ENI that was created when you launched the instance, and is used to handle all traffic sent and received from the instance. You’re not limited to just one network interface though—attaching a secondary network interface allows you to **connect your EC2 instance to two networks at once**. A common use case for ENIs is the creation of management networks. This allows you to have public-facing applications like web servers in a public subnet but lock down SSH access down to a private subnet on a secondary network interface.
