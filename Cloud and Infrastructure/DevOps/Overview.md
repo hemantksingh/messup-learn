@@ -1,22 +1,22 @@
-# DevOps capabilities
+# DevOps
 
-The union of people, processes and products to enable continuous delivery of value to end users. DevOps is a loose set of practices, guidelines, and culture designed to break down silos in IT development, operations, networking, and security. Articulated by John Willis, Damon Edwards, and Jez Humble, CA(L)MS—which stands for Culture, Automation, Lean (as in Lean management; also see continuous delivery), Measurement, and Sharing—is a useful acronym for remembering the key points of DevOps philosophy.
+In the [SRE book by Google](https://sre.google/workbook/how-sre-relates/) DevOps is defined as a loose set of practices, guidelines, and culture designed to break down silos in IT development, operations, networking, and security. Articulated by John Willis, Damon Edwards, and Jez Humble, CA(L)MS—which stands for Culture, Automation, Lean (as in Lean management; also see continuous delivery), Measurement, and Sharing—is a useful acronym for remembering the key points of DevOps philosophy.
 
-DevOps and SRE have a lot in common. In the [SRE book by Google](https://sre.google/workbook/how-sre-relates/) *SRE is defined as the class that implements the DevOps interface*.
+DevOps and SRE have a lot in common.  *SRE is defined as the class that implements the DevOps interface*.
 
-People who can work with clients to shape and oversee engagements that are primarily infra/ops oriented
+## DevOps capabilities
 
-* Transforming infra/ops departments (i.e. reorganising them and getting them to adopt agile practices across the department, bridging silos and adopt DevOps culture by having **cross functional teams** capable of **building, running and supporting their apps**.
+People who can work within organizations to bring people, processes and products together to enable continuous delivery of value to end users.
+
+* Transforming infra/ops departments (i.e. reorganising them and getting them to adopt agile practices across the department, bridging silos and adopt DevOps culture by having **cross functional teams** capable of **building, running, securing and supporting their apps**.
 
 * People who know what it's like to shape and manage Cloud migrations strategies, who can talk to a client about the impact of moving to cloud on their budgeting **moving from CapEx to OpEx** (e.g moving from owning a car to renting a car), managing technical budgets and pros and cons of adoption of IAAS, PAAS or FAAS.
 
-* Product specialist equivalent? The answer to these gaps may not be Principal Technologists. Product specialists may not be true technologists, not PMs, not BAs, not CPs but may run serious infra/ops engagements, alongside a technologist and other roles.
-
-* Non-technical roles, e.g. BA, QA, UX, have a different experience from devs, in that they don't typically lead teams, or work with others of their own sort except with very large engagements. But it feels to me like DevOps becoming a different thing, not because it's technical, but because it's becoming the central focus of certain types of engagements (e.g. cloud migration)
+* Understand change management (e.g. CI/CD workflows, rollback and backup strategies), incident management and security auditing controls
 
 ## DevOps tooling
 
-Picking a similar tool set for Operations and Application development is crucial to be successful at DevOps. There is no good way to manage a service that has one tool for the SREs and another for the product developers, behaving differently (and potentially catastrophically so) in different situations. The more divergence you have, the less your company benefits from each effort to improve each individual tool.
+There is no good way to manage a service that has one tool for SREs and another for the product developers, behaving differently (and potentially catastrophically so) in different situations. The more divergence you have, the less your company benefits from each effort to improve each individual tool. Picking a similar tool set for Application developers, Operations, Network and Security teams is crucial to be successful at DevOps.
 
 ### CI/CD best practices and principles
 
