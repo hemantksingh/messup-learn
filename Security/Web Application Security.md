@@ -40,9 +40,10 @@ Crowd security testing platforms like https://www.openbugbounty.org allow securi
 
 A web application security scanner acts as a *"man in the middle proxy"* and typically sits between the tester's browser and the web application so that it can intercept and inspect messages sent between browser and web application, modify the contents if needed, and then forward those packets on to the destination.
 
+* [OWASP ZAP](https://www.zaproxy.org/) - Free and open source, can run headless as a daemon with a REST API.
+* [Open VAS](https://www.openvas.org/) - Open Vulnerability Assessment Scanner 
 * [BURP Scanner](https://portswigger.net/burp) - One of the best manual penetration testing tools out there, however a [comparison with Netsparker](https://www.netsparker.com/vulnerability-scanner-comparison/netsparker-vs-burp-suite/#) reveals it can be complicated to configure and relatively less focussed on automation and integration with other tools.
 * [Netsparker](https://www.netsparker.com/)
-* [OWASP ZAP](https://www.zaproxy.org/) - Free and open source, can run headless as a daemon with a REST API to do nearly everything that is possible via the desktop interface.
 * [Qualys web app scanning](https://www.qualys.com/apps/web-app-scanning/?_ga=2.142204082.1235140357.1591144958-1421731482.1591144958) - cloud based web app discovery and detection of vulnerabilities and misconfigurations
 * [Intruder](https://www.intruder.io) - SaaS based vulnerability scanner, provides [comparisons with other solutions](https://www.intruder.io/qualys-alternative)  
 

@@ -1,6 +1,6 @@
 # Threat Model Development
 
-* Define a security objective - what data to protect and how to protect it.
+* Define a security objective - what data to protect and how to protect it?
 * Document system decomposition an d how data flows through the organization, network using data flow diagram - most effective way of documenting threats as it is the data that we are trying to protect
   * identify trust boundaries - users, files, process boundaries, network boundaries, machine boundaries that share privileges, rights, access and identifiers  
 * Threat identification
