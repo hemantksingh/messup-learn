@@ -1,6 +1,6 @@
 # Cloud Security Controls Framework
 
-Ovrall view of control domains reviewed and assessed for Public cloud adoption
+Overall view of control domains reviewed and assessed for Public cloud adoption. Over time new controls can be added to attain a maturity level optimal for the organisational needs.
 
 ## Holistic Cyber Security Risk Framework
 
@@ -69,6 +69,18 @@ Azure security center provides endpoint threat detection and provides security a
 Azure sentinel is a cloud native SIEM and SOAR solution, similar to Splunk or Rapid7. It allows ingestion of data from various sources
 
 ![asc_as.png](../Images/asc_as.png "ASC v AS")
+
+## Data Control Framework
+
+Delivers a set of both preventive and detective controls that ensures that products and busness services run securely in the cloud from a data point of view. This looks at very cloud service that involves data storage and proposes controls for categories such as
+* data access and confidentiality
+  * No public acccess to S3 buckets
+  * Data stored in S3 buckets is encrypted e.g. using AWS Key Management Service
+  * Monitor access and usage for audit and troubleshooting purposes
+* catalogue
+* reliability & integrity 
+* retention 
+* avaialbility and recovery monitoring
 
 ## Acronyms
 
