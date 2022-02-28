@@ -2,6 +2,18 @@
 
 ## Technical skills
 
+* Problem solving - What is the problem you are looking to solve as opposed to what technology you want to use?
+* Drive innovation responsibly (by running small experiments)
+* Drive quality via automation and adopting best practices while keeping delivery timescales in mind
+  * reduce time to live
+    * reduce regression cycles and manual testing effort
+    * reduce operational overhead by implementing chaos testing, security testing and performance testing
+  * measure customer value
+    * analytics to understand customer behaviour and trends
+    * feature usage
+
+### Breadth of knowledge  
+  
 * TDD - demonstrate understanding of 
   * different levels of tests in the testing pyramid
   * approaches to testing - top down, bottom up
@@ -15,22 +27,23 @@
 
 ## Competency skills
 
-* Get buyin for tech debt, ability to sell your ideas
-  * provide solid building blocks for rapid delivery
-  * reduce the number of support issues in a particular area of the code
-* Demonstrate progress transparently
-  * able to switch from individual contributor to collaborate with the wider team
-  * run demos and share progress with others
-* Drive innovation responsibly (by running small experiments)
-* Drive quality (via automation, adopting best practices) keeping delivery timescales in mind
-  * reduce regression cycles and manual testing effort to allow frequent releases
-
 To kick off a conversation [Amazon leadership questions](https://www.yoreoyster.com/blog/amazon-leadership-principles-questions/) is a good place to start looking for potential behavioral questions:
 
 * Ownership/Accountability - Tell me about an unpopular decision of yours? Are they individually driven or lean on decisions made by the team?
 * Action/Results oriented - What is more important - getting things right or meeting deadlines/delivering value to customers? Understand how they manage competing priorities.
 * Simplification/Passion - Tell me about a time when you simplified or innovated something and it went wrong?
 * Teamwork/Humility - What do you do to gain the trust of your teammates?
+
+Other competencies to look out for:
+
+* Get buyin for tech debt, ability to sell your ideas
+  * provide solid building blocks for rapid delivery
+  * reduce the number of support issues in a particular area of the code
+* Demonstrate progress transparently
+  * able to switch from individual contributor to collaborate with the wider team
+  * run demos and share progress with others
+
+
 
 ## Fact finding techniques
 
