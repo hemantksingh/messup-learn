@@ -44,7 +44,6 @@ There are 2 tiers of AWS Shield
   * integreated with AWS Security Hub for a broader analysis of your organization's security posture
   * integrated with other AWS services, such as Step functions to take remediatory action
 
-
 ### Inspector
 
 * Automated security assessmet service that helps improve the security and compliance of applications deployed on AWS
@@ -52,3 +51,18 @@ There are 2 tiers of AWS Shield
   * network assessment - network configuration analysis to check for ports reachable from outside VPC, inspector agent not required
   * host assessment - Vulnerable software (CVE), host hardening using CIS Benchmarks, inspector agent is required
 * Assessment findings are reported based on severity
+
+### (Key Management Service) KMS
+
+* Create and control encryption keys used to encrypt your data
+* Integrates with EBS, S3 and RDS and other services to encrypt your data with the encryption keys you manage
+* Provides centralized control over the lifecycle and permissions of your keys
+
+#### AWS KMS Keys
+
+AWS KMS keys (KMS keys) are the primary resource in AWS KMS. You can use a KMS key to encrypt, decrypt, and re-encrypt data. It can also generate data keys that you can use outside of AWS KMS. Typically, you'll use symmetric KMS keys, but you can create and use asymmetric KMS keys for encryption or signing. AWS KMS key is a logical representation of an encryption key. It contains the key material used to encrypt and decrypt data. There are 3 ways to generate a KMS key
+  
+  * By default, AWS KMS creates the key material for a KMS key. The key material is genereated within HSMs (Hardware Security Module) and cannot be extracted, exported or viewed. An HSM is a physical computing device containing one or more secure cryptoprocessor chips that safegaurds and manages digital keys and performs encryption and decryption functions. It allows storing keys separately from where the encrypted data lives. 
+  * Import your own key material from your own key management infrastructure into a KMS key
+  * Create the key material for a KMS key in the AWS CloudHSM cluster associated with an AWS KMS custom key store. When you create an AWS KMS key in a custom key store, AWS KMS generates and stores non-extractable key material for the KMS key in an AWS CloudHSM cluster that you own and manage.
+
