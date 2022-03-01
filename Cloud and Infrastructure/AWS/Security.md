@@ -74,3 +74,18 @@ A **Hardware Security Module (HSM)** is a physical computing device containing o
   * Using the key policy (resource based policy attached to the KMS key) - the full scope of access to the KMS key is defined in a single document (the key policy)
   * Using IAM policies (policies attached to IAM identity) in combination with the key policy - manage all the permissions for your IAM identities in IAM
   * Using grants in combinations with the key policy - enables you to allow access to the KMS key in the key plocu as well as allow users to delegate their access to others
+
+### Secrets Manager
+
+Secrets manager is a service that securely stores, encrypts and rotates your database credentials, SSH keys, API keys and other secrets.
+* Encryption in transit and at rest using KMS
+* Automatic credentials rotation. When enabled secrets manager will rotate credentials immediately, therefore before enabling credential rotation make sure all your application instances are configured to use SecretsManager
+* Fine-grained access control using IAM policies
+* Costs money
+
+### Parameter Store
+
+* a capability of AWS Systems Manager, provides secure, hierarchical storage for configuration data management and secrets management
+* store data such as passwords, database strings, Amazon Machine Image (AMI) IDs, and license codes as parameter values. You can store values as plain text or encrypted data. 
+* Free, but limited to 10000 parameters with no key rotation
+
