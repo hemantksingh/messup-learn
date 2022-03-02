@@ -16,15 +16,26 @@ Identity and Access Management is used for managing users and their access to AW
 
 |Users                  |Groups                         |Roles    | Policies  |
 |:---------------------:|:------------------------------|:-------:|:---------:|
-|Specific individual, can receive logins |Collection of users such as administrator, developer etc |Collection of policies e.g. a role with (DB Read, DB Write) permissions |Low level permissions to resources (Allow/Deny) |
+|Specific individual, can receive logins |Collection of users such as administrator, developer etc |Collection of policies e.g. a role with (DB Read, DB Write) permissions |Low level permissions to resources (Allow/Deny) <ul><li>Identity policy - applied to a user or group</li><li>Resource policy - applied to an AWS resource e.g. S3, KMS Keys</li></ul>|
 
 IAM Roles can be used for [delegated access](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html) on behalf of the signed in user e.g. an IAM Role, also called *instance profile*   can be assigned to an EC2 instance to allow the instance to work on the signed in user's behalf and access another AWS resource e.g. S3 bucket as opposed to providing credentials to the instance for programmatic access to S3. IAM Roles can also be identities you can create in IAM that have specific permissions. A role is similar to a user, as it is an AWS identity with permission policies that determine what the identity can and cannot do in AWS. Instead of being uniquely associated with one person, a [role can be assumed](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html) by using AWS Security Token Service or [switched to a different role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-console.html) in the AWS Management Console to receive a temporary credentials role session.
 
 IAM Policies are generally applied to Groups as opposed to individual users. A [policy](https://docs.aws.amazon.com/AmazonS3/latest/userguide/example-bucket-policies.html) can be granted to a specific resource (with an `arn`) or all resources of a particular type (with a wildcard `"*"`)
 
+ * Not explicitly allowed == implicitly denied
+ * Explicit deny > everything else
+ * Only attached policies have effect
+ * AWS joins all applicable policies, e.g. EC2 admin access attached to devs and S3 admin access attached to devs, AWS will join these together but an explicit deny in one and an Allow in another will result in a Deny
+
 Root Account: The account created when you first set up your AWS account and which has complete admin access. This should be secured with MFA and not meant to be used to log in day to day.
 
 New Users: No permissions when first created
+
+### Permission boundaries
+
+* Controls maximum permissions an IAM policy can grant
+* Prevents privilege escalation or unnecessarily borad permissions e.g. you do not want developers to get full admin access to the AWS console, you may only want them to create roles for attaching to EC2 instances or to lambda functions
+
 
 ## Networking
 
