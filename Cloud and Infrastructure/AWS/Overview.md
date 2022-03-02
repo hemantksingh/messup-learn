@@ -10,6 +10,16 @@ $ aws configure
 
 The configuration process stores your credentials in a file at `~/.aws/credentials` on MacOS and Linux, or `%UserProfile%\.aws\credentials` on Windows.
 
+## Amazon Resource Names (ARNs)
+
+* Uniquely identify AWS resources
+* Required when you need to specify a resource unambiguously across all of AWS, such as in IAM policies, Amazon Relational Database Service (Amazon RDS) tags, and API calls
+* Format: `arn:partition:service:region:account_id`
+  * partition: aws|aws-cn (AWS China)
+  * service: s3|ec2|rds
+  * region: us-east-1|eu-central-1
+  * account_id: 123456789012
+
 ## IAM
 
 Identity and Access Management is used for managing users and their access to AWS resources. On an AWS account it basically allows administrators to define who can access what. IAM also provides a mechanism to monitor and audit access to specific resources by enabling AWS Cloud Trail. It can also integrate with other identity providers like Microsoft Active Directory.
