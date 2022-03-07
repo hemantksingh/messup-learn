@@ -28,9 +28,9 @@ There are 2 tiers of AWS Shield
 
 ### Guard Duty
 
-* Centralized threat detection service that uses ML to continuously monitor for malacious behaviour. It receives feeds from 3rd parties like Proofpoint and Crowdstrike about known malacious domains and IP addresses.
+* Centralized threat detection service that uses ML to continuously monitor for malacious behaviour. It receives feeds from 3rd parties like Proofpoint and Crowdstrike about known malacious domains and IP addresses. It is used for threat detection, not for protocol compliance
 * Allows you to monitor CloudTrail logs, VPC flow logs and DNS logs
-* Anomaly detection by learning what normal behaviour looks like in your account and alerts of any abnormal malacious behaviour
+* Anomaly detection by learning what normal behaviour looks like in your account and alerts of any abnormal malacious behaviour 
 
 
 ### Macie
@@ -51,6 +51,16 @@ There are 2 tiers of AWS Shield
   * network assessment - network configuration analysis to check for ports reachable from outside VPC, inspector agent not required
   * host assessment - Vulnerable software (CVE), host hardening using CIS Benchmarks, inspector agent is required
 * Assessment findings are reported based on severity
+
+
+### Trust Advisor
+
+* Provides recommendations that help you follow AWS best practices. Trusted Advisor evaluates your account by using checks. These checks identify ways to optimize your AWS infrastructure, improve security and performance, reduce costs, and monitor service quotas. You can then follow the check recommendations to optimize your services and resources.
+
+### Systems Manager
+
+* Allows you to select a resource group and view its recent API activity, resource configuration changes, related notifications, operational alerts, software inventory, and patch compliance status. It lets you take action on each resource group depending on your operational needs. 
+* Systems Manager provides a central place to view and manage your AWS resources, so you can have complete visibility and control over your operations.
 
 ### Key Management Service (KMS)
 
