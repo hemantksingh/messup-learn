@@ -78,6 +78,16 @@ You can use your existing website or **test websites** to perform security testi
 
 These types of attempts can only be effective if the attacker is able to exploit an existing vulnerability, like a non secure API, SQL injection or gaining access to credentials.
 
+## API Authentication Methods
+
+* Protect APIs from unauthorized access with authentication
+* [IP address-based ACLs](https://joelgsamuel.medium.com/ip-address-access-control-lists-are-not-as-great-as-you-think-they-are-4176b7d68f20) - may not be the most secure
+* Mutual TLS
+* HTTP Basic authentication
+* API Specific authentication
+  * API Key - shared secret
+  * JSON Web Token (JWT)
+
 ## Resources
 
 * [Web Security Concepts](https://docs.oracle.com/middleware/1212/owsm/OWSMC/owsm-security-concepts.htm#OWSMC116)

@@ -22,7 +22,7 @@ GPG keys are used for signing your commits/tags to establish integrity of the co
 
 ## Blackbox
 
-Store secrets safely with [blackbox](https://github.com/StackExchange/blackbox)
+[Blackbox](https://github.com/StackExchange/blackbox) can be used to store secrets safely in a VCS repository  (i.e. Git, Mercurial, Subversion or Perforce). It can Gnu Privacy Guard (GPG) encrypt specific files in a repo so they are "encrypted at rest" in your repository. It makes it easy to decrypt them when you need to view or edit them, and decrypt them for use in production. 
 
 * Enable blackbox for a git repository `blackbox_initialize`
 * To see a list of GPG keys on your machine, and to get the UID you need to provide blackbox with, run `gpg --list-keys`
