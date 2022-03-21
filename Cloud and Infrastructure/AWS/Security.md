@@ -19,7 +19,7 @@ There are 2 tiers of AWS Shield
   * Provides DDOS protection against SYN/UDP floods, reflection attacks and other layer 3 and layer 4 attacks when used with CloudFront and Route53
 * Advanced
   * Protection against larger & more sphisticated attacks targeting applications running on EC2, ELB, CloudFront AWS Global Accelerator and Route 53 resources
-  * Always on, flow based monitoring to provide realtime notifications of DDOD attacks
+  * Always on, flow based monitoring to provide realtime notifications of DDOS attacks
 
 ### Cloud Trail
 
@@ -109,4 +109,5 @@ Secrets manager is a service that securely stores, encrypts and rotates your dat
 * a capability of AWS Systems Manager, provides secure, hierarchical storage for configuration data management and secrets management
 * store data such as passwords, database strings, Amazon Machine Image (AMI) IDs, and license codes as parameter values. You can store values as plain text or encrypted data. 
 * Free, but limited to 10000 parameters with no key rotation
+* Uses KMS in the backend
 
