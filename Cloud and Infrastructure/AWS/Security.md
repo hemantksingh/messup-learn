@@ -32,7 +32,6 @@ There are 2 tiers of AWS Shield
 * Allows you to monitor CloudTrail logs, VPC flow logs and DNS logs
 * Anomaly detection by learning what normal behaviour looks like in your account and alerts of any abnormal malacious behaviour 
 
-
 ### Macie
 
 * Monitors S3 buckets, uses ML and pattern matching to discover sensitive data stored in S3
@@ -52,10 +51,22 @@ There are 2 tiers of AWS Shield
   * host assessment - Vulnerable software (CVE), host hardening using CIS Benchmarks, inspector agent is required
 * Assessment findings are reported based on severity
 
+### AWS Config
+
+AWS Config is a service that enables you to assess, audit, and evaluate the configurations of your AWS resources. 
+* continuously monitors and records your AWS resource configurations and allows you to automate the evaluation of recorded configurations against desired configurations.  
+* review changes in configurations and relationships between AWS resources, dive into detailed resource configuration histories, and determine your overall compliance against the configurations specified in your internal guidelines. 
+* enables you to simplify compliance auditing, security analysis, change management, and operational troubleshooting
 
 ### Trust Advisor
 
 * Provides recommendations that help you follow AWS best practices. Trusted Advisor evaluates your account by using checks. These checks identify ways to optimize your AWS infrastructure, improve security and performance, reduce costs, and monitor service quotas. You can then follow the check recommendations to optimize your services and resources.
+
+### Access Analyser 
+
+Access Analyzer helps you identify the resources in your organization and accounts, such as Amazon S3 buckets or IAM roles, shared with an external entity
+* validates IAM policies against policy grammar and best practices
+* generates IAM policies based on access activity in your AWS CloudTrail logs
 
 ### Systems Manager
 
