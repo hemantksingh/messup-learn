@@ -2,13 +2,23 @@
 
 [Azure isolation](https://docs.microsoft.com/en-us/azure/security/azure-isolation) allows distributing the cost of shared azure resources among multiple customers, preventing the risk of sharing physical servers and other infrastructure resources to run applications amongst multiple customers.
 
-**Azure tenant** is a client or organization that owns and manages a specific instance of cloud service. A tenant is simply a dedicated instance of Azure AD that your organization receives and owns when it signs up for a Microsoft cloud service. Azure tenancy (Azure Subscription) refers to a “customer/billing” relationship and a unique tenant in Azure Active Directory.
+**Azure tenant** is a client or organization that owns and manages a specific instance of cloud service. A tenant is simply a **dedicated instance of Azure AD** that your organization receives and owns when it signs up for a Microsoft cloud service. Azure tenancy (Azure Subscription) refers to a “customer/billing” relationship and a unique tenant in Azure Active Directory.
 
-Tenant level isolation in Microsoft Azure is achieved using Azure Active Directory and role-based controls offered by it.
+* Each Azure AD directory is distinct and separate from other Azure AD directories. Just like a corporate office building is a secure asset specific to only your organization, an Azure AD directory was also designed to be a secure asset for use by only your organization. 
+* An Azure AD tenant is logically isolated using security boundaries so that no customer can access or compromise co-tenants, either maliciously or accidentally.
+* Azure AD runs on “bare metal” servers isolated on a segregated network segment, where host-level packet filtering and Windows Firewall block unwanted connections and traffic.
 
-Each **Azure subscription** is a logical permissions group and is associated with one Azure Active Directory (AD). You may want an additional subscription to avoid hitting subscription limits, to create separate environments for security, or to isolate data for compliance reasons. Azure subscription [trusts Azure AD](https://docs.microsoft.com/en-in/azure/active-directory/fundamentals/active-directory-how-subscriptions-associated-directory) to authenticate users, services, and devices.
+Tenant level isolation in Microsoft Azure is achieved using Azure Active Directory and role-based controls offered by it. 
 
-Multiple subscriptions can trust the same Azure AD directory, but each subscription can only trust a single directory.
+
+
+Each **Azure subscription** is a logical permissions group and is associated with one Azure Active Directory (AD). A subscription [trusts Azure AD](https://docs.microsoft.com/en-in/azure/active-directory/fundamentals/active-directory-how-subscriptions-associated-directory) to authenticate users, services, and devices. You may create additional subscriptions to
+* create separate environments for security e.g dev and prod subscriptions, or to isolate data for compliance reasons. 
+* manage cost separately for cloud resources
+* avoid hitting subscription limits
+ 
+
+Multiple subscriptions can trust the same Azure AD directory, but each subscription can only be associated with a single directory.
 
 Subscription 1 ---|  
 Subscription 2 ---|--------------> Active Directory  
@@ -16,13 +26,17 @@ Subscription 3 ---|
 
 ## IAM
 
-Identity and Access Management can be configured at different levels. e.g. for a particular Resource Group, App Service, Storage Account etc or the Azure Subscription itself.
+Traditionally, establishing trust within the perimeter of an organisation's on premise network has been the way to secure an organization's assets. Any communication going out or coming inside the network permiter was considered untrusted. This has changed with cloud computing where SAAS based resources are accessed over the public internet.
+
+### Azure AD 
+
+Identity is at the heart of cloud security and it is the new security parameter. Azure AD facilitates Identity and Access Management (IAM). Azure AD houses user objects, application objects, devices etc and can be used to verify an identity (authentication)  and control what identity has access to what resources (authorization). It can be configured at different levels. e.g. for a particular Resource Group, App Service, Storage Account etc or the Azure Subscription itself.
 
 ### IAM for the azure subscription
 
 Select your account in the top-right corner -> My permissions -> Select Subscription -> Click here to view complete access details for this subscription -> Access control (IAM).
 
-Your current URL contains the **subsctiption id** e.g. https://portal.azure.com/#@<tenant>.onmicrosoft.com/resource/subscriptions/<subscription-id>/users
+Your current URL contains the **subsctiption id** e.g. https://portal.azure.com/#@{tenant}.onmicrosoft.com/resource/subscriptions/{subscription-id}/users
 
 #### Role assignments
 
