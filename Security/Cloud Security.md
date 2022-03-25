@@ -43,9 +43,16 @@ CIS Hardened Images have been hardened to either the Level 1 or Level 2 CIS Benc
 
 Microsoft Azure marketplace [provides CIS hardened images](https://www.cisecurity.org/blog/cis-hardened-images-now-in-microsoft-azure-marketplace/) that are certified to run on Microsoft Azure.
 
-#### Cloud security auditing tools
+#### Cloud Security Auditing Tools
 
-* [Scout suite](https://github.com/nccgroup/ScoutSuite) - open source multi-cloud security-auditing tool from the NCC Group, which enables security posture assessment of cloud environments. Using the APIs exposed by cloud providers, Scout Suite gathers configuration data for manual inspection and highlights risk areas.
+| Tool                                                       | Description                                       |
+| -----------------------------------------------------------|:-------------------------------------------------:|
+| Prowler - https://github.com/toniblyx/prowler              | Assesses AWS against best practices               |
+| CloudMapper - https://github.com/duo-labs/cloudmapper      | Generates a visual representation of the environment |
+| PMapper - https://github.com/nccgroup/PMapper              | Maps out principles in IAM |
+| SQLMap - https://github.com/sqlmapproject/sqlmap           | Automates testing for SQL injection |
+| Scout2 - https://github.com/nccgroup/Scout2.               | Open source multi-cloud security-auditing tool from the NCC Group, which enables security posture assessment of cloud environments. Using the APIs exposed by cloud providers, Scout Suite gathers configuration data for manual inspection and highlights risk areas|
+| AWS_IP_Finder - https://github.com/arkadiyt/aws_public_ips | Finds all public IPs assigned in AWS |
 
 ##### SIEM and SOAR
 
