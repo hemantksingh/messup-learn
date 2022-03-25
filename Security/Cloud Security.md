@@ -45,14 +45,14 @@ Microsoft Azure marketplace [provides CIS hardened images](https://www.cisecurit
 
 #### Cloud Security Auditing Tools
 
-| Tool                                                       | Description                                       |
-| -----------------------------------------------------------|:-------------------------------------------------:|
-| Prowler - https://github.com/toniblyx/prowler              | Assesses AWS against best practices               |
-| CloudMapper - https://github.com/duo-labs/cloudmapper      | Generates a visual representation of the environment |
-| PMapper - https://github.com/nccgroup/PMapper              | Maps out principles in IAM |
-| SQLMap - https://github.com/sqlmapproject/sqlmap           | Automates testing for SQL injection |
+| Tool                                                       | Description                                         |
+|:-----------------------------------------------------------|:----------------------------------------------------|
+| Prowler - https://github.com/toniblyx/prowler              | Assesses AWS against best practices                 |
+| CloudMapper - https://github.com/duo-labs/cloudmapper      | Generates a visual representation of the environment|
+| PMapper - https://github.com/nccgroup/PMapper              | Maps out principles in IAM                          |
+| SQLMap - https://github.com/sqlmapproject/sqlmap           | Automates testing for SQL injection                 |
 | Scout2 - https://github.com/nccgroup/Scout2.               | Open source multi-cloud security-auditing tool from the NCC Group, which enables security posture assessment of cloud environments. Using the APIs exposed by cloud providers, Scout Suite gathers configuration data for manual inspection and highlights risk areas|
-| AWS_IP_Finder - https://github.com/arkadiyt/aws_public_ips | Finds all public IPs assigned in AWS |
+| AWS_IP_Finder - https://github.com/arkadiyt/aws_public_ips | Finds all public IPs assigned in AWS                |
 
 ##### SIEM and SOAR
 
