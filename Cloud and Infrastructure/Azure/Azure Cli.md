@@ -1,6 +1,6 @@
-# Azure
+# Azure CLI
 
-Use Azure cli and azurerm module for interacting with the azure cloud APIs.
+Azure cli and azurerm module are used for interacting with the azure cloud APIs.
 
 ## Getting resources
 
@@ -137,7 +137,7 @@ az ad app create --display-name $app `
   --reply-urls https://localhost:44321
 ```
 
-### Add api permission
+### Add API permission
 
 `az ad app permission grant --id <appId> --api <apiAppId>`
 

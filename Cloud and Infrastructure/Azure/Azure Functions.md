@@ -1,13 +1,19 @@
 # Azure Functions
 
-[Consumption plan](https://docs.microsoft.com/en-in/azure/azure-functions/functions-scale#consumption-plan) is the default hosting plan and offers:
+Azure functions hosting options
 
-* Pay only when your functions are running.
-* Scaling the functions dynamically depending on workload.
+* [Consumption plan](https://docs.microsoft.com/en-in/azure/azure-functions/functions-scale#consumption-plan) is the default hosting plan and offers:
+  * Pay only when your functions are running
+  * Scaling the functions dynamically depending on workload
 
-App service plan is the underlying vm your app is going to be run on.
+* Premium plan - automatically scales based on demand using pre-warmed workers which run applications with no delay after being idle
+  * runs on more powerful instances
+  * connects to virtual networks
+* App service plan runs your functions within an app service plan at regular app service plan rates
+  * best for long running scenarios, with existing underutilized VMs that are already running other app service instances
+  * predictive scaling and costs are required
 
-On either a Consumption plan or an App Service plan, a function app requires a general Azure Storage account, which supports Azure Blob, Queue, Files, and Table storage. This is because Functions relies on Azure Storage for operations such as managing triggers and logging function executions.
+On either plan, a function app requires a general Azure Storage account for operations such as managing triggers and logging function executions.
 
 App service plan for functions and the app service plan for webapps cannot be in the same resource group?
 

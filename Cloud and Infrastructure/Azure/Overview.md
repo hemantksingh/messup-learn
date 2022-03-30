@@ -1,6 +1,14 @@
-# Azure setup
+# Azure
 
 [Azure isolation](https://docs.microsoft.com/en-us/azure/security/azure-isolation) allows distributing the cost of shared azure resources among multiple customers, preventing the risk of sharing physical servers and other infrastructure resources to run applications amongst multiple customers.
+
+## IAM
+
+Traditionally, organizations have secured their assets by establishing trust within the perimeter of the organisation's on premise network. Any communication going out or coming inside the network permiter was considered untrusted. This has changed with cloud computing where SAAS based resources are accessed over the public internet.
+
+### Azure AD 
+
+Identity is at the heart of cloud security, it is something that remains constant whether you are an office based user or a cloud based one. Azure AD facilitates Identity and Access Management (IAM). Azure AD houses user objects, application objects, devices etc and can be used to verify an identity (authentication) and control which identity has access to what resources (authorization). It can be configured at different levels. e.g. for a particular Resource Group, App Service, Storage Account or the Azure Subscription itself.
 
 **Azure tenant** is a client or organization that owns and manages a specific instance of cloud service. A tenant is simply a **dedicated instance of Azure AD** that your organization receives and owns when it signs up for a Microsoft cloud service. Azure tenancy refers to a “customer/billing” relationship and a unique tenant in Azure Active Directory. Tenant level isolation in Microsoft Azure is achieved using Azure Active Directory and role-based controls offered by it. 
 
@@ -8,7 +16,7 @@
 * Azure AD runs on “bare metal” servers isolated on a segregated network segment, where host-level packet filtering and Windows Firewall block unwanted connections and traffic.
 * An Azure AD tenant is logically isolated using security boundaries so that no customer can access or compromise co-tenants, either maliciously or accidentally.
 
-Each **Azure subscription** is a logical permissions group and is associated with one Azure Active Directory (AD). A subscription [trusts Azure AD](https://docs.microsoft.com/en-in/azure/active-directory/fundamentals/active-directory-how-subscriptions-associated-directory) to authenticate users, services, and devices. You may create additional subscriptions to
+**Azure subscription** is a logical permissions group associated with one Azure Active Directory (AD). A subscription [trusts Azure AD](https://docs.microsoft.com/en-in/azure/active-directory/fundamentals/active-directory-how-subscriptions-associated-directory) to authenticate users, services, and devices. You may create additional subscriptions to
 * create separate environments for security e.g dev and prod subscriptions, or to isolate data for compliance reasons. 
 * manage cost separately for cloud resources
 * avoid hitting subscription limits
@@ -17,7 +25,7 @@ Multiple subscriptions can trust the same Azure AD directory, but each subscript
 
 ![azuread-subscription.png](../../Images/azuread-subscription.png "AzureAD and Subscription Association")
 
-## Transferring subscription to a different tenant (changing directories)
+#### Transferring subscription to a different tenant (changing directories)
 
 When a subscription is created there are 2 roles that get automatically assigned to the user who created the subscription
 
@@ -27,14 +35,6 @@ When a subscription is created there are 2 roles that get automatically assigned
 Transferring the subscription to another target (target tenant) means the account admin and service admin change to the target tenant. Several Azure resources have a dependency on a subscription or a directory. Transferring a subscription means role assignments, managed identities and a [range of other things](https://docs.microsoft.com/en-us/azure/role-based-access-control/transfer-subscription#understand-the-impact-of-transferring-a-subscription) are also deleted from the source subscription.
 
 ![tenant-transfer.png](../../Images/tenant-transfer.png "AzureAD and Subscription Association")
-
-## IAM
-
-Traditionally, establishing trust within the perimeter of an organisation's on premise network has been the way to secure an organization's assets. Any communication going out or coming inside the network permiter was considered untrusted. This has changed with cloud computing where SAAS based resources are accessed over the public internet.
-
-### Azure AD 
-
-Identity is at the heart of cloud security, it is something that remains constant whether you are an office based user or a cloud based one. Azure AD facilitates Identity and Access Management (IAM). Azure AD houses user objects, application objects, devices etc and can be used to verify an identity (authentication) and control what identity has access to what resources (authorization). It can be configured at different levels. e.g. for a particular Resource Group, App Service, Storage Account etc or the Azure Subscription itself.
 
 ### IAM for the azure subscription
 
@@ -55,36 +55,3 @@ Lists all the roles: -> Select Roles e.g. 'Owner' 'Contributor' 'Reader' and the
 Azure Active Directory -> App registrations -> Endpoints
 
 Federated identity endpoints contain the **tenant id** e.g. Oauth Endpoint - https://login.microsoftonline.com/<tenant-id>/oauth2/token
-
-## Securing azure services
-
-Public internet access to your resources is not desirable. Locking down access to azure services is required for allowing traffic only from your virtual network or known IPs.
-
-### Virtual Network service endpoints
-
-Virtual Network (VNet) service endpoints allow you to [secure your critical Azure service](https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-service-endpoints-overview) resources by restricting access to the resources only via your virtual networks. Traffic from your VNet to the Azure service always remains on the Microsoft Azure backbone network.
-
-Endpoints extend your virtual network private address space. The endpoints also extend the identity of your VNet to the Azure services over a direct connection. 
-
-
-### IP firewall rules
-
-[Microsoft recommends](https://docs.microsoft.com/en-us/azure/sql-database/sql-database-firewall-configure#recommendation) using server-level IP firewall rules for SQL administrators and when you have many databases that have the same access requirements and you don't want to spend time configuring each database individually.
-
-One must explicitly **whitelist the IP addresses** that will be allowed access to a SQL Azure DB or add existing virtual networks to provide access to all databases in the dbserver.
-
-* Allow access to Azure services ON: allows communications from all Azure IP addresses and all Azure subnets. These Azure IPs or subnets might not be owned by you. This ON setting is probably more open than you want your SQL Database to be.
-* Allow access to Azure services OFF: most secure configuration
-
-[Automatically configure](https://docs.microsoft.com/en-us/azure/sql-database/sql-database-firewall-configure#manage-server-level-ip-firewall-rules-using-azure-cli) firewall rules using the Azure   cli or REST api.
-
-```sh
-# Set server firewall -> add the following rule to
-
-# provide access to any IP:
-0.0.0.0 to 255.255.255.255
-1.1.1.1 to 255.255.255.255
-
-# give access to a single IP:
-2.222.224.12 to 2.222.224.12
-```
