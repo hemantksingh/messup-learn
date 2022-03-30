@@ -17,6 +17,17 @@ Multiple subscriptions can trust the same Azure AD directory, but each subscript
 
 ![azuread-subscription.png](../../Images/azuread-subscription.png "AzureAD and Subscription Association")
 
+## Transferring subscription to a different tenant (changing directories)
+
+When a subscription is created there are 2 roles that get automatically assigned to the user who created the subscription
+
+* Account Admin - Billing and account ownership. This can be transferred to another tenant without changing the subscription and tenant association
+* Service Admin - Admin for resources in the subscription
+
+Transferring the subscription to another target (target tenant) means the account admin and service admin change to the target tenant. Several Azure resources have a dependency on a subscription or a directory. Transferring a subscription means role assignments, managed identities and a [range of other things](https://docs.microsoft.com/en-us/azure/role-based-access-control/transfer-subscription#understand-the-impact-of-transferring-a-subscription) are also deleted from the source subscription.
+
+![tenant-transfer.png](../../Images/tenant-transfer.png "AzureAD and Subscription Association")
+
 ## IAM
 
 Traditionally, establishing trust within the perimeter of an organisation's on premise network has been the way to secure an organization's assets. Any communication going out or coming inside the network permiter was considered untrusted. This has changed with cloud computing where SAAS based resources are accessed over the public internet.
