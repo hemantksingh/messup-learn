@@ -34,7 +34,12 @@ In order to understand and address your security requirements it is worth unders
 
 * Vulnerability assessment – The system is scanned and analyzed for security issues.
 * Penetration testing – The system undergoes analysis and attack from simulated malicious attackers.  It has the advantage of being more accurate because it has fewer false positives (results that report a vulnerability that isn’t actually present), but can be time-consuming to run. **Automated pentesting** part of CI validation can help uncover new vulnerabilities as well as regressions for previous vulnerabilities in an environment which quickly changes.
-* Code review – The system code undergoes a detailed review and analysis looking specifically for security vulnerabilities. This is also known as Static application security testing (SAST) or white box testing method
+* Code review – The system source code undergoes a detailed review and analysis looking specifically for security vulnerabilities. This is also known as Static application security testing (SAST) or white box testing method. Some examples of static code analysis tools:
+  * SonarQube
+  * Coverity from Synopsis
+* Software Composition Analysis - Rather than analysisng source code an SCA tool discovers all software components including their supporting libraries as well as all direct and indirect dependencies
+  * Black Duck - https://www.synopsys.com/software-integrity/security-testing/software-composition-analysis.html
+  * WhiteSource - https://www.whitesourcesoftware.com/resources/blog/software-composition-analysis/
 * Runtime testing – The system undergoes analysis to discover security vulnerabilities while its running e.g. looking at the request and responses to the system. This is also known as Dynamic application security testing (DAST) or black box testing.
 
 Crowd security testing platforms like https://www.openbugbounty.org allow security researchers to report a vulnerability on any website and submit it to Open Bug Bounty for responsible disclosure. The role of Open Bug Bounty is limited to independent verification of the submitted vulnerabilities and proper notification of website owners. Once notified, the website owner and the researcher are in direct contact to remediate the vulnerability and coordinate its disclosure.
