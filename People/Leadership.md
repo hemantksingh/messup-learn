@@ -50,8 +50,9 @@ Leadership is about empowering others to achieve their true potential. The found
 
 ## Influence
 
-- [Influencing others](./Influence.md) requires using your relationships and network for supporting your initiatives
+- [Influencing others](./Influence.md) requires you to build relationships and network for supporting your initiatives
 - Explore how you can engage and include others in the early stages of your challenge to get their buy-in and support
+- You can communicate the risks and benefits of a particular approach e.g. I'd recommend you not going down that route, would be delighted to be proven wrong. If your recommendation is not accepted, you can offer to be there and available in case the adopted approach does not work out
 - Manage conflict - Conflict can be seen as 'influence failed', reflect on your level of influence and where it comes from. You cannot win an argument - Avoid proving someone wrong, even if they are. Let them have their moment of authority and deflect the conversation onto something positive.
 
 ## Political savy
