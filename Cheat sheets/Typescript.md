@@ -5,7 +5,7 @@
 * Need a typescript compiler for compiling ts to js
 * `npm install typescript` The typescript package includes the typescript compiler `tsc`
 * `tsconfig.json` configures the typescript options for the project e.g. ts compile options, separates files to be included or excluded in compilation
-  ```js
+```js
    {
     "compilerOptions": {
         "target": "es5",
