@@ -1,9 +1,22 @@
 # Typescript
 
-* Allows definition of string types
+* Allows definition of strong types
+* Valid javascript is also valid typescript
 * Need a typescript compiler for compiling ts to js
 * `npm install typescript` The typescript package includes the typescript compiler `tsc`
-* `tsconfig.json` configures the typescript options for the project e.g. ts compile options
+* `tsconfig.json` configures the typescript options for the project e.g. ts compile options, separates files to be included or excluded in compilation
+  ```js
+   {
+    "compilerOptions": {
+        "target": "es5",
+        "noUnusedLocals": true,
+        "outFile": "output.js"
+    },
+    "files": [
+        "app.ts"
+    ]
+   }
+```  
 * Needs a definition of the types provided in external libraries e.g. Angular
 
 ## TypeScript Definition file
