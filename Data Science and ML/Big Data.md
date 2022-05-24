@@ -70,14 +70,14 @@ Large scale data processing engine that can run on Hadoop, Mesos, standalone, or
   * orchestrate and monitor data pipelines
 
 * AWS Glue 
-  * serverless data integration service that provides both visual and code-based interfaces to discover, prepare, and combine data for analytics, machine learning and application development
+  * serverless data integration service that provides both visual and code-based interfaces to discover, prepare, and combine data for analytics, machine learning and application development - targeted at Data Engineers
   * allows you to visually create, run and monitor ETL workflows in AWS Glue Studio
   * with AWS Glue DataBrew, data analysts and data scientists can visually enrich, clean, and normalize data without writing code
   * with AWS Glue Elastic Views, application developers can use SQL to combine and replicate data across different data stores
 
 * Amazon Athena
-  * serverless interactive query service that makes it easy to analyze data in Amazon S3 using standard SQL
-  * point to your data in Amazon S3, define the schema, and start querying using standard SQL, pay per query
+  * serverless interactive query service that makes it easy to analyze data in Amazon S3 using standard SQL - targeted at Data Athena
+  * point to your data in Amazon S3, define the schema, and start querying using standard SQL, pay per query and the data scanned
   * integrated with AWS Glue Data Catalog
 
 * Dataform (part of Google Cloud) 
