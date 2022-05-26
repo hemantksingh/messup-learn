@@ -41,15 +41,19 @@ Other competencies to look out for:
 
 ## Architect
 
-What does a software/technical architect role offer ?
+What does a software/technical architect role offer? Is it relevant for self empowered agile teams?
 
 * Support dev teams with
   * making technical descisions, or more importantly avoid making the wrong decisions
   * alignment with business goals, think big picture and help translate that into day to day
-
-* Represent engineering to the wider business, stakeholders and/or project sponsors
-* Evolve technical strategy based on business goals - look inwards and outwards
-* Derisk delivery by looking into the future and focussing on production readyness - Security, Performance, Resilience, Cost etc
+* Represent engineering to the wider business, stakeholders and/or project sponsors and extending the team's reach
+* Evolve technical strategy based on business goals
+  * have a view of current state and a target state 
+  * look inwards and outwards, liase with internal and external parties to build knowledge bridges
+* Derisk delivery 
+  * look into the future 
+  * help define guardrails/boundaries/governance
+  * focussing on production readyness - security, performance, resilience, cost etc
 * Working in the open - demonstrate progress transparently
 * Getting results through others
   * From player to coach
