@@ -11,10 +11,10 @@ To kick off a conversation [Amazon leadership questions](https://www.yoreoyster.
 
 Other competencies to look out for:
 
-* Get buyin for tech debt, ability to sell your ideas
+* Ability to sell your ideas e.g. get buyin for tech debt
   * provide solid building blocks for rapid delivery
   * reduce the number of support issues in a particular area of the code
-* Demonstrate progress transparently
+* Working in the open - demonstrate progress transparently
   * able to switch from individual contributor to collaborate with the wider team
   * run demos and share progress with others
 
@@ -50,8 +50,11 @@ What does a software/technical architect role offer ?
 * Represent engineering to the wider business, stakeholders and/or project sponsors
 * Evolve technical strategy based on business goals - look inwards and outwards
 * Derisk delivery by looking into the future and focussing on production readyness - Security, Performance, Resilience, Cost etc
-* Working in the open
-* Getting things done as opposed to doing?
+* Working in the open - demonstrate progress transparently
+* Getting results through others
+  * From player to coach
+  * From doing to getting it done
+  * As opposed to taking on too much work, provide support - shepherding people in the right direction 
 * Use data to drive decisions
   * Identify what to measure and the metrics to help support that
   * Look qunatitative and qualitative metrics
@@ -82,7 +85,7 @@ Someone who can work within organizations to bring people, processes and product
 
 ### Breadth of knowledge  
   
-* TDD - demonstrate understanding of 
+* TDD - demonstrate understanding of
   * different levels of tests in the testing pyramid
   * approaches to testing - top down, bottom up
   * best practices
@@ -92,4 +95,3 @@ Someone who can work within organizations to bring people, processes and product
 * CICD - branching techniques, impact of frequent releases, feature toggling, blue green deployments
 * REST APIs - significance of REST interface, idempotent operations, authentication techniques
 * DBs - relational and non-relational DB trade offs
-
