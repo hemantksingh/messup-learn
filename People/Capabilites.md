@@ -60,8 +60,9 @@ What does a software/technical architect role offer? Is it relevant for self emp
 * Support dev teams with
   * making technical descisions, or more importantly avoid making drastic decisions
   * alignment with business goals, think big picture and help translate that into day to day
-* Represent engineering to the wider business, stakeholders and/or project sponsors and extending the team's reach
-* Work in the open - demonstrate progress transparently
+* Represent engineering to the wider business, stakeholders and/or project sponsors
+  * extend the team's reach
+  * work in the open - demonstrate progress transparently
 
 ## Infrastructure/Cloud Architect  
 
