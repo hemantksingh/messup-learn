@@ -27,7 +27,8 @@ Logstash acts as an aggregator — pulling data from various sources before push
 
 Filebeat, and the other members of the Beats family, acts as a lightweight agent deployed on the edge host, pumping data into Logstash for aggregation, filtering and enrichment. Filebeat is one of the best log file shippers out there today — it’s lightweight, supports SSL and TLS encryption, supports back pressure with a good built-in recovery mechanism, and is extremely reliable. It cannot, however, in most cases, turn your logs into easy-to-analyze structured log messages using filters for log enhancements. That’s the role played by Logstash.
 
-Beats are used as lightweight agents installed on the different servers in your infrastructure for shipping logs or metrics. These can be 
+Beats are used as lightweight agents installed on the different servers in your infrastructure for shipping logs or metrics. These can be
+
 * log files (Filebeat)
 * network metrics (Packetbeat)
 * server metrics (Metricbeat)

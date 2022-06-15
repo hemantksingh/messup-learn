@@ -2,16 +2,30 @@
 
 * Data that is too big (100s of TB - x PB) or moves too fast to be processed by conventional means (too big of OLTP).
 * Three Vs
-
-    * Volume -  Data too big to fit on a single machine
-    * Velocity - The rate at which the data comes into the system and the velocity of the output of the system matters. The tighter the feedback loop, the greater is the competitive advantage. The results might go directly into a product e.g. – Facebook recommendations. The need of speed has also driven the development of NoSQL databases where RDBMS' aren’t the right fit.
-    * Variety - The data being generated can be unstructured with a format that is outside your control. A common use of big data processing is to take unstructured data and extract meaning out of it for either human consumption or as a structured input to another application.  Relational databases with their fixed schemas aren’t always a natural fit for storing such data. Semi-structured NoSQL databases provide the flexibility to store unstructured data that has less formal schema.
+  * Volume -  Data too big to fit on a single machine
+  * Velocity - The rate at which the data comes into the system and the velocity of the output of the system matters. The tighter the feedback loop, the greater is the competitive advantage. The results might go directly into a product e.g. – Facebook recommendations. The need of speed has also driven the development of NoSQL databases where RDBMS' aren’t the right fit.
+  * Variety - The data being generated can be unstructured with a format that is outside your control. A common use of big data processing is to take unstructured data and extract meaning out of it for either human consumption or as a structured input to another application.  Relational databases with their fixed schemas aren’t always a natural fit for storing such data. Semi-structured NoSQL databases provide the flexibility to store unstructured data that has less formal schema.
 
 * Partition a big dataset into multiple smaller datasets and send each chunk of the data to a separate node in a cluster to be processed individually and in parallel.
 
-## Big Data Architectures
+## Big data architectures
 
-A [big data architecture](https://docs.microsoft.com/en-us/azure/architecture/data-guide/big-data/) is designed to handle the ingestion, processing, and analysis of data (usually done via a [data pipeline](./Data%20Processing%20Pipeline.md)) that is too large or complex for traditional database systems.
+Traditional [big data architectures](https://docs.microsoft.com/en-us/azure/architecture/data-guide/big-data/) are designed to handle the ingestion, processing, and analysis of data that is too large or complex for traditional database systems. In these architectures data is moved from the operational plane (producers of data) to the analytical plane (consumers of data) via a [data pipeline](./Data%20Processing%20Pipeline.md). This separation can create data silos where data engineering teams have little knowledge of the domain and the domain teams produce data without considering how it may be used externally, resulting in data quality, accuracy and freshness issues.
+
+A **Data mesh** brings the operational and analytical planes together. *Old wine in new bottle* ?
+
+* Data as a product
+  * apply product thinking to data, thinking from the point of view of the customers of the data
+  * data as a product not a by-product
+* Domain driven decentralised data ownership
+  * move from monolithic ownership of data to distributed ownership within domain teams
+  * move away from technology driven architecture (data ingestion, ETLs, pipelines) to domain driven data
+* Self serve infrastructure as a platform
+  * apply infrastructure as code and platform thinking to data operations
+  * centralised infrastructure can provide centralised quality, security ?
+* Federated computational governance
+  * apply distributed data governance (think communities as opposed to central gatekeepers who define data quality, security and data ownership)
+  * ensure governance requirements are computationally embedded in the data platform tooling
 
 A Lambda architecture separates batch processing from stream processing whereas the Kappa architecture enables you to build your streaming and batch processing system on a single technology. With a sufficiently fast stream processing engine (like Hazelcast Jet), you may not need a separate technology that is optimized for batch processing. While the Lambda Architecture does not specify the technologies that must be used, the batch processing component is often done on a large-scale data platform like Apache Hadoop. The Hadoop Distributed File System (HDFS) can economically store the raw data that can then be transformed via Hadoop tools into an analyzable format. While Hadoop is used for the batch processing component of the system, a separate engine designed for stream processing is used for the real-time analytics component. One advantage of the Lambda Architecture, however, is that much larger data sets (in the petabyte range) can be stored and processed more efficiently in Hadoop for large-scale historical analysis.
 
@@ -56,12 +70,12 @@ Large scale data processing engine that can run on Hadoop, Mesos, standalone, or
 
 ## Managed data services
 
-* Azure Databricks 
+* Azure Databricks
   * Apache Spark-based big data analytics platform with the ability to run ML workloads (R, Python, Scala, Java) in Apache Spark workers
   * fully managed Apache Spark clusters with global scale and availability
 
 * Azure HDInsight
-  * on demand Hadoop type big data clusters 
+  * on demand Hadoop type big data clusters
   * requires cluster management
 
 * Azure Data Factory
@@ -69,7 +83,7 @@ Large scale data processing engine that can run on Hadoop, Mesos, standalone, or
   * code free and code based ETL and ELT processes
   * orchestrate and monitor data pipelines
 
-* AWS Glue 
+* AWS Glue
   * serverless data integration service that provides both visual and code-based interfaces to discover, prepare, and combine data for analytics, machine learning and application development - targeted at Data Engineers
   * allows you to visually create, run and monitor ETL workflows in AWS Glue Studio
   * with AWS Glue DataBrew, data analysts and data scientists can visually enrich, clean, and normalize data without writing code
@@ -80,17 +94,17 @@ Large scale data processing engine that can run on Hadoop, Mesos, standalone, or
   * point to your data in Amazon S3, define the schema, and start querying using standard SQL, pay per query and the data scanned
   * integrated with AWS Glue Data Catalog
 
-* Dataform (part of Google Cloud) 
-  * Cloud warehouses store and process data cost effectively, meaning more and more companies are [moving away from an ETL to an ELT approach](https://dataform.co/etl-vs-elt) for managing analytical data. 
+* Dataform (part of Google Cloud)
+  * Cloud warehouses store and process data cost effectively, meaning more and more companies are [moving away from an ETL to an ELT approach](https://dataform.co/etl-vs-elt) for managing analytical data
   * [Dataform](https://dataform.co) helps in converting captured data to curated data in BigQuery data warehouse
-* Goolge BigQuery 
+* Goolge BigQuery
   * fully managed, serverless data warehouse that scales with your storage and computing power needs
 * Google Cloud ML Engine
   * allows you to [train machine learning models](https://towardsdatascience.com/how-to-train-machine-learning-models-in-the-cloud-using-cloud-ml-engine-3f0d935294b3) in TensorFlow and other Python ML libraries (such as scikit-learn) without having to manage any infrastructure.
-* Google Cloud Dataprep 
+* Google Cloud Dataprep
   * serverless service for visually exploring, cleaning, and preparing structured and unstructured data for analysis, reporting, and machine learning.
 
-* Kaggle 
+* Kaggle
   * the *Github of Data Science*
   * allows users to find and publish data sets, explore and build models in a web-based data-science environment, work with other data scientists and machine learning engineers, and enter competitions to solve data science challenges  
-  * offers a no-setup, customizable, Jupyter Notebooks environment for data analysis 
+  * offers a no-setup, customizable, Jupyter Notebooks environment for data analysis
