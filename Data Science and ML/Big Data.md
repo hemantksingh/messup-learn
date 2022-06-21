@@ -24,8 +24,8 @@ A **Data mesh** brings the operational and analytical planes together. *Old wine
   * apply infrastructure as code and platform thinking to data operations
   * centralised infrastructure can provide centralised quality, security ?
 * Federated computational governance
-  * apply distributed data governance (think communities as opposed to central gatekeepers who define data quality, security and data ownership)
-  * ensure governance requirements are computationally embedded in the data platform tooling
+  * apply distributed data governance where domain teams or communities as opposed to central gatekeepers are responsible for defining data quality, security and data ownership
+  * ensure governance requirements are computationally embedded using automation in the data platform tooling
 
 A Lambda architecture separates batch processing from stream processing whereas the Kappa architecture enables you to build your streaming and batch processing system on a single technology. With a sufficiently fast stream processing engine (like Hazelcast Jet), you may not need a separate technology that is optimized for batch processing. While the Lambda Architecture does not specify the technologies that must be used, the batch processing component is often done on a large-scale data platform like Apache Hadoop. The Hadoop Distributed File System (HDFS) can economically store the raw data that can then be transformed via Hadoop tools into an analyzable format. While Hadoop is used for the batch processing component of the system, a separate engine designed for stream processing is used for the real-time analytics component. One advantage of the Lambda Architecture, however, is that much larger data sets (in the petabyte range) can be stored and processed more efficiently in Hadoop for large-scale historical analysis.
 
