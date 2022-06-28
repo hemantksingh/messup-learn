@@ -15,8 +15,8 @@ Traditional [big data architectures](https://docs.microsoft.com/en-us/azure/arch
 A **Data mesh** brings the operational and analytical planes together. *Old wine in new bottle* ?
 
 * Data as a product
-  * apply product thinking to data, thinking from the point of view of the customers of the data
-  * data as a product not a by-product
+  * apply product thinking to data, thinking from the point of view of the customers of your data
+  * data as a product not a by-product, think data contracts for publishing schemas with appropriate backwards and forwards compatibility so that existing consumers can continue to work when you add a new field, however if you do introduce a breaking change, then you use a versioned message/event
 * Domain driven decentralised data ownership
   * move from monolithic ownership of data to distributed ownership within domain teams
   * move away from technology driven architecture (data ingestion, ETLs, pipelines) to domain driven data
@@ -25,7 +25,7 @@ A **Data mesh** brings the operational and analytical planes together. *Old wine
   * centralised infrastructure can provide centralised quality, security ?
 * Federated computational governance
   * apply distributed data governance where domain teams or communities as opposed to central gatekeepers are responsible for defining data quality, security and data ownership
-  * ensure governance requirements are computationally embedded using automation in the data platform tooling
+  * ensure governance requirements are computationally embedded using automation in the data platform tooling e.g. embed policies into every endpoint and access point and enforce them at the time they get built, deployed or accessed
 
 A Lambda architecture separates batch processing from stream processing whereas the Kappa architecture enables you to build your streaming and batch processing system on a single technology. With a sufficiently fast stream processing engine (like Hazelcast Jet), you may not need a separate technology that is optimized for batch processing. While the Lambda Architecture does not specify the technologies that must be used, the batch processing component is often done on a large-scale data platform like Apache Hadoop. The Hadoop Distributed File System (HDFS) can economically store the raw data that can then be transformed via Hadoop tools into an analyzable format. While Hadoop is used for the batch processing component of the system, a separate engine designed for stream processing is used for the real-time analytics component. One advantage of the Lambda Architecture, however, is that much larger data sets (in the petabyte range) can be stored and processed more efficiently in Hadoop for large-scale historical analysis.
 
