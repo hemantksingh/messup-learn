@@ -14,10 +14,10 @@ Traditional [big data architectures](https://docs.microsoft.com/en-us/azure/arch
 
 ### Data mesh
 
-A Data mesh brings the operational and analytical planes together and advocates for applying the well known principles and practices that we have come to know of in the operational plane (SOA & microservices) to the analyical data plane.
+A Data mesh brings the operational and analytical planes together and advocates for applying the well known principles and practices that we have come to know of in the operational plane (microservices, DevOps) to the analyical data plane.
 
 * Data as a product
-  * apply product thinking to data, thinking from the point of view of the customers of your data
+  * apply product thinking to data, thinking from the point of view of the customers of your data, where a domain's internal state is encapsulated, however the shared state or as [Pat Helland](https://www.cidrdb.org/cidr2005/papers/P12.pdf) puts it **data on the outside** is made easy to be shared with the consumers.
   * data as a product not a by-product, think data contracts for publishing schemas with appropriate backwards and forwards compatibility so that existing consumers can continue to work when you add a new field, however if you do introduce a breaking change, then you use a versioned message/event
 * Domain driven decentralised data ownership
   * move from monolithic ownership of data to distributed ownership within domain teams
@@ -33,19 +33,21 @@ A Data mesh brings the operational and analytical planes together and advocates 
   * apply distributed data governance where domain teams or communities as opposed to central gatekeepers are responsible for defining data quality, security and data ownership
   * ensure governance requirements are computationally embedded using automation in the data platform tooling e.g. embed policies into every endpoint and access point and enforce them at the time they get built, deployed or accessed
 
-Limitations of data mesh:
+#### Limitations of data mesh
 
-* Multiple copies of data can lead to data divergence and governance nightmare
-* Data engineering specialists required in domain teams who are familiar with data tools and systems - data lakes, ETLs, stream processing, data wareshouses and Hadoop/Spark ecosystem etc
+Not that these limitations cannot be resolved but before adopting data mesh within your teams it is important to understand what you maybe trading off
+
+* For servicing the data product if different domains are required to keep different interpretaions of data belonging to other domains, multiple copies of data can lead to data divergence and governance nightmare
+* Data engineering specialists required in domain teams who are familiar with data tools and systems - data lakes, ETLs, stream processing, data wareshouses and maybe Hadoop/Spark ecosystem
 
 ### Balancing request-response and event-driven paradigms
 
 The [data dichotomy](https://www.confluent.io/blog/data-dichotomy-rethinking-the-way-we-treat-data-and-services) describes the tension between business services that manage operational data and data services that provide business intelligence. It provides Stateful Stream Processing as a possible compromise. Using messaging to make services Event Driven can provide better scalability and better decoupling than the Request-Response alternatives, as they move flow control from the sender to the receiver. This increases the autonomy of each service. In fairness it comes at a cost: you need a broker. But for significant systems, this is often a tradeoff worth making (less so for your average web app)
 
- If the broker is a distributed log, rather than a traditional messaging system, a few additional properties can be leveraged
+ Messaging without storage has no hostrical reference and can lead to data corruption over time. If the broker is a distributed log, rather than a traditional messaging system, a few additional properties can be leveraged
 
 * The transport can be scaled out linearly in much the same way as a distributed file system
-* Data can also be retained in the log, long term. So it’s messaging, but it’s also storage. Storage that scales, and without the perils of shared, mutable state.
+* Data can also be retained in the log, long term. Sometimes a domain needs a local, historic dataset in a database engine of their choice. The trick here is to ensure that the copy can be regenerated from source at will, by going back to the Distributed Log. Connectors in Kafka help with this. So it’s messaging, but it’s also storage. Storage that scales, and without the perils of shared, mutable state.
 
 A Lambda architecture separates batch processing from stream processing whereas the Kappa architecture enables you to build your streaming and batch processing system on a single technology. With a sufficiently fast stream processing engine (like Hazelcast Jet), you may not need a separate technology that is optimized for batch processing. While the Lambda Architecture does not specify the technologies that must be used, the batch processing component is often done on a large-scale data platform like Apache Hadoop. The Hadoop Distributed File System (HDFS) can economically store the raw data that can then be transformed via Hadoop tools into an analyzable format. While Hadoop is used for the batch processing component of the system, a separate engine designed for stream processing is used for the real-time analytics component. One advantage of the Lambda Architecture, however, is that much larger data sets (in the petabyte range) can be stored and processed more efficiently in Hadoop for large-scale historical analysis.
 
