@@ -24,7 +24,6 @@ In a functional language an event sourcing framework is a:
 
 Current state is a left fold of previous behaviors. A snapshot is a memorisation of left fold. A projection is a fold over your event log.
 
-
 ## [Building Event Storage](https://cqrs.wordpress.com/documents/building-event-storage/)
 
 Since events are never updated there is no primary key on the EventLog table. Commands are in imperative tense. Events are something that has happened in the past.
@@ -39,4 +38,3 @@ Messaging systems with **at least once delivery** require the event handlers to 
 
 * idempotent
 * able to deduplicate events i.e. handlers are able to recognise duplicate events and drop them if they have already been processed.
-
