@@ -99,6 +99,6 @@ These types of attempts can only be effective if the attacker is able to exploit
 * [OWASP Dependency Check](https://www.owasp.org/index.php/OWASP_Dependency_Check) is a utility that identifies project dependencies and checks if there are any known, publicly disclosed, vulnerabilities
 * API security - https://docs.oracle.com/middleware/1212/owsm/OWSMC/owsm-security-concepts.htm. Although specific to SOAP based web services but the concepts listed in the docs are still relevant to API security
 * [Observatory](https://observatory.mozilla.org/) from mozilla allows free basic website scanning for security flaws
-* [National Vulnerability Database](https://nvd.nist.gov/)
-* [Application Security Verification Standard](https://www.owasp.org/index.php/Category:OWASP_Application_Security_Verification_Standard_Project)
+* National Vulnerability Database - https://nvd.nist.gov/
+* [Application Security Verification Standard](https://www.owasp.org/index.php/Category:OWASP_Application_Security_Verification_Standard_Project) provides a basis for designing, building, and testing technical application security controls
 * CIS Security Benachmarks - https://www.cisecurity.org/cis-benchmarks/
