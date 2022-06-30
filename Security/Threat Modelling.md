@@ -1,4 +1,8 @@
-# Threat model development
+# Threat Modelling
+
+[Threat Modelling](https://cheatsheetseries.owasp.org/cheatsheets/Threat_Modeling_Cheat_Sheet.html) is a structured approach of identifying and prioritizing potential threats to a system, and determining the value that potential mitigations would have in reducing or neutralizing those threats.
+
+## Threat model development
 
 * Define a security objective - what data to protect and how to protect it?
 * Document system decomposition and map data flows through the organization, network and your system. As it is data that we are trying to protect, data flow diagrams are the most effective way of documenting threats.
@@ -11,7 +15,7 @@
   * accept the vulnerability and its associated threat
 * Validate the threat model
 
-## Attack surface evaluation
+### Attack surface evaluation
 
 * Unnecessary functionality
 * Understand history of application vulnerabilities
@@ -24,7 +28,7 @@ Microsoft has published its list of attack surface elements associated with Wind
 * Enabled accounts including guest accounts
 * Weak ACLs related to the file system, registry, shares
 
-## Attack surface minimization
+### Attack surface minimization
 
 * Reduce exposure by turning off unnecessary services, removing unused features or restricting access to limited IP range
 * Reduce the attack surface by limiting the number of components and document the work done
