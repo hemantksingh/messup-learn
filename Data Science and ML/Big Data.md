@@ -10,6 +10,14 @@
 
 ## Big data architectures
 
+Effective use of data follows a kind of Maslow's hierarchy of needs. The base of the pyramid involves capturing all the relevant data, being able to put it together in an applicable processing environment (be that a fancy real-time query system or just text files and python scripts). This data needs to be modeled in a uniform way to make it easy to read and process. Once these basic needs of capturing data in a uniform way are taken care of it is reasonable to work on infrastructure to process this data in various ways—MapReduce, real-time query systems, etc.
+
+It's worth noting the obvious: without a reliable and complete data flow, a Hadoop cluster is little more than a very expensive and difficult to assemble space heater. Once data and processing are available, one can move concern on to more refined problems of good data models and consistent well understood semantics. Finally, concentration can shift to more sophisticated processing—better visualization, reporting, and algorithmic processing and prediction.
+
+In my experience, most organizations have huge holes in the base of this pyramid—they lack reliable complete data flow—but want to jump directly to advanced data modeling techniques. This is completely backwards.
+
+So the question is, how can we build reliable data flow throughout all the data systems in an organization?
+
 Traditional [big data architectures](https://docs.microsoft.com/en-us/azure/architecture/data-guide/big-data/) are designed to handle the ingestion, processing, and analysis of data that is too large or complex for traditional database systems. In these architectures data is moved from the operational plane (producers of data) to the analytical plane (consumers of data) via a [data pipeline](./Data%20Processing%20Pipeline.md). This separation can create data silos where data engineering teams have little knowledge of the domain and the domain teams produce data without considering how it may be used externally, resulting in data quality, accuracy and freshness issues.
 
 ### Data mesh
@@ -35,16 +43,16 @@ A Data mesh brings the operational and analytical planes together and advocates 
 
 #### Limitations of data mesh
 
-Not that these limitations cannot be resolved but before adopting data mesh within your teams it is important to understand what you maybe trading off
+Not that these limitations cannot be resolved but before adopting data mesh within your organization it is important to understand the tradeoffs
 
-* For servicing the data product if different domains are required to keep different interpretaions of data belonging to other domains, multiple copies of data can lead to data divergence and governance nightmare
-* Data engineering specialists required in domain teams who are familiar with data tools and systems - data lakes, ETLs, stream processing, data wareshouses and maybe Hadoop/Spark ecosystem
+* For servicing the data product if different domains are required to keep different interpretations of data belonging to other domains, multiple copies of data can lead to data divergence and governance nightmare
+* Data engineering specialists required in domain teams who are familiar with data tools and systems - data lakes, ETLs, stream processing, data warehouses and maybe Hadoop/Spark ecosystem
 
 ### Balancing request-response and event-driven paradigms
 
 The [data dichotomy](https://www.confluent.io/blog/data-dichotomy-rethinking-the-way-we-treat-data-and-services) describes the tension between business services that manage operational data and data services that provide business intelligence. It provides Stateful Stream Processing as a possible compromise. Using messaging to make services Event Driven can provide better scalability and better decoupling than the Request-Response alternatives, as they move flow control from the sender to the receiver. This increases the autonomy of each service. In fairness it comes at a cost: you need a broker. But for significant systems, this is often a tradeoff worth making (less so for your average web app)
 
- Messaging without storage has no hostrical reference and can lead to data corruption over time. If the broker is a distributed log, rather than a traditional messaging system, a few additional properties can be leveraged
+ Messaging without storage has no historical reference and can lead to data corruption over time. If the broker is a distributed log, rather than a traditional messaging system, a few additional properties can be leveraged
 
 * The transport can be scaled out linearly in much the same way as a distributed file system
 * Data can also be retained in the log, long term. Sometimes a domain needs a local, historic dataset in a database engine of their choice. The trick here is to ensure that the copy can be regenerated from source at will, by going back to the Distributed Log. Connectors in Kafka help with this. So it’s messaging, but it’s also storage. Storage that scales, and without the perils of shared, mutable state.
