@@ -27,16 +27,17 @@ A Data mesh brings the operational and analytical planes together and advocates 
 * Data as a product
   * apply product thinking to data, thinking from the point of view of the customers of your data, where a domain's internal state is encapsulated, however the shared state or as [Pat Helland](https://www.cidrdb.org/cidr2005/papers/P12.pdf) puts it **data on the outside** is made easy to be shared with the consumers.
   * data as a product not a by-product, think data contracts for publishing schemas with appropriate backwards and forwards compatibility so that existing consumers can continue to work when you add a new field, however if you do introduce a breaking change, then you use a versioned message/event
-* Domain driven decentralised data ownership
+* Domain driven decentralized data ownership
   * move from monolithic ownership of data to distributed ownership within domain teams
   * move away from technology driven architecture (data ingestion, ETLs, pipelines) to domain driven data
 * Self serve infrastructure as a platform
   * apply infrastructure as code and platform thinking to data operations. Data infrastructure platform is agnostic to the domains and provide cross cutting functionality:
     * storage
-    * pipelines
+    * central pipeline with reliable data flow throughout all the data systems with a well defined API for adding data
     * catalogue
-    * acess control
-    * observability
+    * schema registry - use schemas to manage evolution of data in time and data definition e.g. date, strings. A schema registry provides runtime validation of schema compatibility and caching for schemas so that they don't need to be included in the message payload
+    * access control - segregate public and private channels for handling data, service PII and GDPR requirements
+    * governance and observability - data lineage for visibility of where data comes from (source), where it goes (destination) in a real time graph
 * Federated computational governance
   * apply distributed data governance where domain teams or communities as opposed to central gatekeepers are responsible for defining data quality, security and data ownership
   * ensure governance requirements are computationally embedded using automation in the data platform tooling e.g. embed policies into every endpoint and access point and enforce them at the time they get built, deployed or accessed
@@ -71,7 +72,7 @@ Hadoop opened up the possibility of indiscriminately dumping data into HDFS, and
 
 From a purist's point of view, it may seem that careful modelling and import is desirable, because it means the users of the database have better-quality data to work with. However, in practice, it appears that simply making data available quickly - even if it is in a quirky, difficult-to-use, raw format is often valuable than trying to decide on the ideal data model up front.
 
-The idea is a data lake is similar to that of a data warehouse: simply bringing data from various parts of a large organisation together in one place is valuable, because it enables joins across datasets that were previously disparate.
+The idea is a data lake is similar to that of a data warehouse: simply bringing data from various parts of a large organization together in one place is valuable, because it enables joins across datasets that were previously disparate.
 
 SQL is completely relational, while your **data lakes** are completely unstructured — they can be any kind of data.
 
@@ -87,6 +88,8 @@ When working with very large data sets, it can take a long time to run the sort 
 * Reduce: take the O/P from the map phase (in a key value format) and aggregate the results
 
 ![hadoop-stack.png](../Images/hadoop-stack.png "Hadoop Stack")
+
+Gartner estimates the failure rate of Big Data projects is as high as 85% and predicted that Hadoop implementations are [deemed to be obsolete](https://www.analytics.today/blog/snowflake-vs-hadoop) as a result of complexity and questionable usefulness.
 
 #### Apache Spark
 
