@@ -34,7 +34,7 @@ Stream processing is the infrastructure for continuous data processing. The comp
   * for real-time processing you can remove firehose and replace it with a lambda
 * Kinesis Data Analytics
   * analyze streaming data for **real-time insights** e.g. used to uncover real-time monitoring metrics such as response time and error-rate spikes in a centralized logging system
-  * provides real-time streaming ETL and analytics using Apache Flink - open-source framework and distributed processing engine for stateful computations
+  * provides real-time streaming ETL and analytics using Apache Flink - open-source framework and distributed processing engine for stateful computations like filtering, grouping, aggregating, joining and more.
   * build streaming application using Apache Flink in Java, Scala, and Python
   
 ## Analytics and modelling

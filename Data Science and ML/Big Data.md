@@ -33,9 +33,9 @@ A Data mesh brings the operational and analytical planes together and advocates 
 * Self serve infrastructure as a platform
   * apply infrastructure as code and platform thinking to data operations. Data infrastructure platform is agnostic to the domains and provide cross cutting functionality:
     * storage
-    * central pipeline with reliable data flow throughout all the data systems with a well defined API for adding data
+    * unified pipeline with reliable data flow throughout all the data systems with a well defined API for adding data
     * catalogue
-    * schema registry - use schemas to manage evolution of data in time and data definition e.g. date, strings. A schema registry provides runtime validation of schema compatibility and caching for schemas so that they don't need to be included in the message payload
+    * schema registry - maintains a database of schemas to manage data definition and evolution of data in time e.g. change in data format - date to string or if a field in the data message gets renamed. The schema registry provides runtime validation of schema compatibility via an API and caching for schemas so that they don't need to be included in the message payload. A producer configured to use the schema registry, it calls at produce time an API at the Schema Registry REST endpoint and presents the schema of the new message. If it is the same as the last message produced then the produce may succeed, if it is different but matches the compatibility rules defined for the channel the produce may still succeed
     * access control - segregate public and private channels for handling data, service PII and GDPR requirements
     * governance and observability - data lineage for visibility of where data comes from (source), where it goes (destination) in a real time graph
 * Federated computational governance
