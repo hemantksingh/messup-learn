@@ -24,6 +24,7 @@ Adopting Infra as Code approaches to delivering infrastructure
 
 * separation of concern
     * separation of infrastructure provisioning & configuration management - are you managing snowflake or ephemeral servers? think cattle not pets
+    * separation of compute, networking and storage within your infrastructure as code
     * separate application build, deployment and release
     * separate code deployment from config deployment - is your config auditable & version controlled?
 * build once deploy multiple times
