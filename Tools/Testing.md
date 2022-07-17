@@ -1,6 +1,6 @@
 # Testing approach
 
-TDD is a technique we use for writing automation tests before writing the actual implementation. In order to write effective software do we have to swear by it and treat is as the gospel truth? Is the test first approach the only technique to build confidence in your software?
+TDD is a technique we use for writing automation tests before writing the actual implementation. In order to write effective software do we have to swear by it and treat is as the gospel truth? Is the test first approach the only technique to build confidence in your software? In order to answer these questions it is important to think about the [purpose of testing](https://dannorth.net/2021/07/26/we-need-to-talk-about-testing/).
 
 ## Unit or integration tests ?
 

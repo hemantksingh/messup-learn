@@ -8,7 +8,7 @@ A [data pipeline](https://www.youtube.com/watch?v=VtzvF17ysbc) facilitates [data
 
 ## Data ingestion
 
-[Data warehousing and BI system pipelines](https://www.thoughtworks.com/insights/blog/agile-data-warehousing-and-business-intelligence-action) typically employ batch processing to data that has been stored over a period of time. This may involve polling to periodically look for data changes and process data in batches. The processing results may be consumed for visualization and reporting after day(s) or maybe week(s).
+[Data warehousing and BI system pipelines](https://www.thoughtworks.com/insights/blog/agile-data-warehousing-and-business-intelligence-action) typically employ batch processing to data that has been stored over a period of time. This may involve polling to periodically look for data changes and process data in batches. The processing results may be consumed for visualization and reporting after day(s) or maybe week(s). Batch processing follows sequential processing steps in a directed acyclic graph that is difficult to scale.
 
 However if you are working in low latency scenarios where processing results in real time can affect business and security outcomes, [stream processing](https://medium.com/@gowthamy/big-data-battle-batch-processing-vs-stream-processing-5d94600d8103) will be your preferred choice. Examples of such cases are
 
@@ -27,7 +27,8 @@ Logstash acts as an aggregator — pulling data from various sources before push
 
 Filebeat, and the other members of the Beats family, acts as a lightweight agent deployed on the edge host, pumping data into Logstash for aggregation, filtering and enrichment. Filebeat is one of the best log file shippers out there today — it’s lightweight, supports SSL and TLS encryption, supports back pressure with a good built-in recovery mechanism, and is extremely reliable. It cannot, however, in most cases, turn your logs into easy-to-analyze structured log messages using filters for log enhancements. That’s the role played by Logstash.
 
-Beats are used as lightweight agents installed on the different servers in your infrastructure for shipping logs or metrics. These can be 
+Beats are used as lightweight agents installed on the different servers in your infrastructure for shipping logs or metrics. These can be
+
 * log files (Filebeat)
 * network metrics (Packetbeat)
 * server metrics (Metricbeat)
@@ -50,21 +51,3 @@ Elasticsearch is trying to achieve widespread adoption in the data science indus
 Fluentd has built in reliability for persistence across restarts and has a configurable in-memory or on-disk buffering system while [Logstash is limited to an in-memory queue](https://platform9.com/blog/kubernetes-logging-comparing-fluentd-vs-logstash) that holds 20 events and, therefore, relies on an external persistence, like Redis.
 
 [Logstash can have performance issues](https://logz.io/blog/filebeat-vs-logstash/), it requires JVM to run, and this dependency coupled with the implementation in Ruby became the root cause of significant memory consumption, especially when multiple pipelines and advanced filtering are involved.
-
-## Analytics and modelling
-
-The tools you use for data analysis and processing may defer depending upon whether you are going to employ [machine learning in real time](https://dzone.com/articles/build-and-deploy-scalable-machine-learning-in-prod)
-
-* you want to deploy a new model in production in real time (as soon as it is built) ? Overtraining the models can lead to information loss. Generic ML models that are based on a wider data set e.g. a model per geographical region will provide better results than a model per gas site.
-* is latency of the model build process an issue ?
-* is the ordering of messages important ?
-* analytics of fuel prices and sales volume streams ? - adopt stream analytics (aggregations and statistical metrics over a large number of events) Many open source distributed stream processing frameworks are designed with analytics in mind - Apache Storm, Spark Streaming, Samza and Kafka streams
-* monitoring in place for analysing the outcomes of the applied model ?
-* single model per tenant or a single model for the entire system ?
-
-and the type of analysis you are looking to perform:
-
-* descriptive
-* diagnostic
-* predictive
-* prescriptive - prescribe options to consumers

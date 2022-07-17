@@ -43,25 +43,26 @@ Other competencies to look out for:
 
 What does a software/technical architect role offer? Is it relevant for self empowered agile teams?
 
-* Support dev teams with
-  * making technical descisions, or more importantly avoid making the wrong decisions
-  * alignment with business goals, think big picture and help translate that into day to day
-* Represent engineering to the wider business, stakeholders and/or project sponsors and extending the team's reach
-* Evolve technical strategy based on business goals
+* Create and evolve technical strategy based on business goals
   * have a view of current state and a target state 
-  * look inwards and outwards, liase with internal and external parties to build knowledge bridges
-* Derisk delivery 
+  * look inwards and outwards, liase with internal and external parties to bridge silos and minimise cross team dependencies
+* Derisk delivery
   * look into the future 
   * help define guardrails/boundaries/governance
-  * focussing on production readyness - security, performance, resilience, cost etc
-* Working in the open - demonstrate progress transparently
+  * enable production readyness - depending upon the business strategy optimize for operational excellence, security, performance, resilience, cost and sustainability 
+* Focus on delivering and measuring value
+  * Use data to drive decisions
+  * Identify what to measure and the key metrics to help support that
+  * Look at qunatitative as well as qualitative metrics
 * Getting results through others
-  * From player to coach
-  * From doing to getting it done
-  * As opposed to taking on too much work, provide support - shepherding people in the right direction 
-* Use data to drive decisions
-  * Identify what to measure and the metrics to help support that
-  * Look qunatitative and qualitative metrics
+  * From player to coach, from doing to getting it done
+  * As opposed to taking on too much work upon yourself, provide support - shepherding people in the right direction 
+* Support dev teams with
+  * making technical descisions, or more importantly avoid making drastic decisions
+  * alignment with business goals, think big picture and help translate that into day to day
+* Represent engineering to the wider business, stakeholders and/or project sponsors
+  * extend the team's reach
+  * work in the open - demonstrate progress transparently
 
 ## Infrastructure/Cloud Architect  
 

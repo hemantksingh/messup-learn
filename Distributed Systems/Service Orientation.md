@@ -1,33 +1,32 @@
 # Service Orientation
 
-There are without question pros and cons to the SOA approach, and some of the cons are pretty long. But overall it allows organisations to form independent teams around business capabilities and deliver value to end users quickly and frequently. SOA-driven design enables platforms, build an entire constellation of products by allowing other people to do the work.
+SOA allows organisations to form independent teams around business capabilities and deliver value to end users quickly and frequently. SOA-driven design enables platforms, build an entire constellation of products by allowing other people to do the work.
 
 Business management in 1950s was done by people passing files across business departments. People were the services and files were the messages. That is why we see organisational aspects keep getting linked back to SOA and microservices.
 
-Conway's Law suggests a link between organizational structure and the software that it creates.
+Conway's Law states organizations design systems that mirror their own communication structure.
 
 *"Any organization that designs a system (defined more broadly here than just information systems) will inevitably produce a design whose structure is a copy of the organization's communication structure."*
 
-## Business Capability Mapping
+## Business capability mapping
 
-* Modelling *what* a business does to reach its objectives (its capabilities), instead of *how* it does it (its business processes)
+[Business capability mapping](https://docs.microsoft.com/en-us/previous-versions/bb402954(v=msdn.10)?redirectedfrom=MSDN) is the exercise of modelling *what* a business does to reach its objectives (its capabilities), instead of *how* it does it (its business processes)
+
 * Model the business on its most stable elements (Business processes likely to change frequently but the capabilities that it offers remain constant)
 * Linked to how businesses organized themselves traditionally around departments
 * Have autonomous capabilities/domains with explicit boundaries around them that govern the rules of what messages/data comes in and what goes out
 * Align the business architecture with the technical architecture
 * Common semantics across the business to determine the ubiquitous language
 
-https://msdn.microsoft.com/en-us/library/bb402954.aspx
+### Identifying service boundaries
 
-### Identifying Service Boundaries
+In the context of [DDD](https://martinfowler.com/bliki/DomainDrivenDesign.html) a business capaility is synonymous with a business domain or **bounded context**
 
-Finding service boundaries is not an easy task and there are no fixed rules. Following are a few heuristics that may or may not enable you to identify service boundaries:
-
-* Immutable data (once created, it does not change) could divide up your services or may be this is immutable data within a service. The data going through service boundaries should be minimal and very basic. This data forms the messages flowing through the system.
-* The UI composition may lead you to identify the service boundaries.
-* Identify anti requirements - Is there a possibility of requesting one or more fields of entity A along with one or more fields of entity B. For example If the name of the book starts with "Something", customer gets a discount of 10%.
-
-If you happen to share a lot of raw business data between services, even through pub-sub it is generally an indication that your service boundaries are wrong. Preserve the Single source of truth within the service confines and avoid duplication of data across services.
+* Group of applications and services which together work towards some higher level business goal
+* These apps and services generally change for the same reason and share the same deployment cycle
+* Data going across domains is very basic, transmitted via stateful events and can be a call to action for other domains.
+* Remote synchronous queries are limited to within a single bounded context and global queries across domains are rare e.g. queries to s Single Sign On service that rarely changes are generally acceptible
+* If you happen to share a lot of data between domains, even through events it is probably useful to revisit your service boundaries
 
 ## Cross cutting concerns
 
@@ -53,7 +52,7 @@ Therefore decision to distribute should be a considered one:
 * Are you distributing to achieve isolation or scalability and availability? Isolation is difficult to enforce in a monolith. You rely on developer discipline to prevent an object accessing another object's memory. Developer discipline is hard to achieve, especially in a big team. Therefore the tendency is to put a network between 2 pieces of code to achieve this isolation. Distribution is not the only means of enforcing isolation and componentization. This can be done via:
     * building object abstractions, which admittedly is hard especially when working in a big team, but good design is hard.
     * seperate source code repositories for distinct applications
-    * running applications in different processes (Erlang has multiple processes running inside the same process space from an OS perspective) on the same machine     
+    * running applications in different processes (Erlang has multiple processes running inside the same process space from an OS perspective) on the same machine
 * Do you prefer autonomy over authority? i.e do you prefer the ability to isolate components over the ability to get consistent authoritative answer? By adopting microservices you are by default making this tradeoff. If you are at scale you do not have much of a choice, you have to make this trade off.
 * There might be different scaling needs for different software components.
 * Log aggregation, monitoring, service location, alerts
@@ -93,7 +92,6 @@ Simple routing using [round robin load balancing](https://www.nginx.com/resource
 According to **Nginx** the least time algorithm has yielded most valuable results for customers with microservices architectures.
 
 Service discovery can be achieved by something simple as  DNS based routing using a load balancer or have a centralised service like **Apache zookeeper** as an address/naming registry to determine what service resides where for large distributed systems. For more dynamic runtime environments like kubernetes, service meshes like **Consul** and **Istio**
-
 
 ## Monolith to Microservices
 
