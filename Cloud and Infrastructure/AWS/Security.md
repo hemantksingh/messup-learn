@@ -24,17 +24,20 @@ Identity and Access Management is used for
 * federate access into AWS by integrating with corporate identity providers like Microsoft Active Directory when the users have identities defined outside of AWS
   <img src="../../Images/aws-federated-identity.png" title="AWS federated identity" width="600" height="400"/>
 
+Refer to the [AWS IAM security best practices](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html) to secure AWS resources.
 |Users (Who)            |Groups (Who)       |Roles (Who)    | Policies (What) |
 |:---------------------:|:------------------|:--------------:|:---------------:|
-|Specific individual, can receive logins |Collection of users such as administrator, developer etc |Collection of policies that you can use to access AWS resources e.g. a role with DB Read, DB Write permissions |Low level permissions to resources (Allow/Deny) <ul><li>Identity policy - applied to a user or group</li><li>Resource policy - applied to an AWS resource e.g. S3, KMS Keys</li></ul>|
+|Specific individual, can receive logins |Collection of users by function such as administrator, developer etc |Collection of policies that you can use to access AWS resources e.g. a role with DB Read, DB Write permissions |Low level permissions to resources (Allow/Deny) <ul><li>Identity policy - applied to a user or group</li><li>Resource policy - applied to an AWS resource e.g. S3, KMS Keys</li></ul>|
 
 ### IAM Roles
 
-IAM Roles can be used for [delegated access](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html) on behalf of the signed in user e.g.
+* IAM Roles can be used for delegated access on behalf of the signed in user e.g. an IAM Role can be assigned to an EC2 instance to allow the instance to work on the signed in user's behalf and access another AWS resource e.g. S3 bucket. This means you don't have to provide credentials to the EC2 instance for programmatic access to S3.
 
-* an IAM Role can be assigned to an EC2 instance to allow the instance to work on the signed in user's behalf and access another AWS resource e.g. S3 bucket. This means you don't have to provide credentials to the EC2 instance for programmatic access to S3.
+You generally have two [ways to use a role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_common-scenarios.html): interactively in the IAM console, or programmatically with the AWS CLI, Tools for Windows PowerShell, or API.
 
-IAM Roles can also be identities you can create in IAM that have specific permissions. A role is similar to a user, as it is an AWS identity with permission policies that determine what the identity can and cannot do in AWS. Instead of being uniquely associated with one person, a [role can be assumed](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html) by using AWS Security Token Service or [switched to a different role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-console.html) in the AWS Management Console to receive a temporary credentials role session.
+* IAM users in your account using the IAM console can [switch to a role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-console.html) to temporarily use the permissions of the role in the console. The users give up their original permissions and take on the permissions assigned to the role. When the users exit the role, their original permissions are restored.
+
+* An application or a service offered by AWS (like Amazon EC2) can assume a role by requesting temporary security credentials for a role with which to make programmatic requests to AWS. You use a role this way so that you don't have to share or maintain long-term security credentials (for example, by creating an IAM user) for each entity that requires access to a resource.
 
 ### IAM Policies
 
@@ -45,9 +48,33 @@ IAM Policies are generally applied to Groups as opposed to individual users. AWS
  * Only attached policies have effect
  * AWS joins all applicable policies, e.g. EC2 admin access attached to devs and S3 admin access attached to devs, AWS will join these together but an explicit deny in one and an Allow in another will result in a Deny
 
-Root Account: The account created when you first set up your AWS account and which has complete admin access. This should be secured with MFA and not meant to be used to log in day to day.
+Root Account: The account created when you first set up your AWS account and which has complete admin access. This should be secured with MFA and not meant to be used to log in day to day
 
 New Users: No permissions when first created
+
+### Amazon Resource Names (ARNs)
+
+* Uniquely identify AWS resources
+* Required when you need to specify a resource unambiguously across all of AWS, such as in IAM policies, Amazon Relational Database Service (Amazon RDS) tags, and API calls
+* Format: `arn:partition:service:region:account_id`
+  * partition: aws|aws-cn (AWS China)
+  * service: s3|ec2|rds
+  * region: us-east-1|eu-central-1
+  * account_id: 123456789012
+
+```json
+// full admin access, allow the action of everything on every resources
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "*",
+            "Resource": "*"
+        }
+    ]
+}
+```
 
 ### Permission boundaries
 
