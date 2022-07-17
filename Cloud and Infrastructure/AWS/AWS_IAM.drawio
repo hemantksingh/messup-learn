@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="h5HP5lQ0RciIR4XBi29Y" name="Page-1">
-        <mxGraphModel dx="1103" dy="836" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="1115" dy="673" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -27,6 +27,16 @@
                 </mxCell>
                 <mxCell id="15" value="&lt;span style=&quot;color: rgb(240 , 240 , 240)&quot;&gt;Permissions management:&lt;/span&gt;&lt;br style=&quot;color: rgb(240 , 240 , 240)&quot;&gt;&lt;span style=&quot;color: rgb(240 , 240 , 240)&quot;&gt;AWS Identity and Access Management (IAM)&lt;/span&gt;" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#BF0816;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.encrypted_data;" parent="1" vertex="1">
                     <mxGeometry x="334" y="120" width="62" height="78" as="geometry"/>
+                </mxCell>
+                <mxCell id="39" style="edgeStyle=none;html=1;" edge="1" parent="1" source="18">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="290" y="600" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="40" style="edgeStyle=none;html=1;" edge="1" parent="1" source="18">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="280" y="810" as="targetPoint"/>
+                    </mxGeometry>
                 </mxCell>
                 <mxCell id="18" value="&lt;font color=&quot;#ffffff&quot;&gt;Corporate Identity Provider&lt;/font&gt;" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#232F3E;gradientColor=#F54749;gradientDirection=north;fillColor=#C7131F;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.directory_service;" parent="1" vertex="1">
                     <mxGeometry x="140" y="660" width="78" height="78" as="geometry"/>
@@ -72,6 +82,9 @@
                 </mxCell>
                 <mxCell id="36" value="Temporary security credentials" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#FFFFFF;" parent="1" vertex="1">
                     <mxGeometry x="630" y="700" width="110" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="41" value="&lt;h2&gt;Federated Access to AWS&lt;/h2&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="209" y="930" width="321" height="30" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
