@@ -10,6 +10,8 @@ Fundamentally there are a few patterns that can be used to secure everything in 
 
 ![aws-security-patterns.png](../../Images/aws-security-patterns.png "AWS Security Patterns")
 
+In order to secure your AWS resources, you can refer to the [AWS IAM security best practices](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html).
+
 ## IAM
 
 Identity and Access Management is used for
@@ -22,9 +24,8 @@ Identity and Access Management is used for
   * IAM role - is an identity that you can create in your account that has specific permissions. An IAM role is similar to an IAM user, in that it is an AWS identity with permission policies that determine what the identity can and cannot do in AWS. Instead of being uniquely associated with one person, a [role can be assumed](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html) by anyone who needs it. Also, a role does not have standard long-term credentials such as a password or access keys associated with it. Instead, when you assume a role, it provides you with **temporary security credentials** for your role session.
 * monitoring and auditing access to specific resources by enabling AWS Cloud Trail
 * federate access into AWS by integrating with corporate identity providers like Microsoft Active Directory when the users have identities defined outside of AWS
-  <img src="../../Images/aws-federated-identity.png" title="AWS federated identity" width="600" height="400"/>
+<img src="../../Images/aws-federated-identity.png" title="AWS federated identity" width="600" height="400"/>
 
-Refer to the [AWS IAM security best practices](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html) to secure AWS resources.
 |Users (Who)            |Groups (Who)       |Roles (Who)    | Policies (What) |
 |:---------------------:|:------------------|:--------------:|:---------------:|
 |Specific individual, can receive logins |Collection of users by function such as administrator, developer etc |Collection of policies that you can use to access AWS resources e.g. a role with DB Read, DB Write permissions |Low level permissions to resources (Allow/Deny) <ul><li>Identity policy - applied to a user or group</li><li>Resource policy - applied to an AWS resource e.g. S3, KMS Keys</li></ul>|
