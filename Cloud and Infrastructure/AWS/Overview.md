@@ -1,17 +1,5 @@
 # AWS
 
-Use the [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html) to interact with AWS services from your command line shell.
-
-In order to configure the AWS CLI you will need an AWS account and your AWS credentials
-
-```bash
-$ aws configure
-```
-
-The configuration process stores your 
-* credentials in a file at `~/.aws/credentials` on MacOS and Linux, or `%UserProfile%\.aws\credentials` on Windows
-* config e.g. aws default profile, region at `~/.aws/config`
-
 ## EC2 Instance
 
 You can launch an EC2 instance from the AWS console with the default settings: Amazon Linux, t2.micro and download the private key for connecting to the EC2 instance via ssh
