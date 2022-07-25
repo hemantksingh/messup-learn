@@ -25,4 +25,7 @@ $ aws schemas list-schemas --registry-name aws.events --output text --query 'Sch
 # Export the list to a file
 $ aws schemas list-schemas --registry-name aws.events --output text --query 'Schemas[*].[SchemaName,SchemaArn,LastModified,VersionCount]' > aws_events.csv
 
+# Filtering 
+$ aws events list-rules --event-bus-name default --query 'Rules[?State==`ENABLED`]
+
 ```
