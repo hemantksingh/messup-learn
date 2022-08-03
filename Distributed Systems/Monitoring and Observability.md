@@ -1,8 +1,20 @@
 # Monitoring and Observability
 
-While monitoring enables us to understand the overall health of our systems, observability empowers us with detailed insights into the behavior of our systems through *telemetry data* such as traces, metrics, and logs. Observability allows us to know or infer the internal state of something from the outside. How do we know that our application is working well and doing what it is supposed to do without having to look inside or access its source code?
+While event driven distributed systems provide scalability and resilience, they also introduce complexity. Understanding the `what`, `when` and `why` something happens in the system is hard. We provide value to customers as they use our software systems. So we would like to answer the question:
 
-The [observability pyramid](https://medium.com/geekculture/monitoring-microservices-part-1-observability-b2b44fa3e67e) for monitoring distributed systems comprises of logs, metrics, and traces. While all of then partially overlap, [each has a different purpose](https://www.reddit.com/r/devops/comments/9hku3v/prometheus_vs_opentracing).
+> How is your software doing when exercised by real users?
+
+We can extrapolate a mental model of what may happen by reading the codebase. This is rarely efficient or even, enough. This is where observable software systems come in handy. With observability, we can understand how our software is working. And we do this by evaluating its outputs.
+
+## What do observable systems provide ?
+
+Monitoring enables us to understand the overall health of our systems, observability allows us to infer the internal state of something from the outside. How do we know that our application is working well and doing what it is supposed to do without having to look inside or access its source code?With observable systems we are able to answer the following questions by querying the telemetry outputs of our systems:
+
+* What is going wrong?
+* Why is it going wrong?
+* How well is the system performing against our business objectives?
+
+As outlined in the [observability pyramid](https://medium.com/geekculture/monitoring-microservices-part-1-observability-b2b44fa3e67e) observability empowers us with detailed insights into the behavior of our systems through `telemetry data` such as `traces`, `metrics`, and `logs`. While all of them partially overlap, [each has a different purpose](https://www.reddit.com/r/devops/comments/9hku3v/prometheus_vs_opentracing).
 
 ## Logging
 
@@ -101,6 +113,148 @@ Implementing a reliable Prometheus monitoring system requires a tight integratio
 
 Depending upon your monitoring requirements, if you need to analyse both metrics and tracing data, then you may decide to [deploy tracing and metrics solutions together](https://developers.redhat.com/blog/2017/07/10/using-opentracing-with-jaeger-to-collect-application-metrics-in-kubernetes) as opposed to a standalone analysis backend.
 
+## Principles
+
+There are two core principles when it comes to building observable software systems.
+
+### Aim for knowing the what and when something is happening
+
+At cinch, we don't expect stakeholders or customers to tell us when something is not quite right with our software. By querying our telemetry data in production, we can find out `what` is happening and `when`. We have alerts that notify us when something is not performing as expected.
+
+System instrumentation and alerting are configured. to ensure that engineers are aware of unexpected behaviour before customers are affected by it.
+
+### Aim for finding out the why without referring to the code
+
+It's easy to be happy with knowing the `what` and `when`. We aim to add as much context to our telemetry data as possible. We want to be able to answer the `why` without referring to the codebase.
+
+System instrumentation provides sufficient transparency. Its behaviour can be interrogated and understood using Observability tooling only.
+
+## Best practices
+
+Teams build observable systems. To do this, teams routinely follow good monitoring and observability practices. Below you'll find a collection of practices that align with the observability principles.
+
+### Practice observability-driven development
+
+Observability-driven development encourages us to consider how a system can be transparent from its inception. Thus providing meaningful and actionable insights into its behaviour.
+
+#### Instrument with intent
+Instrumentation uses patterns that allow for optimal aggregation. Essentially answering the unknown unknowns. Rather than only the known unknowns when we observe the system.
+
+The benefit of this approach is two-fold:
+
+The component - and as an extension, the software engineer that writes it - knows the most about what is going on during that invocation and the context around it to produce a useful telemetry dataset
+All the useful information is applied - and indexed - at creation and ingestion time. No further optimization or transformation of the telemetry data is needced.
+
+#### Instrument code as a primary concern
+Instrumenting our code includes creating telemetry data while writing code. Our tooling provide both automated instrumentation and APIs to achieve this.
+
+#### Define a component's service boundary
+We aim to have a well-defined service boundary for our services across all our telemetry data. This way, we can query across all Datadog products efficiently.
+
+#### Agree on our top-level tags
+All telemetry data can benefit from having defined top-level tags. Some related to software, e.g. service, env, version. Others more business-specific, e.g. `order_id`, `user_id`, `product_id` etc.
+
+
+#### Index valuable telemetry data
+
+Not all telemetry data is available for a longer period of time. If in doubt, we index the things that matter. This way they are available to query for a longer period of time. Typically, between 15 days (for Indexed Spans) and 15 months (for Span tags converted to Metrics).
+
+#### Aim for high dimensionality
+
+The more dimensions a telemetry data point has, the better. The more key value pairs your telemetry data point has, the richer the dataset. You will will be more likely to understand both the what and the why in any future investigation.
+
+#### Aim for high cardinality
+
+A tag that has high cardinality, is more useful than a low cardinality tag. A key value pair that has GUID values, will offer far more insights than a boolean tag would. An illustrative example is a GUID vehicle_id vs a boolean has_vehicle.
+
+#### Ingest native metrics from 3rd parties
+
+We use 3rd party native metrics where possible. For example, AWS Lambda metrics will provide some good top-level statistics. These that can be used for Dashboards, Monitors, and SLOs.
+
+#### Don't settle on aggregations
+
+Metrics are useful but often omit valuable details. Prefer trace span tags or logs where possible over metrics. This allows us to aggregate in ways that we want.
+
+#### Use traces as data
+
+A common miss perception about traces is that they are useful for the flame graphs. Flame graphs visualize the journey of a certain request. Using traces as contextualized data is more valuable. Traced data often represent invocations of both backend and frontend requests.
+
+#### Prefer traces over metrics
+
+Traces will always provide us with more context over metrics. Metrics will tell you the what, traces will tell you the what and the why.
+
+#### Prefer Real User Monitoring over Synthetics
+
+Browser and API synthetics do provide the traditional uptime health check type monitoring. However, synthetics are part of the so-called 'Black Box Monitoring'. Real User Monitoring (RUM) data - called 'White Box Monitoring' - provides richer data. It is data ceatedr by users. Instead of 'synthetically' created data when using Synthetics.
+
+#### Consider industry standards
+
+Follow industry standards where possible. For example, our recommended tracing library, dd-trace, is OpenTracing compatible. We strive to instrument our code using the OpenTelemetry standard going forwards. OpenTelemetry is a merger between OpenCensus and OpenTracing, and is part of Cloud Native Computing Foundation.
+
+### Optimise for awareness
+
+Observability-driven development and good instrumentation helps to create observable systems. Data is useless without curious people. We need to couple with this with an immense amount of curiosity.
+
+#### Think about customer affecting failure modes
+
+Strive to come up with and understand the various failure modes of our system. Technical failures that may show reliability are good indicators. Prefer to think about failures that may affect customers .
+
+#### Be keen and curious observers
+
+Our software systems produce rich telemetry data all the time. For the system to be observable whether a change is being made to the system or not, we act as keen and curious observers. We do this by routinely utilizing telemetry to understand and rationalize how the system is behaving internally.
+
+#### Proactively monitor production
+
+The more we query our telemetry data, the more familiar we become with our production systems. By doing this,we get better at gaining insights. We spend time with our squad understanding the various metrics.
+
+#### Surface insights
+
+We routinely investigate the various telemetry data. We automate insights into things that matter. We do this by creating Datadog Monitors or SLOs. We surface these insights on our squad's dashboards.
+
+#### Minimize time to acknowledge
+
+Our software is independently deployable by teams. We operate a 'build it, ship it, support it' model. It should be quick to identify the what and the why of an issue in production. We aim to minimise the time to acknowledge an issue by using efficient alert mechanisms.
+
+#### Evolve meaningful monitors and dashboards
+
+Monitors and dashboards are not useful unless they have collective meaning for our domain and software system. Aim to create and evolve meaningful monitors, SLOs and dashboards
+
+#### Monitor what matters
+
+It's easy to fall into the trap of adding an alert for everything we own. We collectively agree on what matters for the service our software is providing. We use Datadog Monitors to get notified about the things that matter.
+
+#### Avoid normalising errors
+
+Beware of the trap of "expected alerts" and "expected errors". Do not normalise errors as this can hide genuine system unexpected behaviour.
+
+#### Continuously evolve dashboards
+
+A team's product aims and goals evolve over time. We evolve dashboards over time alongside the squad's and product's evolution.
+
+#### Use dashboards as focal points
+
+We use dashboards as focal points at stand ups, stand downs or product feature reviews. By doing this we gain insightful feedback from our code running in production. Dashboards serve as a place where all the squad's important queries are collected. They are used collaboratively within the squad and across squads.
+
+Note that we avoid creating dashboards because stakeholders asked for them. Or even to 'dashboard-gaze'.
+
+#### Dashboards are self-contained
+
+Provide contextual information in dashboards to explain what they are looking at. Indicate what "good" or "bad" looks like and what they should expect to see.
+
+#### Decide on the metrics that matter
+
+A domain will always have some metrics that are more important than others. We strive to understand what they are and figure out how to measure them via observability.
+
+####  Contextualize service level
+
+We strive to understand what service our software component is offering. One way to measure this is by using Service Level Indicators. We then use Service Level Objectives to contextualize the service level. Not all alerts from Datadog Monitors are worthy of our attention. Having an error budget helps us understand when an alert requires real attention.
+
+* Distinguish between metrics available by default e.g. cloud managed services will provide most metrics by default, however for IAAS e.g. in EC2 instances CPU utilization may come up by default but memory utilization and disk usage will require installing an agent on the instance.
+* Avoid information overload and noise
+  * Configure appropriate logging levels within your application
+  * Avoid configuring aggressive alerts. Adjust your alarm threshold to prevent false positives. Only trigger a single alert for multiple errors of the same kind.
+* Configure actionable alerts. There is no point informing someone about an issue if they do not know how to deal with the issue. Depending upon the type of issue the alerting notification can have a link to a wiki article or a run book to fix the problem at hand.
+
 ## Application monitoring
 
 Ingesting all the telemetry data from different sources only makes sense if you can connect the dots and get meaningful information about the state of your applications. From performance monitoring to security monitoring, it is critical for businesses to analyze and review their telemetry data for monitoring and observability. Three of the most popular log management platforms are:
@@ -126,11 +280,3 @@ You can consider [open source APM options](https://techbeacon.com/enterprise-it/
 With the rise of many different APM (Application Performance Monitoring) vendors, developers want flexibility in choosing vendor backends to visualize their metrics, such as Grafana, Splunk, Amazon CloudWatch, Azure Monitor and others. This flexibility also drives a need for unity within the realm of observability. The [OpenTelemetry](https://opentelemetry.io/docs/) project aims to provide that support by defining a new open standard—the OpenTelemetry Protocol (OTLP) for collecting traces, metrics, and logs. The OpenTelemetry Collector (OTel Collector) can be deployed as an agent on each host within an environment and configured to send telemetry data to the user’s desired back-end(s). OpenTelemetry instrumentation libraries should then be added to each application. By default, these instrumentation libraries are configured to export their data to a locally running Collector. Optionally, a pool of Collector instances can be deployed in a region.
 
 AWS has built its own [AWS-supported distribution of OpenTelemetry](https://aws.amazon.com/blogs/opensource/building-a-reliable-metrics-pipeline-with-the-opentelemetry-collector-for-aws-managed-service-for-prometheus/) to integrate with AWS managed Prometheus
-
-## Best practices
-
-* Distinguish between metrics available by default e.g. cloud managed services will provide most metrics by default, however for IAAS e.g. in EC2 instances CPU utilization may come up by default but memory utilization and disk usage will require installing an agent on the instance.
-* Avoid information overload and noise
-  * Configure appropriate logging levels within your application
-  * Avoid configuring aggressive alerts. Adjust your alarm threshold to prevent false positives. Only trigger a single alert for multiple errors of the same kind.
-* Configure actionable alerts. There is no point informing someone about an issue if they do not know how to deal with the issue. Depending upon the type of issue the alerting notification can have a link to a wiki article or a run book to fix the problem at hand.
