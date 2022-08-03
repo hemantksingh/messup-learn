@@ -8,17 +8,19 @@ We can extrapolate a mental model of what may happen by reading the codebase. Th
 
 ## What do observable systems provide ?
 
-Monitoring enables us to understand the overall health of our systems, observability allows us to infer the internal state of something from the outside. How do we know that our application is working well and doing what it is supposed to do without having to look inside or access its source code?With observable systems we are able to answer the following questions by querying the telemetry outputs of our systems:
+Monitoring enables us to understand the overall health of our systems, observability allows us to infer the internal state of something from the outside. How do we know that our application is working well and doing what it is supposed to do without having to look inside or access its source code? How can we respond to outages affecting our cutomers and *debug the system in production*? With observable systems we are able to answer the following questions by querying the telemetry outputs of our systems:
 
 * What is going wrong?
 * Why is it going wrong?
 * How well is the system performing against our business objectives?
 
-As outlined in the [observability pyramid](https://medium.com/geekculture/monitoring-microservices-part-1-observability-b2b44fa3e67e) observability empowers us with detailed insights into the behavior of our systems through `telemetry data` such as `traces`, `metrics`, and `logs`. While all of them partially overlap, [each has a different purpose](https://www.reddit.com/r/devops/comments/9hku3v/prometheus_vs_opentracing).
+As outlined in the [observability pyramid](https://medium.com/geekculture/monitoring-microservices-part-1-observability-b2b44fa3e67e) observability empowers us with detailed insights into the behavior of our systems through `telemetry data` such as `traces`, `metrics`, and `logs`. While all of them partially overlap, [each has a different purpose](https://www.reddit.com/r/devops/comments/9hku3v/prometheus_vs_opentracing). The telemetry data you collect looks to answer the following questions:
+
+* Logs - *What happened in my system*?
+* Tracing - *How are system components interacting with each other*?
+* Metrics - *How does the system performance change over time*?
 
 ## Logging
-
-Logs answer the question - *what happened in my system*?
 
 Error logs tell developers what went wrong in their applications. User event logs give product managers insights on usage. If the CEO has a question about the next quarter’s revenue forecast, the answer ultimately comes from payment/CRM logs.
 
@@ -70,9 +72,7 @@ Logging libraries like *nlog* and *serilog* help in writing structured logs and 
 
 ## Tracing
 
-With tracing the question you're looking to answer is - *How are system components interacting with each other*?
-
-Debugging distributed microservices poses a challenge in understanding and reasoning about the overall system interactions. Call stacks are used to debug monoliths showing the flow of execution (Method A called Method B, which called Method C), but how do we bug when the call is across a process boundary, not simply a reference on the local stack? This is where [distributed tracing](https://docs.microsoft.com/en-us/azure/azure-monitor/app/distributed-tracing) comes in. It helps in gathering timing data needed to troubleshoot latency problems in microservice architectures.
+Debugging distributed systems poses a challenge in understanding and reasoning about the overall system interactions. Call stacks are used to debug monoliths showing the flow of execution (Method A called Method B, which called Method C), but how do we bug when the call is across a process boundary, not simply a reference on the local stack? This is where [distributed tracing](https://docs.microsoft.com/en-us/azure/azure-monitor/app/distributed-tracing) comes in. It helps in gathering timing data needed to troubleshoot latency problems in microservice architectures.
 
 Tracers live in your applications and record timing and metadata about operations that took place. 
 * They intercept application calls to record how long a request took to process and asynchronously report this info **out-of-band** (outside the application request pipeline) to the tracing system for storage.
@@ -88,8 +88,6 @@ Adopting an open instrumentation standard like [Opentracing](https://opentracing
 * [Appinsights](https://docs.microsoft.com/en-us/azure/azure-monitor/app/distributed-tracing#enable-via-opencensus) also supports distributed tracing through OpenCensus - an open source, vendor-agnostic, single distribution of libraries to allow collecting application **metrics** and **distributed traces**, then transfer the data to a backend of your choice in real time. This data can be analyzed by developers and admins to understand the health of the application and debug problems.
 
 ## Metrics
-
-Metrics answer the question - *How does the system performance change over time* ?
 
 Metrics contain the data that inform you about the state of your systems, which in turn allows you to see patterns and make course corrections as needed. Metrics give you essential feedback about how well, or unwell, things are going: Are customers using the new features? Did traffic rates drop after that last deployment? If there’s an error, how long has it been happening and how many customers have likely been affected?
 
@@ -138,21 +136,24 @@ Teams build observable systems. To do this, teams routinely follow good monitori
 Observability-driven development encourages us to consider how a system can be transparent from its inception. Thus providing meaningful and actionable insights into its behaviour.
 
 #### Instrument with intent
+
 Instrumentation uses patterns that allow for optimal aggregation. Essentially answering the unknown unknowns. Rather than only the known unknowns when we observe the system.
 
 The benefit of this approach is two-fold:
-
-The component - and as an extension, the software engineer that writes it - knows the most about what is going on during that invocation and the context around it to produce a useful telemetry dataset
-All the useful information is applied - and indexed - at creation and ingestion time. No further optimization or transformation of the telemetry data is needced.
+- The component - and as an extension, the software engineer that writes it - knows the most about what is going on during that invocation and the context around it to produce a useful telemetry dataset
+- All the useful information is applied - and indexed - at creation and ingestion time. No further optimization or transformation of the telemetry data is needced.
 
 #### Instrument code as a primary concern
+
 Instrumenting our code includes creating telemetry data while writing code. Our tooling provide both automated instrumentation and APIs to achieve this.
 
 #### Define a component's service boundary
+
 We aim to have a well-defined service boundary for our services across all our telemetry data. This way, we can query across all Datadog products efficiently.
 
 #### Agree on our top-level tags
-All telemetry data can benefit from having defined top-level tags. Some related to software, e.g. service, env, version. Others more business-specific, e.g. `order_id`, `user_id`, `product_id` etc.
+
+All telemetry data can benefit from having defined top-level tags. Some related to software, e.g. service, env, version, others more business-specific, e.g. `order_id`, `user_id`, `product_id` etc.
 
 
 #### Index valuable telemetry data
