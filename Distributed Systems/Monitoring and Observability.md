@@ -91,6 +91,8 @@ Adopting an open instrumentation standard like [Opentracing](https://opentracing
 
 Metrics contain the data that inform you about the state of your systems, which in turn allows you to see patterns and make course corrections as needed. Metrics give you essential feedback about how well, or unwell, things are going: Are customers using the new features? Did traffic rates drop after that last deployment? If there’s an error, how long has it been happening and how many customers have likely been affected?
 
+Viewing individual metrics for each resource like NetworkIngress and Egress, CPU utilization, IO on volumes can be helpful, but, especially for laterally scaled web application and database layers it can be more helpful to see an aggregation of all the resources being used.
+
 [Prometheus](https://prometheus.io/) is an open source monitoring tool focussed on metrics and alerting with Grafana integration for visualization. Tools like Nagios/Icinga/Sensu are suitable for host/network/service monitoring, classical sysadmin tasks. Nagios, for example, is host-based. However, if you want to get internal detail about the state of each of your micro-services (aka whitebox monitoring), Prometheus is a more appropriate tool.
 
 * Metrics Server - Prometheus is the most [popular metrics server for containerised applications](https://sysdig.com/blog/kubernetes-monitoring-prometheus/). Docker runtime itself provides metrics in Prometheus format. Prometheus metrics format is used by the server to store and read the metrics.
@@ -155,7 +157,6 @@ We aim to have a well-defined service boundary for our services across all our t
 
 All telemetry data can benefit from having defined top-level tags. Some related to software, e.g. service, env, version, others more business-specific, e.g. `order_id`, `user_id`, `product_id` etc.
 
-
 #### Index valuable telemetry data
 
 Not all telemetry data is available for a longer period of time. If in doubt, we index the things that matter. This way they are available to query for a longer period of time. Typically, between 15 days (for Indexed Spans) and 15 months (for Span tags converted to Metrics).
@@ -192,7 +193,7 @@ Browser and API synthetics do provide the traditional uptime health check type m
 
 Follow industry standards where possible. For example, our recommended tracing library, dd-trace, is OpenTracing compatible. We strive to instrument our code using the OpenTelemetry standard going forwards. OpenTelemetry is a merger between OpenCensus and OpenTracing, and is part of Cloud Native Computing Foundation.
 
-### Optimise for awareness
+### Optimize for awareness
 
 Observability-driven development and good instrumentation helps to create observable systems. Data is useless without curious people. We need to couple with this with an immense amount of curiosity.
 
@@ -246,7 +247,7 @@ Provide contextual information in dashboards to explain what they are looking at
 
 A domain will always have some metrics that are more important than others. We strive to understand what they are and figure out how to measure them via observability.
 
-####  Contextualize service level
+#### Contextualize service level
 
 We strive to understand what service our software component is offering. One way to measure this is by using Service Level Indicators. We then use Service Level Objectives to contextualize the service level. Not all alerts from Datadog Monitors are worthy of our attention. Having an error budget helps us understand when an alert requires real attention.
 
