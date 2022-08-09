@@ -9,11 +9,11 @@ Tool to automate the deployment of your infrastructure across multiple clouds, b
 * Open source project with a community of thousands of contributors who add features and updates.
 * The ability to break down the configuration into smaller chunks for better organization, re-use, and maintainability. The last part of this article goes into this feature in detail.
 
-## Terraform on Microsoft Azure
-
-You can run terraform directly in the azure cloud shell, which has the `azcli` and terraform both installed.  
+Will Brock's [terraform playlist](https://www.youtube.com/playlist?list=PL8HowI-L-3_9bkocmR3JahQ4Y-Pbqs2Nt) is a good resource for learning terraform.
 
 ## Arm and Terraform
+
+On Azure, you can run terraform directly in the azure cloud shell, which has the `azcli` and `terraform` both installed.
 
 ![arm-terraform.png](../../Images/arm-terraform.png "Arm Terraform")
 
@@ -28,7 +28,7 @@ A provider is responsible for understanding API interactions and exposing resour
 Providers have:
 
 * Version: Terraform providers are versioned, allows you to specify the version of the provider to use
-* Data sources: Information that you can pull from the provider about your target environments. e.g. get a list of marketplace images or get an existing virtual network that's already been provisioned or subscription details of the target subsciption
+* Data sources: Information that you can pull from the provider about your target environments. e.g. get a list of marketplace images or get an existing virtual network that's already been provisioned or subscription details of the target subscription
 * Resources: e.g. create an Azure VM in a Vnet that you got from the data sources.
 * Modules: help deploy common configurations for that provider. These modules can be found on public terraform registry: `registry.terraform.io`
 * Authentication:
