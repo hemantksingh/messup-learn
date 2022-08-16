@@ -41,7 +41,9 @@ Other competencies to look out for:
 
 ## Architect
 
-What does a software/technical architect role offer? Is it relevant for self empowered agile teams?
+> What does a software/technical architect role offer? Is it relevant for self empowered agile teams? 
+
+Whilst the role of a product owner is primarily to look at problems from the end user - the customer point of view, an architect looks at the solution to problems from an engineering lens - how can you make the life of the deveoper a bit easier, helping automating the process of manufacturing and operating software based on business goals.
 
 * Create and evolve technical strategy based on business goals
   * have a view of current state and a target state 
@@ -55,8 +57,8 @@ What does a software/technical architect role offer? Is it relevant for self emp
   * Identify what to measure and the key metrics to help support that
   * Look at qunatitative as well as qualitative metrics
 * Getting results through others
+  * As opposed to taking on too much work upon yourself, provide support - shepherding people in the right direction
   * From player to coach, from doing to getting it done
-  * As opposed to taking on too much work upon yourself, provide support - shepherding people in the right direction 
 * Support dev teams with
   * making technical descisions, or more importantly avoid making drastic decisions
   * alignment with business goals, think big picture and help translate that into day to day
