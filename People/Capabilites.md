@@ -1,4 +1,4 @@
-# Capabilites
+# Capabilities
 
 ## Competency skills
 
@@ -11,7 +11,7 @@ To kick off a conversation [Amazon leadership questions](https://www.yoreoyster.
 
 Other competencies to look out for:
 
-* Ability to sell your ideas e.g. get buyin for tech debt
+* Ability to sell your ideas e.g. get buy-in for tech debt
   * provide solid building blocks for rapid delivery
   * reduce the number of support issues in a particular area of the code
 * Working in the open - demonstrate progress transparently
@@ -22,8 +22,8 @@ Other competencies to look out for:
 
 ### Active listening
 
-* During a conversation, you can adopt the [labels and mirrors](https://blog.blackswanltd.com/the-edge/7-negotiation-techniques-for-introverts) technique to learn more about the person 
-  * Use lables to dig deep into a persons core emotional drives
+* During a conversation, you can adopt the [labels and mirrors](https://blog.blackswanltd.com/the-edge/7-negotiation-techniques-for-introverts) technique to learn more about the person
+  * Use labels to dig deep into a persons core emotional drives
     * It looks like
     * It sounds like
   * Seek clarification using mirrors
@@ -46,21 +46,21 @@ Other competencies to look out for:
 Whilst the role of a product owner is primarily to look at problems from the end user - the customer point of view, an architect looks at the solution to problems from an engineering lens - how can you make the life of the deveoper a bit easier, helping automating the process of manufacturing and operating software based on business goals.
 
 * Create and evolve technical strategy based on business goals
-  * have a view of current state and a target state 
-  * look inwards and outwards, liase with internal and external parties to bridge silos and minimise cross team dependencies
-* Derisk delivery
-  * look into the future 
+  * have a view of current state and a target state
+  * look inwards and outwards, liaise with internal and external parties to bridge silos and minimise cross team dependencies
+* De-risk delivery
+  * look into the future
   * help define guardrails/boundaries/governance
-  * enable production readyness - depending upon the business strategy optimize for operational excellence, security, performance, resilience, cost and sustainability 
+  * enable production readiness - depending upon the business strategy optimize for operational excellence, security, performance, resilience, cost and sustainability 
 * Focus on delivering and measuring value
   * Use data to drive decisions
   * Identify what to measure and the key metrics to help support that
-  * Look at qunatitative as well as qualitative metrics
+  * Look at quantitative as well as qualitative metrics
 * Getting results through others
   * As opposed to taking on too much work upon yourself, provide support - shepherding people in the right direction
   * From player to coach, from doing to getting it done
 * Support dev teams with
-  * making technical descisions, or more importantly avoid making drastic decisions
+  * making technical decisions, or more importantly avoid making drastic decisions
   * alignment with business goals, think big picture and help translate that into day to day
 * Represent engineering to the wider business, stakeholders and/or project sponsors
   * extend the team's reach
@@ -87,7 +87,7 @@ Someone who can work within organizations to bring people, processes and product
     * reduce regression cycles and manual testing effort
     * reduce operational overhead by implementing chaos testing, security testing and performance testing
   * measure customer value
-    * analytics to understand customer behaviour and trends
+    * analytics to understand customer behavior and trends
     * feature usage
 
 ### Breadth of knowledge  
@@ -96,7 +96,7 @@ Someone who can work within organizations to bring people, processes and product
   * different levels of tests in the testing pyramid
   * approaches to testing - top down, bottom up
   * best practices
-    * testing behaviour as opposed to implementation
+    * testing behavior as opposed to implementation
     * separation of production code from test code
     * mocking at architectural boundaries
 * CICD - branching techniques, impact of frequent releases, feature toggling, blue green deployments
