@@ -1,6 +1,8 @@
 # Monitoring and Observability
 
-While event driven distributed systems provide scalability and resilience, they also introduce complexity. Understanding the `what`, `when` and `why` something happens in the system is hard. We provide value to customers as they use our software systems. So we would like to answer the question:
+While event driven distributed systems provide scalability and resilience, they also introduce complexity. What started as a [need to monitor](https://www.catchpoint.com/observability-vs-monitoring ) a server’s computing resources like CPU and memory utilization as part of a client-server architecture gradually transformed into observing digital experiences and isolating the root cause of application slowdowns with the help of distributed tracing and log analysis.
+
+Understanding the `what`, `when` and `why` something happens in the system is hard. We provide value to customers as they use our software systems. So we would like to answer the question:
 
 > How is your software doing when exercised by real users?
 
