@@ -20,6 +20,11 @@ targeted at Data Engineers
 * Google Cloud Dataprep
   * serverless service for visually exploring, cleaning, and preparing structured and unstructured data for analysis, reporting, and machine learning.
 
+* Tools used
+  * dbt for data transformations in your cloud data warehouse like Snowflake for creating data models
+  * SQL & python - data analysis and exploration
+  * Snowflake - cloud data warehousing
+
 ### Stream processing
 
 Stream processing is the infrastructure for continuous data processing. The computational model can be as general as MapReduce or other distributed processing frameworks, but with the ability to produce low-latency results. The real driver for the processing model is the method of data collection. Data which is collected in batch is naturally processed in batch. When data is collected continuously, it is naturally processed continuously.
@@ -39,9 +44,16 @@ Stream processing is the infrastructure for continuous data processing. The comp
   
 ## Analytics and modelling
 
-targeted at Data Analysts, Data Scientists
+Targeted at Data Analysts, Data Scientists
 
-The tools you use for data analysis and processing may defer depending upon whether you are going to employ [machine learning in real time](https://dzone.com/articles/build-and-deploy-scalable-machine-learning-in-prod)
+Questions data analysts help answer
+
+* Descriptive analysis, *What happened (past)?*
+* Diagnostic analysis, *Why did something happen?*
+* Predictive analysis, *What is likely to happen (future)?*
+* Prescriptive analysis, *What actions should be taken?*
+
+The tools you use for data analysis and processing defer depending upon the type of analysis you are performing and whether you are going to employ [machine learning in real time](https://dzone.com/articles/build-and-deploy-scalable-machine-learning-in-prod)
 
 * you want to deploy a new model in production in real time (as soon as it is built) ? Overtraining the models can lead to information loss. Generic ML models that are based on a wider data set e.g. a model per geographical region will provide better results than a model per gas site.
 * is latency of the model build process an issue ?
@@ -50,12 +62,21 @@ The tools you use for data analysis and processing may defer depending upon whet
 * monitoring in place for analysing the outcomes of the applied model ?
 * single model per tenant or a single model for the entire system ?
 
-and the type of analysis you are looking to perform:
+### Digital Analysts
 
-* descriptive
-* diagnostic
-* predictive
-* prescriptive - prescribe options to consumers
+* **Conversion Rate Optimization** -  Better understanding of customers and their behaviors so as to positively impact conversion rates at all stages throughout the customer journey
+* Tech enablement
+  * One of, if not the, most important responsibility of a Digital Analyst is making sure that the **web analytics platform** of choice is setup in the right way. That can either be in the analytics platform itself to ensure variables are set up and channels are classified, or making sure that tracking has been briefed into Developers to be tracked through a tag management system
+* Analysis of product improvements and feature releases
+  * Once the data has been collected and processed properly, the next step is to analyse the data. Whether that be in a dashboard, excel or python, the data is poured through to find insights. These tend to be pieces of work as a result of  a question that someone has asked or some exploratory analysis off the back of an A/B test, but ultimately this is where actionable insight can be found to make change in the product
+* Post experiment analysis to feed further experimentation
+  * While the Optimisation analysts handle the prioritisation, running and in-flight analysis of A/B tests, the digital analyst’s will support optimisation analysts by performing proactive analysis to uncover areas of opportunities that feed hypothesis backlog for running A/B tests.
+  ![data-analysis-experimentation.png](../Images/data-analysis-experimentation.png "AWS Security Patterns")
+* Tools used
+  * Analytics: Excel, SQL
+  * Web analytics tools like Adobe Analytics, Google Analytics
+  * Customer Experience - Salesforce experience, Google Tag Manager, Adobe Launch
+  * Running experiments - Adobe Target, Optimizely
 
 ### Services
 
