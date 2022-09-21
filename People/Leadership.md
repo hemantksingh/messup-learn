@@ -57,11 +57,12 @@ Understanding that not all people are the same and that they are driven by diffe
 
 To become genuinely interested in other people and gain their trust, you have to go beyond the small talk and have meaningful conversations keeping their interests in mind.
 
-- Move from **How are you** to **Who you are** conversations. So instead of asking
-  - *Where did you grow up?* ask *Whats your story?*
+- Skip the small talk, start with personal questions. Move from **How are you** to **Who you are** conversations. So instead of asking
+  - *Where did you grow up?* ask *Whats your story, where do you come from?*
   - *What do you do?* ask *What made you who you are today*?
   - *What do you do in free time?* ask *Do you have a secret side hustle or passion project?*
 - People like to know that they are interesting. Doing some research about your prospect to find out what interests them most and what they are enthusiastic about, before an important meeting can help you in getting their attention.
+  - *You have a very interesting name, whats the story behind that?*
   - After they finish what they have to say: *Thats interesting* or if they have been interrupted: *You were saying something interesting, please finish*
   - Working with you is always so easy
   - Last time we talked you mentioned you were doing this training - how did that go?
@@ -87,6 +88,7 @@ To become genuinely interested in other people and gain their trust, you have to
   - On discovering new information (e.g. Organization restructure plan), **bounce a question back**, e.g. *So what impact would the organization restructure have on the project teams?*
   - Get back with an answer in case of an unknown. Mention the **process** you will follow to get the answer. Give an indicative answer to manage expectations. *In our experience ...*
   - Bounce a question back. Have you set out a budget for this piece of work?
+- Using humour to put your point across can be effective communication strategy in certain situations. Avoid plagiarizing but use for inspiration - https://www.daily-stuff.com/funniest-notes-people-have-written-to-complete-strangers/6?xcmg=1
 - Consider the impact of body language and non verbal communication on your message. Practicing mindfulness, deep breathing and visualization before an important presentation can help in calming nerves and relaxation.
 
 ## Influence
