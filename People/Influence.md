@@ -21,7 +21,7 @@ The key thing to consider before going into a discussion is whether you are goin
 
 ## Align your goals
 
-"*If there is one secret of success, it lies in the ability to get the other person's point of view and see things from that person's angle as well as your own*" - Henry Ford
+> *If there is one secret of success, it lies in the ability to get the other person's point of view and see things from that person's angle as well as your own* - Henry Ford
 
 * Put yourself in the other person's shoes and try to think how they are thinking?
 * What are the questions brewing in their mind. How will they react to your suggestions?
@@ -49,7 +49,7 @@ The key thing to consider before going into a discussion is whether you are goin
 * Connections come from conversations - making purposeful connections requires intentionally devoting time for conversations
   * you feel connected and energised while speaking to someone who are at the same frequency as you with shared experiences, struggles, motivations or passions
   * active listening - engaging in the conversation by asking questions (labels and mirrors)
-  * provide psychological safety - be genuine and listen without any preconceived notions. The fact that someone hasn't opened up with you is likely because they may not feel psychologically safe to speak out. Realizing that you are not the finished article and showing your vulnerabilites allows others the space to open up about their own anxieties and fears
+  * provide psychological safety - be genuine and listen without any preconceived notions. The fact that someone hasn't opened up with you is likely because they may not feel psychologically safe to speak out. Realizing that you are not the finished article and showing your vulnerabilities allows others the space to open up about their own anxieties and fears
  
 * Agreeing on common goals is key to expanding your influence across teams.
 
@@ -66,7 +66,7 @@ The key thing to consider before going into a discussion is whether you are goin
 
 ## Adapt to situations
 
-*Its not about you, its about the wider cause*
+> *Its not about you, its about the cause bigger than you*
 
 * Adjust your goals to avoid resistance, stepping on other's toes is never a good idea especially in its early stages.
   

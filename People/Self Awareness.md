@@ -16,7 +16,7 @@ Believe that you have the ability to create whatever you want in your life and p
 
 ### How the mind works?
 
-In the context of mindfulness it is often said: to be in the moment, to be present right here, right now. That just means to be able to sustain your awareness for an extended period of time and not let it wander away into different areas of the mind. This could be while you are at work, reading a book, talking to someone or you are in the middle of a beautiful experience. Concentration is the very core of all human endeavours and success and allows you to truly enjoy every experience in your life and be present.
+In the context of mindfulness it is often said: to be in the moment, to be present right here, right now. That just means to be able to sustain your awareness for an extended period of time and not let it wander away into different areas of the mind. This could be while you are at work, reading a book, talking to someone or you are in the middle of a beautiful experience. Concentration is the very core of all human endeavour and success and allows you to truly enjoy every experience in your life and be present.
 
 [Dandapani](https://dandapani.org/) describes concentration as the act of keeping your awareness on a particular area of the mind for an extended amount of time. The goal is not to control your mind but to control where awareness goes within your mind. Prolonged sates of concentration is where the magic happens. It leads to high engagement, deeper relationships and building the power of observation. Power of observation allows you to stay out of the weeds and see things from a birds eye view where you can clearly see opportunities, pitfalls and make better decisions. The byproduct of pursuing a lifestyle with high concentration and focus is happiness.
 
@@ -44,11 +44,11 @@ What’s most important to you? This is a tough question to answer, because it r
 
 According to Indian epistemology and the ancient Indian philosophy *Vedanta*, knowledge can be acquired through four '*pramanas*' or valid sources of knowledge
 
-- physical senses - sense perceptions are vital to knowledge but incomplete in themselves. They can be deceptive. e.g. a cold day might be too hot to someone else, the colour green can be perceived differently by various people. Since senses cannot be used as the sole arbitrator, the need arises for thinking.
-- inference - through deduction logic and reason
-- analogy/comparison - stories and ideas developed through art, literature and culture
-- testimony/authority/revelation - go to the experts for knowledge
-- experience - you learn lessons from your failures, however you may still learn the wrong lessons
+* physical senses - sense perceptions are vital to knowledge but incomplete in themselves. They can be deceptive. e.g. a cold day might be too hot to someone else, the colour green can be perceived differently by various people. Since senses cannot be used as the sole arbitrator, the need arises for thinking.
+* inference - through deduction logic and reason
+* analogy/comparison - stories and ideas developed through art, literature and culture
+* testimony/authority/revelation - go to the experts for knowledge
+* experience - you learn lessons from your failures, however you may still learn the wrong lessons
 
 * education - learn by reading and acquiring information
 * experience - learn by making mistakes through failures
@@ -75,11 +75,11 @@ So you have a clear understanding of your goal, you are practicing self awarenes
 
 An unstable mind filled with anger and resentment clouds your intellect and diminishes clarity. How do you overcome this obscured mind? By training it to feel comfortable while being uncomfortable. It is necessary to develop purity of thought and unselfishness in your pursuits by having a larger purpose that is beyond your immediate self.
 
-*If you want to go fast travel alone, if you want to go far travel together*
+>*If you want to go fast travel alone, if you want to go far travel together*
 
 In order to attract people to you, think in terms of energy, vibration and frequency. Life is a manifestation of where you put your energy. If you are able to focus all your energy towards a **single purpose in life**, you are in a heightened state of consciousness because all your decisions are consciously driven by that purpose. However, other people may not be at the same level of consciousness as you, they function at different frequencies.
 
-*If you work just for yourself, the whole world seems against you. If you work for others, the whole world works with you*
+>*If you work just for yourself, the whole world seems against you. If you work for others, the whole world works with you*
 
 If the pursuit of your goal is solely for personal gain, others aren't necessarily going to play ball. However if you can provide a vision of positive change and help people think that they are part of something bigger than themselves, this can can elevate them towards your end goal. Intrinsic motivation is all about helping people discover the connection between their work and your vision, and it's about keeping that link fresh in people's minds. Commitment is intrinsic motivation in action. If you are intrinsically motivating your people, you will have true commitment without external pushes and pulls.
 
@@ -87,6 +87,6 @@ A goal that involves serving others can raise the consciousness of people around
 
 Does this mean you give up everything you own in charity and start social service? Well you may very well decide to and that maybe a perfectly valid choice, however most people look to live a better life and money plays an important part in that pursuit. This may mean getting your dream job, make better investing decisions or starting a new venture.
 
-*Money is not a bad thing if profit is for the purpose of wider positive impact.*
+>*Money is not a bad thing if profit is for the purpose of wider positive impact.*
 
 Just like the human body needs oxygen to survive, a business needs profit to survive and flourish. However just like the human body is about more than just breathing, a business is about more than just profit. If a business is run with an intention to serve, profit can be utilized for the wider good. The drive for profit ensures the business is run efficiently without waste and holds the business accountable to its share holders.
