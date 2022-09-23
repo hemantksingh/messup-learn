@@ -178,7 +178,7 @@ Prevention of DDOS attack
   * Server -> SYN-ACK -> Client
   * Client -> ACK -> Server
   * The client overwhelms ther server by sending SYN packets without sending ACK, crossing the number of TCP connections the server can support
-* [NTP amplification attack](https://www.cloudflare.com/en-gb/learning/ddos/ntp-amplification-ddos-attack/#:~:text=An%20NTP%20amplification%20attack%20is,the%20target%20and%20its%20surrounding) - The Network Time Protocol is designed to allow internet connected devices to synchronize their internal clocks, and serves an important function in internet architecture. By exploiting the monlist command enabled on some NTP servers, an attacker is able to multiply their initial request traffic, resulting in a large response. This command is enabled by default on older devices, and responds with the last 600 source IP addresses of requests which have been made to the NTP server. NTP server functionality is exploited in order to overwhelm a targeted network or server with an amplified amount of UDP traffic, rendering the target and its surrounding infrastructure inaccessible to regular traffic. An amplification attack exploits disparity in bandwidth cost between an attacker and the targeted web resource. By sending small queries that result in large responses, the malicious user is able to get more from less. NTP amplification, much like DNS amplification, can be thought of in the context of a malicious teenager calling a restaurant and saying “I’ll have one of everything, please call me back and tell me my whole order.” When the restaurant asks for a callback number, the number given is the targeted victim’s phone number. The target then receives a call from the restaurant with a lot of information that they didn’t request.
+* [NTP amplification attack](https://www.cloudflare.com/en-gb/learning/ddos/ntp-amplification-ddos-attack) - The Network Time Protocol is designed to allow internet connected devices to synchronize their internal clocks, and serves an important function in internet architecture. By exploiting the `monlist` command enabled on some NTP servers, an attacker is able to multiply their initial request traffic, resulting in a large response. This command is enabled by default on older devices, and responds with the last 600 source IP addresses of requests which have been made to the NTP server. NTP server functionality is exploited in order to overwhelm a targeted network or server with an amplified amount of UDP traffic, rendering the target and its surrounding infrastructure inaccessible to regular traffic. An amplification attack exploits disparity in bandwidth cost between an attacker and the targeted web resource. By sending small queries that result in large responses, the malicious user is able to get more from less. NTP amplification, much like DNS amplification, can be thought of in the context of a malicious teenager calling a restaurant and saying “I’ll have one of everything, please call me back and tell me my whole order.” When the restaurant asks for a callback number, the number given is the targeted victim’s phone number. The target then receives a call from the restaurant with a lot of information that they didn’t request.
 * Layer 7 attacks -  Web server receives a flood of GET/POST requests
 
 There are 2 tiers of AWS Shield
@@ -187,14 +187,45 @@ There are 2 tiers of AWS Shield
   * All AWS customers benefit from the automatic protections of AWS Shield Standard, at no additional charge
   * Provides DDOS protection against SYN/UDP floods, reflection attacks and other layer 3 and layer 4 attacks when used with CloudFront and Route53
 * Advanced
-  * Protection against larger & more sphisticated attacks targeting applications running on EC2, ELB, CloudFront AWS Global Accelerator and Route 53 resources
+  * Protection against larger & more sophisticated attacks targeting applications running on EC2, ELB, CloudFront AWS Global Accelerator and Route 53 resources
   * Always on, flow based monitoring to provide realtime notifications of DDOS attacks
 
 ### Cloud Trail
 
-* CCTV monitoring for your AWS account. Logs API calls made to your AWS account and stores them in S3
+* CCTV monitoring for your AWS account. Keeps a record of actions taken - Who, what, when and where
+* Logs API calls made to your AWS account and stores them in S3
 * not for RDP/SSH connections
 
+### AWS Config
+
+* service that enables you to assess, audit, and evaluate the configurations of your AWS resources.
+* continuously monitors and records your AWS resource configurations and allows you to automate the evaluation of recorded configurations against desired configurations
+* this is achieved by enabling AWS Config rules in one or multiple of your AWS accounts (enabling across multiple accounts [can be costly](https://dzone.com/articles/we-turned-off-aws-config)) to check for your configuration settings against best practices or your desired/approved settings like:
+
+  | AWS Config Rule | Alerted |
+  | ----------------|:-------:|
+  | acm-certificate-expiration-check         | Yes |
+  | ec2-instances-in-vpc                     | Yes |
+  | ec2-volume-inuse-check                   | Yes |
+  | encrypted-volumes                        | Yes |
+  | restricted-ssh                           | Yes |
+  | iam-root-access-key-check                | Yes |
+  | iam-password-policy                      | Yes |
+  | iam-user-no-policies-check               | Yes |
+  | lambda-function-settings-check           | Yes |
+  | db-instance-backup-enabled               | Yes |
+  | rds-snapshots-public-prohibited          | Yes |
+  | rds-storage-encrypted                    | Yes |
+  | dynamodb-throughput-limit-check          | No  |
+  | s3-bucket-public-read-prohibited         | Yes |
+  | s3-bucket-public-write-prohibited        | Yes |
+  | s3-bucket-replication-enabled            | Yes |
+  | s3-bucket-server-side-encryption-enabled | Yes |
+  | s3-bucket-ssl-requests-only              | No  |
+  | s3-bucket-logging-enabled                | Yes |
+  | s3-bucket-versioning-enabled             | Yes |
+  | cloudtrail-enabled                       | Yes |
+  
 ### Guard Duty
 
 * Centralized threat detection service that uses ML to continuously monitor for malicious behaviour. It receives feeds from 3rd parties like Proofpoint and Crowdstrike about known malicious domains and IP addresses. It is used for threat detection, not for protocol compliance
@@ -219,14 +250,6 @@ There are 2 tiers of AWS Shield
   * network assessment - network configuration analysis to check for ports reachable from outside VPC, inspector agent not required
   * host assessment - Vulnerable software (CVE), host hardening using CIS Benchmarks, inspector agent is required
 * Assessment findings are reported based on severity
-
-### AWS Config
-
-AWS Config is a service that enables you to assess, audit, and evaluate the configurations of your AWS resources
-
-* continuously monitors and records your AWS resource configurations and allows you to automate the evaluation of recorded configurations against desired configurations
-* review changes in configurations and relationships between AWS resources, dive into detailed resource configuration histories, and determine your overall compliance against the configurations specified in your internal guidelines
-* enables you to simplify compliance auditing, security analysis, change management, and operational troubleshooting
 
 ### Trust Advisor
 
