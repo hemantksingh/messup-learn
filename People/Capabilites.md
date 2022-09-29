@@ -73,9 +73,9 @@ Some competencies to look out for:
 * REST APIs - significance of REST interface, idempotent operations, authentication techniques
 * DBs - relational and non-relational DB trade offs
 
-## Fact finding techniques
+## Fact finding
 
-### Competency skills
+### What are the competency skills you are looking for?
 
 To get someone talking, it is a good idea to keep the discussion informal. However, you are always looking for examples of certain key competencies. To kick off a conversation [Amazon leadership questions](https://www.yoreoyster.com/blog/amazon-leadership-principles-questions/) is a good place to start looking for potential behavioral questions. While the degree of expertise may vary but these competency skills apply generally across all roles:
 
@@ -84,20 +84,20 @@ To get someone talking, it is a good idea to keep the discussion informal. Howev
 * Simplification/Passion - Tell me about a time when you simplified or innovated something and it went wrong?
 * Teamwork/Humility - What do you do to gain the trust of your teammates?
 
-### Active listening
+### How do you gather information?
 
-* During a conversation, you can adopt the [labels and mirrors](https://blog.blackswanltd.com/the-edge/7-negotiation-techniques-for-introverts) technique to learn more about others
+* **Active lsitening** - During a conversation, you can adopt the [labels and mirrors](https://blog.blackswanltd.com/the-edge/7-negotiation-techniques-for-introverts) technique to learn more about others
   * Use labels to dig deep into a persons core emotional drives
     * It looks like
     * It sounds like
   * Seek clarification using mirrors
     * by repeating the last one to three words that were spoken in an inquisitive, questioning tone
 
-* To get a sense of organizational structure and ways of working within a company you can start by asking how does the team you work for fit into the wider business?
+* Asking **open ended questions** - e.g. to get a sense of organizational structure and ways of working within a company you can start by asking how does the team you work for fit into the wider business?
   * This should provide you a view of how work and value flow through the org and where the bottlenecks/silos may be?
-  * The question that you are eventually looking to answer is whether technology drives business strategy and whether data is used for decision making?
+  * As a technologist, the question that you may eventually be looking to get an answer to is - whether technology drives business strategy and to what extent data is used for decision making?
 
-### Selling the role you are recruiting for
+## Selling the role you are recruiting for
 
 * Find out what they are looking for and the motivations for leaving their current role
 * You can talk about where your team currently is and where you want to get to in the future - the why, how and what now. Highlight the importance of the opportunity to improve and innovate
