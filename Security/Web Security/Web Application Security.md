@@ -1,7 +1,7 @@
 
 # Web application security
 
-Securing web applications is not a single pronged approach. The **Defence in depth** strategy allows multiple layers of security that focus on delaying the attack rather than completely preventing it often compared to a **castle** with multiple walls of protection. The more layers of defence you have, the attack will lose momentum and you’ll have more time to respond appropriately. A Defence in Depth strategy is designed to increase the cost and effort of an attack against an organisation.
+Securing web applications is not a single pronged approach. The **Defense in depth** strategy allows multiple layers of security that focus on delaying the attack rather than completely preventing it often compared to a **castle** with multiple walls of protection. The more layers of defense you have, the attack will lose momentum and you’ll have more time to respond appropriately. A Defense in Depth strategy is designed to increase the cost and effort of an attack against an organisation.
 
 ## Security requirements
 
@@ -10,16 +10,16 @@ We often have well defined tools and techniques for gathering functional require
 * Deep technical knowledge maybe required
 * Do not always have a security expert on board
 * Stakeholders may not be aware of the security cost to revenue and unwilling to invest time and resource. You can never be 100% secure but it is worth thinking about what good looks like from a security point of view
-  * How urgently do you fix a vulnerability identified in a production system? 
+  * How urgently do you fix a vulnerability identified in a production system?
   * Do you understand the risk of letting the system run with vulnerabilities? 
-  * What is the organisation's appetite for risk? What kind of data are you dealing with? e.g, finance, healthcare or provider of publically avaialble traffic data
+  * What is the organisation's appetite for risk? What kind of data are you dealing with? e.g, finance, healthcare or provider of publicly available traffic data
   * Is certain amount of downtime acceptable to you?
 
 ### Gates to guardrails
 
-Traditional approaches to secure development lifecycles have relied on high-touch and process-driven models involving a series of assessments (e.g. design review, threat model, vuln scan) and associated decisions on whether to proceed to the next phase and gate. While this model serves many well, there are an increasing number of organizations embracing concepts like DevOps, agile, cloud, and continuous delivery that are looking for more pragmatic, automated, and dynamic approaches that suit the technology and business environments in which they exist. Tension between SecOps, DevOps and application developers can lead to disjointed teams. How do you apply consistent security policies across multiple architectures?
+Traditional approaches to secure development lifecycle have relied on high-touch and process-driven models involving a series of assessments (e.g. design review, threat model, vulnerability scan) and associated decisions on whether to proceed to the next phase and gate. While this model serves many well, there are an increasing number of organizations embracing concepts like DevOps, agile, cloud, and continuous delivery that are looking for more pragmatic, automated, and dynamic approaches that suit the technology and business environments in which they exist. Tension between SecOps, DevOps and application developers can lead to disjointed teams. How do you apply consistent security policies across multiple architectures?
 
-Moving [from gates to guardrails](https://www.oreilly.com/library/view/devopssec/9781491971413/ch04.html) involves providing guidance and tooling to development teams to insert security policies into thier delivery pipelines rather than introducing delays via security compliance gates. Some of the [ways Netflix has approached this shift](https://www.youtube.com/watch?v=geumLjxtc54), emphasizing practical methods to problems ranging from continuous assessment to regulatory compliance to team staffing.
+Moving [from gates to guardrails](https://www.oreilly.com/library/view/devopssec/9781491971413/ch04.html) involves providing guidance and tooling to development teams to insert security policies into their delivery pipelines rather than introducing delays via security compliance gates. Some of the [ways Netflix has approached this shift](https://www.youtube.com/watch?v=geumLjxtc54), emphasizing practical methods to problems ranging from continuous assessment to regulatory compliance to team staffing.
 
 Data between the end user and your application flows through the data plane. Thinking of security as a horizontal capability across the data plane and use the metrics and telemetry from the data plane to get visibility of the applied security policies and application threats.
 
@@ -33,7 +33,7 @@ In order to understand and address your security requirements it is worth unders
 [Security testing methodologies](https://www.zaproxy.org/getting-started/) include:
 
 * Vulnerability assessment – The system is scanned and analyzed for security issues.
-* Penetration testing – The system undergoes analysis and attack from simulated malicious attackers.  It has the advantage of being more accurate because it has fewer false positives (results that report a vulnerability that isn’t actually present), but can be time-consuming to run. **Automated pentesting** part of CI validation can help uncover new vulnerabilities as well as regressions for previous vulnerabilities in an environment which quickly changes.
+* Penetration testing – The system undergoes analysis and attack from simulated malicious attackers.  It has the advantage of being more accurate because it has fewer false positives (results that report a vulnerability that isn’t actually present), but can be time-consuming to run. **Automated pen testing** part of CI validation can help uncover new vulnerabilities as well as regressions for previous vulnerabilities in an environment which quickly changes.
 * Code review – The system source code undergoes a detailed review and analysis looking specifically for security vulnerabilities. This is also known as Static application security testing (SAST) or white box testing method. Some examples of static code analysis tools:
   * SonarQube
   * Coverity from Synopsis
