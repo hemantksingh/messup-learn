@@ -16,19 +16,19 @@ In order to secure your AWS resources, you can refer to the [AWS IAM security be
 
 Identity and Access Management is used for
 
-* managing users and their access to AWS resources, allowing administrators to define **who can do what** (authentication and authorization)
+* 'I' stands for authentication and 'AM' stands for authorization - managing users and their access to AWS resources, allowing administrators to define **who can do what**
 * issuing identities
-  * IAM user - identity for humans using long term access credentials e.g. username and password or **long term credentials** for programmatic access
+  * IAM user - identity for humans using **long term access credentials** e.g. username and password or long term credentials for programmatic access
   * AWS services - identity for non-human resources e.g. EC2 instance, Lambda, SageMaker, Glue crawler, ECS task etc
   * IAM principal - is an identity in IAM, can be an IAM user or an AWS service, something that can make API calls to other AWS services
-  * IAM role - is an identity that you can create in your account that has specific permissions. An IAM role is similar to an IAM user, in that it is an AWS identity with permission policies that determine what the identity can and cannot do in AWS. Instead of being uniquely associated with one person, a [role can be assumed](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html) by anyone who needs it. Also, a role does not have standard long-term credentials such as a password or access keys associated with it. Instead, when you assume a role, it provides you with **temporary security credentials** for your role session.
-* monitoring and auditing access to specific resources by enabling AWS Cloud Trail
+  * IAM role - is an identity that you can create in your account that has specific permissions (similar to a Service Principal in Azure or Service Account in GCP). An IAM role is similar to an IAM user, in that it is an AWS identity with permission policies that determine what the identity can and cannot do in AWS. Instead of being uniquely associated with one person, a [role can be assumed](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html) by anyone who needs it. Also, a role does not have standard long-term credentials such as a password or access keys associated with it. Instead, when you assume a role, it provides you with **temporary security credentials** for your role session.
+* monitoring and auditing access to specific resources e.g. by enabling AWS Cloud Trail
 * federate access into AWS by integrating with corporate identity providers like Microsoft Active Directory when the users have identities defined outside of AWS
 <img src="../../Images/aws-federated-identity.png" title="AWS federated identity" width="600" height="400"/>
 
 |Users (Who)            |Groups (Who)       |Roles (Who)    | Policies (What) |
-|:---------------------:|:------------------|:--------------:|:---------------:|
-|Specific individual, can receive logins |Collection of users by function such as administrator, developer etc |Collection of policies that you can use to access AWS resources e.g. a role with DB Read, DB Write permissions |Low level permissions to resources (Allow/Deny) <ul><li>Identity policy - applied to a user or group</li><li>Resource policy - applied to an AWS resource e.g. S3, KMS Keys</li></ul>|
+|:---------------------|:------------------|:--------------|:---------------|
+|Specific individual, can receive logins |Collection of users by function such as administrator, developer etc |Collection of policies that you can use to access AWS resources e.g. a role with DB Read, DB Write permissions |Low level permissions to resources (Allow/Deny) <ul><li>**Identity policy** - applied to a user or group</li><li>**Resource policy** - attached to an AWS resource e.g. S3, KMS Keys as opposed to the IAM principal making the call. Not all resources allow you to define resource based policies e.g. dynamodb</li></ul>|
 
 ### IAM Roles
 
@@ -44,16 +44,16 @@ You generally have two [ways to use a role](https://docs.aws.amazon.com/IAM/late
 
 IAM Policies are generally applied to Groups as opposed to individual users. AWS pre-defines some IAM policies for common tasks. These are useful for setting up permissions for human roles that have common sets of coarse grained actions that they want to do. A [policy](https://docs.aws.amazon.com/AmazonS3/latest/userguide/example-bucket-policies.html) can be granted to a specific resource (with an `arn`) or all resources of a particular type (with a wildcard `"*"`)
 
- * Not explicitly allowed == implicitly denied
- * Explicit deny > everything else
- * Only attached policies have effect
- * AWS joins all applicable policies, e.g. EC2 admin access attached to devs and S3 admin access attached to devs, AWS will join these together but an explicit deny in one and an Allow in another will result in a Deny
+* Not explicitly allowed == implicitly denied
+* Explicit deny > everything else
+* Only attached policies have effect
+* AWS joins all applicable policies, e.g. EC2 admin access attached to devs and S3 admin access attached to devs, AWS will join these together but an explicit deny in one and an Allow in another will result in a Deny
 
 Root Account: The account created when you first set up your AWS account and which has complete admin access. This should be secured with MFA and not meant to be used to log in day to day
 
 New Users: No permissions when first created
 
-### Amazon Resource Names (ARNs)
+#### Amazon Resource Names (ARNs)
 
 * Uniquely identify AWS resources
 * Required when you need to specify a resource unambiguously across all of AWS, such as in IAM policies, Amazon Relational Database Service (Amazon RDS) tags, and API calls
@@ -69,15 +69,33 @@ New Users: No permissions when first created
     "Version": "2012-10-17",
     "Statement": [
         {
+            "Effect": "Allow",  // Allow or deny
+            "Action": "*",      // What can (or can't) you do?        
+            "Resource": "*"     // What can (or can't) you do it to?
+        }
+    ]
+}
+
+// allow dynamodb read and query access on 'mytable'
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
             "Effect": "Allow",
-            "Action": "*",
-            "Resource": "*"
+            "Action": [
+              "dynamodb:BatchGetItem",
+              "dynamodb:GetItem",
+              "dynamodb:Query"
+            ]
+            "Resource": [
+              "arn:aws:dynamodb:eu-west-1:111122223333:table/mytable"
+            ]
         }
     ]
 }
 ```
 
-### Permission boundaries
+#### Permission boundaries
 
 * Controls maximum permissions an IAM policy can grant
 * Prevents privilege escalation or unnecessarily borad permissions e.g. you do not want developers to get full admin access to the AWS console, you may only want them to create roles to be used with EC2 instances, lambda functions etc.
@@ -86,12 +104,14 @@ New Users: No permissions when first created
 
 VPC or Virtual Private Cloud is a logically isolated part of the AWS cloud, think of it as a virtual  data center in the cloud. You can leverage multiple layers of security, including security groups and network ACLs to help control access to Amazon EC2 instances in each subnet. The inbound and outbound connectivity to your VPC via the internet gateway or a VPN is established via three main lines of defense:
 
-* Routing tables - whether there is a route in or out to the internet. * A **router** routes traffic between different subnets and is required to create subnets.
+* Routing tables - whether there is a route in or out to the internet. A **router** is required to create subnets routes traffic between different subnets.
+  * `10.0.0.0/16 local` - Traffic bound to your VPC, stays within your VPC
+  * A lot of the services within AWS do not run within your VPC e.g. S3, DynamoDb, API Gateway, CloudWatch. Connectivity to these services from your VPC can be established by allowing a route out to the internet or a more secure option by using **VPC endpoints**
 * Network ACLs - acts as a firewall for controlling traffic in and out of one or more subnets, so any instance in the subnet with an associated NACL will follow rules of NACL. Each subnet in your VPC must be associated with a NACL. If not done explicitly the subnet is automatically associated with the default NACL. You can associate a NACL with multiple subnets, however a subnet can be associated with **only 1 NACL** You may setup NACLs with rules similar to your security group to add another layer of security to your VPC
   * by default, a custom NACL denies all outbound and inbound traffic whereas the default NACL allows all outbound and inbound traffic
   * can be used to block specific IP addresses
   * are stateless, therefore explicit rules are enforced for inbound and outbound traffic
-* Security Groups - virtual firewalls for EC2 instances and the last line of defense.
+* Security Groups - virtual stateful firewalls for EC2 instances and the last line of defense.
   * by default everything is blocked
   * [security groups are tied to an instance whereas Network ACLs are tied to the subnet](https://medium.com/awesome-cloud/aws-difference-between-security-groups-and-network-acls-adc632ea29ae)
   * security groups are stateful - this means any changes applied to an incoming rule will be automatically applied to the outgoing rule. e.g. If you allow an incoming port 80, the outgoing port 80 will be automatically opened.
@@ -115,7 +135,7 @@ You can create
 
 ### Troubleshooting inbound network connectivity
 
-While accessing your ec2 instance from the browser, if you are get a timeout - it is probably because there is no inbound route defined in your route table or network ACL, however if you get an ERR connection refused: it means you are able to get through to the EC2 instance but it is not serving the requested page.
+While accessing your ec2 instance from the browser, if you are getting a timeout - it is probably because there is no inbound route defined in your route table or network ACL, however if you get an ERR connection refused: it means you are able to get through to the EC2 instance but it is not serving the requested page.
 
 ### AWS-manged VPN
 
@@ -146,15 +166,16 @@ Opening services in a VPC to another VPC, Sharing applications across VPCs. In a
 
 ## Key Management Service (KMS)
 
-* Create and control encryption keys used to encrypt your data
-* Integrates with EBS, S3 and RDS and other services to encrypt your data with the encryption keys you manage
-* Provides centralized control over the lifecycle and permissions of your keys
+AWS-managed encryption and decryption service
+
+* Create and control encryption keys used to encrypt your data. Provides centralized control over the lifecycle and permissions of your keys
+* Integrates with S3, EBS, RDS and other services to encrypt your data with the encryption keys you manage
 
 ### AWS KMS Keys
 
 AWS KMS keys (KMS keys) are the primary resource in AWS KMS. You can use a KMS key to encrypt, decrypt, and re-encrypt data. It can also generate data keys that you can use outside of AWS KMS. Typically, you'll use symmetric KMS keys, but you can create and use asymmetric KMS keys for encryption or signing. AWS KMS key is a logical representation of an encryption key. It contains the key material used to encrypt and decrypt data. The key material for a KMS key can be
 
-* generated by default, within AWS KMS. The key material cannot be extracted, exported or viewed. Also, you cannot delete this key material; you must delete the KMS key. The key material for the KMS key is generated within shared HSMs managed by AWS KMS.
+* generated by default, within AWS KMS. The key material cannot be extracted, exported or viewed. Also, you cannot delete this key material; you must delete the KMS key. The key material for the KMS key is generated within shared HSMs (Hardware Security Module) managed by AWS KMS. 
 * imported from your own key management infrastructure into a KMS key
 * created in the **AWS CloudHSM** cluster associated with an [AWS KMS custom key store](https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html). When you create an AWS KMS key in a custom key store, AWS KMS generates and stores non-extractable key material for the KMS key in an AWS CloudHSM cluster that you own and manage. When you use a KMS key in a custom key store, the cryptographic operations are performed in the HSMs in the cluster.
 
