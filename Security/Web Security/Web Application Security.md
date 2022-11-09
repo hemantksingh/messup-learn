@@ -23,30 +23,34 @@ Moving [from gates to guardrails](https://www.oreilly.com/library/view/devopssec
 
 Data between the end user and your application flows through the data plane. Thinking of security as a horizontal capability across the data plane and use the metrics and telemetry from the data plane to get visibility of the applied security policies and application threats.
 
-## Security testing
+## Application Security
+
+Applications, especially those that are cloud native, are a gateway to servers and networks and present an ideal attack vector for malicious actors. 
 
 In order to understand and address your security requirements it is worth understanding the approaches and tools at hand. The security testing process involves:
 
 * assessment - analysis and discovery of vulnerabilities without attempting to actually exploit those vulnerabilities
 * testing - discovery and attempted exploitation of vulnerabilities
 
-[Security testing methodologies](https://www.zaproxy.org/getting-started/) include:
+[Application Security testing methodologies](https://snyk.io/learn/application-security/) include:
 
-* Vulnerability assessment – The system is scanned and analyzed for security issues.
-* Penetration testing – The system undergoes analysis and attack from simulated malicious attackers.  It has the advantage of being more accurate because it has fewer false positives (results that report a vulnerability that isn’t actually present), but can be time-consuming to run. **Automated pen testing** part of CI validation can help uncover new vulnerabilities as well as regressions for previous vulnerabilities in an environment which quickly changes.
-* Code review – The system source code undergoes a detailed review and analysis looking specifically for security vulnerabilities. This is also known as Static application security testing (SAST) or white box testing method. Some examples of static code analysis tools:
-  * SonarQube
+* Source code analysis - also known as [Static application security testing (SAST)](https://snyk.io/learn/application-security/static-application-security-testing/) or white box testing is used to analyse source code for security vulnerabilities. SAST tools are good at identifying well-known vulnerabilities such as Buffer overflows and SQL injection, however they result in high number of false positives and are [limited in identifying many types of vulnerabilities](https://owasp.org/www-community/Source_Code_Analysis_Tools) including Authentication problems, Access control issues, Insecure use of cryptography. Some examples of SAST tools are:
+  * SonarQube - code quality/review and basic identify basic vulnerabilities in your application
   * Coverity from Synopsis
-* Software Composition Analysis - Rather than analysisng source code an SCA tool discovers all software components including their supporting libraries as well as all direct and indirect dependencies
-  * Black Duck - https://www.synopsys.com/software-integrity/security-testing/software-composition-analysis.html
-  * WhiteSource - https://www.whitesourcesoftware.com/resources/blog/software-composition-analysis/
-* Runtime testing – The system undergoes analysis to discover security vulnerabilities while its running e.g. looking at the request and responses to the system. This is also known as Dynamic application security testing (DAST) or black box testing.
+  * Snyk code
 
-Crowd security testing platforms like https://www.openbugbounty.org allow security researchers to report a vulnerability on any website and submit it to Open Bug Bounty for responsible disclosure. The role of Open Bug Bounty is limited to independent verification of the submitted vulnerabilities and proper notification of website owners. Once notified, the website owner and the researcher are in direct contact to remediate the vulnerability and coordinate its disclosure.
+* Interactive application security testing (**IAST**): This form of application security testing scans the source code for vulnerabilities while running the application and simulating the ways a user would commonly interact with it.
+* Software Composition Analysis - Rather than analysisng source code an **SCA** tool focuses on third-party code dependencies that are used in the application
+  * Snyk open source - falls in the Dependency Monitoring category
+  * Black Duck - https://www.synopsys.com/software-integrity/security-testing/software-composition-analysis.html
+  * WhiteSource - https://www.whitesourcesoftware.com/resources/blog/software-composition-analysis
+* Runtime testing - also known as Dynamic application security testing **DAST** or black box testing is used to discover security vulnerabilities while an application is running e.g. looking at the request and responses to the system. It does not require access to the application’s source code.
+* Penetration testing – The system undergoes analysis and attack from simulated malicious attackers.  It has the advantage of being more accurate because it has fewer false positives (results that report a vulnerability that isn’t actually present), but can be time-consuming to run. **Automated pen testing** part of CI validation can help uncover new vulnerabilities as well as regressions for previous vulnerabilities in an environment which quickly changes.
+* **Fuzzing**: Fuzzing tests an application by inputting randomized data to uncover potential bugs. It compliments IAST, DAST, SAST, and other forms of testing.
 
 ### Web application security scanners
 
-With the increasing number of web application security breaches, it is essential to keep your web application secure at all times. A web application security scanner acts as a *"man in the middle proxy"* and typically sits between the tester's browser and the web application so that it can intercept and inspect messages sent between browser and web application, modify the contents if needed, and then forward those packets on to the destination.
+A web application security scanner acts as a *"man in the middle proxy"* and typically sits between the tester's browser and the web application so that it can intercept and inspect messages sent between browser and web application, modify the contents if needed, and then forward those packets on to the destination.
 
 * [OWASP ZAP](https://www.zaproxy.org/) - Free and open source, can run headless as a daemon with a REST API. ZAP provides a [baseline scan feature](https://www.zaproxy.org/blog/2020-04-09-automate-security-testing-with-zap-and-github-actions/) to find common security faults in a web application without doing any active attacks. The scan can be integrated into your CI/CD pipelines using GitHub Actions.
 * [Open VAS](https://www.openvas.org/) - Open Vulnerability Assessment Scanner 
@@ -62,6 +66,8 @@ You can use your existing website or **test websites** to perform security testi
     * https://owasp.org/www-project-juice-shop
     * https://github.com/bkimminich/juice-shop
 * Hack yourself fist - https://www.troyhunt.com/hack-yourself-first-how-to-go-on/ is a great place to start actively seeking out vulnerabilities
+
+Crowd security testing platforms like https://www.openbugbounty.org allow security researchers to report a vulnerability on any website and submit it to Open Bug Bounty for responsible disclosure. The role of Open Bug Bounty is limited to independent verification of the submitted vulnerabilities and proper notification of website owners. Once notified, the website owner and the researcher are in direct contact to remediate the vulnerability and coordinate its disclosure.
 
 ### Protection offered by the browser
 
