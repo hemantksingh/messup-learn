@@ -1,9 +1,9 @@
 # Disaster Recovery and Business Continuity
 
-Key questions to think about before opting for a DR strategy
+Disaster Recovery (DR) Plans should be tested on a regular basis, and there should be an auditable record that a test has taken place. This confirms the DR plan’s suitability and effectiveness should it need to be deployed in response to a live major incident. The runbooks/ Key Operating Procedures (KOPs) that need to be followed in execution of the tests should be well documented. Key questions to think about before opting for a DR strategy
 
-* Are you planning for [high availability or disaster recovery](https://www.readysetcloud.io/blog/allen.helton/is-serverless-disaster-recovery-worth-it/)? People often think disaster recovery and high availability are the same thing. 
-  * **Disaster recovery** is the ability to get your system stable after a significant event. Significant events could be things like natural disasters (tornadoes or earthquakes), physical disasters (building fire or flooding in server room), or technology disasters (hacked or ransomware). 
+* Are you planning for [high availability or disaster recovery](https://www.readysetcloud.io/blog/allen.helton/is-serverless-disaster-recovery-worth-it/)? People often think disaster recovery and high availability are the same thing.
+  * **Disaster recovery** is the ability to get your system stable after a significant event. Significant events could be things like natural disasters (tornadoes or earthquakes), physical disasters (building fire or flooding in server room), or technology disasters (hacked or ransomware).
   * **High availability** is the ability of your system to stay up and running in an event with no downtime. This is what we tend to think of when we think of disasters. How robust is our solution and how quickly can we respond in the event that a disaster does happen?
 
 * What is your expected RTO and RPO?
