@@ -32,10 +32,10 @@ Providers have:
 * Resources: e.g. create an Azure VM in a Vnet that you got from the data sources.
 * Modules: help deploy common configurations for that provider. These modules can be found on public terraform registry: `registry.terraform.io`
 * Authentication:
-    * azcli
-    * managed service identity - a VM running in azure under managed identity
-    * service principal with client secret
-    * service principal with client certificate
+  * azcli
+  * managed service identity - a VM running in azure under managed identity
+  * service principal with client secret
+  * service principal with client certificate
 
 ```sh
     provider "azurerm" {
@@ -49,7 +49,17 @@ Providers have:
 
 ## Modules
 
+As teams and operations scale you want to organise your infrastructure resources into meaningful groups by keeping their configurations separate.
+
 A module is a container for multiple resources that are used together. Modules can be used to create lightweight abstractions, so that you can describe your infrastructure in terms of its architecture, rather than directly in terms of physical objects.
+
+Generally it is advisable to **avoid preemptively creating modules** and only doing it after seeing patterns emerging. Eventually you may end up with a structure like:
+
+* application
+  * modules
+    * frontend
+    * backend
+    * database
 
 Using a standard [module structure](https://www.terraform.io/docs/modules/index.html#module-structure) is recommended for reusable modules. Terraform tooling is built to understand the standard module structure and use that structure to generate documentation, index modules for the module registry, and more.
 
@@ -97,9 +107,19 @@ resource "null_resource" "post_config" {
 
 ## Workspaces
 
-The persistent data stored in the backend belongs to a workspace. Initially the backend has only one workspace, called "default", and thus there is only one Terraform state associated with that configuration.
+```sh
+terraform workspace -h
+```
 
-Certain backends support multiple named workspaces, allowing multiple states to be associated with a single configuration. This can possibly also be achieved using different state files for the same configuration stored in the same backend.
+Terraform CLI workspaces are associated with a specific working directory and isolate multiple state files in the same working directory, letting you manage multiple groups of resources with a single configuration.
+
+One configuration -> multiple states (multiple workspaces)
+
+* dev.tfstate
+* qa.tfstate
+* prod.tfstate
+
+The persistent data stored in the backend belongs to a workspace. Initially the backend has only one workspace, called "default", and thus there is only one Terraform state associated with that configuration. Some backends support multiple named workspaces, allowing multiple states to be associated with a single configuration.
 
 ## Terraform workflow
 
@@ -134,7 +154,7 @@ For debugging purposes, log levels can be set using the `TF_LOG` environment var
 ### Defining resources
 
 ```sh
-resource "<type>" "<terraform_identifier>" { # or variable name
+resource "<type>" "<terraform_identifier>" { # <terraform_identifier> or variable name
   name     = "resourceGroup1"
   location = "West US"
 }
@@ -145,3 +165,13 @@ resource "azurerm_resource_group" "rg1" {
   location = "West US"
 }
 ```
+
+## Terragrunt
+
+Terragrunt is a thin wrapper (executable) that can auto generate terraform configuration prior to invoking terraform. e.g. parameterising remote state config. This is controlled by `hcl` files, usually one per module that you put within your directories. This may help in
+
+* Reducing repetition. Essentially it helps provide configuration to terraform which can also be provided at runtime via a text file or environment variables.
+* Working with multiple terraform modules
+* Managing terraform state by making it more granular e.g. one state file per module. Large configurations in a single state file used to be resource intensive to apply in terraform
+
+Terraform has probably evolved to fill the gap in functionality that terragrunt once provided. Especially post 0.12 versions terraform state is less brittle and terraform plans are based on diffs as opposed to a complete state refresh.

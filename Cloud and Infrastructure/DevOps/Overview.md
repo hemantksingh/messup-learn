@@ -23,29 +23,29 @@ There is no good way to manage a service that has one tool for SREs and another 
 Adopting Infra as Code approaches to delivering infrastructure
 
 * separation of concern
-    * separation of infrastructure provisioning & configuration management - are you managing snowflake or ephemeral servers? think cattle not pets
-    * separation of compute, networking and storage within your infrastructure as code
-    * separate application build, deployment and release
-    * separate code deployment from config deployment - is your config auditable & version controlled?
+  * separation of infrastructure provisioning & configuration management - are you managing snowflake or ephemeral servers? think cattle not pets
+  * separation of compute, networking and storage within your infrastructure as code
+  * separate application build, deployment and release
+  * separate code deployment from config deployment - is your config auditable & version controlled?
 * build once deploy multiple times
-    * build the binary package once and promote the same package to different environments
-    * adopt semantic versioning for packages and add commit hash to package to tie it to the code
+  * build the binary package once and promote the same package to different environments
+  * adopt semantic versioning for packages and add commit hash to package to tie it to the code
 * dev test, prod parity
 * fast feedback
-    * run fastest tests early
-    * ensure deployments can be run locally to get quick feedback
-    * ensure all scripts are idempotent
-    * ensure scripts log desired state in conditional code paths
+  * run fastest tests early
+  * ensure deployments can be run locally to get quick feedback
+  * ensure all scripts are idempotent
+  * ensure scripts log desired state in conditional code paths
 * encapsulation and abstraction
-   * ensure deployments are scriptable and decoupled from CI/CD tooling to facilitate migration & local testing
-   * modularise reusable scripts to prevent duplication
+  * ensure deployments are scriptable and decoupled from CI/CD tooling to facilitate migration & local testing
+  * modularize reusable scripts to prevent duplication
 * secure by default
-    * security enforcement doesn't disrupt the application development and deployment pipeline
-    * security baked into your pipelines
-    * no secrets in source code
+  * security enforcement doesn't disrupt the application development and deployment pipeline
+  * security baked into your pipelines
+  * no secrets in source code
     * store secrets in a vault not in auto-generated files on a CI server
-    * run with least privileges
-    * run code security scans
+  * run with least privileges
+  * run code security scans
 
 ### Infrastructure Provisioning
 

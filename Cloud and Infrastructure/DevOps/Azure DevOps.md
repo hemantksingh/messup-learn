@@ -28,6 +28,7 @@ In addition, Visual Studio Marketplace offers a number of extensions; each of wh
 [Uninstall or disable extensions](https://docs.microsoft.com/en-us/azure/devops/marketplace/uninstall-disable-extensions?view=azure-devops&tabs=browser) that you no longer need.
 
 ### Agentless job
+
 Tasks that can be handled by the azure devops services e.g. a manual intervention task where someone has to approve something
 
 ## Release Pipeline Definition
