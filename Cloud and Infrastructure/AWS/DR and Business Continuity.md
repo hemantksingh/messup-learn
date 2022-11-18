@@ -1,6 +1,6 @@
 # Disaster Recovery and Business Continuity
 
-Disaster Recovery (DR) Plans should be tested on a regular basis, and there should be an auditable record that a test has taken place. This confirms the DR plan’s suitability and effectiveness should it need to be deployed in response to a live major incident. The runbooks/ Key Operating Procedures (KOPs) that need to be followed in execution of the tests should be well documented. Key questions to think about before opting for a DR strategy
+Key questions to think about before opting for a DR strategy
 
 * Are you planning for [high availability or disaster recovery](https://www.readysetcloud.io/blog/allen.helton/is-serverless-disaster-recovery-worth-it/)? People often think disaster recovery and high availability are the same thing.
   * **Disaster recovery** is the ability to get your system stable after a significant event. Significant events could be things like natural disasters (tornadoes or earthquakes), physical disasters (building fire or flooding in server room), or technology disasters (hacked or ransomware).
@@ -9,6 +9,20 @@ Disaster Recovery (DR) Plans should be tested on a regular basis, and there shou
 * What is your expected RTO and RPO?
   * **Recovery Time Objective** (RTO) - Amount of time it takes to get your system operation after a disaster.
   * **Recovery Point Objective** (RPO) - Data recovery back to the point prior to the disaster or Point In Time Recovery (PITR)
+
+For confirming the DR plan’s suitability and effectiveness should it need to be deployed in response to a live major incident, it is crucial to test your Disaster Recovery (DR) Plans on a regular basis. Following best practice
+
+* Document the runbooks/ Key Operating Procedures (KOPs) that need to be followed in execution of the tests.
+* Record that a test has taken place for auditing purposes. e.g. a pipeline run to kick off a DR/Backup process, who and how long it took to perform the restore?
+
+## What scenarios are you looking to recover from?
+
+* Accidental data loss
+  * Restore from a backup in the same account and point your services to the new data store
+  * Restore from a backup and redeploy the services to the new data store
+  * Restore from the backup in a different account?
+* Loss of an AWS region
+  * Implement a multi region data replication strategy
 
 ## Serverless
 
@@ -26,7 +40,7 @@ If your application has a zero tolerance for downtime, like an emergency compute
 
 Since serverless has the pricing model of pay for what you use, having your serverless resources like Lambda functions and API Gateways deployed in a redundant region costs you no money. Where additional cost comes into play is getting your data into your failover region.
 
-While implementing DynamoDB global tables to replicate data to your failover region, you pay for
+DynamoDB automatically distributes data and traffic to tables across a sufficient number of servers to handle throughput and storage requirements. All data is automatically replicated across multiple Availability Zones in an AWS Region. You can implement DynamoDB **global tables** to replicate data across regions in to a failover region. This means you pay for
 
 * Write requests for the replication storage (per million units)
 * Data transfer costs (per GB)

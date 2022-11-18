@@ -6,7 +6,13 @@ What are the common security mistakes customers make, how to fix them, and why t
 
 ## How do I make my account secure?
 
-AWS has developed a primary set of services to help customers maintain a strong security posture over their AWS accounts
+An AWS Account creates a logical boundary to provide isolation environment by enforcing permissions that prevent cross account access
+
+* Therefore resources present in one account cannot access resources provisioned in another account unless explicitly allowed via a trust relationship
+* AWS Accounts also provide cost boundaries for reporting and billing purposes
+* AWS also enforces service limits at the AWS account level e.g. you can only have 100 S3 buckets within an account by default
+
+AWS has a primary set of services to help customers maintain a strong security posture over their AWS accounts
 
 - AWS Security Hub - organization aware **continual account assessment** for things like:
   - AWS foundational security practice
