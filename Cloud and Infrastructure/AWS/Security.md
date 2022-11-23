@@ -20,7 +20,7 @@ Identity and Access Management is used for
 * issuing identities
   * IAM user - identity for humans using **long term access credentials** e.g. username and password or long term credentials for programmatic access
   * AWS services - identity for non-human resources e.g. EC2 instance, Lambda, SageMaker, Glue crawler, ECS task etc
-  * IAM principal - is an identity in IAM, can be an IAM user or an AWS service, something that can make API calls to other AWS services
+  * IAM principal - is an identity in IAM, can be an IAM user, IAM role or an AWS service, something that can make API calls to other AWS services
   * IAM role - is an identity that you can create in your account that has specific permissions (similar to a Service Principal in Azure or Service Account in GCP). An IAM role is similar to an IAM user, in that it is an AWS identity with permission policies that determine what the identity can and cannot do in AWS. Instead of being uniquely associated with one person, a [role can be assumed](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html) by anyone who needs it. Also, a role does not have standard long-term credentials such as a password or access keys associated with it. Instead, when you assume a role, it provides you with **temporary security credentials** for your role session.
 * monitoring and auditing access to specific resources e.g. by enabling AWS Cloud Trail
 * federate access into AWS by integrating with corporate identity providers like Microsoft Active Directory when the users have identities defined outside of AWS
@@ -28,7 +28,7 @@ Identity and Access Management is used for
 
 |Users (Who)            |Groups (Who)       |Roles (Who)    | Policies (What) |
 |:---------------------|:------------------|:--------------|:---------------|
-|Specific individual, can receive logins |Collection of users by function such as administrator, developer etc |Collection of policies that you can use to access AWS resources e.g. a role with DB Read, DB Write permissions |Low level permissions to resources (Allow/Deny) <ul><li>**Identity policy** - applied to a user or group</li><li>**Resource policy** - attached to an AWS resource e.g. S3, KMS Keys as opposed to the IAM principal making the call. Not all resources allow you to define resource based policies e.g. dynamodb</li></ul>|
+|Specific individual, can receive logins |Collection of users by function such as administrator, developer etc |Collection of policies that you can use to access AWS resources e.g. a role with DB Read, DB Write permissions |Low level permissions to resources (Allow/Deny). There are mainly 2 ways to control access to resources  <ul><li>**Identity policy** - Issue an identity (role) and define who (the IAM principal) can assume that identity and what they can do with the resource in question. Such a policy is attached to a user, group or role specifying what the principal can do with the resource e.g. get items from an Amazon DynamoDB table</li><li>**Resource policy** - Define the access control directly at the AWS resource (e.g. S3 buckets, KMS Keys) itself as opposed to the IAM principal making the call and specify who can access the resource and do what. Unlike an identity-based policy, a resource-based policy specifies who (which principal - mandatory in a resource based policy) can access that resource. Not all resources allow you to define resource based policies e.g. dynamodb</li></ul>|
 
 ### IAM Roles
 

@@ -86,6 +86,24 @@ backend "azurerm" {
 }
 ```
 
+## Workspaces
+
+```sh
+terraform workspace -h
+```
+
+Terraform CLI workspaces are associated with a specific working directory and isolate multiple state files in the same working directory, letting you manage multiple groups of resources with a single configuration.
+
+One configuration -> multiple states (multiple workspaces)
+
+```sh
+* dev.tfstate
+* qa.tfstate
+* prod.tfstate
+```
+
+The persistent data stored in the backend belongs to a workspace. Initially the backend has only one workspace, called "default", and thus there is only one Terraform state associated with that configuration. Some backends support multiple named workspaces, allowing multiple states to be associated with a single configuration. Unfortunately, one workspace can only be associated with a single backend, therefore all your state for all your environments ends up in the same bucket. If you require separate backends for separate environments [workspaces are not ideal for system decomposition](https://developer.hashicorp.com/terraform/language/state/workspaces#using-workspaces).
+
 ## Provisioners
 
 [Provisioners](https://www.terraform.io/docs/provisioners/index.html) can be used to model specific actions on the local machine or on a remote machine in order to prepare servers or other infrastructure objects for service.
@@ -104,22 +122,6 @@ resource "null_resource" "post_config" {
     }
 }
 ```
-
-## Workspaces
-
-```sh
-terraform workspace -h
-```
-
-Terraform CLI workspaces are associated with a specific working directory and isolate multiple state files in the same working directory, letting you manage multiple groups of resources with a single configuration.
-
-One configuration -> multiple states (multiple workspaces)
-
-* dev.tfstate
-* qa.tfstate
-* prod.tfstate
-
-The persistent data stored in the backend belongs to a workspace. Initially the backend has only one workspace, called "default", and thus there is only one Terraform state associated with that configuration. Some backends support multiple named workspaces, allowing multiple states to be associated with a single configuration.
 
 ## Terraform workflow
 
