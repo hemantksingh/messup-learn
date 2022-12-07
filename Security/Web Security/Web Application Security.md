@@ -103,9 +103,9 @@ The [OWASP Top 10](https://www.owasp.org/index.php/OWASP_Top_Ten_Cheat_Sheet) pr
     * API Key - shared secret
     * JSON Web Token (JWT)
 
-* Injection includes SQL injection, Cross-Site Scripting
+* Injection can include SQL injection, Cross-Site Scripting (XSS)
   * Untrusted data, without input sanitization is sent to the code interpreter by an attacker. There are serious security implications if any part of the string that a user passes can not be fully trusted.
-  * Use **context aware escaping** - ensure that user input is treated as literal text as opposed to something that is executable code
+  * Use **context aware escaping** - ensure that user input is treated as literal text (escaped) as opposed to something that is executable code, depending upon the context in which it is used. e.g. The process of escaping data for SQL - to prevent SQL injection - is very different from the process of escaping data for (X)HTML, to prevent XSS.
 
     ```python
     import os
