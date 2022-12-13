@@ -1,6 +1,6 @@
 # Disaster Recovery and Business Continuity
 
-Key questions to think about before opting for a DR strategy
+Key questions to think about before before planning your DR strategy
 
 * Are you planning for [high availability or disaster recovery](https://www.readysetcloud.io/blog/allen.helton/is-serverless-disaster-recovery-worth-it/)? People often think disaster recovery and high availability are the same thing.
   * **Disaster recovery** is the ability to get your system stable after a significant event. Significant events could be things like natural disasters (tornadoes or earthquakes), physical disasters (building fire or flooding in server room), or technology disasters (hacked or ransomware).
@@ -17,12 +17,13 @@ For confirming the DR plan’s suitability and effectiveness should it need to b
 
 ## What scenarios are you looking to recover from?
 
-* Accidental data loss
+* Accidental writes or data loss e.g. delete of a production table
   * Restore from a backup in the same account and point your services to the new data store
   * Restore from a backup and redeploy the services to the new data store
   * Restore from the backup in a different account?
 * Loss of an AWS region
   * Implement a multi region data replication strategy
+* Are you looking at long term data retention?
 
 ## Serverless
 
@@ -30,7 +31,20 @@ Out of the box, serverless applications provide us with **HA in a single region*
 
 * Serverless services like Lambda, API Gateway, SQS, SNS and EventBridge all automatically span across all availability zones in a given region. This means you don’t have to worry about spinning up multiple instances in a multi-AZ architecture because AWS handles it for you.
 
-* Using a database like DynamoDB, you get the high availability but you also have the option to turn on Point in Time Recovery (PITR). PITR allows you to restore your database with granularity down to the second for the past 35 days.
+* Using a database like DynamoDB, you get the high availability but you also have the option to turn on:
+  * **On Demand Backups**
+    * create full backups of your tables for long-term retention, and archiving required for compliance needs in regulated industries
+    * automated scheduled backup and retention enforcement using the AWS backup service
+    * copy backups between AWS regions and accounts (cross region and cross account)
+    * secure with copying the backups to AWS Backup Vaults with dedicated encryption key
+    * automatically move old backups to cold storage tier and save on backup costs
+    * enforce service control policies and permissions based on tags inherited from dynamodb tables
+  * Continuous incremental backups with **Point in Time Recovery** (PITR)
+    * allows you to restore your database with granularity down to the second in the last 35 days
+    * don't have to worry about creating, maintaining, or scheduling on-demand backups, thus do not effect provisioned throughput on the table or API latencies
+    * helps to recover from accidental writes and deletes. When you delete a table that has PITR enabled, DynamoDB automatically creates a backup snapshot called a *system backup* and retains it for 35 days which can be used to restore the deleted table to the state it was in just before deletion
+    * exporting to S3 and other AWS services for analytics
+    * you should have a really good reason for not to enable PITR on your production tables
 
 ## Multi-Region Serverless
 

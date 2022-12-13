@@ -13,10 +13,10 @@ Infrastructure (PKI)](https://www.thesslstore.com/blog/wide-world-pki/) devised 
 [Compliance standards](https://docs.microsoft.com/en-gb/microsoft-365/compliance/offering-home?view=o365-worldwide) govern the collection and use of data for
 * global (ISO, SOC) 
 * national (FIPS)
-* industry (PCI, DSS, HIPAA/HITECH)
+* industry (PCI DSS, HIPAA/HITECH)
 * region (GDPR) specific requirements.
 
-### ISO 27001, 27017, 27018 
+### ISO 27001, 27017, 27018
 
 Security Management Controls, Cloud Specific Controls, Personal Data Protection
 
