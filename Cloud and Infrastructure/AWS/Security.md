@@ -102,7 +102,7 @@ New Users: No permissions when first created
 
 ## Networking
 
-VPC or Virtual Private Cloud is a logically isolated part of the AWS cloud, think of it as a virtual  data center in the cloud. You can leverage multiple layers of security, including security groups and network ACLs to help control access to Amazon EC2 instances in each subnet. The inbound and outbound connectivity to your VPC via the internet gateway or a VPN is established via three main lines of defense:
+VPC or Virtual Private Cloud is a logically isolated part of the AWS cloud, think of it as a virtual  data center in the cloud. You can leverage multiple layers of security, including security groups and network ACLs to help control access to Amazon EC2 instances in each subnet. The inbound and outbound connectivity to your VPC via the internet gateway or a VPN is established via three main lines of defense: 
 
 * Routing tables - whether there is a route in or out to the internet. A **router** is required to create subnets routes traffic between different subnets.
   * `10.0.0.0/16 local` - Traffic bound to your VPC, stays within your VPC
