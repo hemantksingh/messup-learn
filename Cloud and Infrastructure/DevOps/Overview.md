@@ -28,7 +28,7 @@ The [devops metrics](https://docs.aws.amazon.com/solutions/latest/devops-monitor
 * mean time to restore (MTTR), similar to RTO?
 * change fail percentage
 
-Although there is value in understanding where a team is spending time, whether is is on product innovation or keeping the lights on, these metrics measure a specific part of the value stream - the engineering effort. To measure the end-to-end flow of a software value stream, [flow metrics](https://www.leanix.net/en/wiki/vsm/flow-metrics#introduction) can be used alongside DORA metrics.  Just measuring the number of deployments per day, number of incidents, number of work in progress items in isolation of the wider business context can be an exercise in vanity.
+Although there is value in understanding where a team is spending time, whether it be on product innovation or keeping the lights on, the above metrics measure a specific part of the value stream - the engineering effort. Just measuring the number of deployments per day, number of incidents, number of work in progress items in isolation of the wider business context can be an exercise in vanity. To measure the end-to-end flow of a software value stream, [flow metrics](https://www.leanix.net/en/wiki/vsm/flow-metrics#introduction) can be used alongside DORA metrics.
 
 ### Reference Implementation
 
