@@ -25,7 +25,7 @@ The [devops metrics](https://docs.aws.amazon.com/solutions/latest/devops-monitor
 
 * lead time
 * deployment frequency
-* mean time to restore (MTTR), similar to RTO?
+* mean time to restore (MTTR). RTO is time taken to recover from a disaster whereas MTTR is time taken to restore a service post an incident, therefore RTO will normally be higher than MTTR.
 * change fail percentage
 
 Although there is value in understanding where a team is spending time, whether it be on product innovation or keeping the lights on, the above metrics measure a specific part of the value stream - the engineering effort. Just measuring the number of deployments per day, number of incidents, number of work in progress items in isolation of the wider business context can be an exercise in vanity. To measure the end-to-end flow of a software value stream, [flow metrics](https://www.leanix.net/en/wiki/vsm/flow-metrics#introduction) can be used alongside DORA metrics.
