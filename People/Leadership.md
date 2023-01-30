@@ -2,18 +2,18 @@
 
 Leadership is about empowering others to achieve their true potential. The foundations of strong leadership should revolve around seeing others get better:
 
-- Culture is not about what you say, its about what you do - lead by example. Culture is what people do when no-one is looking. Its about specific behaviours that
+- Culture is not about what you say, its about what you do - lead by example. Great leaders don't just talk culture, they embody it, authentically. In *The Corporate Culture*, Schien defines culture as a "pattern of shared tacit assumptions that was learned by a group as it solved its problems of external adaptation and internal integration,that has worked well enough to be considered valid and therefore, to be taught to new members as the correct way to perceive, think and feel in relation to those problems." You can let your teams culture emerge or be explicit about it by encouraging specific behaviors that
   - establish safety and openness
     - get to know each other: background, goals, fun, strengths, weaknesses
-    - discourage blame e.g. difference between the safety culture in aviation (facts based) and healthcare industry
+    - discourage blame e.g. are people given the autonomy to act and trusted to take risks? Is failure punished or does it lead to enquiry and improvements of our systems?
     - say no to talented jerks - scientific experiments have shown jerks diminish a team's performance by 30-40%
   - establish vulnerability - As a leader the most important thing that you can say to your team is - *I messed up* or *I need help to achieve x*
-  - create purpose
+  - create purpose - the yearning to do something larger than ourselves.
   - keep the culture alive (culture capture) - seek and provide constructive feedback. What excites them, what frustrates them, what is their biggest challenge?
 
 - Delegation
-  - Getting results through others
-  - From player to coach. From doing to leading. Avoid being the bottleneck by taking on too much work yourself, let others take ownership of initiatives where you provide guidance and support.
+  - Getting results through others requires you to shift from being a player to coach, from doing to leading. Avoid being the bottleneck by taking on too much work yourself, let others take ownership of initiatives where you provide guidance and support.
+  - Set clear expectations and stating expectations once isn't enough. They must be repeated, clarified, and adjusted over time. Can those you lead clearly explain what you expect from them? Many people strive to do a good job, while some may not. Nevertheless, the majority of people find satisfaction in completing their tasks to a high standard.
   - Putting the team before you. Commit to the success and well-being of the collective team above your individual success.
 
 - Direction Alignment and Commitment (DAC)
@@ -34,6 +34,7 @@ Leadership is about empowering others to achieve their true potential. The found
   - informal strategies include casual conversations
   
 - Learning agility
+  - Ability to "process on the fly" and pull together disparate bits of information
   - Seeking for new, challenging learning opportunities.
   - Sense making is an ongoing dialogue used to gain insight from the situation.
   - Internalizing happens through getting feedback and reflecting.
@@ -50,7 +51,7 @@ Understanding that not all people are the same and that they are driven by diffe
 - **the desire to belong** - people are social animals and have the innate ability to gravitate towards others with common shared values and beliefs, form communities and cultures. When you are surrounded by people with shared values and beliefs - trust emerges.
   - You find others with similar beliefs and values by striking conversations and **becoming genuinely interested in them**. Often liking someone is a gut instinct, an intuitive decision, because it just feels right. The part of your brain that controls feeling, controls decision making it doesn't control language, it cannot rationalize why you like someone.
   - Clarity about your beliefs and values gives you a purpose. Ability to clearly communicate your vision and repeat it often can rally others behind your cause
-  - A carrot and stick (reward and punishment) policy has limited effect on people. Rewarding efforts as opposed to outcomes taps into the intrinsic motivations of people encouraging them to take risks and innovate and be okay with failure.
+  - A carrot and stick (reward and punishment) policy is effective in routine, mechanical work, but actually reduces performance in the context of knowledge work. Rewarding efforts as opposed to outcomes taps into the intrinsic motivations of people encouraging them to take risks and innovate and be okay with failure.
   - >*If you want people to be truly engaged in your vision give them **autonomy, mastery and purpose*** - Daniel Pink
   
 ### Engage and build trust
