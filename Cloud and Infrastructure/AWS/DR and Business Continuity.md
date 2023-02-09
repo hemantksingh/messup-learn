@@ -10,20 +10,26 @@ Key questions to think about before before planning your DR strategy
   * **Recovery Time Objective** (RTO) - Amount of time it takes to get your system operation after a disaster.
   * **Recovery Point Objective** (RPO) - Data recovery back to the point prior to the disaster or Point In Time Recovery (PITR)
 
-For confirming the DR plan’s suitability and effectiveness should it need to be deployed in response to a live major incident, it is crucial to test your Disaster Recovery (DR) Plans on a regular basis. Following best practice
-
-* Document the runbooks/ Key Operating Procedures (KOPs) that need to be followed in execution of the tests.
-* Record that a test has taken place for auditing purposes. e.g. a pipeline run to kick off a DR/Backup process, who and how long it took to perform the restore?
-
 ## What scenarios are you looking to recover from?
 
-* Accidental writes or data loss e.g. delete of a production table
+* Accidental writes or data loss e.g. delete of a production table or malicious data loss e.g. data locking via encryption by someone with access to the AWS account
   * Restore from a backup in the same account and point your services to the new data store
-  * Restore from a backup and redeploy the services to the new data store
-  * Restore from the backup in a different account?
+  * Restore from a backup in a separate account - ensures unauthorized access to an AWS account does not effect backups.
 * Loss of an AWS region
   * Implement a multi region data replication strategy
 * Are you looking at long term data retention?
+
+## Is your DR plan effective?
+
+For confirming the DR plan’s suitability and effectiveness should it need to be deployed in response to a live major incident, it is crucial to test your Disaster Recovery (DR) Plans on a regular basis. Following best practice
+
+* Document the runbooks/ Key Operating Procedures (KOPs) that need to be followed in execution of the tests.
+* Check the status of your backups. Have you got monitoring and alarms in place to track backup failures?
+* Validate whether your backup and restore process works against large volumes of data. What is the difference in volume of data between production and backup environments?
+  * If you were to do the test in staging env for example, The PRD/STG factor = Row Count in PRD/ Row Count in STG. The PRD/STG factor should ideally be >= 1 but you should aim for a PRD/STG factor of at least 0.60
+  * Can your back jobs work with millions of records or are they going to time out if the data volume increases significantly?
+  * Rather than using custom built scripts you may consider using a native service - Amazon DynamoDB is natively integrated with AWS Backup. You can use AWS Backup to schedule, copy, tag and life cycle your DynamoDB on-demand backups automatically.
+* Audit the restore process. Do you use a pipeline to start the restore process that can tell you who ran the test along with RTO and RPO? When planning for disaster recovery it is best practice to regularly document average restore completion times and establish how these times affect your overall Recovery Time Objective.
 
 ## Serverless
 
