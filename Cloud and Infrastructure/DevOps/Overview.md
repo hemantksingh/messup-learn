@@ -40,6 +40,7 @@ DevOps metrics using Graphana
 
 * <https://www.tutorialworks.com/devops-metrics/>
 * <https://github.com/Justus-e/DevOpsMetrics>
+* Apache dev lake (uses graphana dashboards) <https://www.darraghoriordan.com/2022/10/16/report-on-dora-metrics-apache-dev-lake/>
 
 ## DevOps tooling
 
