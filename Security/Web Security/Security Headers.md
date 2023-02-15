@@ -1,35 +1,32 @@
 # Security Headers
 
-OWASP has a list of HTTP [Security headers](https://owasp.org/www-project-secure-headers/#tab=Headers) that your application can use  to make it more secure. [Hardening your HTTP response headers](https://scotthelme.co.uk/hardening-your-http-response-headers/) requires adopting best practice to set these security headers as part of your response. e.g. webserver config for [IIS](https://gist.github.com/The-Scott/f7b5d03e260036cfc4dce5ad89578377) and [nginx](https://gist.github.com/plentz/6737338). Browsers can block script execution based on the following HTTP headers returned by the server.
+OWASP has a list of HTTP [Security headers](https://owasp.org/www-project-secure-headers/#tab=Headers) that you should consider adding to your web application to make it more secure. [Hardening your HTTP response headers](https://scotthelme.co.uk/hardening-your-http-response-headers/) requires adopting best practice to set these security headers as part of your response. e.g. webserver config for [IIS](https://gist.github.com/The-Scott/f7b5d03e260036cfc4dce5ad89578377) and [nginx](https://gist.github.com/plentz/6737338). However, it should be noted that a number of these Security Headers are intended for public-facing web applications serving dynamic content and therefore may not be applicable to backend services.
 
-### X-XSS-Protection
+Browsers can block script execution based on the following HTTP headers returned by the server.
 
-The core issue exploited by XSS attacks is the browser’s inability to distinguish between scripts that are intended to be part of your application and the ones that have been maliciously injected by a third-party. This header lets domains toggle on and off reflective XSS prevention of the browser.
+## Content-Security-Policy
 
-    ```sh
-    X-XSS-Protection: 0 # disable XSS protection
-    X-XSS-Protection: 1; # enables XSS protection
-    X-XSS-Protection: 1; mode=block # rather than sanitize the page, when a XSS attack is detected, the browser will prevent rendering of the page
-    X-XSS-Protection: 1; report=<reporting-uri> # If a cross-site scripting attack is detected, the browser will sanitize the page and report the violation
-    ```
+HTTP header allows you to create a **whitelist of sources** of trusted content, and instructs the browser to only execute or render resources from those sources. Even if an attacker can find a hole through which to inject script, the script won’t match the whitelist, and therefore won’t be executed.
 
-### Content-Security-Policy
-
-HTTP header allows you to create a **whitelist of sources** of trusted content, and instructs the browser to only execute or render resources from those sources. Even if an attacker can find a hole through which to inject script, the script won’t match the whitelist, and therefore won’t be executed. You can define a policy that only allows script to execute when it comes from one of the two trusted sources: your self and google
+The following policy only allows script to execute when it comes from one of the two trusted sources: your self and google
     `Content-Security-Policy: script-src 'self' https://apis.google.com`
 
 *Note: CSP can block `inline-eval` in your javascript or Node-js module dependencies without the usual console or on-screen errors.*
 
-### HTTP Strict Transport Security (HSTS)
+### CSP and APIs
+
+CSP involves white listing of sources for the content of your website to impair xss- attacks. It directs the browser to load content from legitimate trusted sources. CSP is not applicable in this case if the API in question are data APIs that serve JSON without any dynamic content.
+
+## HTTP Strict Transport Security (HSTS)
 
 Instructs the browser to visit your site only over HTTPS to ensure they only use TLS to support secure transport. Supported widely by browsers and strongly recommended for internet-facing web applications. It protects
 
-* users against passive eavesdropper and active **man in the middle attacks** If your login page page is served over http but the login form posts to https, is it secure? Not really. You cannot have confidence that the login form that has been served over http hasn't been modified by a man in the middle by the time it gets to the end user. Your traffic could still be intercepted before and after HTTPS connection begins and ends.
+* users against passive eavesdropper and active **man in the middle attacks**. If your login page page is served over http but the login form posts to https, is it secure? Not really. You cannot have confidence that the login form that has been served over http hasn't been modified by a man in the middle by the time it gets to the end user. Your traffic could still be intercepted before and after HTTPS connection begins and ends.
 * mixed content and click-through certificate overrides
 * against web server mistakes like loading JavaScript over an insecure connection
-    
+* this policy will enforce TLS on your site and all subdomains for a year
+
     ```sh
-    Strict-Transport-Security: max-age=31536000 # HSTS policy is applied only to the domain of HSTS host issuing it and remains in effect for one year
     Strict-Transport-Security: max-age=31536000; includeSubDomains # HSTS policy is applied to the domain of the issuing host as well as its subdomains and remains in effect for one year.
     Strict-Transport-Security: max-age=0 # Directs the browser to delete the entire HSTS policy
     ```
@@ -44,24 +41,24 @@ X-Frame-Options: ALLOW-FROM https://example.com/ # lets you specify sites that a
 ```
 
 While the `X-Frame-Options` header is supported by the major browsers, it was never standardized and has been deprecated in favour of the `frame-ancestors` directive from `Content-Security-Policy` HTTP header. `frame-ancestors` [supports multiple domains and even wildcards](https://stackoverflow.com/questions/10205192/x-frame-options-allow-from-multiple-domains), for example
-    
+
 ```sh
 Content-Security-Policy: frame-ancestors 'self' example.com *.example.net
 ```
 
 If a resource has both policies, the `frame-ancestors` policy SHOULD be enforced and the `X-Frame-Options` policy SHOULD be ignored.
 
-### X-Content-Type-Options
+## X-Content-Type-Options
 
-This header only has one valid value, `nosniff`. It prevents Google Chrome and Internet Explorer from trying to mime-sniff the content-type of a response away from the one being declared by the server. It [reduces exposure](https://www.keycdn.com/support/what-is-mime-sniffing#how-to-avoid-mime-sniffing-vulnerabilities) to drive-by downloads and the risks of user uploaded content that, with clever naming, could be treated as a different content-type, like an executable.
+This header prevents browsers from trying to mime-sniff the content-type of a response declared by the server. The web browser "sniffs" the content to analyze what file format that particular asset is. It [reduces exposure](https://www.keycdn.com/support/what-is-mime-sniffing#how-to-avoid-mime-sniffing-vulnerabilities) to drive-by downloads and the risks of user uploaded content that, with clever naming, could be treated as a different content-type, like an executable.
 
-### Referrer Policy
+This header only has one valid value, `nosniff`
 
-[Referrer Policy](https://scotthelme.co.uk/a-new-security-header-referrer-policy/) is a new header that allows a site to control how much information the browser includes with navigations away from a document and should be set by all sites.
+## Referrer Policy
 
-### Feature Policy
+[Referrer Policy](https://scotthelme.co.uk/a-new-security-header-referrer-policy/) allows a site to control how much information the browser includes while navigating away from one site to another. This is how we get metrics like those provided by Google Analytics on where our traffic came from. I know that 4,000 users came from Twitter this week because when they visit my site they set the referrer[sic] header in their request.
 
-[Feature Policy](https://scotthelme.co.uk/a-new-security-header-feature-policy/) is a new header that allows a site to control which features and APIs can be used in the browser.
+This header lets you know where the inbound visitor came from, and is really handy, but there are cases where we may want to control or restrict the amount of information present in this header like the path or even whether the header is sent at all.
 
 ## Same Origin Policy
 
@@ -96,3 +93,18 @@ Content security policy and same-origin policy (the lack of CORS) act as multipl
 1. When user visits `foo.com` in browser, `foo.com` server returns `foo.com` HTTP response, CSP restriction within this response can prevent `foo.com` in browser from issuing request to `bar.com`.
 2. If there is no CSP restriction within `foo.com` HTTP response, then `foo.com` in browser can send a request to `bar.com`.
 3. Upon receiving the request, `bar.com` server responds with `bar.com` HTTP response, CORS restriction within this response can prevent `foo.com` in browser from loading it. (Note that by default, Same-origin policy will restrict the response from loading, unless otherwise specified by CORS)
+
+## Deprecated
+
+* X-XSS-Protection
+  The core issue exploited by XSS attacks is the browser’s inability to distinguish between scripts that are intended to be part of your application and the ones that have been maliciously injected by a third-party. This header lets domains toggle on and off reflective XSS prevention of the browser.
+
+    ```sh
+    X-XSS-Protection: 0 # disable XSS protection
+    X-XSS-Protection: 1; # enables XSS protection
+    X-XSS-Protection: 1; mode=block # rather than sanitize the page, when a XSS attack is detected, the browser will prevent rendering of the page
+    X-XSS-Protection: 1; report=<reporting-uri> # If a cross-site scripting attack is detected, the browser will sanitize the page and report the violation
+    ```
+
+* Feature Policy
+    The Permissions-Policy header replaces the existing Feature-Policy header for controlling which features and APIs can be used in the browser
