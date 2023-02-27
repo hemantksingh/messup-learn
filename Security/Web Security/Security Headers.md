@@ -1,12 +1,14 @@
 # Security Headers
 
-OWASP has a list of HTTP [Security headers](https://owasp.org/www-project-secure-headers/#tab=Headers) that you should consider adding to your web application to make it more secure. [Hardening your HTTP response headers](https://scotthelme.co.uk/hardening-your-http-response-headers/) requires adopting best practice to set these security headers as part of your response. e.g. webserver config for [IIS](https://gist.github.com/The-Scott/f7b5d03e260036cfc4dce5ad89578377) and [nginx](https://gist.github.com/plentz/6737338). However, it should be noted that a number of these Security Headers are intended for public-facing web applications serving dynamic content and therefore may not be applicable to backend services.
+OWASP has a list of HTTP [Security headers](https://owasp.org/www-project-secure-headers/#tab=Headers) that you should consider adding to your web application to make it more secure. Adopting best practices for [hardening your HTTP response headers](https://scotthelme.co.uk/hardening-your-http-response-headers/) e.g. webserver config for [IIS](https://gist.github.com/The-Scott/f7b5d03e260036cfc4dce5ad89578377) or [nginx](https://gist.github.com/plentz/6737338) is a good baseline, however understanding the impact of including or excluding these headers should be duly considered. Blindly following best practice guides or security scanners that tell you headers are missing does not help you understand the security impact. For example 
+- if your website is not public-facing web application or locked down to a corporate network?
+- if your website does not serve any dynamic content and thereby does not allow any user actions e.g. button clicks, it is clickjacking safe. In such a case having `X-Frame-Options` set to Blocked may not do any harm, it probably adds a bit of protection but the missing header doesn't necessarily open you up to attacks.
 
 Browsers can block script execution based on the following HTTP headers returned by the server.
 
 ## Content-Security-Policy
 
-HTTP header allows you to create a **whitelist of sources** of trusted content, and instructs the browser to only execute or render resources from those sources. Even if an attacker can find a hole through which to inject script, the script won’t match the whitelist, and therefore won’t be executed.
+HTTP header allows you to create a **whitelist of sources** of trusted content, and instructs the browser to only execute or render resources from those sources. Even if an attacker can find a hole through which to inject script, the script won’t match the whitelist, and therefore won’t be executed. You can use <https://csp-evaluator.withgoogle.com/> to evaluate your CSP policy.
 
 The following policy only allows script to execute when it comes from one of the two trusted sources: your self and google
     `Content-Security-Policy: script-src 'self' https://apis.google.com`
@@ -19,7 +21,7 @@ CSP involves white listing of sources for the content of your website to impair 
 
 ## HTTP Strict Transport Security (HSTS)
 
-Instructs the browser to visit your site only over HTTPS to ensure they only use TLS to support secure transport. Supported widely by browsers and strongly recommended for internet-facing web applications. It protects
+Instructs the browser to visit your site only over HTTPS to ensure they only use TLS to support secure transport. Supported widely by browsers and strongly recommended for internet-facing web applications, however it is only honoured by the browser only when the site has been loaded previously once over https without any certificate errors. It protects
 
 * users against passive eavesdropper and active **man in the middle attacks**. If your login page page is served over http but the login form posts to https, is it secure? Not really. You cannot have confidence that the login form that has been served over http hasn't been modified by a man in the middle by the time it gets to the end user. Your traffic could still be intercepted before and after HTTPS connection begins and ends.
 * mixed content and click-through certificate overrides
@@ -72,7 +74,7 @@ It is important to note that the **same origin policy applies only to scripts**.
 
 ### Relaxing the same origin policy
 
-Depending upon whether the target service allows cross-origin requests the [browser can deny such requests](https://stackoverflow.com/questions/20035101/why-doesn-t-postman-get-a-no-access-control-allow-origin-header-is-present-on). However, for large websites with multiple subdomains or when your API needs to be called by multiple web clients other than just the one hosted on the same server (origin) as your API, you may need to relax the same origin policy.
+Depending upon whether the target service allows cross-origin requests the [browser can deny such requests](https://stackoverflow.com/questions/20035101/why-doesn-t-postman-get-a-no-access-control-allow-origin-header-is-present-on). However, for large websites with multiple subdomains or an API that is meant to be open, and is intended to be accessed from other origins by multiple web clients other than just the one hosted on the same server (origin) as your API, you may need to relax the same origin policy.
 
 **Cross Origin Resource Sharing (CORS)** - Rather than deny cross-origin request, the browser asks the target service if it wants to allow a specific cross-origin request. The target service tells the browser whether it wants to allow cross-origin requests by inserting special HTTP headers in responses: For [using CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) it extends HTTP with a new `Origin` request header and a new `Access-Control-Allow-Origin` response header. It allows servers to use a header to explicitly list origins that may request a file or to use a wildcard and allow a file to be requested by any site.
 
