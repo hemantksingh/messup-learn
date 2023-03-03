@@ -8,16 +8,18 @@ Browsers can block script execution based on the following HTTP headers returned
 
 ## Content-Security-Policy
 
-HTTP header allows you to create a **whitelist of sources** of trusted content, and instructs the browser to only execute or render resources from those sources. Even if an attacker can find a hole through which to inject script, the script won’t match the whitelist, and therefore won’t be executed. You can use <https://csp-evaluator.withgoogle.com/> to evaluate your CSP policy.
+HTTP header allows you to create a **whitelist of sources** of trusted content, and instructs the browser to only execute or render resources from those sources. Even if an attacker can find a hole through which to inject script, the script won’t match the whitelist, and therefore won’t be executed.
 
-The following policy only allows script to execute when it comes from one of the two trusted sources: your self and google
-    `Content-Security-Policy: script-src 'self' https://apis.google.com`
+The following policy only allows script to execute when it comes from one of the two trusted sources: the site's own origin (this excludes subdomains) and apis.google.com
+    `Content-Security-Policy: default-src 'self' https://apis.google.com; object-src 'none'`
+
+You can use <https://csp-evaluator.withgoogle.com/> to evaluate your CSP policy whether it is strong enough to mitigate against XSS attacks.
 
 *Note: CSP can block `inline-eval` in your javascript or Node-js module dependencies without the usual console or on-screen errors.*
 
 ### CSP and APIs
 
-CSP involves white listing of sources for the content of your website to impair xss- attacks. It directs the browser to load content from legitimate trusted sources. CSP is not applicable in this case if the API in question are data APIs that serve JSON without any dynamic content.
+CSP involves white listing of sources for the content of your website to impair XSS attacks. It directs the browser to load content from legitimate trusted sources. CSP is not applicable in case of APIs that are primarily data APIs serving JSON/XML without any dynamic content.
 
 ## HTTP Strict Transport Security (HSTS)
 
@@ -62,11 +64,11 @@ This header only has one valid value, `nosniff`
 
 This header lets you know where the inbound visitor came from, and is really handy, but there are cases where we may want to control or restrict the amount of information present in this header like the path or even whether the header is sent at all.
 
-## Same Origin Policy
+## Cross-Origin-Resource-Policy
 
 One of the key principles of security is data isolation. Same origin policy is designed for segregating web content. Under this policy the web browser only allows Javascript in one web page to access data in another web page if the two pages have the same **origin**. An origin is [defined as](https://en.wikipedia.org/wiki/Same-origin_policy) a combination of the **protocol**, **domain name**, and **port**.
 
-### Cross domain vulnerability
+`Cross-Origin-Resource-Policy: same-origin`
 
 The same origin policy prevents a malicious script on one page from obtaining access to sensitive data on another web page through that page's DOM. Code from `https://mybank.com` should only have access to `https://mybank.com`'s data, and `https://evil.example.com` should certainly never be allowed access. This keeps a strong separation of content of unrelated sites.
 
@@ -76,7 +78,7 @@ It is important to note that the **same origin policy applies only to scripts**.
 
 Depending upon whether the target service allows cross-origin requests the [browser can deny such requests](https://stackoverflow.com/questions/20035101/why-doesn-t-postman-get-a-no-access-control-allow-origin-header-is-present-on). However, for large websites with multiple subdomains or an API that is meant to be open, and is intended to be accessed from other origins by multiple web clients other than just the one hosted on the same server (origin) as your API, you may need to relax the same origin policy.
 
-**Cross Origin Resource Sharing (CORS)** - Rather than deny cross-origin request, the browser asks the target service if it wants to allow a specific cross-origin request. The target service tells the browser whether it wants to allow cross-origin requests by inserting special HTTP headers in responses: For [using CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) it extends HTTP with a new `Origin` request header and a new `Access-Control-Allow-Origin` response header. It allows servers to use a header to explicitly list origins that may request a file or to use a wildcard and allow a file to be requested by any site.
+By setting the `Cross-Origin-Resource-Policy: cross-origin` in the response the target service tells the browser that it wants to allow cross-origin requests. For [using CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) it extends HTTP with a new `Origin` request header and a new `Access-Control-Allow-Origin` response header. It allows servers to use a header to explicitly list origins that may request a file or to use a wildcard and allow a file to be requested by any site.
 
 ```sh
 Access-Control-Allow-Origin: * # resource can be shared by any domain
@@ -88,7 +90,7 @@ Access-Control-Allow-Headers: X-PINGOTHER, Content-Type # permitted headers to b
 Access-Control-Max-Age: 86400 # how long the response to the preflight request can be cached for without sending another preflight request
 ```
 
-## CSP and CORS
+### CSP and CORS
 
 Content security policy and same-origin policy (the lack of CORS) act as multiple lines of defense in protecting against malicious content. e.g. if `foo.com` wants to send a request to `bar.com`
 
@@ -96,9 +98,25 @@ Content security policy and same-origin policy (the lack of CORS) act as multipl
 2. If there is no CSP restriction within `foo.com` HTTP response, then `foo.com` in browser can send a request to `bar.com`.
 3. Upon receiving the request, `bar.com` server responds with `bar.com` HTTP response, CORS restriction within this response can prevent `foo.com` in browser from loading it. (Note that by default, Same-origin policy will restrict the response from loading, unless otherwise specified by CORS)
 
+## Cross-Origin-Opener-Policy
+
+HTTP Headers that let your webpage opt into a special "Cross-origin Isolated" state and gain access to powerful web API features like
+
+- SharedArrayBuffer
+- performance.measureMemory()
+- JS Self Profiling API
+
+Ensure a top-level document does not share a browsing context group with cross-origin documents (pop ups - opened). This will isolate the process for your document prevent potential attackers from access to your global object if they were opening it in a popup, preventing a set of cross-origin attacks
+`Cross-Origin-Opener-Policy: same-origin`
+
+## Cross-Origin-Embedder-Policy
+
+Ensure all resources loaded from your website have been loaded with CORP
+`Cross-Origin-Embedder-Policy: require-corp`
+
 ## Deprecated
 
-* X-XSS-Protection
+- X-XSS-Protection
   The core issue exploited by XSS attacks is the browser’s inability to distinguish between scripts that are intended to be part of your application and the ones that have been maliciously injected by a third-party. This header lets domains toggle on and off reflective XSS prevention of the browser.
 
     ```sh
@@ -108,5 +126,5 @@ Content security policy and same-origin policy (the lack of CORS) act as multipl
     X-XSS-Protection: 1; report=<reporting-uri> # If a cross-site scripting attack is detected, the browser will sanitize the page and report the violation
     ```
 
-* Feature Policy
+- Feature Policy
     The Permissions-Policy header replaces the existing Feature-Policy header for controlling which features and APIs can be used in the browser
