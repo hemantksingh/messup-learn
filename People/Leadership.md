@@ -81,7 +81,7 @@ To become genuinely interested in other people and gain their trust, you have to
 
 ### Getting your message across
 
-- Why, what, how and now what? Primary focus ought to be on the **why** of your message.
+- Whether you are a newspaper journalist, a politician or a rapper we are all trying to do the same thing. It is to get your message across. So the why, what, how and now what of your message becomes crucially important, however the primary focus ought to be on the **why** of your message.
 - Get your message across. *You haven't taught until they have learnt*. Seek confirmation that the words you say are well understood. Willingness to repeat will ensure your message lands.
 - Know your audience. People in position of responsibility will check your confidence in your decisions. In order to get to the facts, they will often dig deep, sometimes through confrontation. If you are pitching an idea to senior leadership, they are probably going to be most interested in the **why and now what** (cost, timeline, resource required and the customer impact) of your message.
   - Preempt the question. Get in there first before any obvious questions are asked.
