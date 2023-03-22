@@ -61,6 +61,7 @@ To become genuinely interested in other people and gain their trust, you have to
 - Skip the small talk, start with personal questions. Move from **How are you** to **Who you are** conversations. So instead of asking
   - *Where did you grow up?* ask *Whats your story, where do you come from?*
   - *What do you do?* ask *What made you who you are today*?
+  - *How is it going? Is everything turning out the way you thought it would*?
   - *What do you do in free time?* ask *Do you have a secret side hustle or passion project?*
 - People like to know that they are interesting. Doing some research about your prospect to find out what interests them most and what they are enthusiastic about, before an important meeting can help you in getting their attention.
   - *You have a very interesting name, whats the story behind that?*
@@ -89,7 +90,7 @@ To become genuinely interested in other people and gain their trust, you have to
   - On discovering new information (e.g. Organization restructure plan), **bounce a question back**, e.g. *So what impact would the organization restructure have on the project teams?*
   - Get back with an answer in case of an unknown. Mention the **process** you will follow to get the answer. Give an indicative answer to manage expectations. *In our experience ...*
   - Bounce a question back. Have you set out a budget for this piece of work?
-- Using humour to put your point across can be effective communication strategy in certain situations. Avoid plagiarizing but use for inspiration - https://www.daily-stuff.com/funniest-notes-people-have-written-to-complete-strangers/6?xcmg=1
+- Using humour to put your point across can be effective communication strategy in certain situations. Avoid plagiarizing but use for inspiration - <https://www.daily-stuff.com/funniest-notes-people-have-written-to-complete-strangers/6?xcmg=1>
 - Consider the impact of body language and non verbal communication on your message. Practicing mindfulness, deep breathing and visualization before an important presentation can help in calming nerves and relaxation.
 
 ## Influence
@@ -131,5 +132,5 @@ To become genuinely interested in other people and gain their trust, you have to
 
 ## Resources
 
-- https://github.com/ryanburgess/engineer-manager
-- https://twitter.com/wdmorrisjr/status/1482718036758917122
+- <https://github.com/ryanburgess/engineer-manager>
+- <https://twitter.com/wdmorrisjr/status/1482718036758917122>
