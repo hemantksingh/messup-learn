@@ -25,14 +25,14 @@ Data between the end user and your application flows through the data plane. Thi
 
 ## Application Security
 
-Applications, especially those that are cloud native, are a gateway to servers and networks and present an ideal attack vector for malicious actors. 
+Applications, especially those that are cloud native, are a gateway to servers and networks and present an ideal attack vector for malicious actors.
 
 In order to understand and address your security requirements it is worth understanding the approaches and tools at hand. The security testing process involves:
 
 * assessment - analysis and discovery of vulnerabilities without attempting to actually exploit those vulnerabilities
 * testing - discovery and attempted exploitation of vulnerabilities
 
-[Application Security testing methodologies](https://snyk.io/learn/application-security/) include:
+[Application Security](https://snyk.io/learn/application-security/) scanning tools include:
 
 * Source code analysis - also known as [Static application security testing (SAST)](https://snyk.io/learn/application-security/static-application-security-testing/) or white box testing is used to analyse source code for security vulnerabilities. SAST tools are good at identifying well-known vulnerabilities such as Buffer overflows and SQL injection, however they result in high number of false positives and are [limited in identifying many types of vulnerabilities](https://owasp.org/www-community/Source_Code_Analysis_Tools) including Authentication problems, Access control issues, Insecure use of cryptography. Some examples of SAST tools are:
   * SonarQube - code quality/review and basic identify basic vulnerabilities in your application
@@ -40,7 +40,7 @@ In order to understand and address your security requirements it is worth unders
   * Snyk code
 
 * Interactive application security testing (**IAST**): This form of application security testing scans the source code for vulnerabilities while running the application and simulating the ways a user would commonly interact with it.
-* Software Composition Analysis - Rather than analysisng source code an **SCA** tool focuses on third-party code dependencies that are used in the application
+* Software Composition Analysis - Rather than analysing source code an **SCA** tool focuses on third-party code dependencies that are used in the application
   * Snyk open source - falls in the Dependency Monitoring category
   * Black Duck - https://www.synopsys.com/software-integrity/security-testing/software-composition-analysis.html
   * WhiteSource - https://www.whitesourcesoftware.com/resources/blog/software-composition-analysis
