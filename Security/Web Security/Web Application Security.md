@@ -11,7 +11,7 @@ We often have well defined tools and techniques for gathering functional require
 * Do not always have a security expert on board
 * Stakeholders may not be aware of the security cost to revenue and unwilling to invest time and resource. You can never be 100% secure but it is worth thinking about what good looks like from a security point of view
   * How urgently do you fix a vulnerability identified in a production system?
-  * Do you understand the risk of letting the system run with vulnerabilities? 
+  * Do you understand the risk of letting the system run with vulnerabilities?
   * What is the organisation's appetite for risk? What kind of data are you dealing with? e.g, finance, healthcare or provider of publicly available traffic data
   * Is certain amount of downtime acceptable to you?
 
@@ -37,14 +37,17 @@ In order to understand and address your security requirements it is worth unders
 * Source code analysis - also known as [Static application security testing (SAST)](https://snyk.io/learn/application-security/static-application-security-testing/) or white box testing is used to analyse source code for security vulnerabilities. SAST tools are good at identifying well-known vulnerabilities such as Buffer overflows and SQL injection, however they result in high number of false positives and are [limited in identifying many types of vulnerabilities](https://owasp.org/www-community/Source_Code_Analysis_Tools) including Authentication problems, Access control issues, Insecure use of cryptography. Selecting a SAST tool depends upon a number of factors within your organisation:
   * Ideally the SAST solution should be implemented as part of CI but depending upon the ways of working within an organisation it can be used as a service by dev teams to request adhoc scans as part of part of regulatory/compliance mandate.
   * Depending upon the vendor, a SaaS solution in a fully-automated solution may not be as responsive and may introduce some challenges when troubleshooting issues - means logging into the SaaS providers platform and calling support. On-prem deployments offer more flexibility and speed but introduce compute and operating costs.
-  * How will the SAST results be managed and integrated with the vulnerability management function. This includes pulling results into a defect tracker e.g. Jira, dashboard, reporting, etc.
+  * How will the SAST results be managed and integrated with the vulnerability management function. This includes pulling results into a issue tracker e.g. Jira, dashboard, reporting, etc.
   * Whether the programming language in use is supported by the tool
 * Some examples of SAST tools are:
   * SonarQube - not strictly a SAST product but focussed on code quality/review and identifying basic application vulnerabilities. The security rule set is small in comparison to a commercial security product e.g. it can miss simple XSS JS vulnerability.
-  * Coverity from Synopsis
-  * Snyk code
+  * Checkmarx | <https://github.com/checkmarx-ltd/cx-flow/> integrates CxSAST, CxSCA scans with issue tracking systems via webhooks and open/close/manage issues in Jira
+  * Snyk code | <https://semgrep.dev/> provide fast scanning
   * Veracode
-  * Checkmarx
+  * Coverity from Synopsis
+  * Gitleaks | TruffleHog for secrets scanning
+  * Checkov for IAC, however it is mainly a cli and does not provide vulnerability visualisation support
+  * Semmle - part of GitHub Advanced Security offers fast scanning built directly into your SCM. The integrated approach can help companies with limited App Sec capabilities move quickly forward on code scanning requirements.
 
 * Interactive application security testing (**IAST**): This form of application security testing is a [hybrid approach](https://www.securityjourney.com/post/sast-vs-dast-vs-iast) that tries to solve the drawbacks of SAST and DAST by combining the best of both. It scans the source code for vulnerabilities while the application is running and and can show the exact location of a vulnerability, unlike DAST. IAST tools work by deploying agents and sensors in a running web application. This can add setup complexity due to possible compatibility issues with the application technology. The role of these agents is to continuously monitor and analyze the application's behavior during manual or automated tests.
 
