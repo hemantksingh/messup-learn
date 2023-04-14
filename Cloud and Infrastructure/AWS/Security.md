@@ -219,7 +219,7 @@ There are 2 tiers of AWS Shield
 
 ### AWS Config
 
-* service that enables you to assess, audit, and evaluate the configurations of your AWS resources.
+* service that enables you to assess, audit, and evaluate the configurations of your AWS resources. An older alternative was Security Monkey <https://github.com/Netflix/security_monkey>
 * continuously monitors and records your AWS resource configurations and allows you to automate the evaluation of recorded configurations against desired configurations
 * this is achieved by enabling AWS Config rules in one or multiple of your AWS accounts (enabling across multiple accounts [can be costly](https://dzone.com/articles/we-turned-off-aws-config)) to check for your configuration settings against best practices or your desired/approved settings like:
 
@@ -254,7 +254,7 @@ There are 2 tiers of AWS Shield
   * IAM users and AWS accounts credentials being used in a suspicious way, such as from IP addresses associated with known malicious actors
   * EC2 instances trying to mine cryptocurrency or communicate with IP addresses and domains associated with known malicious actors
   * container workloads in EKS
-  * storage - S3 policy allowing public read access)
+  * storage - S3 policy allowing public read access
 * Allows you to monitor CloudTrail logs, VPC flow logs and DNS query logs for potential threats. Since it only alerts about an activity, it is not an **Intrusion Prevention System** (IPS). You could build your actions on top of GuardDuty alerts with AWS Lambda, but it is not part of the service itself. It is different from **Inspector** as it is not application aware
 
 ### Macie

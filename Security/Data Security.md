@@ -5,35 +5,39 @@
 Any data that could potentially identify a specific individual. e.g. Name, email address, Social Security Number, National Insurance Number.
 
 There are always grey areas when classifying a piece of data as PII or not. Everything can be considered PII in the right frame of reference
+
 * Personal email address is always PII but there is an exemption in GDPR for staff email addresses. Companies are able to process employee data without explicit GDPR consent from employees.
-* A lot of individual data points e.g. (DOB) by themselves are not PII but when linked to other data points e.g. individual's Name become PII. If data is accessible along with other piece of data it can be classified as PII 
+* A lot of individual data points e.g. (DOB) by themselves are not PII but when linked to other data points e.g. individual's Name become PII. If data is accessible along with other piece of data it can be classified as PII
   * Company registration number by itself is not PII - it is public data but if it is accessed along with list of names and the company they work for it can be PII.
   * Address linked to a user is PII, not by itself
-  * IP address along with browser fingerprinting can potentially leak PII. 
+  * IP address along with browser fingerprinting can potentially leak PII.
 
 ### Device/Browser fingerprinting
 
 Fingerprints can be used to fully or partially identify individual users or devices even when cookies are turned off. Fingerprinting is done by capturing information about
-- your browser type and version
-- your operating system 
-- active plugins 
-- time zone 
-- language
-- screen resolution and various other active settings. 
+
+* your browser type and version
+* your operating system
+* active plugins
+* time zone
+* language
+* screen resolution and various other active settings.
 
 Because your browsing history is connected to your fingerprint rather than cookies, you can be tracked in incognito mode too.
-* According to a study browsers that had Java/Flash enabled, 94% were uniquely identifiable, meaning no 2 users out of the 94% had all the browser attributes same. 
-* The large majority of sites use this data to personalize the advertisements and information that they serve up to you. 
+
+* According to a study browsers that had Java/Flash enabled, 94% were uniquely identifiable, meaning no 2 users out of the 94% had all the browser attributes same.
+* The large majority of sites use this data to personalize the advertisements and information that they serve up to you.
   * To stop users sharing credentials for paid subscriptions
   * News service can serve upto 10 articles for free to a user based on their fingerprint
   * Voting mechanism may use fingerprinting to record duplicate votes
 * Fingerprints can be used in a constructive way to combat fraud or credential hijacking, by checking that a user who logs into a specific site is likely the legitimate user.
 
-Device fingerprinting is used to track duplicate devices/hosts by capturing information such as 
-- OS installation date 
-- device drivers
-- IP address and hostname
-   
+Device fingerprinting is used to track duplicate devices/hosts by capturing information such as
+
+* OS installation date
+* device drivers
+* IP address and hostname
+
 ## General Data Protection Regulation (GDPR)
 
 A game changer in how companies have to process PII. It replaced the Data Protection Act in the UK
@@ -57,18 +61,25 @@ The data subject (individual) also gets rights under the law:
 * The right to object
 * Rights to in relation to automated decision making and profiling
 
+## Schrems II
+
+Compliance with international data transfer requirements.
+
+On July 16, 2020, the Court of Justice of the European Union (CJEU) published its judgment in the Data Protection Commissioner v. Facebook Ireland Limited, Maximillian Schrems (C-311/18) (the Schrems II case). In its judgment, the CJEU declared the EU-US Privacy Shield – one of the primary data transfer mechanisms for the safe and free flow of data between EU and US organizations - invalid. The judgment did uphold the use of Standard Contractual Clauses (SCCs), however, it cast some doubt over this method of transferring personal data outside of the EU.
+
+
+
 ## Payment Card Industry Data Security Standard (PCI DSS)
 
-Regualtionput inplace by payment processors, e.g. Visa, Mastercard, Worldpay, PayPal, Stripe
+Regulation put in place by payment processors, e.g. Visa, Mastercard, Worldpay, PayPal, Stripe
 
 * Payment Card Industry - Data Security Standard
 * Strict industry regulations for handling card numbers
 * Includes segregated networks, vulnerability management, access control, monitoring and testing and policy
 
-
 ## Techniques
 
-Data security involves [three key properties](https://auth0.com/blog/how-secure-are-encryption-hashing-encoding-and-obfuscation/): confidentiality, integrity and authenticity. 
+Data security involves [three key properties](https://auth0.com/blog/how-secure-are-encryption-hashing-encoding-and-obfuscation/): confidentiality, integrity and authenticity.
 
 | Security Goal         | Hash | MAC       | Digital Signature|
 |:----------------------|:-----|:----------|:-----------------|
@@ -84,14 +95,15 @@ Hiding sensitive information to prevent unintentional leakage
 
 ### Data backups
 
-Redundant storage for maintaining copies of data 
+Redundant storage for maintaining copies of data
 
 ### Encryption
 
 Encryption is a two-way function where information is scrambled in such a way that it can be unscrambled later. You encrypt information with the intention of decrypting it later.
 
-Encryption dates back to at least 1900 BC after the discovery of a tomb wall with non-standard hieroglyphs chiseled into it. 
-* The ancient Egyptians used a simple form of encryption. 
+Encryption dates back to at least 1900 BC after the discovery of a tomb wall with non-standard hieroglyphs chiseled into it.
+
+* The ancient Egyptians used a simple form of encryption.
 * Caesar used a primitive shift cipher that changed letters around by counting forward a set number of places in the alphabet. It was extraordinarily useful though, making any information intercepted by Caesar’s opponents practically useless.
 
 Modern encryption algorithms:
@@ -115,7 +127,7 @@ Hashing is a one-way function where data is mapped to a fixed-length value. Hash
 * random, to avoid generating the same hash code for different inputs, thus minimising collisions when used in hash tables, thus providing **collision resistance**.
 * reasonably quick to compute, but also not too quick. If it is too quick it is easy to break.
 
-Usage 
+Usage
 
 * A **checksum** is necessarily a hash, however not all hashes are checksums (one's used in hash tables) but if you can afford the computational cost, a cryptographically strong hash code is a good checksum. A cryptographic hash is designed to be computationally infeasible to reverse, thus provide confidentiality via encryption whereas a checksum is designed to detect data integrity errors and often to be fast to compute.
 
@@ -128,4 +140,3 @@ Usage
 ### Encoding
 
 Encoding is the process of converting data from one form to another and has nothing to do with cryptography. It guarantees none of the 3 cryptographic properties of confidentiality, integrity, and authenticity because it involves no secret and is completely reversible. Encoding methods are considered public and are used for data handling when data is sent over the wire. Base64 is a way to encode binary data into an ASCII character set known to pretty much every computer system, in order to transmit the data without loss or modification of the contents.
-

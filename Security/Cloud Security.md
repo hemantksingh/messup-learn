@@ -46,13 +46,15 @@ Microsoft Azure marketplace [provides CIS hardened images](https://www.cisecurit
 
 #### Cloud Security Auditing Tools
 
+Cloud Security Posture Assessment
+
 | Tool                                                         | Description                                         |
 |:-------------------------------------------------------------|:----------------------------------------------------|
-| Prowler - <https://github.com/toniblyx/prowler>              | Assesses AWS against best practices                 |
+| Prowler - <https://github.com/toniblyx/prowler>              | Assesses AWS against CIS Benchmarks, Superior security tool vs ScoutSuite, Per resource exception process, Better reporting summaries and filtering vs ScottSuite                 |
 | CloudMapper - <https://github.com/duo-labs/cloudmapper>      | Generates a visual representation of the environment|
 | PMapper - <https://github.com/nccgroup/PMapper>              | Maps out principles in IAM                          |
 | SQLMap - <https://github.com/sqlmapproject/sqlmap>           | Automates testing for SQL injection                 |
-| Scout2 - <https://github.com/nccgroup/Scout2>                | Open source multi-cloud security-auditing tool from the NCC Group, which enables security posture assessment of cloud environments. Using the APIs exposed by cloud providers, Scout Suite gathers configuration data for manual inspection and highlights risk areas|
+| Scout2 - <https://github.com/nccgroup/Scout2>                | Superior security-auditing tool vs Prowler. From the NCC Group, Scout Suite is an open source, multi cloud tool that uses the APIs exposed by cloud providers, gathers configuration data for manual inspection and highlights risk areas. More elegant exceptions process vs Prowler. No benchmarks, better reporting UI vs Prowler|
 | AWS_IP_Finder - <https://github.com/arkadiyt/aws_public_ips> | Finds all public IPs assigned in AWS                |
 
 ##### SIEM and SOAR

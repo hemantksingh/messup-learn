@@ -23,6 +23,10 @@ Moving [from gates to guardrails](https://www.oreilly.com/library/view/devopssec
 
 Data between the end user and your application flows through the data plane. Thinking of security as a horizontal capability across the data plane and use the metrics and telemetry from the data plane to get visibility of the applied security policies and application threats.
 
+## Security theater
+
+Security theater is the practice of investing in countermeasures intended to provide the feeling of improved security while doing little or nothing to actually achieve it. Be aware of security theater <https://security.stackexchange.com/questions/112037/how-to-avoid-reveal-password-in-a-form>
+
 ## Application Security
 
 Applications, especially those that are cloud native, are a gateway to servers and networks and present an ideal attack vector for malicious actors.

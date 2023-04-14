@@ -16,9 +16,12 @@ Infrastructure (PKI)](https://www.thesslstore.com/blog/wide-world-pki/) devised 
 * industry (PCI DSS, HIPAA/HITECH)
 * region (GDPR) specific requirements.
 
-### ISO 27001, 27017, 27018
+### ISO
 
-Security Management Controls, Cloud Specific Controls, Personal Data Protection
+* ISO 27001 - Info Security
+* ISO 27701 - outlines a framework for Personally Identifiable Information (PII) Controllers and PII Processors to manage data privacy
+* ISO 27017 - Information Security controls for cloud services
+* ISO 27018 - Protection of personal data in the cloud
 
 ### SOC 1, 2, 3
 
