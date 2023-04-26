@@ -51,19 +51,3 @@ API gateways provide utility in dealing with some [specific concerns](https://ww
 
 * https://amplify.nginx.com is a SAAS based monitoring tool that provides real time monitoring, alerting and configuration checking - runs a bunch of tools to determine your configuration is safe e.g. SSL configuration. You can use NGINX Amplify for free on up to 5 servers. There is no trial period, so you can monitor those servers, for free, indefinitely.
 * https://www.datadoghq.com/blog/how-to-monitor-nginx
-
-## ModSecurity WAF
-
-ModSecurity is an open source tool for securing applications, used by over a million sites around the world. It protects against a broad range of Layer 7 attacks, such as SQL injection (SQLi), local file inclusion (LFI), and cross‑site scripting (XSS), which together accounted for 95% of known Layer 7 attacks in Q1 2017, [according to Akamai](https://content.akamai.com/am-en-pg8854-q1-17-soti-security.html).
-
-* Inspects incoming HTTP requests for anomalies
-* Uses database of rules to define behaviours. It supports:
-  * free open source OWASP ModSecurity Core Rule Set (CRS) with generic attack detection
-  * commercial TrustWave rule set (rule package updated daily) that works alone or with OWASP CRS with specific attacks & accuracy,
-* Traffic that violates rules are dropped and/or logged
-
-The latest version, ModSecurity 3.0, has a modular architecture that runs natively in NGINX. Previous versions worked only with the Apache HTTP Server. Modsecurity can be [complied and installed for open source inginx](https://www.nginx.com/blog/compiling-and-installing-modsecurity-for-open-source-nginx/)
-
-## Nginx DOS protection
-
-![nginx-dos-protection.jpg](../Images/nginx-dos-protection.jpg "Nginx DOS protection")

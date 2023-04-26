@@ -192,17 +192,7 @@ A **Hardware Security Module (HSM)** is a physical computing device containing o
 
 ### AWS Shield
 
-Prevention of DDOS attack
-
-* SYN flood attack - A TCP connection requires 3 way handshake between the client and the server
-  * Client -> SYN packet -> Server
-  * Server -> SYN-ACK -> Client
-  * Client -> ACK -> Server
-  * The client overwhelms ther server by sending SYN packets without sending ACK, crossing the number of TCP connections the server can support
-* [NTP amplification attack](https://www.cloudflare.com/en-gb/learning/ddos/ntp-amplification-ddos-attack) - The Network Time Protocol is designed to allow internet connected devices to synchronize their internal clocks, and serves an important function in internet architecture. By exploiting the `monlist` command enabled on some NTP servers, an attacker is able to multiply their initial request traffic, resulting in a large response. This command is enabled by default on older devices, and responds with the last 600 source IP addresses of requests which have been made to the NTP server. NTP server functionality is exploited in order to overwhelm a targeted network or server with an amplified amount of UDP traffic, rendering the target and its surrounding infrastructure inaccessible to regular traffic. An amplification attack exploits disparity in bandwidth cost between an attacker and the targeted web resource. By sending small queries that result in large responses, the malicious user is able to get more from less. NTP amplification, much like DNS amplification, can be thought of in the context of a malicious teenager calling a restaurant and saying “I’ll have one of everything, please call me back and tell me my whole order.” When the restaurant asks for a callback number, the number given is the targeted victim’s phone number. The target then receives a call from the restaurant with a lot of information that they didn’t request.
-* Layer 7 attacks -  Web server receives a flood of GET/POST requests
-
-There are 2 tiers of AWS Shield
+Prevention of [DDOS attacks](../../Security/Web%20Security/Web%20Application%20Security.md#ddos-protection) There are 2 tiers of AWS Shield
 
 * Standard
   * All AWS customers benefit from the automatic protections of AWS Shield Standard, at no additional charge
