@@ -1,6 +1,7 @@
 # Security Headers
 
-OWASP has a list of HTTP [Security headers](https://owasp.org/www-project-secure-headers/#tab=Headers) that you should consider adding to your web application to make it more secure. Adopting best practices for [hardening your HTTP response headers](https://scotthelme.co.uk/hardening-your-http-response-headers/) e.g. webserver config for [IIS](https://gist.github.com/The-Scott/f7b5d03e260036cfc4dce5ad89578377) or [nginx](https://gist.github.com/plentz/6737338) is a good baseline, however understanding the impact of including or excluding these headers should be duly considered. Blindly following best practice guides or security scanners that tell you headers are missing does not help you understand the security impact. For example 
+OWASP has a list of HTTP [Security headers](https://owasp.org/www-project-secure-headers/#tab=Headers) that you should consider adding to your web application to make it more secure. Adopting best practices for [hardening your HTTP response headers](https://scotthelme.co.uk/hardening-your-http-response-headers/) e.g. webserver config for [IIS](https://gist.github.com/The-Scott/f7b5d03e260036cfc4dce5ad89578377) or [nginx](https://gist.github.com/plentz/6737338) is a good baseline, however understanding the impact of including or excluding these headers should be duly considered. Blindly following best practice guides or security scanners that tell you headers are missing does not help you understand the security impact. For example
+
 - if your website is not public-facing web application or locked down to a corporate network?
 - if your website does not serve any dynamic content and thereby does not allow any user actions e.g. button clicks, it is clickjacking safe. In such a case having `X-Frame-Options` set to Blocked may not do any harm, it probably adds a bit of protection but the missing header doesn't necessarily open you up to attacks.
 
@@ -25,10 +26,10 @@ CSP involves white listing of sources for the content of your website to impair 
 
 Instructs the browser to visit your site only over HTTPS to ensure they only use TLS to support secure transport. Supported widely by browsers and strongly recommended for internet-facing web applications, however it is only honoured by the browser only when the site has been loaded previously once over https without any certificate errors. It protects
 
-* users against passive eavesdropper and active **man in the middle attacks**. If your login page page is served over http but the login form posts to https, is it secure? Not really. You cannot have confidence that the login form that has been served over http hasn't been modified by a man in the middle by the time it gets to the end user. Your traffic could still be intercepted before and after HTTPS connection begins and ends.
-* mixed content and click-through certificate overrides
-* against web server mistakes like loading JavaScript over an insecure connection
-* this policy will enforce TLS on your site and all subdomains for a year
+- users against passive eavesdropper and active **man in the middle attacks**. If your login page page is served over http but the login form posts to https, is it secure? Not really. You cannot have confidence that the login form that has been served over http hasn't been modified by a man in the middle by the time it gets to the end user. Your traffic could still be intercepted before and after HTTPS connection begins and ends.
+- mixed content and click-through certificate overrides
+- against web server mistakes like loading JavaScript over an insecure connection
+- this policy will enforce TLS on your site and all subdomains for a year
 
     ```sh
     Strict-Transport-Security: max-age=31536000; includeSubDomains # HSTS policy is applied to the domain of the issuing host as well as its subdomains and remains in effect for one year.

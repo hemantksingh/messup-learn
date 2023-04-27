@@ -27,14 +27,17 @@ Data between the end user and your application flows through the data plane. Thi
 
 Security theater is the practice of investing in countermeasures intended to provide the feeling of improved security while doing little or nothing to actually achieve it. Be aware of security theater <https://security.stackexchange.com/questions/112037/how-to-avoid-reveal-password-in-a-form>
 
-## Application Security
+## Web Application Security
 
 Applications, especially those that are cloud native, are a gateway to servers and networks and present an ideal attack vector for malicious actors.
 
 In order to understand and address your security requirements it is worth understanding the approaches and tools at hand. The security testing process involves:
 
 * assessment - analysis and discovery of vulnerabilities without attempting to actually exploit those vulnerabilities
-* testing - discovery and attempted exploitation of vulnerabilities
+* testing - discovery and attempted exploitation of vulnerabilities. [OWASP Application Security Verification Standard](https://owasp.org/www-project-application-security-verification-standard/) is an open standard for web application security verification.
+* vulnerability management: National Vulnerability Database - <https://nvd.nist.gov/> and <https://cve.mitre.org/>
+
+### Web Application Security Tools
 
 [Application Security](https://snyk.io/learn/application-security/) scanning tools include:
 
@@ -67,10 +70,11 @@ In order to understand and address your security requirements it is worth unders
       3. aggregating and pre-processing data
       4. query data for specific operations (most likely validation during deployment and other automated (reactive) response actions)
   * Vendors like Snyk, Synopsis, mend.io provide SCA tooling
+  * <https://owasp.org/www-project-dependency-check/> is a utility that identifies project dependencies and checks if there are any known, publicly disclosed, vulnerabilities
 
 * Runtime testing - also known as Dynamic application security testing **DAST** or black box testing is used to discover security vulnerabilities while an application is running e.g. looking at the request and responses to the system. It does not require access to the application’s source code. A web application security scanner acts as a *"man in the middle proxy"* and typically sits between the tester's browser and the web application so that it can intercept and inspect messages sent between browser and web application, modify the contents if needed, and then forward those packets on to the destination. Some tools to consider:
   * [OWASP ZAP](https://www.zaproxy.org/) - Free and open source, can run headless as a daemon with a REST API. ZAP provides a [baseline scan feature](https://www.zaproxy.org/blog/2020-04-09-automate-security-testing-with-zap-and-github-actions/) to find common security faults in a web application without doing any active attacks. The scan can be integrated into your CI/CD pipelines using GitHub Actions.
-  * [Open VAS](https://www.openvas.org/) - Open Vulnerability Assessment Scanner 
+  * [Open VAS](https://www.openvas.org/) - Open Vulnerability Assessment Scanner
 
 * Penetration testing – The system undergoes analysis and attack from simulated malicious attackers.  It has the advantage of being more accurate because it has fewer false positives (results that report a vulnerability that isn’t actually present), but can be time-consuming to run. It generally happens out of band i.e. outside your CI/CD workflow, however **automated pen testing** part of CI validation can help uncover new vulnerabilities as well as regressions for previous vulnerabilities in an environment which quickly changes. Tools to consider
   * [BURP Scanner](https://portswigger.net/burp) - One of the best manual penetration testing tools out there, however a [comparison with Netsparker](https://www.netsparker.com/vulnerability-scanner-comparison/netsparker-vs-burp-suite/#) reveals it can be complicated to configure and relatively less focussed on automation and integration with other tools.
@@ -84,7 +88,7 @@ In order to understand and address your security requirements it is worth unders
 The [OWASP Top 10](https://www.owasp.org/index.php/OWASP_Top_Ten_Cheat_Sheet) provides list of the 10 Most Critical Web Application Security Risks
 
 * Broken Access Control can result in information disclosure, modification or destruction of all data.
-* Identification and authentication failures are exploited using credential stuffing, brute force password attacks, weak or well known passwords. Authentication responsibility can be offloaded to an external identity provider with baked in credentials protection. Some techniques used for authenticating and protecting REST APIs are:
+* Identification and authentication failures are exploited using credential stuffing, brute force password attacks, weak or well known passwords. Authentication responsibility can be offloaded to an external identity provider with baked in credentials protection. Some techniques used for authenticating and [securing APIs](https://docs.oracle.com/middleware/1212/owsm/OWSMC/owsm-security-concepts.htm) are:
   * [IP address-based ACLs](https://joelgsamuel.medium.com/ip-address-access-control-lists-are-not-as-great-as-you-think-they-are-4176b7d68f20) - hard to manage and not necessarily the most secure
   * Certificate based Mutual TLS
   * HTTP Basic authentication
@@ -169,20 +173,18 @@ A denial of service attack is not limited to layer 7 when a web server receives 
 ### Protection offered by the browser
 
 * Maintains a comprehensive list of phishing sites, warn the user against visiting such sites
-
 * Check validity of SSL certificate.
-
 * Detect weak cryptography, deficiency in the TLS (Transport layer security) or its predecessor SSL (Secure Sockets Layer) implementation.
-
 * Detect pages with mixed content - A page served over https that also has content served over http. Chrome shows a yellow triangle over the padlock to warn the user.
-
-* Apply [Security headers](./Security%20Headers.md)
+* Apply [Security headers](./Security%20Headers.md) to protect against common vulnerabilities. Some free basic website scanning for security tools
+  * <https://observatory.mozilla.org>
+  * <https://securityheaders.com/>
 
 ### Protection not offered by the browser
 
 * Parameter tampering (cookies, forms, headers, strings). Modifying attributes of the request (query string, changing ids).
 * Persistent cross site scripting.
-* Attackers making direct HTTP requests (access to unauthorised resources, deleting a resource).
+* Attackers making direct HTTP requests (access to unauthorized resources, deleting a resource).
 
 These types of attempts can only be effective if the attacker is able to exploit an existing vulnerability, like a non secure API, SQL injection or gaining access to credentials.
 
@@ -190,18 +192,9 @@ These types of attempts can only be effective if the attacker is able to exploit
 
 You can use your existing website or **test websites** to learn how to identify risk e.g.
 
-* Google's firing range - https://github.com/google/firing-range
+* Google's firing range - <https://github.com/google/firing-range>
 * OWASP juice shop
   * <https://owasp.org/www-project-juice-shop>
   * <https://github.com/bkimminich/juice-shop>
 * Hack yourself fist - <https://www.troyhunt.com/hack-yourself-first-how-to-go-on/> is a great place to start actively seeking out vulnerabilities
 * Crowd security testing platforms like <https://www.openbugbounty.org> allow security researchers to report a vulnerability on any website and submit it to Open Bug Bounty for responsible disclosure. The role of Open Bug Bounty is limited to independent verification of the submitted vulnerabilities and proper notification of website owners. Once notified, the website owner and the researcher are in direct contact to remediate the vulnerability and coordinate its disclosure.
-
-Other resources include:
-
-* [OWASP Dependency Check](https://www.owasp.org/index.php/OWASP_Dependency_Check) is a utility that identifies project dependencies and checks if there are any known, publicly disclosed, vulnerabilities
-* API security - https://docs.oracle.com/middleware/1212/owsm/OWSMC/owsm-security-concepts.htm. Although specific to SOAP based web services but the concepts listed in the docs are still relevant to API security
-* [Observatory](https://observatory.mozilla.org/) from mozilla allows free basic website scanning for security flaws
-* National Vulnerability Database - <https://nvd.nist.gov/>
-* [Application Security Verification Standard](https://www.owasp.org/index.php/Category:OWASP_Application_Security_Verification_Standard_Project) provides a basis for designing, building, and testing technical application security controls
-* CIS Security Benchmarks - https://www.cisecurity.org/cis-benchmarks/
