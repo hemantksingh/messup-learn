@@ -190,18 +190,13 @@ A **Hardware Security Module (HSM)** is a physical computing device containing o
 
 ## Other AWS security services
 
-### AWS Shield
+### AWS Security Hub
 
-Prevention of [DDOS attacks](../../Security/Web%20Security/Web%20Application%20Security.md#ddos-protection) There are 2 tiers of AWS Shield
+* Cloud posture assessment by automating AWS security checks and centralize security alerts
+* Can automate response and remediation actions to improve Mean time to resolution (MTTR) 
+* AWS Security Hub is integrated with AWS CloudTrail, a service that provides a record of actions taken by a user, role, or an AWS service in Security Hub. CloudTrail captures API calls for Security Hub as events
 
-* Standard
-  * All AWS customers benefit from the automatic protections of AWS Shield Standard, at no additional charge
-  * Provides DDOS protection against SYN/UDP floods, reflection attacks and other layer 3 and layer 4 attacks when used with CloudFront and Route53
-* Advanced
-  * Protection against larger & more sophisticated attacks targeting applications running on EC2, ELB, CloudFront AWS Global Accelerator and Route 53 resources
-  * Always on, flow based monitoring to provide realtime notifications of DDOS attacks
-
-### Cloud Trail
+### CloudTrail
 
 * CCTV monitoring for your AWS account. Keeps a record of actions taken - Who, what, when and where
 * Logs API calls made to your AWS account and stores them in S3
@@ -283,6 +278,17 @@ IAM Access Analyzer identifies resources shared with external principals by usin
 
 * Allows you to select a resource group and view its recent API activity, resource configuration changes, related notifications, operational alerts, software inventory, and patch compliance status. It lets you take action on each resource group depending on your operational needs
 * Systems Manager provides a central place to view and manage your AWS resources, so you can have complete visibility and control over your operations
+
+### AWS Shield
+
+Prevention of [DDOS attacks](../../Security/Web%20Security/Web%20Application%20Security.md#ddos-protection) There are 2 tiers of AWS Shield
+
+* Standard
+  * All AWS customers benefit from the automatic protections of AWS Shield Standard, at no additional charge
+  * Provides DDOS protection against SYN/UDP floods, reflection attacks and other layer 3 and layer 4 attacks when used with CloudFront and Route53
+* Advanced
+  * Protection against larger & more sophisticated attacks targeting applications running on EC2, ELB, CloudFront AWS Global Accelerator and Route 53 resources
+  * Always on, flow based monitoring to provide realtime notifications of DDOS attacks
 
 ### Secrets Manager
 
