@@ -5,7 +5,14 @@ Overall view of control domains reviewed and assessed for Public cloud adoption.
 ## Holistic Cyber Security Risk Framework
 
 * NIST - The NIST Framework is the most thorough and holistic approach to cybersecurity program best practices. However, it's the most complex framework to implement covering over 900 controls over 5 major functions. The functions are important because they allow security teams to prioritize all areas of a holistic program equitably. Identify, Protect, Detect, Respond, and Recover are the five functions, and they cover all areas that you would want to address.
-* MITRE ATT&CK Framework - comprehensive matrix of tactics and techniques used by threat hunters, red teamers and defenders to better classify attacks and assess an organization's risk
+* MITRE ATT&CK Framework
+  * Classifies attacks and assess an organization's risk
+  * Document adversary behaviours, their goals and techniques - how adversaries 
+    * penetrate networks
+    * move laterally
+    * escalate privileges
+    * evade defences 
+    * exfiltrate data 
 * ENSIA Threat Taxonomy - The European Union Agency for Cybersecurity (ENISA) is the Union's agency dedicated to achieving a high common level of cybersecurity across Europe
 
 ## Cloud Controls
