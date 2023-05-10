@@ -90,12 +90,18 @@ To become genuinely interested in other people and gain their trust, you have to
   - On discovering new information (e.g. Organization restructure plan), **bounce a question back**, e.g. *So what impact would the organization restructure have on the project teams?*
   - Get back with an answer in case of an unknown. Mention the **process** you will follow to get the answer. Give an indicative answer to manage expectations. *In our experience ...*
   - Bounce a question back. Have you set out a budget for this piece of work?
-- Using humour to put your point across can be effective communication strategy in certain situations. Avoid plagiarizing but use for inspiration - <https://www.daily-stuff.com/funniest-notes-people-have-written-to-complete-strangers/6?xcmg=1>
-- Consider the impact of body language and non verbal communication on your message. Practicing mindfulness, deep breathing and visualization before an important presentation can help in calming nerves and relaxation.
+- Using humour to put your point across can be effective communication strategy in certain situations. Avoid plagiarizing but use inspiration.
+- Consider the impact of body language and non verbal communication on your message. This requires you to be fully present and be mindful of not only the thoughts but also the emotions around you.
+  - Closed positions like crossed arms represent defensiveness
+  - Open hands and hand movements while speaking represent confidence
+  - Eye movements give out a lot about whether you are being listened to or ignored
 
 ## Influence
 
-- Why should anyone listen to you? Reflect on your level of influence and where it comes from. You cannot win an argument - Avoid proving someone wrong, even if they are. Let them have their moment of authority and deflect the conversation onto something positive. Conflict can be seen as 'influence failed'
+- Why should anyone listen to you? Reflect on your level of influence and where it comes from
+  - Genuineness?
+  - Confidence with clarity?
+- You cannot win an argument - Avoid proving someone wrong, even if they are. Let them have their moment of authority and deflect the conversation onto something positive. Conflict can be seen as 'influence failed'. Remember - *Conflict is **not** about **you***
   - Change people without giving offense or arouse resentment. Always **talk about your own mistakes first**. If you have made a mistake, admit that you're wrong and do it emphatically rather than defending yourself. *Dale Carnegie* suggests you own your mistake and vent how terrible the mistake was so you deflate the other person's anger.
     > *The only way I can get you to do anything is by giving you what you want*
   - When disagreeing with someone **make your point in a general sense**. Tackle the problem rather than the individual. Rejection of a viewpoint results in anger and pain

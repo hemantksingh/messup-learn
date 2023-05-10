@@ -50,7 +50,7 @@ The key thing to consider before going into a discussion is whether you are goin
   * you feel connected and energised while speaking to someone who are at the same frequency as you with shared experiences, struggles, motivations or passions
   * active listening - engaging in the conversation by asking questions (labels and mirrors)
   * provide psychological safety - be genuine and listen without any preconceived notions. The fact that someone hasn't opened up with you is likely because they may not feel psychologically safe to speak out. Realizing that you are not the finished article and showing your vulnerabilities allows others the space to open up about their own anxieties and fears
- 
+
 * Agreeing on common goals is key to expanding your influence across teams.
 
 * Let others come up with the solution or recommendation that you wish to put forward. They are more likely to buy-in and commit to an idea if they have a sense of ownership. In order for an idea to spread throughout the organisation or even the world, sometimes it means to give up our own individual ownership of that to share with others. Make your idea bigger than yourself, make it ours.
@@ -66,7 +66,7 @@ The key thing to consider before going into a discussion is whether you are goin
 
 ## Adapt to situations
 
-> *Its not about you, its about the cause bigger than you*
+> *Its **not** about **you**, its about the cause bigger than you*
 
 * Adjust your goals to avoid resistance, stepping on other's toes is never a good idea especially in its early stages.
   
