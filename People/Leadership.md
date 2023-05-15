@@ -1,6 +1,6 @@
 # Leadership
 
-Leadership is about empowering others to achieve their true potential. The foundations of strong leadership should revolve around seeing others get better:
+Leadership is about empowering others to achieve their true potential. The foundations of strong leadership should revolve around seeing others get better and seeking satisfaction in other people's success:
 
 - Culture is not about what you say, its about what you do - lead by example. Great leaders don't just talk culture, they embody it, authentically. In *The Corporate Culture*, Schien defines culture as a "pattern of shared tacit assumptions that was learned by a group as it solved its problems of external adaptation and internal integration,that has worked well enough to be considered valid and therefore, to be taught to new members as the correct way to perceive, think and feel in relation to those problems." You can let your teams culture emerge or be explicit about it by encouraging specific behaviors that
   - establish safety and openness
@@ -9,7 +9,14 @@ Leadership is about empowering others to achieve their true potential. The found
     - say no to talented jerks - scientific experiments have shown jerks diminish a team's performance by 30-40%
   - establish vulnerability - As a leader the most important thing that you can say to your team is - *I messed up* or *I need help to achieve x*
   - create purpose - the yearning to do something larger than ourselves.
-  - keep the culture alive (culture capture) - seek and provide constructive feedback. What excites them, what frustrates them, what is their biggest challenge?
+  - keep the culture alive (culture capture) 
+    - seek and provide constructive feedback. What excites them, what frustrates them, what is their biggest challenge? 
+    - surveys and questionnaires to measure e.g. Dimensions of Learning Organizations Questionnaire (DLOQ) is a tool designed to assess the following five dimensions of a learning organization:
+      - Continuous learning: This dimension measures an organization's commitment to ongoing learning and improvement through training, development, and knowledge sharing.
+      - Participative decision making: This dimension assesses the degree to which employees are involved in decision making processes and encouraged to contribute their ideas and expertise.
+      - Team learning: This dimension measures the extent to which teams collaborate and share knowledge to achieve common goals.
+      - Embedded systems for learning: This dimension assesses the presence and effectiveness of systems and processes within the organization to support learning and knowledge sharing.
+      - Visionary leadership: This dimension measures the leadership's commitment to fostering a culture of learning and supporting learning initiatives.
 
 - Delegation
   - Getting results through others requires you to shift from being a player to coach, from doing to leading. Avoid being the bottleneck by taking on too much work yourself, let others take ownership of initiatives where you provide guidance and support.
