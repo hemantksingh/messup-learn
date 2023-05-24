@@ -1,20 +1,16 @@
-# AngularJS
+# Angular
 
-Popular framework for building Single Page applications
+Popular web application framework for building Single Page applications
 
-## React and Knockout
+## React
 
-Both try to solve the problem of 2 way binding:
+React is a library for building web application user interfaces that was originally written and used by Facebook. It is incredibly popular, and well supported. React is not a fully developed application framework - it is a **library for creating HTML** that can
+be used by applications or frameworks such as Next.js.
 
-1. Keeping the DOM synchronized with the changes to the model
+It uses declarative syntax and tries to solve the problem of 2 way binding:
+
+1. Keeping the DOM synchronized with the changes to the model by manually (write code) notifying components when the model has changed.
 2. Publishing, handling and managing events.
-3. Both are declarative.
-
-Knockout - wraps model properties in observables so that model changes can be detected and propagated back to the dom via events.
-
-React - manually (write code) notify components when the model has changed.
-
-Backbone - imperative (much more control to the programmer). React can be used as an alternative to the view component of Backbone
 
 ## Javascript testing
 
@@ -32,7 +28,7 @@ Mocha is a mature JS testing framework running on nodejs and in the browser. Jas
 
 Test runner with nodejs dependency for running tests programmatically cross browsers and cross devices. You can target specific browser(s) like Chrome, Firefox, IE or PhantomJS (headless browser for faster test feedback) while running your tests.
 
-## Javascript api testing framework
+### Javascript API testing framework
 
 Testing REST apis with outside-in tests exploiting BDD test narratives
 
