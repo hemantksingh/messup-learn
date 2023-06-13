@@ -189,7 +189,7 @@ Traces will always provide us with more context over metrics. Metrics will tell 
 
 #### Prefer Real User Monitoring over Synthetics
 
-Browser and API synthetics do provide the traditional uptime health check type monitoring. However, synthetics are part of the so-called 'Black Box Monitoring'. Real User Monitoring (RUM) data - called 'White Box Monitoring' - provides richer data. It is data ceatedr by users. Instead of 'synthetically' created data when using Synthetics.
+Browser and API synthetics do provide the traditional uptime health check type monitoring. However, synthetics are part of the so-called 'Black Box Monitoring'. Real User Monitoring (RUM) data - called 'White Box Monitoring' - provides richer data. It is data created by users. Instead of 'synthetically' created data when using Synthetics.
 
 #### Consider industry standards
 
