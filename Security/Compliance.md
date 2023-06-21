@@ -2,16 +2,16 @@
 
 Compliance to security standards requires a combination of strong communication protocols, cryptography, hashing and key exchange. Schannel or [secure channel](https://docs.microsoft.com/en-us/windows/win32/secauthn/secure-channel) is a Secure Support Provider Interface (Win32 API) used by Windows systems to perform security operations for internet applications that require secure HTTP communications. It contains a set of security protocols that provide identity authentication and secure, private communication through encryption.
 
-
 ![windows-schannel.png](../Images/windows-schannel.png)
 
-The Public-Key Cryptography Standards (PKCS) are a set of inter-vendor standard protocols for making possible secure information exchange on the Internet using a [Public Key 
+The Public-Key Cryptography Standards (PKCS) are a set of inter-vendor standard protocols for making possible secure information exchange on the Internet using a [Public Key
 Infrastructure (PKI)](https://www.thesslstore.com/blog/wide-world-pki/) devised and published by the computer and network security company RSA Security LLC. The standards include RSA encryption, password-based encryption, extended certificate syntax, and cryptographic message syntax for S/MIME, RSA's proposed standard for secure e-mail.
 
 ## Compliance Standards
 
 [Compliance standards](https://docs.microsoft.com/en-gb/microsoft-365/compliance/offering-home?view=o365-worldwide) govern the collection and use of data for
-* global (ISO, SOC) 
+
+* global (ISO, SOC)
 * national (FIPS)
 * industry (PCI DSS, HIPAA/HITECH)
 * region (GDPR) specific requirements.
@@ -54,6 +54,7 @@ Hash Standards for TLS integrity requirements
 * SHA-1, SHA-224, SHA-256, SHA-384, SHA-512, SHA-512/224, SHA-512/256
 
 Random number generators
+
 * See annex c
 
 Message authentication

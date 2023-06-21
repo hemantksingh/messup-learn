@@ -2,7 +2,7 @@
 
 You need to manipulate HTML and CSS to create interactive websites. There are libraries and frameworks that allow you to manage the interactions between the HTML, CSS, and JavaScript according to their own rules. Libraries are more like tool kits that provide specific functions where as frameworks provide cross cutting application features and structure to your code, so that developers can focus on the parts unique to their application.
 
-DOM - Document Object Model is a programming interface for web documents. It represents the page so that programs can change the document structure, style, and content. The DOM represents the document (HTML or XML document) as nodes and objects in memory; that way, programming languages like JavaScript can interact with the page.
+**Document Object Model (DOM)** is a programming interface for web documents. It is a JavaScript representation of the HTML in a page so that programs can change the document structure, style, and content. The DOM represents the document (HTML or XML document) as nodes and objects in memory; that way, programming languages like JavaScript can interact with the page.
 
 The browser uses the HTML page to create the DOM tree, and it utilizes the DOM tree to render and display the content according to the specified styles and layout instructions. Therefore, your HTML source page and the contents of the DOM (represented in the Elements tab in DevTools) can be different.
 
@@ -13,6 +13,8 @@ document.body.appendChild(document.createElement('h3'));
 document.querySelector('h3').innerText = " I am not in the HTML source file";
 
 ```
+
+The DOM structure should be identical for browsers with the same capabilities, meaning any desktop browser should be loading the same DOM structure for the same document. However mobile browsers may be loading a different DOM structure if the UI is made responsive.
 
 ## jQuery
 

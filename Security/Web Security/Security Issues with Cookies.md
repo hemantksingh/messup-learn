@@ -3,7 +3,7 @@
 An [HTTP cookie](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies) is a small piece of data that a server sends to the user's web browser. It is typically used to tell if two requests came from the same browser because the underlying HTTP protocol is stateless. Each request from your browser is completely separate from the next one, so the server needs a way to keep track of what request belongs to what visitor. By storing a small bit of information in a cookie, the web site can determine that your page view belongs to your user account.
 
 Cookies mainly used for three purposes: help the user in providing a much more targeted and customized experience tailored to the user. Like
- 
+
 * Session management: user logins, shopping carts
 * Personalization: User preferences, themes and other settings e.g. showing the weather or news in the user's home town
 * Tracking: Recording and analyzing user behavior
@@ -18,7 +18,8 @@ A web server specifies a cookie to be stored by sending an HTTP header called Se
 Cookies can have security and privacy implications for the user.
 
 There are a number of restrictions placed on cookies in order to prevent abuse and protect both the browser and the server from detrimental effects
-*  Only a limited number of cookies are available for each domain. IE 8 has a maximum of 50 cookies per domain as. Firefox also has a limit of 50 cookies while Opera has a limit of 30 cookies. Safari and Chrome have no limit on the number of cookies per domain.
+
+* Only a limited number of cookies are available for each domain. IE 8 has a maximum of 50 cookies per domain as. Firefox also has a limit of 50 cookies while Opera has a limit of 30 cookies. Safari and Chrome have no limit on the number of cookies per domain.
 * Because cookies are sent with every request, their size should be kept to a minimum. Ideally, only an identifier should be stored in a cookie with the data stored by the app. The maximum size for all cookies sent to the server has remained the same since the original cookie specification: 4 KB. Anything over that limit is truncated and won’t be sent to the server.
 
 There are a couple of ways to ensure that cookies are sent securely and are not accessed by unintended parties or scripts: the `Secure` attribute and the `HttpOnly` attribute.
@@ -40,3 +41,24 @@ Cookies are used by online advertisers to track the websites you visit.
 Because cookies are always sent back to the site that originated them, an advertiser's cookie will be sent back to them from every web site you visit that is also using that same advertiser. This allows the advertiser to track the sites you visit, and send targeted advertising based on the types of sites that you visit.
 
 This does not mean that advertisers can read the cookies from the web site you are visiting—they can only read their own cookies, but because the advertising Javascript is embedded in the page, they will know the URL you are visiting. These cookies are considered third-party cookies, because they are not set by the actual page you are visiting, and they can generally be blocked without causing any serious problems.
+
+## Alternatives to Cookies for Session Management
+
+Many web frameworks put a random session ID in the cookie. Cookies are sent along with HTTP requests by the browser to the server. The Session ID refers to an entry in some session table on the web server. The entry stores a bunch of per-user information.
+
+Session cookies are sensitive: adversary can use them to impersonate a user. The same-origin policy helps to protect cookies but you shouldn't share a domain with sites that you don't trust! Otherwise,those sites can launch a session fixation attack:
+
+1) Attacker sets the session ID in the shared cookie.
+2) User navigates to the victim site; the attacker-chosen session ID is sent to the server and used to identify the user's session entry.
+3) Later, the attacker can navigate to the victim site using the attacker-chosen session id, and access the user's state
+
+What if we don't want to have server-side state for every logged in user ?
+
+* Stateless Cookies - Authenticate every request using cryptography. Message Authentication Code (MAC) - Client and server share a key. Client uses key to produce the message and server uses the key to verify the message.
+* HTML5 local storage - Use HTML5 local storage, and implement your own authentication in Javascript. Some web frameworks like Meteor do this. Benefit:
+  * The cookie is not sent over the network to the server.
+  * Unlike a cookie which can be bound to multiple subdomains, DOM storage is bound to a single origin, Your authentication scheme is not subject to complex same origin policy for cookies.
+* Client-side X.509 certificates. Web applications can't steal or explicitly manipulate each other's certificates. Drawback:
+  * Have weak story for revocation (we'll talk about this more in future lectures).
+  * Poor usability, users don't want to manage a certificate for each site that they visit.
+  * Benefit/drawback: There isn't a notion of a session, since the certificate is "always on." For important operations, the application will have to prompt for a password
