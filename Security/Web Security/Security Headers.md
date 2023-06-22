@@ -67,7 +67,7 @@ This header lets you know where the inbound visitor came from, and is really han
 
 ## Cross-Origin-Resource-Policy
 
-One of the key principles of security is data isolation. Same origin policy is designed for segregating web content. Under this policy the web browser only allows Javascript in one web page to access data in another web page if the two pages have the same **origin**. An origin is [defined as](https://en.wikipedia.org/wiki/Same-origin_policy) a combination of the **protocol**, **domain name**, and **port**.
+One of the key principles of security is data isolation. Same-origin policy is designed for segregating web content so that 2 different websites are not able to tamper with each other's content. Under this policy the web browser only allows Javascript in one web page to access data in another web page if the two pages have the same **origin**. An origin is [defined as](https://en.wikipedia.org/wiki/Same-origin_policy) a combination of the **protocol**, **domain name**, and **port**.
 
 `Cross-Origin-Resource-Policy: same-origin`
 
@@ -79,7 +79,7 @@ It is important to note that the **same origin policy applies only to scripts**.
 
 Depending upon whether the target service allows cross-origin requests the [browser can deny such requests](https://stackoverflow.com/questions/20035101/why-doesn-t-postman-get-a-no-access-control-allow-origin-header-is-present-on). However, for large websites with multiple subdomains or an API that is meant to be open, and is intended to be accessed from other origins by multiple web clients other than just the one hosted on the same server (origin) as your API, you may need to relax the same origin policy.
 
-By setting the `Cross-Origin-Resource-Policy: cross-origin` in the response the target service tells the browser that it wants to allow cross-origin requests. For [using CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) it extends HTTP with a new `Origin` request header and a new `Access-Control-Allow-Origin` response header. It allows servers to use a header to explicitly list origins that may request a file or to use a wildcard and allow a file to be requested by any site.
+By setting the `Cross-Origin-Resource-Policy: cross-origin`  in the response the target service tells the browser that it wants to allow cross-origin requests. For [using CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) it extends HTTP with a new `Origin` request header and a new `Access-Control-Allow-Origin` response header. It allows servers to use a header to explicitly list origins that may request a file or to use a wildcard and allow a file to be requested by any site.
 
 ```sh
 Access-Control-Allow-Origin: * # resource can be shared by any domain
@@ -99,20 +99,28 @@ Content security policy and same-origin policy (the lack of CORS) act as multipl
 2. If there is no CSP restriction within `foo.com` HTTP response, then `foo.com` in browser can send a request to `bar.com`.
 3. Upon receiving the request, `bar.com` server responds with `bar.com` HTTP response, CORS restriction within this response can prevent `foo.com` in browser from loading it. (Note that by default, Same-origin policy will restrict the response from loading, unless otherwise specified by CORS)
 
-## Cross-Origin-Opener-Policy
+## COOP and COEP
 
-HTTP Headers that let your webpage opt into a special "Cross-origin Isolated" state and gain access to powerful web API features like
+Previously, websites using shared memory for [inter thread communication](https://blog.logrocket.com/understanding-sharedarraybuffer-and-cross-origin-isolation/) could load cross-origin content without permission. These websites could interact with window pop-ups that are not of the same origins, potentially causing a security breach or a loophole to gain access to user information on the website. **Cross-origin isolation** is a new security feature (as of  April 2021) that was added to the browser. In short, it is the result of sending two HTTP headers on your top-level document (COOP and COEP). These headers enable your website to gain access to powerful web APIs such as SharedArrayBuffer and prevent outer attacks (Spectre attacks, cross-origin attacks, and the like).
 
-- SharedArrayBuffer
+Powerful features
+
+- SharedArrayBuffer - allows `main` thread to send messages to a `worker` thread using shared memory
 - performance.measureMemory()
 - JS Self Profiling API
+  and more to come
 
-Ensure a top-level document does not share a browsing context group with cross-origin documents (pop ups - opened). This will isolate the process for your document prevent potential attackers from access to your global object if they were opening it in a popup, preventing a set of cross-origin attacks
+If you are interested in using these powerful features, you will need to opt into COOP and COEP. This isolates the top-level document process and ensures it does not share a **browsing context group** with cross-origin documents (e.g. pop ups ), preventing a set of cross-origin attacks.
+
+### Enabling cross-origin isolation
+
 `Cross-Origin-Opener-Policy: same-origin`
 
-## Cross-Origin-Embedder-Policy
+If CORP not set explicitly, browsers default to `cross-origin` rather than `same-origin`
+`Cross-Origin-Resource-Policy: cross-origin`
 
-Ensure all resources loaded from your website have been loaded with CORP
+For security purposes, the browser default should be same-origin, That shift is going to take some time, however In the meantime - COEP ensures all resources loaded from your website to have been loaded with an explicit `Cross-Origin-Resource-Policy: cross-origin`, without the CORP header those resources will be stopped from loading
+
 `Cross-Origin-Embedder-Policy: require-corp`
 
 ## Deprecated
