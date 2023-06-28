@@ -170,9 +170,11 @@ resource "azurerm_resource_group" "rg1" {
 
 ## Terragrunt
 
-Terragrunt is a thin wrapper (executable) that can auto generate terraform configuration prior to invoking terraform. e.g. parameterising remote state config. This is controlled by `hcl` files, usually one per module that you put within your directories. This may help in
+Terragrunt is a thin wrapper (executable) that can auto generate terraform configuration prior to invoking terraform. e.g. parameterising remote state config. This is controlled by `hcl` files, usually one per module that you put within your directories. This can help in
 
-* Reducing repetition. Essentially it helps provide configuration to terraform which can also be provided at runtime via a text file or environment variables.
+* Reducing repetition. It helps provide configuration to terraform which can also be provided at runtime via a text file or environment variables. However, Terragrunt is useful if you want to avoid repetition in defining your settings per environment. It allows you to neatly define common settings (e.g. tfvars) across multiple environments in one place with the ability to override the ones unique to each env.
+  * You can [use a tfvar file per environment](https://stackoverflow.com/questions/60084611/how-best-to-handle-multiple-tfvars-files-that-use-common-tf-files) and define `terragrunt.hcl` per environment. Each `terragrunt.hcl` file specifies a `terraform { …​ }` block that specifies from where to download the terraform code, as well as the environment-specific values for the input variables in that terraform code.
+  * If you define multiple `terragrunt.hcl` files the [find_in_parent_folders()](https://terragrunt.gruntwork.io/docs/reference/built-in-functions/#find_in_parent_folders) helper will automatically search up the directory tree to find the root `terragrunt.hcl` and inherit the remote_state configuration from it
 * Working with multiple terraform modules
 * Managing terraform state by making it more granular e.g. one state file per module. Large configurations in a single state file used to be resource intensive to apply in terraform
 
