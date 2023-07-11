@@ -51,9 +51,14 @@ CIS Hardened Images have been hardened to either the Level 1 or Level 2 CIS Benc
 
 Microsoft Azure marketplace [provides CIS hardened images](https://www.cisecurity.org/blog/cis-hardened-images-now-in-microsoft-azure-marketplace/) that are certified to run on Microsoft Azure.
 
-#### Cloud Security Auditing Tools
+#### Cloud Security Tools
 
-Cloud Security Posture Assessment
+Several [cloud security tools](https://www.uptycs.com/blog/whats-the-difference-between-casb-cwpp-cspm-and-cnapp) go into securing cloud applications and workloads. While each of these cloud security solutions has its own distinct focus, they can be used in conjunction to provide comprehensive cloud security coverage. For example, 
+* a combination of CASB and CWPP can help protect cloud services and the workloads running within them
+* CSPM can be used alongside CASB to ensure compliance and security best practices are followed
+* CNAPP can be used in conjunction with CWPP to secure cloud-native applications and their underlying infrastructure.
+
+The choice and combination of these solutions depend on the specific security requirements and cloud architecture of the organization.
 
 | Tool                                                         | Description                                         |
 |:-------------------------------------------------------------|:----------------------------------------------------|
