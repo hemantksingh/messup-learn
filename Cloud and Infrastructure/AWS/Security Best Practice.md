@@ -14,7 +14,7 @@ An AWS Account creates a logical boundary to provide isolation environment by en
 
 AWS has a primary set of services to help customers maintain a strong security posture over their AWS accounts
 
-* AWS Security Hub - organization aware **continual account assessment** for things like:
+* AWS Security Hub - is a Cloud Security Posture Management (CSPM) tool that assesses your security alerts and security posture across all your accounts and regions at the organization level. It can **continually assess your accounts** for things like:
   * AWS foundational security practice
   * CIS Benchmarks
   * PCI DSS compliance
