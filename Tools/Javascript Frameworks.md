@@ -28,16 +28,36 @@ Note that Angular is a complete rewrite of AngularJS, based on TypeScript
 
 ## React
 
-React is a library for building web application User Interfaces (UI) that was originally written and used by Facebook. It is incredibly popular, and well supported. If you are familiar with the MVC (Model, View, Controller) architecture, it is the *View* part of it. Because it is just a View part, that means you may have to integrate it into an MVC framework, which can become complicated.
+React is a library for building web application User Interfaces (UI) that was originally written and used by Facebook. It is incredibly popular, and well supported. In an MVC (Model, View, Controller) architecture, it is the *View* part but it could be considered the controller too. It embraces the fact that rendering logic is inherently coupled with other UI logic: how events are handled, how the state changes over time, and how the data is prepared for display. Instead of artificially separating technologies by putting markup and logic in separate files, React separates concerns with loosely coupled units called “components” that contain both.
 
-It uses declarative syntax and manages state by:
+React uses JSX - a declarative syntax to embed JavaScript into HTML
 
-1. Keeping the DOM synchronized with the changes to the model by manually (write code) notifying components when the model has changed.
-2. Publishing, handling and managing HTML events.
+```javascript
+// React JSX allows switching from HTML to JavaScript using '{}'
+function App() {
+    const names = ['foo', 'bar', 'lol']
+     
+    function renderWelcome(name) {
+        
+        return <h1>Hello {name}!</h1>
+    }
 
-### React with Next.js
+    return (
+        <div>
+            {
+                // Entire JS is available inside braces, including functions
+                names.map(name =>renderWelcome(name))
+            }
+        </div>
+    )
+}
+```
 
-React is not a fully developed application framework - it is a **library for creating HTML** that can be used by applications or frameworks such as Next.js. Out of the box React doesn't focus on routing, API integration and server side rendering, it largely relies on 3rd party libraries to accomplish this. Next.js however adds all those features, plus it provides hybrid static and server rendering, TypeScript support, smart bundling, fast refresh and inbuilt CSS support with zero configuration.
+### Next.js
+
+React is not a fully developed application framework - it is a **library for creating HTML** that can be used by applications or web application frameworks such as Next.js
+
+Out of the box React doesn't focus on routing, API integration, data fetching and server side rendering, it largely relies on 3rd party libraries to accomplish this. Next.js however adds all those features, plus it provides hybrid static and server rendering, TypeScript support, smart bundling, fast refresh and inbuilt CSS support with zero configuration.
 
 Next.js is built on top of Node.js, enabling React-based web application functionalities, such as server-side rendering, and allowing the ability to generate static websites.
 
