@@ -10,7 +10,7 @@ We can extrapolate a mental model of what may happen by reading the codebase. Th
 
 ## What do observable systems provide ?
 
-Monitoring enables us to understand the overall health of our systems, observability allows us to infer the internal state of something from the outside. How do we know that our application is working well and doing what it is supposed to do without having to look inside or access its source code? How can we respond to outages affecting our cutomers and *debug the system in production*? With observable systems we are able to answer the following questions by querying the telemetry outputs of our systems:
+Monitoring enables us to understand the overall health of our systems, observability allows us to infer the internal state of something from the outside. How do we know that our application is working well and doing what it is supposed to do without having to look inside or access its source code? How can we respond to outages affecting our customers and *debug the system in production*? With observable systems we are able to answer the following questions by querying the telemetry outputs of our systems:
 
 * What is going wrong?
 * Why is it going wrong?
@@ -76,10 +76,10 @@ Logging libraries like *nlog* and *serilog* help in writing structured logs and 
 
 Debugging distributed systems poses a challenge in understanding and reasoning about the overall system interactions. Call stacks are used to debug monoliths showing the flow of execution (Method A called Method B, which called Method C), but how do we bug when the call is across a process boundary, not simply a reference on the local stack? This is where [distributed tracing](https://docs.microsoft.com/en-us/azure/azure-monitor/app/distributed-tracing) comes in. It helps in gathering timing data needed to troubleshoot latency problems in microservice architectures.
 
-Tracers live in your applications and record timing and metadata about operations that took place. 
+Tracers live in your applications and record timing and metadata about operations that took place.
+
 * They intercept application calls to record how long a request took to process and asynchronously report this info **out-of-band** (outside the application request pipeline) to the tracing system for storage.
 * They can help in identifying pain points in a request's execution path using visualizations like [flame graphs](https://www.datadoghq.com/knowledge-center/distributed-tracing/flame-graph/#what-is-a-flame-graph) that include error and latency data to help developers identify and fix bottlenecks in their applications. I
-
 
 Adopting an open instrumentation standard like [Opentracing](https://opentracing.io/docs/overview/) and [Opencensus](https://opencensus.io/) (both now part of [Opentelemetry](https://opentelemetry.io/)) allows language agnostic monitoring capabilities.
 
@@ -119,17 +119,11 @@ Depending upon your monitoring requirements, if you need to analyse both metrics
 
 There are two core principles when it comes to building observable software systems.
 
-### Aim for knowing the what and when something is happening
+* Aim to know what and when something is happening
+  Don't expect stakeholders or customers to tell you when something is not quite right with your software. By querying telemetry data in production, you should be able to find out `what` is happening and `when`. We have alerts that notify us when something is not performing as expected. System instrumentation and alerting are configured. to ensure that engineers are aware of unexpected behavior before customers are affected by it.
 
-At cinch, we don't expect stakeholders or customers to tell us when something is not quite right with our software. By querying our telemetry data in production, we can find out `what` is happening and `when`. We have alerts that notify us when something is not performing as expected.
-
-System instrumentation and alerting are configured. to ensure that engineers are aware of unexpected behaviour before customers are affected by it.
-
-### Aim for finding out the why without referring to the code
-
-It's easy to be happy with knowing the `what` and `when`. We aim to add as much context to our telemetry data as possible. We want to be able to answer the `why` without referring to the codebase.
-
-System instrumentation provides sufficient transparency. Its behaviour can be interrogated and understood using Observability tooling only.
+* Aim for finding out the why without referring to the code
+  It's easy to be happy with knowing the `what` and `when`. We aim to add as much context to our telemetry data as possible. We want to be able to answer the `why` without referring to the codebase. System instrumentation provides sufficient transparency. Its behaviour can be interrogated and understood using Observability tooling only.
 
 ## Best practices
 
@@ -144,8 +138,9 @@ Observability-driven development encourages us to consider how a system can be t
 Instrumentation uses patterns that allow for optimal aggregation. Essentially answering the unknown unknowns. Rather than only the known unknowns when we observe the system.
 
 The benefit of this approach is two-fold:
-- The component - and as an extension, the software engineer that writes it - knows the most about what is going on during that invocation and the context around it to produce a useful telemetry dataset
-- All the useful information is applied - and indexed - at creation and ingestion time. No further optimization or transformation of the telemetry data is needced.
+
+* The component - and as an extension, the software engineer that writes it - knows the most about what is going on during that invocation and the context around it to produce a useful telemetry dataset
+* All the useful information is applied - and indexed - at creation and ingestion time. No further optimization or transformation of the telemetry data is needed.
 
 #### Instrument code as a primary concern
 
@@ -173,7 +168,7 @@ A tag that has high cardinality, is more useful than a low cardinality tag. A ke
 
 #### Ingest native metrics from 3rd parties
 
-We use 3rd party native metrics where possible. For example, AWS Lambda metrics will provide some good top-level statistics. These that can be used for Dashboards, Monitors, and SLOs.
+Use 3rd party native metrics where possible. For example, AWS Lambda metrics will provide some good top-level statistics. These that can be used for Dashboards, Monitors, and SLOs.
 
 #### Don't settle on aggregations
 
