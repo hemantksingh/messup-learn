@@ -107,7 +107,7 @@ GraphQL is a [query language for your API](https://graphql.org/learn/), and a se
 
 GraphQL is [typically served over HTTP](https://graphql.org/learn/serving-over-http/) via a single endpoint which expresses the full set of capabilities of the service. This is in contrast to REST APIs which expose a suite of URLs each of which expose a single resource. HTTP is commonly associated with REST, which used "resources" as its core concept. In contrast, GraphQL's conceptual model is an entity graph. As a result, entities in GraphQL are not identified by URLs. Instead, a GraphQL server operates on a single URL/endpoint, usually `/graphql`, and all GraphQL requests for a given service should be directed at this endpoint. Your GraphQL HTTP server should handle the HTTP GET and POST methods.
 
-GraphQL allows clients to specify the fields they would like to be returned (**sparse fieldsets**) in the GraphQl query, allowing you to skip all data that is not relevant to the response. GraphQL's query language moves the responsibility out of the hands of the API devs and into the clients. For example, the query:
+GraphQL uses **sparse fieldsets** that allow clients to specify the fields they would like to be returned in the GraphQL query, thus skip all data that is not relevant to the response. GraphQL's query language moves the responsibility out of the hands of the API devs and into the clients. For example, the query:
 
 ```sh
 {
@@ -138,3 +138,12 @@ GraphQL devloves power to clients by allowing them to write their own queries - 
 Your API I/O mechanism can be REST, GraphQL or RPC but you can fulfill requests coming through each I/O channel with the same business logic layer
 
 ![business-layer.png](../Images/business-layer.png "HTTP stacks")
+
+### Disadvantages of GraphQL
+
+* Added complexity - GraphQL is not a replacement for server-side databases. It is just a simple query language.
+  * So, it also shows the same problems when a client requests too many nested fields data at a single time. So there must be a mechanism like maximum query depths, query complexity weighting, avoiding recursion, or persistent queries to stop inefficient requests from the client-side.
+* Loss of native HTTP support
+  * Queries always return a HTTP status code of 200, regardless of whether or not that query was successful. If your query is unsuccessful, your response JSON will have a top-level errors key with associated error messages and stacktrace. This can make monitoring implementations more complex, as you'll have to implement some server side logic to raise monitoring aware errors.
+  * Lack of built-in caching support - REST APIs have multiple endpoints, they can leverage native HTTP caching to avoid refetching resources. With GraphQL, you will need to setup your own caching support which means relying on another library, or setting up something like globally unique IDs for your backend.
+  * Lack of Rate Limiting
