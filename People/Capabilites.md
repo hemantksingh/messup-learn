@@ -93,9 +93,9 @@ To get someone talking, it is a good idea to keep the discussion informal. Howev
   * Seek clarification using mirrors
     * by repeating the last one to three words that were spoken in an inquisitive, questioning tone
 
-* Asking **open ended questions** - e.g. to get a sense of organizational structure and ways of working within a company you can start by asking how does the team you work for fit into the wider business?
+* Asking **open ended questions** - e.g. to get a sense of organizational structure and ways of working within a company you can start by asking how does the team you work in fit into the wider business?
   * This should provide you a view of how work and value flow through the org and where the bottlenecks/silos may be?
-  * As a technologist, the question that you may eventually be looking to get an answer to is - whether technology drives business strategy and to what extent data is used for decision making?
+  * The question that you are really looking to get an answer to is - whether technology is at the core of the business, whether it drives business stratgy and to what extent data is used for decision making? Answers to these questions will give you an understanding of the engineering culture within the busniess - whether it has a [cost-centric or value-centric](https://www.thoughtworks.com/insights/blog/value-driven-digital-business) view of technology. In a cost-control culture the bulk of investment dollars are inwardly focused on such areas as accounting, reducing distribution costs, and efficient manufacturing—with external customer focus being mostly an afterthought. 
 
 ## Selling the role you are recruiting for
 
