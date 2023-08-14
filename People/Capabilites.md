@@ -1,5 +1,12 @@
 # Capabilities
 
+## Engineering Lead
+
+* Deliver value - financial, operational, sustainability, employee, customer and employee benefit, not just technical expertise
+* Have an inward (efficiency) and outward (effectiveness) focus. Work with groups and communities in the wider org to inform thinking and theirs, build shared understanding and colaborate
+* Create and attract talent geared towards your culture, upskill
+* Tool and techniques - modern not trendy. Encourage open-source contributions where appropriate. Responsible for encouraging, curating and publicising the open-source contributions
+
 ## Architect
 
 > What does a software/technical architect role offer? Is it relevant for self empowered agile teams? 
