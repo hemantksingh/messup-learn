@@ -42,23 +42,12 @@ Because cookies are always sent back to the site that originated them, an advert
 
 This does not mean that advertisers can read the cookies from the web site you are visiting—they can only read their own cookies, but because the advertising Javascript is embedded in the page, they will know the URL you are visiting. These cookies are considered third-party cookies, because they are not set by the actual page you are visiting, and they can generally be blocked without causing any serious problems.
 
-## Alternatives to Cookies for Session Management
+## Cookies and local storage
 
-Many web frameworks put a random session ID in the cookie. Cookies are sent along with HTTP requests by the browser to the server. The Session ID refers to an entry in some session table on the web server. The entry stores a bunch of per-user information.
+Cookies and local storage serve different purposes. Cookies are primarily for data required **server-side**, local storage can only be read by the **client-side**, therefore cookies are restricted to small data volumes (4 Kb), while localStorage can store up to 10mb per domain. So the question is, in your app, who needs this data - the client or the server?
 
-Session cookies are sensitive: adversary can use them to impersonate a user. The same-origin policy helps to protect cookies but you shouldn't share a domain with sites that you don't trust! Otherwise,those sites can launch a session fixation attack:
-
-1) Attacker sets the session ID in the shared cookie.
-2) User navigates to the victim site; the attacker-chosen session ID is sent to the server and used to identify the user's session entry.
-3) Later, the attacker can navigate to the victim site using the attacker-chosen session id, and access the user's state
-
-What if we don't want to have server-side state for every logged in user ?
-
-* Stateless Cookies - Authenticate every request using cryptography. Message Authentication Code (MAC) - Client and server share a key. Client uses key to produce the message and server uses the key to verify the message.
-* HTML5 local storage - Use HTML5 local storage, and implement your own authentication in Javascript. Some web frameworks like Meteor do this. Benefit:
-  * The cookie is not sent over the network to the server.
-  * Unlike a cookie which can be bound to multiple subdomains, DOM storage is bound to a single origin, Your authentication scheme is not subject to complex same origin policy for cookies.
-* Client-side X.509 certificates. Web applications can't steal or explicitly manipulate each other's certificates. Drawback:
-  * Have weak story for revocation (we'll talk about this more in future lectures).
-  * Poor usability, users don't want to manage a certificate for each site that they visit.
-  * Benefit/drawback: There isn't a notion of a session, since the certificate is "always on." For important operations, the application will have to prompt for a password
+| Exploit          | Local Storage                                                                     | Cookies |
+| ---------------- | ----------------------------------------------------------------------------------|-------- |
+| XSS              | Malicious scripts can access data. Malicious JS injection can be prevented by CSP | `HTTPOnly` prevents JS access, limiting XSS attacks |
+| SessionFixation  | Bound to a single origin                                                          | Can be bound to a single origin by using `SameSite`, however can still be sent to subdomains, meaning requests from `login.mysite.com` to `cdn.mysite.com` would be considered a same-site request. It relies on the fact that wildcard cookies can be set by a subdomain and, that those cookies may affect other subdomains|
+| XSRF        | Not sent by the browser with each HTTP request, therefore do not require XSRF protection | Mainly server bound, all cookies for a domain are sent by the browser with HTTP requests to the server, therefore require XSRF protection |
