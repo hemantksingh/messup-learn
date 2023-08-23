@@ -57,7 +57,7 @@ function App() {
 
 React is not a fully developed application framework - it is a **library for creating HTML** that can be used by applications or web application frameworks such as Next.js
 
-Out of the box React doesn't focus on routing, API integration, data fetching and server side rendering, it largely relies on 3rd party libraries to accomplish this. Next.js however adds all those features, plus it provides hybrid static and server rendering, TypeScript support, smart bundling, fast refresh and inbuilt CSS support with zero configuration.
+Out of the box React doesn't focus on routing, API integration, data fetching and server side rendering, it largely relies on 3rd party libraries to accomplish this. Next.js is a [full-stack React framework](https://react.dev/learn/start-a-new-react-project) and adds all those features, plus it also provides: hybrid static and server rendering, TypeScript support, smart bundling, fast refresh and inbuilt CSS support with zero configuration.
 
 Next.js is built on top of Node.js, enabling React-based web application functionalities, such as server-side rendering, and allowing the ability to generate static websites.
 
@@ -79,29 +79,23 @@ Depending upon the type of web application you require and the performance and u
    - initial load times, as the HTML is already generated and ready to be displayed as soon as the page loads, especially for users with slower internet connections or older devices. By providing a faster, more responsive experience, SSR can help to ensure that your website is accessible to a wider range of users.
    - SEO, as the HTML is available to be crawled allowing search engines to index the webpage.
    - accessibility or users with disabilities, as many assistive technologies, such as screen readers, rely on the HTML content of a page to provide information to users. With client-side rendering, the HTML content may not be fully generated until the JavaScript code has been executed, which can cause issues for users relying on assistive technologies.
-   - simplicity of website's codebase. By moving some of the rendering logic to the server, developers can often simplify the client-side code, making it easier to maintain and update. This can lead to a more stable and reliable website, which can help to further improve the user experience for all visitors.
-2. **Client-side rendering (CSR)**: In CSR, the client's browser generates the HTML content of a web page on the client-side using JavaScript. This approach can provide a fast and interactive user experience but can be slower for initial loading times and bad for SEO. These are typically suited for **Single Page Applications** (SPA) that provide a fast and interactive user experience because only the necessary content is loaded and rendered dynamically, reducing the need for full page reloads.
+   - simplicity of website's codebase. By moving some of the rendering logic to the server, developers can often simplify the client-side code, making it easier to maintain and update state. This can lead to a more [stable and reliable website](https://www.timr.co/server-side-rendering-is-a-thiel-truth/), helping improve the user experience for all visitors.
+2. **Client-side rendering (CSR)**: In CSR, the client's browser first loads Javascript, any JSON and then generates the HTML content of a web page on the client-side using JavaScript. This approach can provide a fast and interactive user experience but can be slower for initial loading times and bad for SEO. These are typically suited for **Single Page Applications** (SPA) that require rich, interactive and complex interactions with extremely low latency: Figma or Google Docs. Such apps require only the necessary content to be loaded and rendered dynamically, reducing the need for full page reloads.
 3. **Static site generation (SSG)**: In SSG, the HTML content of a web page is generated at build time and served to the client as a static file. A static site generator tool like Jekyll, Hugo, or Gatsby.js is used to compile the website's content from data sources such as markdown files, JSON files, or CMS data. Since SSG renders web pages at build time, there is no need to generate pages dynamically on the server or client-side. This approach reduces the processing overhead and enables faster loading times and enhanced security but can be less flexible for dynamic content.
 
 ## Javascript testing
 
 Javascript can run either in the browser or on a Javascript runtime like `nodejs` that is built on Chrome's V8 Javascript engine (written in C++ and used in the Google Chrome browser).
 
-### Jasmine and Mocha
+* Jasmine and Mocha are **test frameworks** for writing and executing unit tests in JS.
+    * Tests are run via an html file (e.g. spec-runner.html) that includes references to your source and test js files. It is possible to run Jasmine tests programmatically by using a **test runner** like `karma` rather than opening a browser each time you want to run tests.
+    * Mocha is a mature JS testing framework running on nodejs and in the browser. Jasmine is more commonly used in angular projects, including the angular project itself.
 
-Jasmine and Mocha are test frameworks for writing and executing unit tests in JS.
-
-Tests are run via an html file (e.g. spec-runner.html) that includes references to your source and test js files. It is possible to run Jasmine tests programmatically by using a test runner like `karma` rather than opening a browser each time you want to run tests.
-
-Mocha is a mature JS testing framework running on nodejs and in the browser. Jasmine is more commonly used in angular projects, including the angular project itself.
-
-### Karma
-
-Test runner with nodejs dependency for running tests programmatically cross browsers and cross devices. You can target specific browser(s) like Chrome, Firefox, IE or PhantomJS (headless browser for faster test feedback) while running your tests.
+* Karma is a test runner for running tests programmatically across browsers and devices. You can target specific browser(s) like Chrome, Firefox, IE or PhantomJS (headless browser for faster test feedback) while running your tests.
 
 ### Javascript API testing framework
 
-Testing REST apis with outside-in tests exploiting BDD test narratives
+Testing REST APIs with outside-in tests exploiting BDD test narratives
 
 * http://dareid.github.io/chakram/
 * https://github.com/apickli/apickli
