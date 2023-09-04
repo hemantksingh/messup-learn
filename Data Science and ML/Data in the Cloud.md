@@ -62,7 +62,7 @@ The tools you use for data analysis and processing defer depending upon the type
 * monitoring in place for analysing the outcomes of the applied model ?
 * single model per tenant or a single model for the entire system ?
 
-### Digital Analysts
+### Digital Analytics
 
 * **Conversion Rate Optimization** -  Better understanding of customers and their behaviors so as to positively impact conversion rates at all stages throughout the customer journey
 * Tech enablement
@@ -74,7 +74,18 @@ The tools you use for data analysis and processing defer depending upon the type
   ![data-analysis-experimentation.png](../Images/data-analysis-experimentation.png "AWS Security Patterns")
 * Tools used
   * Analytics: Excel, SQL
-  * Web analytics tools like Adobe Analytics, Google Analytics
+  * Attribution and marketing analytics platform where primary focus is user acquisition and marketing ROI:  AppsFlyer for mobile apps
+    * **Attribution**: AppsFlyer tracks and attributes user installs and actions to specific marketing channels or campaigns. It helps you understand which advertising campaigns or channels are driving app installs and user engagement.
+    * **Marketing Analytics**: AppsFlyer provides detailed data on user acquisition, retention, and the lifetime value (LTV) of users acquired through different marketing efforts. It enables you to optimize your marketing spend and strategies.
+    * **In-App Events**: You can track and measure specific in-app events and user interactions, such as purchases, sign-ups, or any custom events you define
+    * **Deep Linking**: AppsFlyer supports deep linking, allowing you to route users to specific content or features within your app based on the marketing source that brought them to your app.
+    * **Fraud Prevention**: It includes features for fraud detection and prevention, helping you ensure that your marketing budget is not wasted on fraudulent activities.
+  * Web analytics tools like Adobe Analytics, Google Analytics for in-depth user behavior analysis. Its features include:
+    * **User Analytics**: Google Analytics provides detailed insights into user behavior, including user sessions, pageviews, and user demographics. It also offers data on user flow and user journeys within your app.
+    * **Conversion Tracking**: You can set up goals and track conversions in Google Analytics. This is particularly useful for e-commerce apps or apps with specific conversion funnels.
+    * **Audience Segmentation**: Google Analytics allows you to segment your user data based on various criteria, such as user type, location, or device, to gain insights into different user groups.
+    * **E-commerce Tracking**: If your app involves e-commerce, Google Analytics can provide detailed data on product performance, shopping behavior, and revenue tracking.
+    * **Custom Events**: You can set up custom events to track specific user interactions within your app like purchases, sign ups, or any custom events you define.
   * Customer Experience - Salesforce experience, Google Tag Manager, Adobe Launch
   * Running experiments - Adobe Target, Optimizely
 
