@@ -1,11 +1,13 @@
 # Threat Modelling
 
+
 [Threat Modelling](https://cheatsheetseries.owasp.org/cheatsheets/Threat_Modeling_Cheat_Sheet.html) is a structured approach of identifying and prioritizing potential threats to a system, and determining the value that potential mitigations would have in reducing or neutralizing those threats. Essentially it is trying to find answers to the following [questions](https://www.youtube.com/watch?v=VbW-X0j35gw&ab_channel=OWASPFoundation):
 
 * What are we working on?
 * What could go wrong?
 * What are we going to do about it?
 
+It is worth noting that rather than doing exhaustive upfront analysis to create the perfect threat model, in modern engineering teams it can be more valuable to [start small and iterate](https://martinfowler.com/articles/agile-threat-modelling.html) on your threat model.
 
 ## Threat model development
 
