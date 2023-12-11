@@ -106,8 +106,8 @@ VPC or Virtual Private Cloud is a logically isolated part of the AWS cloud, thin
 
 * Routing tables - whether there is a route in or out to the internet. A **router** is required to create subnets and routes traffic between different subnets.
   * `10.0.0.0/16 local` - Traffic bound to your VPC, stays within your VPC
-  * A lot of the services within AWS do not run within a VPC e.g. S3, DynamoDb, API Gateway, CloudWatch. By default, communications to and from these services use the HTTPS protocol, which protects network traffic by using SSL/TLS encryption. Connectivity to these services from your VPC can be established by allowing a route out to the internet or if you have legitimate privacy and security concerns about sending and receiving data across the public internet a more secure option is a **VPC endpoint**. A VPC endpoint works while using AWS services, however if you are using external third-party services like Auth0, Splunk you will have to consider a NAT Gateway for accessing them.  
-* Network ACLs - acts as a firewall for controlling traffic in and out of one or more subnets, so any instance in the subnet with an associated NACL will follow rules of NACL. Each subnet in your VPC must be associated with a NACL. If not done explicitly the subnet is automatically associated with the default NACL. You can associate a NACL with multiple subnets, however a subnet can be associated with **only 1 NACL** You may setup NACLs with rules similar to your security group to add another layer of security to your VPC
+  * A lot of the services within AWS do not run within a VPC e.g. S3, DynamoDb, API Gateway, CloudWatch. By default, communications to and from these services use the HTTPS protocol, which protects network traffic by using SSL/TLS encryption. Connectivity to these services from your VPC can be established by allowing a route out to the internet or if you have legitimate privacy and security concerns about sending and receiving data across the public internet, a more secure option is a [VPC endpoint](https://docs.aws.amazon.com/whitepapers/latest/aws-privatelink/what-are-vpc-endpoints.html) where traffic between an Amazon VPC and a supported service does not leave the Amazon network. A VPC endpoint only works while using AWS services, therefore if you are dependent on external third-party services like Auth0, Splunk you will have to consider a NAT Gateway for accessing them.  
+* Network ACLs - acts as a firewall for controlling traffic in and out of one or more subnets, so any instance in the subnet with an associated NACL will follow rules of NACL. Each subnet in your VPC must be associated with a NACL. If not done explicitly the subnet is automatically associated with the default NACL. You can associate a NACL with multiple subnets, however **a subnet can be associated with only 1 NACL**. You may setup NACLs with rules similar to your security group to add another layer of security to your VPC
   * by default, a custom NACL denies all outbound and inbound traffic whereas the default NACL allows all outbound and inbound traffic
   * can be used to block specific IP addresses
   * are stateless, therefore explicit rules are enforced for inbound and outbound traffic
@@ -232,6 +232,17 @@ A **Hardware Security Module (HSM)** is a physical computing device containing o
   | s3-bucket-versioning-enabled             | Yes |
   | cloudtrail-enabled                       | Yes |
   
+### AWS Shield
+
+Prevention of [DDOS attacks](../../Security/Web%20Security/Web%20Application%20Security.md#ddos-protection) There are 2 tiers of AWS Shield
+
+* Standard
+  * All AWS customers get the automatic protections of AWS Shield Standard, at no additional charge
+  * Provides DDOS protection against SYN/UDP floods, reflection attacks and other layer 3 and layer 4 attacks when used with CloudFront and Route53
+* Advanced
+  * Protection against larger & more sophisticated attacks targeting applications running on EC2, ELB, CloudFront AWS Global Accelerator and Route 53 resources
+  * Always on, flow based monitoring to provide realtime notifications of DDOS attacks
+
 ### Guard Duty
 
 * Centralized **threat detection** service that uses ML to continuously monitor for malicious behavior. It receives feeds from 3rd parties like Proofpoint and Crowdstrike about known malicious domains and IP addresses.
@@ -279,17 +290,6 @@ IAM Access Analyzer identifies resources shared with external principals by usin
 * Allows you to select a resource group and view its recent API activity, resource configuration changes, related notifications, operational alerts, software inventory, and patch compliance status. It lets you take action on each resource group depending on your operational needs
 * Systems Manager provides a central place to view and manage your AWS resources, so you can have complete visibility and control over your operations
 
-### AWS Shield
-
-Prevention of [DDOS attacks](../../Security/Web%20Security/Web%20Application%20Security.md#ddos-protection) There are 2 tiers of AWS Shield
-
-* Standard
-  * All AWS customers benefit from the automatic protections of AWS Shield Standard, at no additional charge
-  * Provides DDOS protection against SYN/UDP floods, reflection attacks and other layer 3 and layer 4 attacks when used with CloudFront and Route53
-* Advanced
-  * Protection against larger & more sophisticated attacks targeting applications running on EC2, ELB, CloudFront AWS Global Accelerator and Route 53 resources
-  * Always on, flow based monitoring to provide realtime notifications of DDOS attacks
-
 ### Secrets Manager
 
 Secrets manager is a service that securely stores, encrypts and rotates your database credentials, SSH keys, API keys and other secrets
@@ -297,6 +297,7 @@ Secrets manager is a service that securely stores, encrypts and rotates your dat
 * Encryption in transit and at rest using KMS
 * Automatic credentials rotation. When enabled secrets manager will rotate credentials immediately, therefore before enabling credential rotation make sure all your application instances are configured to use SecretsManager
 * Fine-grained access control using IAM policies
+* Cross account access
 * Costs money
 
 ### Parameter Store

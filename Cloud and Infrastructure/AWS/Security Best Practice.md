@@ -19,7 +19,7 @@ AWS has a primary set of services to help customers maintain a strong security p
   * CIS Benchmarks
   * PCI DSS compliance
 * [AWS Security Assessment Tool](https://github.com/awslabs/aws-security-assessment-solution) - asses **point in time** security posture, leverages ScoutSuite and Prowler to run a point in time security check on your AWS account
-* Amazon GuardDuty - like an IDS system, not IPS
+* Amazon GuardDuty - like an IDS system (not IPS), since it only alerts about a suspicious activity
 * AWS Config - audit and evaluate AWS resource configurations
 * AWS Well-Architected reviews - less technical, more broader security assessment
 
