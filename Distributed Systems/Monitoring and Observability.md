@@ -19,36 +19,56 @@ Monitoring enables us to understand the overall health of our systems, observabi
 As outlined in the [observability pyramid](https://medium.com/geekculture/monitoring-microservices-part-1-observability-b2b44fa3e67e) observability empowers us with detailed insights into the behavior of our systems through `telemetry data` such as `traces`, `metrics`, and `logs`. While all of them partially overlap, [each has a different purpose](https://www.reddit.com/r/devops/comments/9hku3v/prometheus_vs_opentracing). The telemetry data you collect looks to answer the following questions:
 
 * Logs - *What happened in my system*?
-* Tracing - *How are system components interacting with each other*?
+* Traces - *How are system components interacting with each other*?
+  * Purpose: Traces are used for distributed tracing and understanding the flow of requests across multiple components of a system.
+  * Granularity: Provides a detailed view of individual requests, showing how they propagate through various microservices and components.
+  * Use Cases: Ideal for diagnosing latency issues, identifying bottlenecks, and understanding the end-to-end flow of requests in a complex, distributed system.
+Example Tool: AWS X-Ray, Jaeger, Zipkin.
 * Metrics - *How does the system performance change over time*?
+  * Purpose: Metrics are used for quantitative measurement of system and application-level parameters.
+  * Granularity: Aggregated data over time, providing insights into the overall health and performance of the system.
+  * Use Cases: Useful for monitoring system-level metrics such as CPU utilization, memory usage, error rates, and response times.
+Example Tool: CloudWatch Metrics, Prometheus, Grafana.
+
+### Considerations
+
+* **Combining Both**: In many scenarios, a combination of traces and metrics is employed for a holistic monitoring approach. Traces help identify specific issues in the request flow, while metrics provide an aggregated overview.
+* **Latency vs. Aggregated Metrics**: If your primary concern is understanding latency and diagnosing issues in the request flow, traces are crucial. If you need a high-level overview of system health and performance trends, metrics are more appropriate.
+* **Complexity**: Traces are particularly valuable in complex, distributed architectures where understanding the interactions between microservices is essential. Metrics are simpler to set up and provide a broader, bird's-eye view of system behavior.
+* **Operational Overhead**: Tracing might introduce additional overhead due to the detailed information it captures for each request. Consider the impact on system performance and choose accordingly.
+* **Tooling Support**: Evaluate the capabilities of your monitoring tools. Some tools seamlessly integrate both traces and metrics, providing a unified view of performance data.
 
 ## Logging
 
-Error logs tell developers what went wrong in their applications. User event logs give product managers insights on usage. If the CEO has a question about the next quarter’s revenue forecast, the answer ultimately comes from payment/CRM logs.
+Error logs tell developers what went wrong in their applications. User event logs give product managers insights on usage.
 
-Apache Kafka Architect Jay Kreps starts with the question - "What is the log?" and has written about [storing and processing log data](https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying). For steps before storing and processing data you need a [unified logging layer](https://www.oreilly.com/content/the-log-the-lifeblood-of-your-data-pipeline/) - a pluggable architecture that can take data input from various sources and output the data to multiple destinations.
+In the context of event logs, Apache Kafka Architect Jay Kreps looks at - "What is a log?" and delves into [storing and processing log data](https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying) in distributed systems. He emphasises the need for a [unified logging layer](https://www.oreilly.com/content/the-log-the-lifeblood-of-your-data-pipeline/) to enable a pluggable architecture that can take data input from various sources and output the data to multiple destinations.
 
-### What to log?
+However, for application logging in distributed systems, there are a few things worth considering:
 
-Building applications requires you to think about what to log? The quality of the design and code structure affects the quality of your logging code. Public APIs with coarse grained interfaces are important logging boundaries. Consider logging
+* **Structured Logging**: Use structured logging formats like JSON or key-value pairs. This aids in easier parsing and analysis.
+Include essential information such as timestamps, log levels, and context-specific details.
 
-* Entry and exit points of the application e.g. API endpoints, outgoing network calls, DB interactions.
-* Boundaries where crucial business decisions are made in the code and the execution flow can take multiple paths.
-* Application state (generally held in DTOs in statically typed languages) at various stages can be useful for debugging purposes.
-* Error and failure situations with the exception stack trace. It is crucial to understand what is returned as part of the response to the end user. A stack trace can reveal the internals of your application like
-  
-  * what encryption algorithm you use
-  * what some existing paths on your application server are
-  * whether you are properly sanitizing input or not
-  * how your objects are referenced internally
-  * what version and brand of database is behind your front-end
-
-This makes it easy for an attacker to understand the inner workings of your application and makes it vulnerable for attacks. Therefore log as much information as possible in the logs for failures but give away just enough information back to the user for them to recover from failures.
-
-Centralize error handling and logging within your application to provide consistent error responses and formatted log messages. In an HTTP API this can be done in an exception filter or middleware
-
-* Allow application to bubble up all exceptions up to the exception filter or middleware
-* Use [exception guidelines](https://msdn.microsoft.com/en-us/library/ms229014(v=vs.80).aspx) for exception handling e.g. define your own exceptions to wrap 3rd party library exceptions if they aren't going to mean anything to the consumers of your app
+* **Centralized Logging**: Aggregate logs from all microservices in a centralized logging system (e.g., ELK Stack, AWS CloudWatch Logs).
+This allows for efficient searching, correlation, and analysis.
+* **Standard Log Levels**: Define and adhere to standard log levels (INFO, WARN, ERROR).
+Clearly document when to use each log level to maintain consistency.
+* **Contextual Information**: 
+  * Include contextual information in logs e.g. application state, request/response details, user IDs. This assists in tracing the flow of a request across microservices.
+  * Log at key architectural boundaries, like
+    * entry and exit points of the application e.g. API endpoints or network calls to external services or databases.
+    * code touch points where crucial business decisions are made and the execution flow can take multiple paths.
+* **Handling errors**:
+  * Log error and failure details with the exception stack trace. However, make a distinction between what is returned as part of the response to the end user and what is logged as the stack trace. A stack trace can reveal the internals of your application like
+    * what encryption algorithm you use
+    * what some existing paths on your application server are
+    * whether you are properly sanitizing input or not
+    * how your objects are referenced internally
+    * what version and brand of database is behind your front-end
+  This can make it easy for an attacker to understand the inner workings of your application and makes it vulnerable for attacks. Therefore, log detailed failure information in the logs but give away just enough information back to the user for them to recover from failures.
+  * Centralise error handling and logging within your application to provide consistent error responses and formatted log messages. In an HTTP API this can be done in an exception filter or middleware
+  * Allow application to bubble up all exceptions up to the exception filter or middleware
+  * Use [exception guidelines](https://msdn.microsoft.com/en-us/library/ms229014(v=vs.80).aspx) for exception handling e.g. define your own exceptions to wrap 3rd party library exceptions if they aren't going to mean anything to the consumers of your app
 
 ### Centralized log management
 
@@ -74,7 +94,7 @@ Logging libraries like *nlog* and *serilog* help in writing structured logs and 
 
 ## Tracing
 
-Debugging distributed systems poses a challenge in understanding and reasoning about the overall system interactions. Call stacks are used to debug monoliths showing the flow of execution (Method A called Method B, which called Method C), but how do we bug when the call is across a process boundary, not simply a reference on the local stack? This is where [distributed tracing](https://docs.microsoft.com/en-us/azure/azure-monitor/app/distributed-tracing) comes in. It helps in gathering timing data needed to troubleshoot latency problems in microservice architectures.
+Debugging distributed systems poses a challenge in understanding and reasoning about the overall system interactions. Call stacks are used to debug monoliths showing the flow of execution (Method A called Method B, which called Method C), but how do we debug when the call is across a process boundary, not simply a reference on the local stack? This is where [distributed tracing](https://docs.microsoft.com/en-us/azure/azure-monitor/app/distributed-tracing) comes in. It helps in gathering timing data needed to troubleshoot latency problems in microservice architectures.
 
 Tracers live in your applications and record timing and metadata about operations that took place.
 
@@ -261,8 +281,8 @@ Ingesting all the telemetry data from different sources only makes sense if you 
 * https://www.splunk.com/
 * https://www.sumologic.com/
 * ELK stack (Elasticsearch, Logstash, and Kibana) [Elastic APM agents](https://www.elastic.co/guide/en/apm/agent/dotnet/current/intro.html) automatically measures the performance of your application and tracks errors. The agent auto-instruments and records events, like HTTP requests and database queries. ELK is available in different hosted offerings:
-    * https://cloud.elastic.co/ 
-    * https://logit.io/
+  * https://cloud.elastic.co/ 
+  * https://logit.io/
 
 While Splunk is a one stop solution for your infrastructure, security and application monitoring needs, it comes at a price. You may not need all the operational intelligence that it provides. The ELK stack provides a rich API for developers to integrate with, Sumo Logic provides a better search facility.
 
