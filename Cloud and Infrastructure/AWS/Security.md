@@ -1,10 +1,10 @@
 # AWS Security
 
-Fundamentally there are a few patterns that can be used to secure everything in AWS
+Fundamentally there are a few patterns that can be used to secure all your AWS services.
 
 * Control your cloud infrastructure: AWS IAM
   * Every AWS service uses IAM to authenticate and authorize API calls
-  * How to make authenticated API calls to AWS from IAM identities - humans  
+  * How to make authenticated API calls to AWS from human and non human IAM identities
 * Control your data: AWS KMS
 * Control your network: Amazon VPC
 
@@ -129,7 +129,7 @@ You can create
 
 * [VPC with public and private subnets](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Scenario2.html) to host your public facing web apps in the public subnet and the database servers in the private subnet. You can set up security and routing so that the web servers can communicate with the database servers.
 
-* [VPC with public and private subnets and AWS Site-to-Site VPN access](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Scenario3.html) to run a multi-tiered application with a scalable web front end in a public subnet, and to house your data in a private subnet that is connected to your network by an IPsec AWS Site-to-Site VPN connection. A VPN or Virtual Private Network connection between your corporate data center and your VPC allows you to leverage the AWS Cloud as an extension of your corporate data center.
+* [VPC with public and private subnets and AWS Site-to-Site VPN access](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Scenario3.html) to run a multi-tiered application with a scalable web front end in a public subnet, and to house your data in a private subnet that is connected to your on-premises network by an IPsec AWS Site-to-Site VPN connection. A VPN or Virtual Private Network connection between your corporate data center and your VPC allows you to leverage the AWS Cloud as an extension of your corporate data center.
 
 * [VPC with a private subnet only and AWS Site-to-Site VPN access](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Scenario4.html) to extend your network into the cloud using Amazon's infrastructure without exposing your network to the internet.
 
