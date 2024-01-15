@@ -20,6 +20,13 @@ Producer (publishes message) ---> Queue ----> Consumer (polls for messages on a 
 * While SNS messages are sent once regardless of the consumer availability, SQS supports retries and dead-letter queues (DLQ) in case a message fails. The message remains in the queue for a defined time (by default 4 days, maximum 14 days) before getting deleted automatically.
 * Persistence, reliability and ability to batch multiple messages together into one, are the [key differences](https://blog.awsfundamentals.com/aws-sns-vs-sqs-what-are-the-main-differences) between using SNS and SQS.
 
+### SNS -> Lambda vs SNS -> SQS -> Lambda
+
+SNS -> Lambda approach can be deployed if you do not care about lost messages and If you need to fan out a single message to multiple destinations, however if your messages are critical, SNS -> SQS -> Lambda can prove to be a better solution, as it provides:
+
+* Reprocessing of messages in case of failures and configuring retries before you give up (receive count) on processing a message. So if your lambda fails due to a timeout or a downstream service being unavailable, the message can be sent to a DLQ for reprocessing. This would not be possible in case of SNS -> Lambda, wherein if the lambda fails the message is lost.
+* Batching of messages can provide better scaling and cost efficiency as it allows you to process multiple messages together. So compared to a lambda invocation per message with SNS, batching with SQS leads to fewer lambda invocations which can be more cost effective.
+
 ## EventBridge
 
 Very similar to SNS but uses different semantics.
