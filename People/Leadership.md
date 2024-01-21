@@ -67,9 +67,8 @@ To become genuinely interested in other people and gain their trust, you have to
 
 - Skip the small talk, start with personal questions. Move from **How are you** to **Who you are** conversations. So instead of asking
   - *Where did you grow up?* ask *Whats your story, where do you come from?*
-  - *What do you do?* ask *What made you who you are today*?
   - *How is it going? Is everything turning out the way you thought it would*?
-  - *What do you do in free time?* ask *Do you have a secret side hustle or passion project?*
+  - [Here](https://introvertdear.com/news/introverts-5-hacks-to-turn-small-talk-into-meaningful-conversation/) are few hacks to turn small talk into meaningful conversations
 - People like to know that they are interesting. Doing some research about your prospect to find out what interests them most and what they are enthusiastic about, before an important meeting can help you in getting their attention.
   - *You have a very interesting name, whats the story behind that?*
   - After they finish what they have to say: *Thats interesting* or if they have been interrupted: *You were saying something interesting, please finish*
