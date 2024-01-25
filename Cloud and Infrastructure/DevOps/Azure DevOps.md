@@ -1,15 +1,20 @@
 # Terminology
 
-## Tasks
+## Stage -> Jobs -> Steps -> Tasks
 
-An AzDo [task](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/tasks?view=azure-devops&tabs=yaml) is the building block for defining automation in a pipeline.
+A pipeline can be organised into jobs. Every pipeline has at least one job. A job is a series of steps that run sequentially as a unit. In other words, a job is the smallest unit of work that can be scheduled to run.
 
-job  
-  -> task1  
-  -> task2  
-  -> task3
+stage
+- job1  
+  - task1  
+  - task2  
+  - task3  
+ - job2
+   - task1
+   - task2  
 
-All tasks run in a sequence, one after the other. To run the same set of **tasks in parallel** on multiple agents, or to run some tasks without using an agent, see [jobs](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/phases?view=azure-devops&tabs=yaml)
+* When you specify multiple jobs in a build pipeline, they run in parallel by default. You can specify the order in which jobs must execute by configuring dependencies between jobs
+* An AzDo [task](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/tasks?view=azure-devops&tabs=yaml) is the building block for defining automation in a pipeline. All tasks run in a sequence, one after the other. To run the same set of **tasks in parallel** on multiple agents, or to run some tasks without using an agent, see [jobs](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/phases?view=azure-devops&tabs=yaml)
 
 ### Custom tasks
 
