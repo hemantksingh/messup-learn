@@ -30,16 +30,38 @@ AWS has a primary set of services to help customers maintain a strong security p
   * AWS foundational security practice
   * CIS Benchmarks
   * PCI DSS compliance
-* [AWS Security Assessment Tool](https://github.com/awslabs/aws-security-assessment-solution) - asses **point in time** security posture, leverages ScoutSuite and Prowler to run a point in time security check on your AWS account
-* Amazon GuardDuty - like an IDS system (not IPS), since it only alerts about a suspicious activity
+* Amazon Detective - key tool for an incident’s root cause analysis, which can help in a thorough investigation of security incidents.
+* Amazon GuardDuty - an Intrusion Detection system (IDS) which can detect threats like compromised accounts, unauthorized access, and data exfiltration.
 * AWS Config - audit and evaluate AWS resource configurations
 * AWS Well-Architected reviews - less technical, more broader security assessment
+
+If an organisation has not implemented any of the above services, there may be a need to conduct a rapid security assessment of the cloud environment. [AWS Security Assessment Tool](https://github.com/awslabs/aws-security-assessment-solution) helps in assessing **point in time** security posture of the deployed AWS environment. It leverages ScoutSuite and Prowler to run a point in time security check on your AWS account.
+
+## Amazon Detective
+
+* Automatically collects and analyzes data from various sources like AWS CloudTrail logs, Amazon VPC Flow Logs, Amazon EKS audit logs, Amazon GuardDuty findings, AWS Security Hub findings, and other integrated AWS security services.
+
+* Creates a graph model of your AWS environment, which shows the relationships between your resources, users, and accounts. This graph model can help identify the root cause of a security incident.
 
 ## AWS Security Hub
 
 * Cloud posture assessment by automating AWS security checks and centralize security alerts
 * Can automate response and remediation actions to improve Mean time to resolution (MTTR) 
 * AWS Security Hub is integrated with AWS CloudTrail, a service that provides a record of actions taken by a user, role, or an AWS service in Security Hub. CloudTrail captures API calls for Security Hub as events
+
+## Guard Duty
+
+* **Threat detection** service that uses ML to continuously monitor for malicious behavior. It receives feeds from 3rd parties like Proofpoint and Crowdstrike about known malicious domains and IP addresses.
+* Detects anomalies by learning what normal behavior looks like in your account and alerts of any abnormal malicious behavior
+  * IAM users and AWS accounts credentials being used in a suspicious way, such as from IP addresses associated with known malicious actors
+  * EC2 instances trying to mine cryptocurrency or communicate with IP addresses and domains associated with known malicious actors
+  * container workloads in EKS
+  * storage - S3 policy allowing public read access
+* Allows you to monitor CloudTrail logs, VPC flow logs and DNS query logs for potential threats.
+* As of 2023, 
+* What Guard Duty is not?
+  * It only alerts about an activity, therefore it is not an Intrusion Prevention System (IPS). You could build your actions on top of GuardDuty alerts with AWS Lambda, but it is not part of the service itself. 
+  * It is different from **Inspector** as it is not application aware
 
 ## CloudTrail
 
@@ -87,16 +109,6 @@ Prevention of [DDOS attacks](../../Security/Web%20Security/Web%20Application%20S
 * Advanced
   * Protection against larger & more sophisticated attacks targeting applications running on EC2, ELB, CloudFront AWS Global Accelerator and Route 53 resources
   * Always on, flow based monitoring to provide realtime notifications of DDOS attacks
-
-## Guard Duty
-
-* Centralized **threat detection** service that uses ML to continuously monitor for malicious behavior. It receives feeds from 3rd parties like Proofpoint and Crowdstrike about known malicious domains and IP addresses.
-* Anomaly detection by learning what normal behavior looks like in your account and alerts of any abnormal malicious behavior
-  * IAM users and AWS accounts credentials being used in a suspicious way, such as from IP addresses associated with known malicious actors
-  * EC2 instances trying to mine cryptocurrency or communicate with IP addresses and domains associated with known malicious actors
-  * container workloads in EKS
-  * storage - S3 policy allowing public read access
-* Allows you to monitor CloudTrail logs, VPC flow logs and DNS query logs for potential threats. Since it only alerts about an activity, it is not an **Intrusion Prevention System** (IPS). You could build your actions on top of GuardDuty alerts with AWS Lambda, but it is not part of the service itself. It is different from **Inspector** as it is not application aware
 
 ## Macie
 
