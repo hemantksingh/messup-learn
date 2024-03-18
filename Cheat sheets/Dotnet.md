@@ -40,7 +40,9 @@ dotnet new -l
 dotnet new -i IdentityServer4.Templates
 
 # create a new project (ASP.NET Core Empty) from an installed template
-dotnet new web -n example-project
+# framework can be "net6.0", "net7.0", "net8.0", if ommitted latest is used be default
+cd src/example
+dotnet new web -n example -f net6.0
 ```
 
 ### solution
@@ -50,5 +52,25 @@ dotnet new web -n example-project
 dotnet new sln -n Example
 
 # add project to solution
-dotnet sln add ./src/example-project/example-project.csproj
+dotnet sln add ./src/example/example.csproj
+```
+
+### packages
+```sh
+# navigate to the project dir
+cd tests/example.tests
+# add nuget package
+dotnet add package Microsoft.AspNetCore.TestHost -v 6.0.28
+
+# list installed packages
+dotnet list package
+
+Project 'example.tests' has the following package references
+   [net6.0]: 
+   Top-level Package                    Requested   Resolved
+   > coverlet.collector                 6.0.0       6.0.0   
+   > Microsoft.AspNetCore.TestHost      6.0.28      6.0.28  
+   > Microsoft.NET.Test.Sdk             17.6.0      17.6.0  
+   > xunit                              2.4.2       2.4.2   
+   > xunit.runner.visualstudio          2.4.5       2.4.5  
 ```
