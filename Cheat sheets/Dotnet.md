@@ -40,14 +40,14 @@ dotnet --info
 
 ```sh
 # list installed templates
-dotnet new -l
+dotnet new list
 
 # install new template
 dotnet new -i IdentityServer4.Templates
 
 # create a new project (ASP.NET Core Empty) from an installed template
 # framework can be "net6.0", "net7.0", "net8.0", if ommitted latest is used be default
-cd src/example
+cd src
 dotnet new web -n example -f net6.0
 ```
 
