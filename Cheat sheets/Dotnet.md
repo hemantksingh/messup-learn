@@ -10,17 +10,23 @@ Katana - Implementation of OWIN specification by Microsoft
 
 ## ASP.NET
 
-Server side technology for creating dynamic web content using HTML and C#. A View Engine in MVC is the component used to produce HTML that is sent back to the client browser. The preferred view engine for ASP.NET MVC is Razor. The Razor view engine basically allows you to write C# code inside HTML that is converted to plain HTML for the browser.
+Server side rendoring (SSR) technology for creating dynamic web content using HTML and C#. There are a [number of options](https://learn.microsoft.com/en-us/aspnet/core/tutorials/choose-web-ui?view=aspnetcore-8.0) for creating web apps using ASP.NET Core but these options can be used together as well
 
-Template + Data = Generated Data
+* Blazor
+* Razor Pages
+* MVC
+* SPA with frontend [JS frameworks](../Tools/Javascript%20Frameworks.md) like React, Angular, Vue
 
+The template engine (or View Engine in MVC) is used to generate the HTML from data. In SSR the HTML is generated on the server and sent back to the client browser. The preferred template engine for ASP.NET MVC is Razor. It allows you to write C# code inside HTML that is converted to plain HTML for the browser.
+
+Template + Data = HTML
 * .cshtml -> C# Razor 
 * .vbhtml -> VB Razor
 * .aspx, .ascx -> WebForms (Legacy)
 
-For client side apps ASP.NET integrates with JavaScript frameworks like React or Angular, using preconfigured templates. Rendering a Mini SPA view can be done in isolation based on Html CSS and JS. The data for this SPA can be pulled through a web api using fully qualified URLs and Cross Origin Support configuration - needed for making AJAX calls across different domains. (For example: going from http://example.com to http://actual.com)
-
-View Engine's like Razor can help in preventing XSS by HTML encoding the data i.e treating the script embedded in the data as raw text. This ensures that the browser does not run unwanted scripts and renders it as text only.
+Template engines should be configured to enforce strict syntax rules to prevent arbitrary code execution or injection. They should provide 
+* contextual escaping - treat input as raw data
+* encoding - convert potentially dangerous characters e.g. script tags into their HTML entity equivalents, ensuring that user-supplied data is rendered as inert text rather than executable code
 
 ## Dotnet cli
 
