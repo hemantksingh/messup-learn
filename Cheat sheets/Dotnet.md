@@ -20,11 +20,13 @@ Server side rendoring (SSR) technology for creating dynamic web content using HT
 The template engine (or View Engine in MVC) is used to generate the HTML from data. In SSR the HTML is generated on the server and sent back to the client browser. The preferred template engine for ASP.NET MVC is Razor. It allows you to write C# code inside HTML that is converted to plain HTML for the browser.
 
 Template + Data = HTML
-* .cshtml -> C# Razor 
+
+* .cshtml -> C# Razor
 * .vbhtml -> VB Razor
 * .aspx, .ascx -> WebForms (Legacy)
 
-Template engines should be configured to enforce strict syntax rules to prevent arbitrary code execution or injection. They should provide 
+Template engines should be configured to enforce strict syntax rules to prevent arbitrary code execution or injection. They should provide
+
 * contextual escaping - treat input as raw data
 * encoding - convert potentially dangerous characters e.g. script tags into their HTML entity equivalents, ensuring that user-supplied data is rendered as inert text rather than executable code
 
