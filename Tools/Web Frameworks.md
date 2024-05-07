@@ -96,7 +96,7 @@ Depending upon the type of web application you require and the performance and u
    - SSG pre-renders web pages at build time, there is no need to generate pages dynamically on the server or client-side, resulting in faster loading times and enhanced security but can be less flexible for dynamic content.
    - Suited for frequently updated content like blog posts or static product pages.
 
-A hybrid approach can be employed using
+A hybrid approach might be more suitable using
 
 - SSR for initial page loads, product listing and SEO
 - CSR for interactive features like shopping carts, wishlists, and user accounts
@@ -104,5 +104,22 @@ A hybrid approach can be employed using
 
 ### Implications for Micro-Frontends
 
-- SSR and CSR are more suitable: Micro-frontends work well with SSR and CSR because they allow for independent development and deployment of frontend functionalities.
+- SSR and CSR are more suitable: Micro-Frontends work well with SSR and CSR because they allow for independent development and deployment of frontend functionalities.
 - SSG might be less ideal: Since SSG builds the entire site at once, it's less flexible for independent micro-frontend deployments.
+
+### Component Gallery
+
+A centralised set of reusable UI components can serve as a single source of truth for developers, designers and other stakeholders across agile teams to discover, understand, and integrate these components into their projects.
+
+- Reduced Development Time: Developers can quickly find and integrate pre-built components instead of starting from scratch.
+- Improved Design Consistency: Galleries promote a unified look and feel across applications by providing a single source of design elements.
+- Enhanced Collaboration: Galleries improve communication between designers and developers by providing a shared understanding of components.
+
+Component galleries are a natural fit for React due to its component-based nature but Vue.js and Angular can also be used for building shared user interfaces. While some galleries might be framework-specific, consider designing them with a **technology-agnostic approach** when possible. This allows showcasing components that could be integrated with multiple frameworks or vanilla JavaScript.
+
+Component galleries are a good fit for SSG pipelines.
+
+- The component gallery defines data about each component (e.g. component name, description, usage examples code snippets, accessibility considerations, visual examples and demos) and stores it in JSON or Markdown files.
+- SSG framework can utilise the component data and documentation files during the build process to generate static HTML pages for each component in the gallery.
+- Live Previews: You can introduce live previews and interactive elements using client-side JavaScript within the generated HTML.
+- CMS Integration: If you have a large number of components or need frequent updates, consider integrating the SSG gallery with a CMS. This allows content editors to manage component information without rebuilding the entire site.
