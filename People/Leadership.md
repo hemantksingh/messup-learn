@@ -1,15 +1,18 @@
 # Leadership
 
-Leadership is about empowering others to achieve their true potential. The foundations of strong leadership should revolve around seeing others get better and seeking satisfaction in other people's success:
+How do you empower others to achieve their best - their true potential? The foundations of strong leadership revolve around seeing others get better and seeking satisfaction in other people's success.
 
-- Culture is not about what you say, its about what you do - lead by example. Great leaders don't just talk culture, they embody it, authentically. In *The Corporate Culture*, Schien defines culture as a "pattern of shared tacit assumptions that was learned by a group as it solved its problems of external adaptation and internal integration,that has worked well enough to be considered valid and therefore, to be taught to new members as the correct way to perceive, think and feel in relation to those problems." You can let your teams culture emerge or be explicit about it by encouraging specific behaviors that
-  - establish safety and openness
+- Culture - Creating the environment for others to succeed
+  - Lead by example
+    - Culture is not about what you say, its about what you do. Great leaders don't just talk culture, they embody it, authentically.
+    - In *The Corporate Culture*, Schien defines culture as a "pattern of shared tacit assumptions that was learned by a group as it solved its problems of external adaptation and internal integration,that has worked well enough to be considered valid and therefore, to be taught to new members as the correct way to perceive, think and feel in relation to those problems." You can let your teams culture emerge or be explicit about it by encouraging specific behaviors that
+  - Establish safety and openness
     - get to know each other: background, goals, fun, strengths, weaknesses
     - discourage blame e.g. are people given the autonomy to act and trusted to take risks? Is failure punished or does it lead to enquiry and improvements of our systems?
     - say no to talented jerks - scientific experiments have shown jerks diminish a team's performance by 30-40%
-  - establish vulnerability - As a leader the most important thing that you can say to your team is - *I messed up* or *I need help to achieve x*
-  - create purpose - the yearning to do something larger than ourselves.
-  - keep the culture alive (culture capture) 
+  - Establish vulnerability - As a leader the most important thing that you can say to your team is - *I messed up* or *I need help to achieve x*
+  - Create purpose - the yearning to do something larger than ourselves.
+  - Keep the culture alive (culture capture) 
     - seek and provide constructive feedback. What excites them, what frustrates them, what is their biggest challenge? 
     - surveys and questionnaires to measure e.g. Dimensions of Learning Organizations Questionnaire (DLOQ) is a tool designed to assess the following five dimensions of a learning organization:
       - Continuous learning: This dimension measures an organization's commitment to ongoing learning and improvement through training, development, and knowledge sharing.
@@ -24,8 +27,10 @@ Leadership is about empowering others to achieve their true potential. The found
   - Putting the team before you. Commit to the success and well-being of the collective team above your individual success.
 
 - Direction Alignment and Commitment (DAC)
-  - Trying to set expectations across the board while working with distributed teams and getting everyone to pull in the same direction can be a challenge. Getting the team to agree on a set of principles that everyone buys into and has a shared understanding is one way of driving DAC. This allows decisions to be made objectively. However if personal motivations do not align the principles can be revisited and revised so that they work for everyone.
-  - Questions about goals, priorities and measures of success are key in determining the team direction. Influence helps frame direction, alignment, and commitment among individuals, teams, groups, organizations. It enables you to get the kind of results you want through others.
+  - There are a couple of ways to think about DAC:
+    - Push mode, where your are may use your influence and try to set expectations across the board and getting everyone to pull in the same direction. 
+    - Pull mode, where you seek information from your team and synthesise the information to agree on a set of principles that everyone buys into and has a shared understanding of. This allows decisions to be made objectively. In case personal motivations of individuals do not align the principles can be revisited and revised so that they work for everyone or a safe way out for those individuals that aren't willing to come on the journey needs to be considered.
+  - Questions about goals, priorities and measures of success are key in determining the team direction.
   - A good way to gauge the commitment levels of a team is to get a confidence score on a proposal for example at the end of a meeting.
 
 - Self awareness
