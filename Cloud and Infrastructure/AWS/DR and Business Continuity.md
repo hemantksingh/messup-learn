@@ -38,14 +38,14 @@ Out of the box, serverless applications provide us with **HA in a single region*
 * Serverless services like Lambda, API Gateway, SQS, SNS and EventBridge all automatically span across all availability zones in a given region. This means you don’t have to worry about spinning up multiple instances in a multi-AZ architecture because AWS handles it for you.
 
 * Using a database like DynamoDB, you get the high availability but you also have the option to turn on:
-  * **On Demand Backups**
+  * **On Demand Backups** preserve resources in the state they are in when the back up is taken
     * create full backups of your tables for long-term retention, and archiving required for compliance needs in regulated industries
     * automated scheduled backup and retention enforcement using the AWS backup service
     * copy backups between AWS regions and accounts (cross region and cross account)
     * secure with copying the backups to AWS Backup Vaults with dedicated encryption key
     * automatically move old backups to cold storage tier and save on backup costs
     * enforce service control policies and permissions based on tags inherited from dynamodb tables
-  * Continuous incremental backups with **Point in Time Recovery** (PITR)
+  * Continuous incremental backups that record changes and provide **Point in Time Recovery** (PITR)
     * allows you to restore your database with granularity down to the second in the last 35 days
     * don't have to worry about creating, maintaining, or scheduling on-demand backups, thus do not effect provisioned throughput on the table or API latencies
     * helps to recover from accidental writes and deletes. When you delete a table that has PITR enabled, DynamoDB automatically creates a backup snapshot called a *system backup* and retains it for 35 days which can be used to restore the deleted table to the state it was in just before deletion
