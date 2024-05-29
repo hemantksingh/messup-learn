@@ -6,16 +6,16 @@ Automation is valuable, but not a silver bullet. Automated tests are beneficial 
 
 * **Automated testing as part of CI/CD**: Write automated tests that are independent of the environment that they run in. To reduce the risk of environment-specific bugs, tests should be able to run in a development environment and in a CI/CD pipeline.
 * **Fast feedback loop**: Strive for quick execution times for automated tests to provide immediate feedback and prevent long regressions.
-* **Independent tests**: Instead of testing your entire stack as one giant block, focus on testing individual components that map to specific business functionalities. The test boundaries should align with the your business domains
+* **Independent tests**: Instead of testing your entire stack as one giant block, focus on testing components that fulfil a specific business functionality. The test boundaries should align with the your business domains and the external dependencies should be mocked.
 * **Measure test automation and effectiveness**: Track automation coverage by measuring the number of test cases automated and identify areas for improvement. Monitor the impact of automation on overall quality and defect detection rates.
 
 ## Unit or integration tests ?
 
 Test Driven Development (TDD) is a technique we use for writing automation tests before writing the actual implementation. In order to write effective software do we have to swear by it and treat is as the gospel truth? TDD is often attributed to drive better design in your applications, however does performing TDD automatically lead you to a good design? I am not too sure. In distributed applications that often depend upon external services, message queues, databases and other storage devices to accomplish their goals, there is a key component of good design:
 
-> _Separation of I/O code from domain code_
+> _Separation of I/O code from domain (Non I/O) code_
 
-Being able to [move I/O code to the edges of your application](https://www.youtube.com/watch?v=P1vES9AgfC4&t=1327s&ab_channel=NDCConferences) results in good design, where the **non I/O** based code becomes easier to test because it
+Being able to [move I/O code to the edges of your application](https://www.youtube.com/watch?v=P1vES9AgfC4&t=1327s&ab_channel=NDCConferences) results in good design, where the **Non I/O** based code becomes easier to test because it
 
 * has explicit inputs and outputs
 * is deterministic - for a set of inputs it will give you the same results, everytime
@@ -47,7 +47,10 @@ Mocks/Stubs/Fakes allows tests to run in isolation. Adding abstractions, solely 
 
 Integration tests can be stateful i.e. they have side effects because they often involve testing systems that manage state e.g. the file system, database or a message queue. Therefore an integration test does not necessarily run in isolation with other integration tests, it can span more than one process space, therefore they are I/O dependent.
 
-Rather than worrying about classifying a test as unit or an integration test, **may be the right question to ask is whether the test is I/O dependent?**
+Rather than worrying about classifying a test as unit or an integration test, **may be the right question to ask is whether the test is I/O dependent?** Consider using integration testing where I/O code is inseperable from the rest. This is appropriate for data-heavy activities:
+* ETL and data transformation pipelines
+* Data science
+* Exploratory coding and throw-away scripts
 
 ## Performance testing
 
