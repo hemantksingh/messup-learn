@@ -43,6 +43,14 @@ This means a unit test essentially has **no I/O**, where a unit does not mean a 
 
 Mocks/Stubs/Fakes allows tests to run in isolation. Adding abstractions, solely to achieve isolation can also end up creating multiple layers of indirection. So it is important to think about when to use mocks and what to mock?
 
+#### Unit testing frontends
+
+Javascript can run either in the browser or on a Javascript runtime like `nodejs` that is built on Chrome's V8 Javascript engine (written in C++ and used in the Google Chrome browser).
+
+* Jasmine and Mocha are **test frameworks** for writing and executing unit tests in JS.
+  * Tests are run via an html file (e.g. `spec-runner.html`) that includes references to your source and test js files. It is possible to run Jasmine tests programmatically by using a **test runner** like `karma` rather than opening a browser each time you want to run tests. It runs tests programmatically across browsers and devices allowing you to target specific browser(s) like Chrome, Firefox, IE or PhantomJS (headless browser for faster test feedback) while running your tests.
+  * Mocha is a mature JS testing framework running on nodejs and in the browser. Jasmine is more commonly used in angular projects, including the angular project itself.
+
 ### What is an integration test
 
 Integration tests can be stateful i.e. they have side effects because they often involve testing systems that manage state e.g. the file system, database or a message queue. Therefore an integration test does not necessarily run in isolation with other integration tests, it can span more than one process space, therefore they are I/O dependent.
@@ -52,28 +60,44 @@ Rather than worrying about classifying a test as unit or an integration test, **
 * Data science
 * Exploratory coding and throw-away scripts
 
+For testing REST APIs with outside-in tests exploiting BDD test narratives, in the Javascript ecosystem, you can consider 
+ * <http://dareid.github.io/chakram/>
+ * <https://github.com/apickli/apickli>
+
 ## Performance testing
 
-Inline automated performance testing allows you to run your performance tests as part of your CI/CD pipelines.
+### Defining Performance Needs 
 
-* https://locust.io/ - allows you to describe all your tests in python code, with good support for running multiple injectors, basic statistics generation and a useful web dashboard.
-* https://gatling.io/ is similar to Locust and is much lighter weight than the older options such as JMeter and Grinder. Built on Scala, the DSL provides extensive functionality out of the box including easily configured data feeds and response assertions. In cases where customization is needed, it is easy to drop into Scala to provide extensions.
-* Older GUI based tools like JMeter are well proven performance testing tools, but creating and maintaining tests is all done in the UI, therefore CI/CD integration isn't well supported.
-* A comparision of open source load testing tools - https://medium.com/@loadimpact/open-source-load-testing-tool-review-9b3e622984c1
+The first step is to identify a clear performance goal and **quantify business impact**. Express slow performance in terms of business metrics e.g.
+* Customer Impact: "5% of users experience page load times exceeding 3 seconds, leading to a 10% drop in conversion rate."
+* Financial Impact: "Failing to meet SLA of 95% uptime for critical transactions results in $1,000 daily revenue loss."
 
-## Javascript testing
+These examples quantify the impact of performance issues and helps determine the level of effort justified for testing and optimisation.
 
-Javascript can run either in the browser or on a Javascript runtime like `nodejs` that is built on Chrome's V8 Javascript engine (written in C++ and used in the Google Chrome browser).
+### Identifying Performance Bottleneck 
 
-* Jasmine and Mocha are **test frameworks** for writing and executing unit tests in JS.
-  * Tests are run via an html file (e.g. spec-runner.html) that includes references to your source and test js files. It is possible to run Jasmine tests programmatically by using a **test runner** like `karma` rather than opening a browser each time you want to run tests.
-  * Mocha is a mature JS testing framework running on nodejs and in the browser. Jasmine is more commonly used in angular projects, including the angular project itself.
+The next step is to understand where performance bottlenecks might exist in your system. e.g. in an AWS serverless system utilising lambdas, analyse application logs and CloudWatch metrics to pinpoint the root cause of slow performance. Are Lambda functions themselves slow, or are they waiting on downstream services (databases, APIs)?. Here are some key factors:
 
-* Karma is a test runner for running tests programmatically across browsers and devices. You can target specific browser(s) like Chrome, Firefox, IE or PhantomJS (headless browser for faster test feedback) while running your tests.
+* Function Location: The region where your Lambda functions reside can influence latency. Functions closer to users generally perform better.
+* Function Workload: Focus on heavy tasks within your functions. If they heavily access downstream APIs or databases, network latency might be a major bottleneck.
+* Data Processing: If functions perform complex data manipulation, the algorithm and language choice can significantly impact performance.
 
-### Javascript API testing framework
+**Set Performance Goals**: Establish measurable performance targets based on the identified bottleneck and its business impact. e.g.
+> _Reduce 95th percentile (p95) page load time from 3 seconds to 2 seconds for a smoother user experience_
 
-Testing REST APIs with outside-in tests exploiting BDD test narratives
+### Testing and Optimisation Approach
 
-* <http://dareid.github.io/chakram/>
-* <https://github.com/apickli/apickli>
+* Baseline Performance Measurement
+  * Use AWS Lambda Insights to measure current performance metrics for your functions, including cold start times, invocation duration, and throttling errors.
+  * Utilize Lambda function profiling tools to identify code sections consuming the most CPU and memory. Resources like the official documentation and the aws-lambda-power-tuning project can guide you.
+
+* Simulating Real-World Load
+
+  * Consider tools like JMeter or [Locust](https://locust.io) to simulate realistic user traffic patterns and measure response times under load. Locust allows you to describe all your tests in python code, with good support for running multiple injectors, basic statistics generation and a useful web dashboard. GUI based tools like JMeter are well proven performance testing tools, but creating and maintaining tests is all done in the UI, therefore CI/CD integration isn't well supported.
+  * `npm benchmark` can be used for local performance testing <https://github.com/a-h/templ/tree/main/benchmarks/react>
+
+* Iterative Optimisation: Based on the identified bottlenecks, consider the following optimisation strategies:
+  * Function Location: If latency is an issue, consider deploying functions closer to your users.
+  * Downstream API Access: Explore caching mechanisms or optimizing API calls to reduce network latency.
+  * Data Processing: Review algorithms and data structures for efficiency. Consider alternative languages or libraries if necessary.
+  * Right-sizing Resources: While initially recommended to allocate 1GB RAM for customer-facing functions, you can analyze profiling data and cost considerations to adjust RAM allocation if needed. Sometimes, the cost savings from reduced RAM allocation might not outweigh the development time spent on optimisation.
