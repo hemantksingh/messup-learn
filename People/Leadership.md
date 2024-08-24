@@ -6,12 +6,12 @@ How do you empower others to achieve their best - their true potential? The foun
   - Lead by example
     - Culture is not about what you say, its about what you do. Great leaders don't just talk culture, they embody it, authentically.
     - In *The Corporate Culture*, Schien defines culture as a "pattern of shared tacit assumptions that was learned by a group as it solved its problems of external adaptation and internal integration,that has worked well enough to be considered valid and therefore, to be taught to new members as the correct way to perceive, think and feel in relation to those problems." You can let your teams culture emerge or be explicit about it by encouraging specific behaviors that
+  - Create purpose - the yearning to do something larger than ourselves.
   - Establish safety and openness
     - get to know each other: background, goals, fun, strengths, weaknesses
     - discourage blame e.g. are people given the autonomy to act and trusted to take risks? Is failure punished or does it lead to enquiry and improvements of our systems?
     - say no to talented jerks - scientific experiments have shown jerks diminish a team's performance by 30-40%
   - Establish vulnerability - As a leader the most important thing that you can say to your team is - *I messed up* or *I need help to achieve x*
-  - Create purpose - the yearning to do something larger than ourselves.
   - Keep the culture alive (culture capture) 
     - seek and provide constructive feedback. What excites them, what frustrates them, what is their biggest challenge? 
     - surveys and questionnaires to measure e.g. Dimensions of Learning Organizations Questionnaire (DLOQ) is a tool designed to assess the following five dimensions of a learning organization:
@@ -29,7 +29,7 @@ How do you empower others to achieve their best - their true potential? The foun
 - Direction Alignment and Commitment (DAC)
   - There are a couple of ways to think about DAC:
     - Push mode, where your are may use your influence and try to set expectations across the board and getting everyone to pull in the same direction. 
-    - Pull mode, where you seek information from your team and synthesise the information to agree on a set of principles that everyone buys into and has a shared understanding of. This allows decisions to be made objectively. In case personal motivations of individuals do not align the principles can be revisited and revised so that they work for everyone or a safe way out for those individuals that aren't willing to come on the journey needs to be considered.
+    - Pull mode, where you seek information from your team and synthesise the information to agree on a set of principles that everyone buys into and has a shared understanding of. This allows decisions to be made objectively. In case personal motivations of individuals do not align the principles can be revisited and revised so that they work for everyone. For those that aren't willing to come on the journey with you, a safe way out needs to be considered.
   - Questions about goals, priorities and measures of success are key in determining the team direction.
   - A good way to gauge the commitment levels of a team is to get a confidence score on a proposal for example at the end of a meeting.
 
@@ -54,6 +54,26 @@ How do you empower others to achieve their best - their true potential? The foun
 
 ## Communication
 
+Being able to communicate effectively is a key trait of a good leader.
+
+### Getting your message across
+
+- Whether you are an executive, a journalist, a politician or a rapper we are all trying to do the same thing - getting our message across. Therefore the why, what, how and now what of your message becomes crucial, however the primary focus ought to be on the **why** of your message.
+- Know your audience. People in position of responsibility will check your confidence in your decisions. In order to get to the facts, they will often dig deep, sometimes through confrontation. If you are pitching an idea to senior leadership, they are probably going to be most interested in the **why and now what** (cost, timeline, resource required and the customer impact) of your message.
+  - Preempt the question. Get in there first before any obvious questions are asked.
+  - In a *yes/no* decision come to 0 to 100% position e.g. *Based on our fact finding exercise and the data collected we are 100% sure of our recommendations*
+  - On discovering new information (e.g. Organization restructure plan), **bounce a question back**, e.g. *So what impact would the organization restructure have on the project teams?*
+  - Get back with an answer in case of an unknown. Mention the **process** you will follow to get the answer. Give an indicative answer to manage expectations. *In our experience ...*
+  - Bounce a question back. Have you set out a budget for this piece of work?
+- Using humour to put your point across can be effective communication strategy in certain situations. Avoid plagiarizing but use inspiration.
+- Consider the impact of body language and non verbal communication on your message. This requires you to be fully present and be mindful of not only the thoughts but also the emotions around you.
+  - Closed positions like crossed arms represent defensiveness
+  - Open hands and hand movements while speaking represent confidence
+  - Eye movements give out a lot about whether you are being listened to or ignored
+- *You haven't taught until they have learnt*. Seek confirmation that the words you say are well understood. Willingness to repeat will ensure your message lands.
+
+### Engage and build trust
+
 Understanding that not all people are the same and that they are driven by different motivations is crucial to knowing them. People fall into different [personality traits](https://openpress.usask.ca/introductiontopsychology/chapter/personality-traits), however the deepest urge in all human nature is
 
 - **the desire to be important** - John Dewey, one of America's most profound philosopher. It is what Freud calls "the desire to be great". The deepest principle in human nature is the craving to be appreciated.
@@ -66,8 +86,6 @@ Understanding that not all people are the same and that they are driven by diffe
   - A carrot and stick (reward and punishment) policy is effective in routine, mechanical work, but actually reduces performance in the context of knowledge work. Rewarding efforts as opposed to outcomes taps into the intrinsic motivations of people encouraging them to take risks and innovate and be okay with failure.
   - >*If you want people to be truly engaged in your vision give them **autonomy, mastery and purpose*** - Daniel Pink
   
-### Engage and build trust
-
 To become genuinely interested in other people and gain their trust, you have to go beyond the small talk and have meaningful conversations keeping their interests in mind.
 
 - Skip the small talk, start with personal questions. Move from **How are you** to **Who you are** conversations. So instead of asking
@@ -91,27 +109,12 @@ To become genuinely interested in other people and gain their trust, you have to
 - Adopt **active listening**. When people come to you with a problem, your instinct may be is to give them a solution right away. Sometimes a deeper issue might need to be uncovered by just listening and letting the other person speak. To surface the underlying issue you can adopt the [labels and mirrors](https://blog.blackswanltd.com/the-edge/7-negotiation-techniques-for-introverts) technique or just say *Tell me more*
   > *Listen to listen not to reply*
 
-### Getting your message across
-
-- Whether you are a newspaper journalist, a politician or a rapper we are all trying to do the same thing. It is to get your message across. So the why, what, how and now what of your message becomes crucially important, however the primary focus ought to be on the **why** of your message.
-- Get your message across. *You haven't taught until they have learnt*. Seek confirmation that the words you say are well understood. Willingness to repeat will ensure your message lands.
-- Know your audience. People in position of responsibility will check your confidence in your decisions. In order to get to the facts, they will often dig deep, sometimes through confrontation. If you are pitching an idea to senior leadership, they are probably going to be most interested in the **why and now what** (cost, timeline, resource required and the customer impact) of your message.
-  - Preempt the question. Get in there first before any obvious questions are asked.
-  - In a *yes/no* decision come to 0 to 100% position e.g. *Based on our fact finding exercise and the data collected we are 100% sure of our recommendations*
-  - On discovering new information (e.g. Organization restructure plan), **bounce a question back**, e.g. *So what impact would the organization restructure have on the project teams?*
-  - Get back with an answer in case of an unknown. Mention the **process** you will follow to get the answer. Give an indicative answer to manage expectations. *In our experience ...*
-  - Bounce a question back. Have you set out a budget for this piece of work?
-- Using humour to put your point across can be effective communication strategy in certain situations. Avoid plagiarizing but use inspiration.
-- Consider the impact of body language and non verbal communication on your message. This requires you to be fully present and be mindful of not only the thoughts but also the emotions around you.
-  - Closed positions like crossed arms represent defensiveness
-  - Open hands and hand movements while speaking represent confidence
-  - Eye movements give out a lot about whether you are being listened to or ignored
-
 ## Influence
 
 - Why should anyone listen to you? Reflect on your level of influence and where it comes from
-  - Genuineness?
-  - Confidence with clarity?
+  - Position of power? - you are in a position of responsibility, someone whom people look up to provide direction
+  - Genuineness? - you are trust worthy and can be relied upon
+  - Expertise that gives you confidence and clarity? - you are someone who knows what they are doing
 - You cannot win an argument - Avoid proving someone wrong, even if they are. Let them have their moment of authority and deflect the conversation onto something positive. Conflict can be seen as 'influence failed'. Remember - *Conflict is **not** about **you***
   - Change people without giving offense or arouse resentment. Always **talk about your own mistakes first**. If you have made a mistake, admit that you're wrong and do it emphatically rather than defending yourself. *Dale Carnegie* suggests you own your mistake and vent how terrible the mistake was so you deflate the other person's anger.
     > *The only way I can get you to do anything is by giving you what you want*
@@ -135,7 +138,7 @@ To become genuinely interested in other people and gain their trust, you have to
 
 - Motivation techniques
   - Inspire commitment via extrinsic and intrinsic motivation techniques. Carrot and stick (extrinsic reward & punishment) has a limited effect when dealing with people.
-  - The deepest human urge is the desire to be important and great and the desire to belong. Give people what they most desire:
+  - The deepest human urge is the desire to feel valued (importance) and be part of something larger than themselves (community). Give people what they most desire:
     - Recognition - arouse enthusiasm amongst others. Be hearty in your approbation and lavish in our praise.
     - Clarity about your beliefs and values gives you a purpose. Ability to clearly communicate your vision and repeat it often can rally others behind your cause. Letting people operate at a level where they are stretched but not stressed, leads to mastery.
 
