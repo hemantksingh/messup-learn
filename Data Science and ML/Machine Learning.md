@@ -83,12 +83,25 @@ Mitigates the vanishing gradient problem
 ## ML Cloud APIs
 
 * Speech API - convert speech to a transcript (text)
-* Natural Language API - analyse the text
-    * Extract entities (nouns) from the text
-    * Sentiment analysis, analyse syntax
+* Natural Language Processing (NLP) API - textual analysis
+  * Extract entities (nouns) from text
+  * Sentiment analysis
 * Translate API - Google Translate is used by Air B&B to translate postings and reviews submitted in languages other than English.
 * Neural Machine Translation - NY times
 
-## Python ML Libraries
+### Data transformation
 
-![python-ml-libraries.png](../Images/python-ml-libraries.png "Python ml libraries")
+Data transformation is a process of cleaning/preprocessing and transforming the raw data into meaningful information for AI algorithms. This ensures that AI models can learn effectively and produce accurate results without any abnormalities. Tools available for data transformation include:
+
+* Use either Python libraries like `Pandas` (data frames), `NumPy` (scientific computing), `Matplotlib` (2d plotting), or R for data statistical analysis to clean the noisy data you have collected.
+* Use libraries like `Scikit-learn` to perform preprocessing functions on the data, such as scaling and encoding or normalisation, while the TensorFlow Data API is great for building data pipelines.
+* For supervised learning model development, you would require annotated data. Labelbox, Dataloop, or custom Python libraries are just some examples of data labelling programmes that can generate labelled datasets very effectively.
+* Use libraries like `Albumentations` for image data augmentation or NLP augmentation tools for text data to increase model performance.
+
+Keep track of when the data changes or is updated. Use repositories such as DVC (Data Version Control) or Git LFS turnover to manage version control and ensure reproducibility
+
+### Insuring Data Quality
+
+Data quality is one of the main factors that contribute to the successful deployment of ML. The better the data, the more efficient the models are to produce accurate and reliable responses. Ensuring data quality involves rigorous validation, consistent updating and thorough vetting of data sources to eliminate errors and biases.
+
+Poor-quality data can lead to inaccurate models and misguided outcomes, undermining the potential benefits of AI.Therefore, it’s crucial to implement data quality management measures to use AI/ML systems more efficiently and securely.

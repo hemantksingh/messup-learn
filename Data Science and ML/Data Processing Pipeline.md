@@ -19,7 +19,9 @@ However if you are working in low latency scenarios where processing results in 
 
 As opposed to working with stored data, stream processing allows you to process the data as it arrives in real time e.g. while streaming audio/video content - the binary content is transmitted over the wire and processed in real time to be rendered for consumption.
 
-### Data ingestion and transformation tools
+### Data ingestion and transformation
+
+Data transformation enables raw data to be converted into a format that can be used in data analytics and AI applications.
 
 Logstash started out as a log aggregator for parsing text based files but has evolved into a [powerful data processing tool]( https://opensource.com/article/17/10/logstash-fundamentals) for data ingestion and transformation (aggregation, filtering and enrichment). At the core it is an ETL tool that can be configured to stream and transform multiple data sources into Elastic Search and [send data to over 70 O/Ps](https://www.elastic.co/blog/archiving-your-event-stream-with-logstash) including S3 buckets.
 
