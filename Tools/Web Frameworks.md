@@ -31,16 +31,46 @@ A hybrid rendering can significantly optimise SEO, performance, and user experie
 
 ### Micro-Frontend Impact
 
-- Micro frontends can lead to complexity in SSR content 
-  - Because each micro frontend might need to call its own backend API, coordinating these calls during SSR can lead to performance bottlenecks. For instance, a product listing micro frontend calling its service while an authentication micro frontend also fetches user data can increase the total server response time.
-  - To mitigate this, SSR-based micro frontends should be carefully managed to avoid redundant data fetching, possibly by consolidating backend calls through an orchestrator or using a shared data layer
-  - An orchestrator (such as a composition layer on the server) is often necessary to render the final HTML by combining outputs from each micro frontend. This composition layer must manage the layout, hydration, and routing of each micro frontend, adding a layer of complexity to SSR-based micro frontend applications.v
-- CSR aligns well with micro frontend architectures, as each micro frontend can independently handle its client-side logic, making it ideal for interactive and user-specific content (e.g., cart, checkout, account pages).
-  - Each micro frontend can be loaded asynchronously, reducing the initial bundle size and improving initial load performance. This approach also enhances modularity, allowing teams to update micro frontends independently.
-  - Since CSR renders the content in the browser, each micro frontend must handle data loading on the client side, which can impact performance if not optimized with lazy loading, caching, or background data fetching
-- SSG works well with micro frontends because it allows each micro frontend to be pre-rendered independently, making it easy to generate static content for parts of the application that don’t change often, such as product detail pages, blog posts, or FAQs.
-  - With micro frontends, each part of the site can be re-deployed independently, making it easier to apply incremental static generation (e.g., only regenerate product details that were updated) to each micro frontend.
-  - SSG micro frontends are well-suited to be served from a CDN, providing fast, cached responses for static content like product pages or marketing content, boosting load times across regions.
+In a composite SSR front-end (monolithic approach)
+
+- Centralized Data Fetching: the server makes a single backend call to fetch all the necessary data for the entire page
+- Shared Context: Since the rendering logic for the entire page is centralized, the same context (e.g., user session, configuration) can be reused across components, avoiding redundant data fetching.
+
+Micro front ends can lead to complexity in SSR content caused by separate server-side rendering for each micro front-end and the need for multiple backend calls to fetch data. In a micro front-end setup, each micro front-end is a self-contained unit, often built and deployed independently by different teams. During SSR, each micro front-end:
+
+- Needs to fetch its own data: Each unit typically makes separate calls to backend services to fetch the data it needs for rendering.
+- Renders separately: The rendering logic for each micro front-end is executed independently on the server.
+
+Implications
+
+- Increased Latency: Each micro front-end's server-side rendering step introduces latency, especially if data fetching involves multiple external API calls. These calls are not coordinated or optimized.
+- Duplication of Effort: If multiple micro front-ends require similar data (e.g., user details or session information), the same data might be fetched multiple times, leading to inefficiency.
+- Complexity in Orchestration: A composition layer is typically required to stitch together the rendered outputs of individual micro front-ends into a single HTML response. This orchestration adds overhead.
+Errors or delays in one micro front-end can impact the entire page rendering.
+
+CSR aligns well with micro frontend architectures, as each micro frontend can independently handle its client-side logic, making it ideal for interactive and user-specific content (e.g., cart, checkout, account pages).
+
+- Each micro frontend can be loaded asynchronously, reducing the initial bundle size and improving initial load performance. This approach also enhances modularity, allowing teams to update micro frontends independently.
+- Since CSR renders the content in the browser, each micro frontend must handle data loading on the client side, which can impact performance if not optimized with lazy loading, caching, or background data fetching
+
+SSG works well with micro frontends because it allows each micro frontend to be pre-rendered independently, making it easy to generate static content for parts of the application that don’t change often, such as product detail pages, blog posts, or FAQs.
+
+- With micro frontends, each part of the site can be re-deployed independently, making it easier to apply incremental static generation (e.g., only regenerate product details that were updated) to each micro frontend.
+- SSG micro frontends are well-suited to be served from a CDN, providing fast, cached responses for static content like product pages or marketing content, boosting load times across regions.
+
+## Progressive Web Apps (PWA)
+
+PWAs provide **app like experience** directly in browser using standard HTML, CSS and JavaScript. It combines the reach of the web with the functionality of a native app. PWAs offer capabilities such as offline access, push notifications, and installability using technologies like:
+
+- Service Workers: A JavaScript file running in the background that intercepts network requests, enables offline support, and caches resources.
+- Web App Manifest: A JSON file that provides metadata (e.g., app name, icons, and start URL) to make the app installable and configurable.
+
+Limitations
+
+- Initial Load Overhead: PWAs often ship larger JavaScript bundles to support their app-like behavior. This can slow down initial page loads compared to static or server-rendered pages.
+- JavaScript Dependency: Search engines like Google can render JavaScript-heavy PWAs, but rendering can take longer compared to static or server-rendered content. For less sophisticated crawlers, JavaScript dependencies in PWAs may result in incomplete or delayed indexing of content.
+- Attack Surface: While PWAs run in secure environments, misconfigurations (e.g., in service workers or caching policies) can lead to vulnerabilities such as serving stale or insecure content.
+- No Native App Sandboxing: Unlike native apps, PWAs do not have access to native sandboxing mechanisms for OS-level security.
 
 ## jQuery
 
