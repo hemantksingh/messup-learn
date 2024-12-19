@@ -104,10 +104,22 @@ The tools you use for data analysis and processing defer depending upon the type
   * allows users to find and publish data sets, explore and build models in a web-based data-science environment, work with other data scientists and machine learning engineers, and enter competitions to solve data science challenges  
   * offers a no-setup, customizable, Jupyter Notebooks environment for data analysis
 
-* GPUs on demand for ML workloads
-  * Unlike CPUs which consists of a few cores optimized for sequential serial processing, GPUs have a massively parallel architecture consisting of thousands of smaller, more efficient cores optimized for taking huge batches of data and performing the same operation over and over very quickly
-  * GPUs have thousands of compute cores and when coupled with lightning fast memory access they accelerate machine learning, gaming, database queries, video rendering and transcoding, computational finance, molecular dynamics and many other applications
-  * With GPUs in the cloud, your calculation-heavy applications can be scaled on elastic GPU clusters without building this into your own data centre
+#### Amazon SageMaker AI
+
+Unlike CPUs which consists of a few cores optimized for sequential serial processing, GPUs have a massively parallel architecture consisting of thousands of smaller, more efficient cores optimized for taking huge batches of data and performing the same operation over and over very quickly.
+
+* GPUs have thousands of compute cores and when coupled with lightning fast memory access they accelerate machine learning, gaming, database queries, video rendering and transcoding, computational finance, molecular dynamics and many other applications
+* With GPUs in the cloud, your calculation-heavy applications can be scaled on elastic GPU clusters without building this into your own data centre
+
+Sagemaker HyperPod can maximize compute resource utilisation for model training, fine tuning and inference. It can dynamically allocate inference GPUs to training models when they are not being utilised e.g. during the night. 
+
+#### Bedrock
+
+* Choose the best model
+  * AI21Labs, amazonm Anthropic, Cohere, Meta, Minstral AI, stability.ai, Luma AI, poolside.ai - specifically for software engineering
+  * AI/
+* Apply safety and responsible AI checks
+* Build and orchestrate agents
 
 ### Data warehousing
 
