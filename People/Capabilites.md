@@ -1,11 +1,15 @@
 # Capabilities
 
-## Engineering Lead
+## Engineering Leadership
 
-* Deliver value - financial, operational, sustainability, employee, customer and employee benefit, not just technical expertise
-* Have an inward (efficiency) and outward (effectiveness) focus. Work with groups and communities in the wider org to inform thinking and theirs, build shared understanding and colaborate
-* Create and attract talent geared towards your culture, upskill
-* Tool and techniques - modern not trendy. Encourage open-source contributions where appropriate. Responsible for encouraging, curating and publicising the open-source contributions
+* Value focussed not just technical expertise
+ * financial: increase revenue, go to market fast w/o cutting corners 
+ * operational: reduce cost w/o hurting performance
+ * sustainability
+ * customer and employee benefit
+* Inward focus for improving efficiency - are you building things right? Outward focus (effectiveness) - are you building the right thing? Work with groups and communities in the wider org to inform thinking, visualise - build shared understanding (value stream mapping), eliminate (undue process), simplify, standardise and automate 
+* People: Create and attract talent geared towards your culture and ways of working
+* Tool and techniques: modern not trendy. Fit for purpose in your context? Open-source contributions where appropriate.
 
 ## Architect
 
