@@ -4,6 +4,8 @@ There are two ways of programming computer systems. The traditional way is by de
 
 Given a dataset, machine learning is used to make sense of  data by finding patterns in the data. Patterns could be found by a human just looking at the data if the dataset is small or by using an **algorithm** e.g. linear regression `y = mx + b` to fit points to a line. The values of `m` and `b` are derived mathematically using an algorithm to best fit the line, thus giving you a **model** like `y = 10x + 4` that can recognize patterns. Applications can then supply new data to the model to see if the new data matches this known pattern based on the value of `m` and `b`.
 
+A model is a mathematical relationship derived from data that an ML system uses to make predictions.
+
 Algorithms are designed to be efficient. Being fully efficient, always doing what you are told, always doing what you are programmed to do is not always the most human thing to do. Sometimes its disobeying, sometimes its saying "No I'm not gonna do this". If you automate everything and the algorithms do what they are supposed to do, sometimes it can lead to very inhumane things.  
 
 ## Machine learning and data science
@@ -41,9 +43,9 @@ e.g.
 
 ## Unsupervised
 
-Most data is unstructured, complex and unlabelled (with no available class information), so we do not always have the privilege of classification based on labelled data. In unsupervised learning, groups of data that share the same traits are identified. The data model gets no feedback, it has to figure out the structure of the data by itself to perform a given task. This is harder to do but more convenient.
+A supervised approach is given data that contains the correct answer. The model's job is to find connections in the data that produce the correct answer. An unsupervised approach is given data without the correct answer. Its job is to find groupings in the data. In supervised learning the model can get feedback on the predicted value because expected input/output pairs are present, but in the unsupervised approach the model does not get any feedback at all, it has to figure out the structure of the data by itself to perform a given task.
 
-In supervised learning you can get feedback at every move because expected input/output pairs are present, but in the unsupervised approach you do not get feedback at all.
+Most data is unstructured, complex and unlabelled (with no available class information), so we do not always have the privilege of classification based on labelled data.
 
 **Clustering** is an unsupervised machine learning technique. Data is grouped into a cluster: a group where all group members are similar in nature in some way and members of one cluster are dissimilar to the members of another cluster. e.g. *gene cluster*. Clustering can be very helpful with unlabelled data. It is used in applications like
 
