@@ -1,6 +1,6 @@
 # HTTP Cookies
 
-An [HTTP cookie](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies) is a small piece of data that a server sends to the user's web browser. It is typically used to tell if two requests came from the same browser because the underlying HTTP protocol is stateless. Each request from your browser is completely separate from the next one, so the server needs a way to keep track of what request belongs to what visitor. By storing a small bit of information in a cookie, the web site can determine that your page view belongs to your user account.
+An [HTTP cookie](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies) is a small piece of data that a server sends to the user's web browser. Because the underlying HTTP protocol is stateless, it is typically used to tell the server if two requests came from the same browser. The stateless nature of HTTP means, each request from your browser is completely separate from others, so if the server needs a way to keep track of what request belongs to what visitor, it does so by storing a small bit of information in a cookie.
 
 Cookies mainly used for three purposes: help the user in providing a much more targeted and customized experience tailored to the user. Like
 
@@ -15,24 +15,25 @@ A web server specifies a cookie to be stored by sending an HTTP header called Se
 
 ## Cookie restrictions
 
-Cookies can have security and privacy implications for the user.
-
-There are a number of restrictions placed on cookies in order to prevent abuse and protect both the browser and the server from detrimental effects
+Cookies can have security and privacy implications for the user. There are a number of restrictions placed on cookies in order to prevent abuse and protect both the browser and the server from detrimental effects
 
 * Only a limited number of cookies are available for each domain. IE 8 has a maximum of 50 cookies per domain as. Firefox also has a limit of 50 cookies while Opera has a limit of 30 cookies. Safari and Chrome have no limit on the number of cookies per domain.
 * Because cookies are sent with every request, their size should be kept to a minimum. Ideally, only an identifier should be stored in a cookie with the data stored by the app. The maximum size for all cookies sent to the server has remained the same since the original cookie specification: 4 KB. Anything over that limit is truncated and won’t be sent to the server.
 
-There are a couple of ways to ensure that cookies are sent securely and are not accessed by unintended parties or scripts: the `Secure` attribute and the `HttpOnly` attribute.
+To ensure that cookies are sent securely and are not accessed by unintended parties or scripts, they can be configured with the following attributes:
 
-### Secure cookies
-
-A cookie with the `Secure` attribute is sent to the server only with an encrypted request over the HTTPS protocol, never with unsecured HTTP, and therefore can't easily be accessed by a man-in-the-middle attacker. Insecure sites (with http: in the URL) can't set cookies with the Secure attribute. However, do not assume that Secure prevents all access to sensitive information in cookies; for example, it can be read by someone with access to the client's hard disk.
-
-### HTTPOnly cookies
-
-An `HTTPOnly` cookie instructs the browser that the cookie should never be accessible via JavaScript through the `document.cookie` property. This feature was designed as a security measure to help prevent cross-site scripting (XSS) attacks perpetrated by stealing cookies via JavaScript. To create an HTTP-only cookie, just add an HttpOnly flag to your cookie:
-
-`Set-Cookie: id=3fdea; Expires=Wed, 21 Oct 2021 20:28:00 GMT; Secure; HttpOnly`
+```javascript
+// Most web servers like Apache, Nginx, IIS, NodeJs.Express have the ability to set cookies
+// Express.js example
+app.use(session({
+    cookie: {
+        // A cookie with the `Secure` attribute is only sent to the server over HTTPS, not with HTTP
+        secure: process.env.NODE_ENV === 'production', // dev environments often use HTTP locally
+        httpOnly: true, // Prevents the cookie being accessible via JS - `document.cookie' cannot read HttpOnly cookies
+        sameSite: 'strict' // Cookie only sent with same-site requests, JS on same domain can still access non-HttpOnly cookies regardless of SameSite
+    }
+})
+```
 
 ## Cookies and advertising
 
@@ -50,5 +51,5 @@ Cookies and local storage serve different purposes. Cookies are primarily for da
 | ---------------- | ----------------------------------------------------------------------------------|-------- |
 | XSS              | Malicious scripts can access data. Malicious JS injection can be prevented by CSP | `HTTPOnly` prevents JS access, limiting XSS attacks |
 | SessionFixation  | Bound to a single origin                                                          | Can be bound to a single origin by using `SameSite`, however can still be sent to subdomains, meaning requests from `login.mysite.com` to `cdn.mysite.com` would be considered a same-site request. It relies on the fact that wildcard cookies can be set by a subdomain and, that those cookies may affect other subdomains|
-| CSRF             | Not sent by the browser with each HTTP request, therefore do not require CSRF protection | Mainly server bound, all cookies for a domain are sent by the browser with HTTP requests to the server, therefore require CSRF protection |
+| CSRF             | Not sent by the browser with each HTTP request, therefore not applicable | Mainly server bound, all cookies for a domain are sent by the browser with HTTP requests to the server, therefore require CSRF protection |
 | Support          | Not supported by anything before: IE 8, Firefox 3.5, Safari 4, Chrome 4           | Legacy support (it's been around forever) |
