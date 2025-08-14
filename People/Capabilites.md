@@ -2,13 +2,15 @@
 
 ## Engineering Leadership
 
+* Grasp of modern engineering and agile practices - specifically full stack engineering, setting up cross functional teams, influencing ways of working and responsible for driving change
 * Value focussed not just technical expertise
- * financial: increase revenue, go to market fast w/o cutting corners 
- * operational: reduce cost w/o hurting performance
- * sustainability
- * customer and employee benefit
+  * financial: increase revenue, go to market fast w/o cutting corners 
+  * operational: reduce cost w/o hurting performance
+  * sustainability
+  * customer and employee benefit
 * Inward focus for improving efficiency - are you building things right? Outward focus (effectiveness) - are you building the right thing? Work with groups and communities in the wider org to inform thinking, visualise - build shared understanding (value stream mapping), eliminate (undue process), simplify, standardise and automate 
 * People: Create and attract talent geared towards your culture and ways of working
+
 * Tool and techniques: modern not trendy. Fit for purpose in your context? Open-source contributions where appropriate.
 
 ## Architect
