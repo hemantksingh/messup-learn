@@ -11,7 +11,7 @@ Automation is valuable, but not a silver bullet. Automated tests are beneficial 
 
 ## Unit or integration tests ?
 
-Test Driven Development (TDD) is a technique we use for writing automation tests before writing the actual implementation. In order to write effective software do we have to swear by it and treat is as the gospel truth? TDD is often attributed to drive better design in your applications, however does performing TDD automatically lead you to a good design? I am not too sure. In distributed applications that often depend upon external services, message queues, databases and other storage devices to accomplish their goals, there is a key component of good design:
+Test Driven Development (TDD) advocates writing automation tests before writing the actual implementation. TDD is often attributed to drive better design in your applications, however does performing TDD automatically lead you to a good design? In distributed applications that often depend upon external services, message queues, databases and other storage devices to accomplish their goals, there is a key component of good design:
 
 > _Separation of I/O code from domain (Non I/O) code_
 
@@ -23,14 +23,29 @@ Being able to [move I/O code to the edges of your application](https://www.youtu
 * does not have any side effects
 * does not necessarily need to handle exceptions
 
-I have been part of teams where some TDD enthusiasts must insist on adopting testing patterns like writing tests around **units of logic** e.g. *classes and functions* and **mocking** all dependencies other than the unit or subject under test. At this point I try to pose a question: What is the purpose of writing a test - testing a class or fulfilling a business requirement? Classes and functions are implementation details and tests that are tied to implementation or infrastructure tend to break a lot when either of them changes. Therefore it is best to focus on testing application behavior as opposed to implementation. 
+I have been part of teams where some TDD enthusiasts must insist on adopting testing patterns like writing tests around **units of logic** e.g. *classes and functions* and **mocking** all dependencies other than the unit or subject under test. At this point, its worth asking: What is the purpose of writing a test - testing a class or fulfilling a business requirement? Classes and functions are implementation details and tests that are tied to implementation or infrastructure tend to break a lot when either of them changes. Therefore it is best to focus on testing application behavior as opposed to implementation.
 
-* Identify your System Under Test (SUT) that provides a specific business value
-  * Test workflows, not classes
-* Test at the boundaries of a system
-  * No need to test internals
 
-If we find ourselves mixing behavior with I/O it is time to pause and think.
+* BDD encourages you to stop thinking about HOW your software works to start thinking about WHAT your software does. It isn't about tools like `Cucumber` or team collaboration but shifting perspective to focus on observable behaviour of your software from the user's pov. Identify your System Under Test (SUT) that provides a specific business value. 
+
+  * Test workflows not classes
+  * Test behavours not implementation
+  * Test at the boundaries of a system not internals, unless you have implemented a complex algorithm e.g. A loan interest calculator, tax computation, or pricing engine. 
+
+![Testing behaviour](../Images/testing-behaviour.jpg "Testing behaviour")
+
+There could  cases where enforcing the separation of I/O and non I/O code is either too costly or adds little real value — where you’re better off testing the integration as a whole.  For data intensive applications it maybe better to write an integration test. 
+
+e.g. A report generator that aggregates data from multiple tables using joins, filters, and window functions.
+- You could abstract every query behind a pure interface and test the aggregation logic separately with mock data — but:
+- The SQL itself is often the most fragile and critical part
+- Most bugs arise from mismatches between ORM expectations and actual data.
+- Mocking DB behaviour can become unrealistic and brittle.
+
+While writing integration tests, you may want to mock external services that you don't control, as they could be:
+
+- rate limited which leads to throttling during tests.
+- flaky, external service may be down which leads to test failures.
 
 ### What is a unit test?
 
