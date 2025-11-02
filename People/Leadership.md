@@ -22,16 +22,16 @@ How do you empower others to achieve their best - their true potential? The foun
       - Visionary leadership: This dimension measures the leadership's commitment to fostering a culture of learning and supporting learning initiatives.
 
 - Delegation
-  - Getting results through others requires you to shift from being a player to coach, from doing to leading. Avoid being the bottleneck by taking on too much work yourself, let others take ownership of initiatives where you provide guidance and support.
-  - Set clear expectations and stating expectations once isn't enough. They must be repeated, clarified, and adjusted over time. Can those you lead clearly explain what you expect from them? Many people strive to do a good job, while some may not. Nevertheless, the majority of people find satisfaction in completing their tasks to a high standard.
-  - Putting the team before you. Commit to the success and well-being of the collective team above your individual success.
+  - Getting results through others requires getting to know them. Its always easier to get someone to do something if you have built a rapport with them. Sometimes you may require to be a mentor - you shift from being a player to a coach, from doing to leading and putting the interests of others before you.
+  - Set clear expectations with targets and deadlines. Stating expectations once is seldom enough. They must be repeated, clarified, and if needed, also adjusted over time. Can those you lead, clearly explain what you expect from them? Most people strive to do a good job and find satisfaction in completing their tasks to a high standard. However if they aren't sure of what is expected of them, it can lead to misalignment.
+  - Avoid being the bottleneck by taking on too much work yourself, let others take ownership of initiatives where you provide guidance and support.
+  
 
-- Direction Alignment and Commitment (DAC)
+- Pulling in the same direction - Direction Alignment and Commitment (DAC)
   - There are a couple of ways to think about DAC:
     - Push mode, where your are may use your influence and try to set expectations across the board and getting everyone to pull in the same direction. 
-    - Pull mode, where you seek information from your team and synthesise the information to agree on a set of principles that everyone buys into and has a shared understanding of. This allows decisions to be made objectively. In case personal motivations of individuals do not align the principles can be revisited and revised so that they work for everyone. For those that aren't willing to come on the journey with you, a safe way out needs to be considered.
-  - Questions about goals, priorities and measures of success are key in determining the team direction.
-  - A good way to gauge the commitment levels of a team is to get a confidence score on a proposal for example at the end of a meeting.
+    - Pull mode, where you seek information from your team and synthesise the information to agree on a set of principles that everyone buys into and has a shared understanding of. This allows decisions to be made objectively. In case personal motivations of individuals do not align the principles either the principles need readjusting or individual performance management is required, so that this works in the best interst of the team. For those that aren't willing to come on the journey with you, a safe way out for them needs to be considered.
+  - Team goals, priorities and measures of success are key in determining the team direction. Think [OKRs](https://dannorth.net/blog/applying-okrs/). A good way to gauge the commitment levels of a team is to get them to come up with team objectives and confidence in meeting them.
 
 - Self awareness
   - requires gaining your own perspective and how you come across to others  
