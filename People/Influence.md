@@ -66,7 +66,7 @@ The key thing to consider before going into a discussion is whether you are goin
 
 ## Adapt to situations
 
-> *Its **not** about **you**, its about the cause bigger than you*
+> *Its **not** about **you**, its about the mission, that is bigger than you*
 
 * Adjust your goals to avoid resistance, stepping on other's toes is never a good idea especially in its early stages.
   

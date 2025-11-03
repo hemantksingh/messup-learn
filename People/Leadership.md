@@ -1,14 +1,14 @@
 # Leadership
-
-How do you empower others to achieve their best - their true potential? The foundations of strong leadership revolve around seeing others get better and seeking satisfaction in other people's success.
+The foundations of strong leadership is in seeing others get better and helping them succeed. How do you empower others to achieve their best - their true potential? 
 
 - Culture - Creating the environment for others to succeed
   - Lead by example
     - Culture is not about what you say, its about what you do. Great leaders don't just talk culture, they embody it, authentically.
     - In *The Corporate Culture*, Schien defines culture as a "pattern of shared tacit assumptions that was learned by a group as it solved its problems of external adaptation and internal integration,that has worked well enough to be considered valid and therefore, to be taught to new members as the correct way to perceive, think and feel in relation to those problems." You can let your teams culture emerge or be explicit about it by encouraging specific behaviors that
-  - Create purpose - the yearning to do something larger than ourselves.
+  - Create purpose 
+    - People have the yearning to do or be part of something larger than themselves. Can you help create opportunities for others to be part of something bigger or make them realise the importance of their work and the impact it can have?
   - Establish safety and openness
-    - get to know each other: background, goals, fun, strengths, weaknesses
+    - get to know others: background, goals, fun, strengths, weaknesses
     - discourage blame e.g. are people given the autonomy to act and trusted to take risks? Is failure punished or does it lead to enquiry and improvements of our systems?
     - say no to talented jerks - scientific experiments have shown jerks diminish a team's performance by 30-40%
   - Establish vulnerability - As a leader the most important thing that you can say to your team is - *I messed up* or *I need help to achieve x*
@@ -58,7 +58,7 @@ Being able to communicate effectively is a key trait of a good leader.
 
 ### Getting your message across
 
-- Whether you are an executive, a journalist, a politician or a rapper we are all trying to do the same thing - getting our message across. Therefore the why, what, how and now what of your message becomes crucial, however the primary focus ought to be on the **why** of your message.
+- Whether you are an executive, a journalist, a politician or a rapper we we all want to be heard. Therefore the why, what, how and now what of your message becomes crucial, however the primary focus ought to be on the **why** of your message.
 - Know your audience. People in position of responsibility will check your confidence in your decisions. In order to get to the facts, they will often dig deep, sometimes through confrontation. If you are pitching an idea to senior leadership, they are probably going to be most interested in the **why and now what** (cost, timeline, resource required and the customer impact) of your message.
   - Preempt the question. Get in there first before any obvious questions are asked.
   - In a *yes/no* decision come to 0 to 100% position e.g. *Based on our fact finding exercise and the data collected we are 100% sure of our recommendations*
@@ -120,7 +120,7 @@ To become genuinely interested in other people and gain their trust, you have to
     > *The only way I can get you to do anything is by giving you what you want*
   - When disagreeing with someone **make your point in a general sense**. Tackle the problem rather than the individual. Rejection of a viewpoint results in anger and pain
   - Rather than saying *"No, the Community of Practice is a something that cannot be done away with"*, say something like
-    >*Whilst commercials of the business are of great importance, in order to drive new thinking and engage people it is important for them to get together and align on shared values and goals*
+    >*Whilst commercials are hugely important, in order for people to feel engaged and drive new thinking it is important for them to get together, share experiences and learn from each other. This drives alignment organically and it doesn't feel enforced*
 
 - [Influencing others](./Influence.md) requires you to build relationships and network for supporting your initiatives. Explore how you can engage and include others in the early stages of your initiative to get their buy-in and support
 - You can communicate the risks and benefits of a particular approach e.g. I'd recommend you not going down that route, would be delighted to be proven wrong. Even if your recommendation is not accepted, it is still better to offer support and assurance to be there in case things do not work out
