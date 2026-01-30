@@ -6,7 +6,7 @@ The foundations of strong leadership is in seeing others get better and helping 
     - Culture is not about what you say, its about what you do. Great leaders don't just talk culture, they embody it, authentically.
     - In *The Corporate Culture*, Schien defines culture as a "pattern of shared tacit assumptions that was learned by a group as it solved its problems of external adaptation and internal integration,that has worked well enough to be considered valid and therefore, to be taught to new members as the correct way to perceive, think and feel in relation to those problems." You can let your teams culture emerge or be explicit about it by encouraging specific behaviors that
   - Create purpose 
-    - People have the yearning to do or be part of something larger than themselves. Can you help create opportunities for others to be part of something bigger or make them realise the importance of their work and the impact it can have?
+    - People have the yearning to do or be part of something larger than themselves. Can you create opportunities for others to be part of something bigger or help them realise the importance and impact of their work?
   - Establish safety and openness
     - get to know others: background, goals, fun, strengths, weaknesses
     - discourage blame e.g. are people given the autonomy to act and trusted to take risks? Is failure punished or does it lead to enquiry and improvements of our systems?
@@ -14,15 +14,10 @@ The foundations of strong leadership is in seeing others get better and helping 
   - Establish vulnerability - As a leader the most important thing that you can say to your team is - *I messed up* or *I need help to achieve x*
   - Keep the culture alive (culture capture) 
     - seek and provide constructive feedback. What excites them, what frustrates them, what is their biggest challenge? 
-    - surveys and questionnaires to measure e.g. Dimensions of Learning Organizations Questionnaire (DLOQ) is a tool designed to assess the following five dimensions of a learning organization:
-      - Continuous learning: This dimension measures an organization's commitment to ongoing learning and improvement through training, development, and knowledge sharing.
-      - Participative decision making: This dimension assesses the degree to which employees are involved in decision making processes and encouraged to contribute their ideas and expertise.
-      - Team learning: This dimension measures the extent to which teams collaborate and share knowledge to achieve common goals.
-      - Embedded systems for learning: This dimension assesses the presence and effectiveness of systems and processes within the organization to support learning and knowledge sharing.
-      - Visionary leadership: This dimension measures the leadership's commitment to fostering a culture of learning and supporting learning initiatives.
-
+    - surveys and questionnaires e.g. Dimensions of Learning Organizations Questionnaire (DLOQ) - a tool developed to measure an organization's learning culture and its ability to adapt to change
+      
 - Delegation
-  - Getting results through others requires getting to know them. Its always easier to get someone to do something if you have built a rapport with them. Sometimes you may require to be a mentor - you shift from being a player to a coach, from doing to leading and putting the interests of others before you.
+  - Getting results through others requires getting to know them. Its always easier to get someone to do something if you have built a rapport with them. It can mean being a mentor, being an active listener - can people come to you and express themselves openly? You shift from talking to listening, doing to leading,  from being a player to a coach, and putting the interests of others before you.
   - Set clear expectations with targets and deadlines. Stating expectations once is seldom enough. They must be repeated, clarified, and if needed, also adjusted over time. Can those you lead, clearly explain what you expect from them? Most people strive to do a good job and find satisfaction in completing their tasks to a high standard. However if they aren't sure of what is expected of them, it can lead to misalignment.
   - Avoid being the bottleneck by taking on too much work yourself, let others take ownership of initiatives where you provide guidance and support.
   
@@ -49,7 +44,7 @@ The foundations of strong leadership is in seeing others get better and helping 
   - Ability to "process on the fly" and pull together disparate bits of information
   - Seeking for new, challenging learning opportunities.
   - Sense making is an ongoing dialogue used to gain insight from the situation.
-  - Internalizing happens through getting feedback and reflecting.
+  - Internalising happens through self reflection and seeking feedback.
   - Applying is trying to map previous experience to new situations by adapting.
 
 ## Communication

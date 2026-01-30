@@ -2,6 +2,8 @@
 
 ## Engineering Leadership
 
+Can you thrive in ambiguity? Figure stuff out, define the problem correctly and then solve it?
+
 * Grasp of modern engineering and agile practices - specifically full stack engineering, setting up cross functional teams, influencing ways of working and responsible for driving change
 * Value focussed not just technical expertise
   * financial: increase revenue, go to market fast w/o cutting corners 
@@ -52,12 +54,15 @@ Someone who can work within organizations to bring **people, processes and produ
 
 ## Software Engineer
 
-Some competencies to look out for:
+Competencies to look out for:
 
-* Ability to sell your ideas e.g. get buy-in for tech debt
-  * provide solid building blocks for rapid delivery
-  * reduce the number of support issues in a particular area of the code
-* Working in the open - demonstrate progress transparently
+* Bias for action - self starters
+* Communicate effectively - do they have a clear mind, and the ability to simplify a complex topic and explain it clearly to get someboday else on the same page as them?
+  * Take a few minutes to think about something that you are an expert in, does't matter what it is, and explain it to me.
+  * Ability to sell your ideas e.g. get buy-in for tackling tech debt
+    * provide solid building blocks for rapid delivery
+    * reduce the number of support issues in a particular area of the code
+  * Working in the open - demonstrate progress transparently
   * able to switch from individual contributor to collaborate with the wider team
   * run demos and share progress with others
 
@@ -85,6 +90,29 @@ Some competencies to look out for:
 * CICD - branching techniques, impact of frequent releases, feature toggling, blue green deployments
 * REST APIs - significance of REST interface, idempotent operations, authentication techniques
 * DBs - relational and non-relational DB trade offs
+
+### Collaboration and leadership
+* Lead - challenge status quo
+* Change and Transform - collaborate to improve processes and drive change within the team
+* Governance and Control - understanding of risk and quality
+
+### Technical Execution
+Navigating code base - solving complex problems
+Digital and Transformation - 
+
+### Stakeholder management
+  Commerical acument
+  strategic thinking
+  change and transformation - drive 
+
+
+Collaboration: All types of involvement contribute to collaboration with peers.
+Impact: Community involvement benefits both individuals and the community, fostering better decision-making, wellbeing, and education. While attendance is essential, it’s not sufficient for significant impact. 
+Organised: This involves actively planning, coordinating, or leading community events, projects, or initiatives. Organizers contribute significantly by bringing people together and driving positive change1.
+Supported / Advised / Mentored: These roles focus on providing guidance, assistance, and mentorship to others. Whether it’s advising on best practices, mentoring newcomers, or offering support, these actions contribute to community growth and development1.
+Presented at: Presenting at community events, workshops, or conferences showcases expertise and knowledge sharing. It fosters learning and encourages engagement with peers.
+Attended: While attending community gatherings is valuable for networking and exposure, it alone may not have a substantial impact. However, it’s an essential part of community engagement and collaboration.
+Attended and applied some learning: Applying what’s learned from community events or workshops is crucial. It demonstrates practical application and reinforces the value of attendance.
 
 ## Fact finding
 
@@ -119,3 +147,4 @@ To get someone talking, it is a good idea to keep the discussion informal. Howev
   * architecture decisions
   * automation focus
 * While seeking answers to your questions you can provide specific examples of your current environment that maybe a good fit for the candidate to gauge their interest
+

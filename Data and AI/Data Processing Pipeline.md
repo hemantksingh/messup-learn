@@ -53,3 +53,12 @@ Elasticsearch is trying to achieve widespread adoption in the data science indus
 Fluentd has built in reliability for persistence across restarts and has a configurable in-memory or on-disk buffering system while [Logstash is limited to an in-memory queue](https://platform9.com/blog/kubernetes-logging-comparing-fluentd-vs-logstash) that holds 20 events and, therefore, relies on an external persistence, like Redis.
 
 [Logstash can have performance issues](https://logz.io/blog/filebeat-vs-logstash/), it requires JVM to run, and this dependency coupled with the implementation in Ruby became the root cause of significant memory consumption, especially when multiple pipelines and advanced filtering are involved.
+
+
+## Data visualization
+
+**Celonis**: Used for process intelligence and visualization, currently applied in areas like fraud and Customer Due Dilligence (CDD). It can provide process views and some simulation capabilites
+
+**Camunda**: A rules engine that operattes on BPMN (Business Process Model and Notation), considered for orchestration and state management across customer journeys. 
+
+**IBM Blueworks**: Used for modelling process in BPMN, which can then be integrated with Camunda for execution and state management.

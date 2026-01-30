@@ -79,6 +79,12 @@ For testing REST APIs with outside-in tests exploiting BDD test narratives, in t
  * <http://dareid.github.io/chakram/>
  * <https://github.com/apickli/apickli>
 
+## Test Data Management
+Repeatable across environments
+Environment agnostic tests - for scenarios where dynamic data generation is challenging, employ pattern matching for result validation in automation tests instead of relying on specific data values
+
+
+
 ## Performance testing
 
 ### Defining Performance Needs 
