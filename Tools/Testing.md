@@ -4,10 +4,17 @@ In [this post](https://dannorth.net/2021/07/26/we-need-to-talk-about-testing) ab
 
 Automation is valuable, but not a silver bullet. Automated tests are beneficial in achieving repeatability and quick feedback but effective testing strategies should encompass a variety of approaches, including manual testing and exploratory testing and integrating testing throughout the development process, not just as a separate final stage.
 
+* **Shared Responsibility Model** where both parties (Dev and QA) own quality throughout the lifecycle. They participate in reviewing test results, fixing "flaky" tests, and identifying cross-system dependencies. In this model, developers write and maintain automated tests for new features, while QA professionals act as "quality advisors" not "**gate keepers**" who focus on risk, strategy, and complex exploratory testing.
+ * Roles and Responsibilities in Automated Testing
+   * Developers: Responsible for unit tests, integration tests, and maintaining the stability of the build. They are increasingly expected to write functional UI tests for the features they implement.
+   * QA/SDETs: Minimal manual execution, focusing on automation engineering, designing test strategies, building the test harness, managing data, and ensuring end-to-end coverage.
 * **Automated testing as part of CI/CD**: Write automated tests that are independent of the environment that they run in. To reduce the risk of environment-specific bugs, tests should be able to run in a development environment and in a CI/CD pipeline.
+* **Test Data Management** Repeatable across environments with a well established base data set. Implement **environment agnostic tests** - for scenarios where dynamic data generation is challenging, employ pattern matching for result validation in automation tests instead of relying on specific data values
 * **Fast feedback loop**: Strive for quick execution times for automated tests to provide immediate feedback and prevent long regressions.
 * **Independent tests**: Instead of testing your entire stack as one giant block, focus on testing components that fulfil a specific business functionality. The test boundaries should align with the your business domains and the external dependencies should be mocked.
 * **Measure test automation and effectiveness**: Track automation coverage by measuring the number of test cases automated and identify areas for improvement. Monitor the impact of automation on overall quality and defect detection rates.
+
+
 
 ## Unit or integration tests ?
 
@@ -25,12 +32,11 @@ Being able to [move I/O code to the edges of your application](https://www.youtu
 
 I have been part of teams where some TDD enthusiasts must insist on adopting testing patterns like writing tests around **units of logic** e.g. *classes and functions* and **mocking** all dependencies other than the unit or subject under test. At this point, its worth asking: What is the purpose of writing a test - testing a class or fulfilling a business requirement? Classes and functions are implementation details and tests that are tied to implementation or infrastructure tend to break a lot when either of them changes. Therefore it is best to focus on testing application behavior as opposed to implementation.
 
-
-* BDD encourages you to stop thinking about HOW your software works to start thinking about WHAT your software does. It isn't about tools like `Cucumber` or team collaboration but shifting perspective to focus on observable behaviour of your software from the user's pov. Identify your System Under Test (SUT) that provides a specific business value. 
+* BDD encourages you to stop thinking about How your software works to start thinking about What your software does. It isn't about tools like `Cucumber` or team collaboration but shifting perspective to focus on observable behaviour of your software from the user's pov. Identify your System Under Test (SUT) that provides a specific business value, avoiding implementation details. 
 
   * Test workflows not classes
   * Test behavours not implementation
-  * Test at the boundaries of a system not internals, unless you have implemented a complex algorithm e.g. A loan interest calculator, tax computation, or pricing engine. 
+  * Test at the boundaries of a system not internals, unless you have implemented a complex algorithm e.g. A loan interest calculator, tax computation, or pricing engine.
 
 ![Testing behaviour](../Images/testing-behaviour.jpg "Testing behaviour")
 
@@ -78,12 +84,6 @@ Rather than worrying about classifying a test as unit or an integration test, **
 For testing REST APIs with outside-in tests exploiting BDD test narratives, in the Javascript ecosystem, you can consider 
  * <http://dareid.github.io/chakram/>
  * <https://github.com/apickli/apickli>
-
-## Test Data Management
-Repeatable across environments
-Environment agnostic tests - for scenarios where dynamic data generation is challenging, employ pattern matching for result validation in automation tests instead of relying on specific data values
-
-
 
 ## Performance testing
 
