@@ -16,33 +16,32 @@ Downstream use: a knowledge base that agents will read. That adds three requirem
 
 ## Proposed structure
 
-Three areas, two levels. Names are page titles and filenames at the same time.
+Nine topic folders plus cloud/ and practice/, one level deep. Names are page titles and filenames at the same time.
 
 ```
-fundamentals/
-  computing/         Algorithms and Complexity · Code Quality · Functional and Reactive Programming ·
-                     Concurrency Models · The Unix Model
-  networking/        Network Layers · IP Addressing · DNS · Local IPC · TLS · TLS Certificates
-  web and apis/      HTTP · Realtime Web · HTTP Caching · REST · API Styles · Web Performance ·
-                     Rendering Patterns
-  data/              Consistency Models · Choosing a Database · Data Platforms · Data Pipelines ·
-                     Machine Learning
-  messaging/         Messaging Fundamentals · Sagas and Process Managers · Message Brokers ·
-                     Event Sourcing and CQRS · Service Orientation
-  security/          Cryptography Basics · Security Principles and Threat Modelling ·
-                     Browser Security Model · Cross Site Scripting · Cross Site Request Forgery ·
-                     Security Headers · Web Application Risks · Secrets Management ·
-                     Supply Chain and Container Security · Standards and Compliance ·
-                     Data Privacy · Endpoint Security
-  platform/          Containers · Kubernetes · Kubernetes Security · Load Balancing and Proxies ·
-                     Resilience Patterns · Observability · DevOps and Delivery ·
-                     Infrastructure as Code · Configuration Management
+computing/         Algorithms and Complexity · Code Quality · Functional and Reactive Programming ·
+                   Concurrency Models · The Unix Model
+networking/        Network Layers · IP Addressing · DNS · Local IPC · TLS · TLS Certificates
+web and apis/      HTTP · Realtime Web · HTTP Caching · REST · API Styles · Web Performance ·
+                   Rendering Patterns
+data/              Consistency Models · Choosing a Database · Data Platforms · Data Pipelines ·
+                   Machine Learning
+messaging/         Messaging Fundamentals · Sagas and Process Managers · Message Brokers ·
+                   Event Sourcing and CQRS · Service Orientation
+security/          Cryptography Basics · Security Principles and Threat Modelling ·
+                   Browser Security Model · Cross Site Scripting · Cross Site Request Forgery ·
+                   Security Headers · Web Application Risks · Secrets Management ·
+                   Supply Chain and Container Security · Standards and Compliance ·
+                   Data Privacy · Endpoint Security
+platform/          Containers · Kubernetes · Kubernetes Security · Load Balancing and Proxies ·
+                   Resilience Patterns · Observability · DevOps and Delivery ·
+                   Infrastructure as Code · Configuration Management
 cloud/
-  aws/               README (hub) · Identity · Key Management · VPC Networking · Messaging ·
-                     Disaster Recovery · (EKS, if rewritten)
-  azure/             Tenants, Subscriptions and RBAC (incl. network access control)
+aws/               README (hub) · Identity · Key Management · VPC Networking · Messaging ·
+                   Disaster Recovery · (EKS, if rewritten)
+azure/             Tenants, Subscriptions and RBAC (incl. network access control)
 practice/            Testing Strategy · Leadership · Influence and Negotiation · Roles and Hiring ·
-                     Self Awareness
+                   Self Awareness
 images/              16 editable .drawio.svg diagrams (source embedded in the SVG); no rasters
 README.md            index: one line per page
 AGENTS.md            how an agent should read this repo

@@ -2,7 +2,7 @@
 
 Compliance to security standards requires a combination of strong communication protocols, cryptography, hashing and key exchange. Schannel or [secure channel](https://docs.microsoft.com/en-us/windows/win32/secauthn/secure-channel) is a Security Support Provider Interface (SSPI, Win32 API) used by Windows systems to perform security operations for internet applications that require secure HTTP communications. It contains a set of security protocols that provide identity authentication and secure, private communication through encryption.
 
-![windows-schannel.png](../../images/windows-schannel.png)
+![windows-schannel.png](../images/windows-schannel.png)
 
 The Public-Key Cryptography Standards (PKCS) are a set of inter-vendor standard protocols for making possible secure information exchange on the Internet using a [Public Key
 Infrastructure (PKI)](https://www.thesslstore.com/blog/wide-world-pki/) devised and published by the computer and network security company RSA Security LLC. The standards include RSA encryption, password-based encryption, extended certificate syntax, and cryptographic message syntax for S/MIME, RSA's proposed standard for secure e-mail.

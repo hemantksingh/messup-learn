@@ -7,7 +7,7 @@ Choose a datastore by the shape of the workload: how you write, how you read, ho
 * **What is the mix of reads and writes?** A store is usually optimised for one. Reads scale with copies; writes need spreading over machines. Check how the engine handles concurrent writers.
 * **Does the data fit on one machine?** In memory, almost anything is fast. On one disk, a single relational server is the simplest answer. Distribute only when it does not fit.
 * **What are the access patterns?** A few primary key lookups: a key-value store may be enough. Joins and ad hoc questions: you want a query engine. If you have not partitioned on the keys you query by, you load everything and filter in the application.
-* **Do you need authoritative answers, or availability?** Do you need transactions? What is your weird result tolerance? A stale basket count is fine; a stale bank balance is not. Consistency costs coordination, which costs latency and availability ([Consistency Models](../data/Consistency%20Models.md)).
+* **Do you need authoritative answers, or availability?** Do you need transactions? What is your weird result tolerance? A stale basket count is fine; a stale bank balance is not. Consistency costs coordination, which costs latency and availability ([Consistency Models](Consistency%20Models.md)).
 * **How much loss can you tolerate?** Durability means the write is on disk before the server says "committed". Disk is slower than memory, so every store trades here. You could miss some writes to a logging store; you cannot miss an order.
 * **What latency and availability do you need?** How many concurrent users? Can you accept downtime?
 * **What does the team already run well?** A store you can operate at 3 a.m. beats a better fit nobody can debug.
@@ -46,7 +46,7 @@ An aggregate is a natural transaction boundary; these stores update one aggregat
 
 ## Consistency is a dial
 
-"NoSQL trades consistency for scale" is a slogan, not a property. Most of these stores default to eventual consistency and let you turn the dial up per operation: Cassandra lets each read and write say how many replicas must agree; DynamoDB offers strongly consistent reads; Cosmos DB has five levels from strong to eventual; MongoDB has read and write concerns up to majority and linearizable. Turning it up costs latency and availability during partitions ([Consistency Models](../data/Consistency%20Models.md)). Check the default.
+"NoSQL trades consistency for scale" is a slogan, not a property. Most of these stores default to eventual consistency and let you turn the dial up per operation: Cassandra lets each read and write say how many replicas must agree; DynamoDB offers strongly consistent reads; Cosmos DB has five levels from strong to eventual; MongoDB has read and write concerns up to majority and linearizable. Turning it up costs latency and availability during partitions ([Consistency Models](Consistency%20Models.md)). Check the default.
 
 ## Durability
 
@@ -60,7 +60,7 @@ Relational databases do not lack relationships; foreign keys and joins are relat
 
 ## Distributed SQL
 
-Spanner, CockroachDB and YugabyteDB keep the relational model and SQL, partition rows across nodes, and stay strongly consistent by replicating each partition through consensus. Spanner orders transactions globally with TrueTime, backed by GPS and atomic clocks. You pay in commit latency and transaction size limits. Detail in [Consistency Models](../data/Consistency%20Models.md).
+Spanner, CockroachDB and YugabyteDB keep the relational model and SQL, partition rows across nodes, and stay strongly consistent by replicating each partition through consensus. Spanner orders transactions globally with TrueTime, backed by GPS and atomic clocks. You pay in commit latency and transaction size limits. Detail in [Consistency Models](Consistency%20Models.md).
 
 > Own view: if your data can comfortably fit on a single database server, a relational database is a good choice.
 

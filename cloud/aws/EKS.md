@@ -14,11 +14,11 @@ The control plane is always AWS's. Workers come in three forms.
 
 ## Authentication
 
-Kubernetes has no user database. It trusts whatever authenticator is configured (see [Kubernetes Security](../../fundamentals/platform/Kubernetes%20Security.md)). In EKS that is IAM. `kubectl` sends a signed AWS request as its bearer token and the cluster verifies it with STS. An **access entry** then maps the IAM principal, usually an [IAM role](./Identity.md), to Kubernetes groups or to an EKS access policy such as cluster admin. RBAC takes over from there. The older `aws-auth` ConfigMap did the same mapping inside the cluster and is legacy.
+Kubernetes has no user database. It trusts whatever authenticator is configured (see [Kubernetes Security](../../platform/Kubernetes%20Security.md)). In EKS that is IAM. `kubectl` sends a signed AWS request as its bearer token and the cluster verifies it with STS. An **access entry** then maps the IAM principal, usually an [IAM role](Identity.md), to Kubernetes groups or to an EKS access policy such as cluster admin. RBAC takes over from there. The older `aws-auth` ConfigMap did the same mapping inside the cluster and is legacy.
 
 ## Pod networking with the VPC CNI
 
-Kubernetes requires that every pod can reach every other pod without NAT (see [Kubernetes](../../fundamentals/platform/Kubernetes.md)). The AWS VPC CNI does this the direct way. It attaches extra [elastic network interfaces](./VPC%20Networking.md) to each node and assigns secondary private IPs to them, one per pod.
+Kubernetes requires that every pod can reach every other pod without NAT (see [Kubernetes](../../platform/Kubernetes.md)). The AWS VPC CNI does this the direct way. It attaches extra [elastic network interfaces](VPC%20Networking.md) to each node and assigns secondary private IPs to them, one per pod.
 
 The cost is addresses. ENIs per node and IPs per ENI depend on the instance type, so max pods per node does too. The plugin also pre-assigns a warm pool of IPs, so one node can hold from a handful to a couple of hundred addresses, most idle. A small subnet runs out of IPs long before it runs out of compute.
 

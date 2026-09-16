@@ -130,7 +130,7 @@ kubeadm init                          # first control-plane node; prints the joi
 kubeadm join <control-plane-host>:6443 --token <token> --discovery-token-ca-cert-hash sha256:<hash>
 ```
 
-**Managed.** EKS, AKS and GKE run the control plane for you; see [EKS](../../cloud/aws/EKS.md). AKS now defaults to Azure CNI Overlay; kubenet is legacy there. Deciding between a managed service and self-hosting should be a considered one: self-hosting means patching, upgrading, adding nodes and keeping the control plane highly available, forever.
+**Managed.** EKS, AKS and GKE run the control plane for you; see [EKS](../cloud/aws/EKS.md). AKS now defaults to Azure CNI Overlay; kubenet is legacy there. Deciding between a managed service and self-hosting should be a considered one: self-hosting means patching, upgrading, adding nodes and keeping the control plane highly available, forever.
 
 ### Production readiness checklist
 

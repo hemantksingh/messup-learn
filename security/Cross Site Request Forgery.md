@@ -2,7 +2,7 @@
 
 [Understanding Cross Site Request Forgery](http://www.troyhunt.com/2016/03/understanding-csrf-video-tutorial.html)
 
-An attack that involves forcing a victim to send an HTTP request to a destination without their knowledge or intent in order to perform an action on their behalf. It often takes advantage of the fact that the victim is authenticated. The browser attaches the session cookie automatically to every request that matches its domain and path, so the server treats the forged request as authenticated. How cookies are created and scoped is covered in [Browser Security Model](./Browser%20Security%20Model.md).
+An attack that involves forcing a victim to send an HTTP request to a destination without their knowledge or intent in order to perform an action on their behalf. It often takes advantage of the fact that the victim is authenticated. The browser attaches the session cookie automatically to every request that matches its domain and path, so the server treats the forged request as authenticated. How cookies are created and scoped is covered in [Browser Security Model](Browser%20Security%20Model.md).
 
 e.g. you go to securepuppies.com & rather than just displaying cute puppies the site might also POST to facebook on your behalf using the authenticated facebook session in your browser, if facebook doesn't prevent against CSRF. The attacker may use XSS vulnerability or **social engineering** to trick you to go to securepuppies.com & execute the script/html that performs these unintended actions. The html is usually obfuscated somewhere in the original page and might be hidden in an iframe. It is usually done with one of the following techniques:
 

@@ -24,7 +24,7 @@ A **total ordering** fixes the exact order of every element. A **partial orderin
 
 The two are independent. Commit a transfer, wait for the reply, then read the balance in a second transaction. A serializable database may pick the order "read, then transfer" and return the old balance; only real time was broken. **Strict serializability** adds the rule that an operation which finished before another started comes first (Bailis). Spanner's **external consistency** is strict serializability: if T1 commits before T2 starts, T2 sees T1's writes.
 
-![Ladder of consistency models from stronger to weaker: strict, sequential, causal, PRAM, read-your-writes, eventual](../../images/consistency-models.PNG "Consistency models from stronger to weaker")
+![Ladder of consistency models from stronger to weaker: strict, sequential, causal, PRAM, read-your-writes, eventual](../images/consistency-models.PNG "Consistency models from stronger to weaker")
 
 The slide's top rung, "strict consistency", means every read returns the latest write by absolute global time. That needs a perfect shared clock, which nothing has. Read that rung as linearizability.
 

@@ -12,7 +12,7 @@ Layering convention for this wiki: pages use the four-layer TCP/IP model (applic
 * Data Link - Finds the physical device on the network.
 * Physical - Cables, voltages, frequencies, bits transfer rates
 
-![osi.gif](../../images/osi.gif)
+![osi.gif](../images/osi.gif)
 
 ## TCP/IP
 
@@ -69,4 +69,4 @@ Secure shell is the same as telnet but with encryption to allow network services
 
 Network Utility was removed from macOS in Big Sur. Use `nmap` or `nc -zv host port` to scan ports. To see which processes are listening on which ports use `lsof -iTCP -sTCP:LISTEN` on a Mac or `ss -ltnp` on Linux; `netstat` also works on both.
 
-![network-admin-tools.jpg](../../images/network-admin-tools.jpg)
+![network-admin-tools.jpg](../images/network-admin-tools.jpg)

@@ -65,7 +65,7 @@ ClusterRoleBinding -  ClusterRoleBinding is used to grant access to all namespac
 
 ### Default cluster roles
 
-![The four default ClusterRoles (cluster-admin, admin, edit, view) and what each can do within a namespace](../../images/default-cluster-roles.png "Default Cluster Roles")
+![The four default ClusterRoles (cluster-admin, admin, edit, view) and what each can do within a namespace](../images/default-cluster-roles.png "Default Cluster Roles")
 
 ### Multi tenancy
 

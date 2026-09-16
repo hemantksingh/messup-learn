@@ -6,7 +6,7 @@ How do I know that what I run is what I meant to run, and how do I limit the dam
 
 Most of the code you ship is code you did not write: the base image, the runtime, hundreds of packages, the compiler and the CI system. Each step from commit to running container is a place to swap or add something. Your tests run against whatever the pipeline produced, so they will not notice.
 
-SolarWinds was a tampered build: the build system inserted a backdoor and customers installed a correctly signed update. Log4Shell was a vulnerable dependency teams did not know they were running. The first needs provenance and build integrity. The second needs an inventory. Both are described under [Web Application Risks](../security/Web%20Application%20Risks.md).
+SolarWinds was a tampered build: the build system inserted a backdoor and customers installed a correctly signed update. Log4Shell was a vulnerable dependency teams did not know they were running. The first needs provenance and build integrity. The second needs an inventory. Both are described under [Web Application Risks](Web%20Application%20Risks.md).
 
 ## Provenance and signing
 
@@ -28,7 +28,7 @@ Less inside means less to scan. Start from a minimal or distroless base (no shel
 
 SLSA grades how much you can trust the build. Level 1: the build produces provenance, a statement of what source and steps made the artefact. Level 2: a hosted build platform signed that provenance, so a laptop cannot forge it. Level 3: the platform is hardened; builds are isolated from each other, the build's own steps cannot forge the provenance, and secrets are out of reach of user defined steps. Hermetic builds (no network, all inputs declared) and reproducible builds (same inputs, identical output, so anyone can rebuild and compare) are separate practices. Older SLSA drafts graded them; the current specification does not.
 
-Whoever controls the build platform can produce a valid signature. With long lived keys the CI system holds them; with keyless signing it holds the identity. Protect the pipeline like production: least privilege, audit logs, reviewed changes. Key custody is covered in [Secrets Management](../security/Secrets%20Management.md).
+Whoever controls the build platform can produce a valid signature. With long lived keys the CI system holds them; with keyless signing it holds the identity. Protect the pipeline like production: least privilege, audit logs, reviewed changes. Key custody is covered in [Secrets Management](Secrets%20Management.md).
 
 ## Runtime least privilege
 

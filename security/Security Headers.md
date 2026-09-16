@@ -88,7 +88,7 @@ Browsers default to `strict-origin-when-cross-origin` when no policy is set (Chr
 
 ## Same-Origin Policy and CORS
 
-The same-origin policy, CORS and the `Access-Control-*` headers are covered in [Browser Security Model](./Browser%20Security%20Model.md), together with cookies and Web Storage. The headers below (COOP, COEP, CORP) decide which documents share a process and which resources may be embedded; they do not grant cross-origin reads.
+The same-origin policy, CORS and the `Access-Control-*` headers are covered in [Browser Security Model](Browser%20Security%20Model.md), together with cookies and Web Storage. The headers below (COOP, COEP, CORP) decide which documents share a process and which resources may be embedded; they do not grant cross-origin reads.
 
 ## COOP and COEP
 

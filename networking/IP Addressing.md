@@ -32,7 +32,7 @@ A host sending a packet ANDs the destination with its own mask. If the result is
 
 Two hosts talk directly only when each sees the other as on-link, because each applies its own mask. `10.10.20.3/24` and `10.10.20.4/24` share the network `10.10.20.0` and talk directly. Give `.3` a `/25` mask and `.200/24` shows the problem: `.200` sends to `.3` directly, but `.3` sends to `.200` via the gateway, which works only if the router forwards back onto the same link.
 
-The gateway is a configured router address on the subnet. In AWS it is implicit: each VPC has a router you never create, with an address reserved in every subnet, and you edit only its route tables. See [VPC Networking](../../cloud/aws/VPC%20Networking.md).
+The gateway is a configured router address on the subnet. In AWS it is implicit: each VPC has a router you never create, with an address reserved in every subnet, and you edit only its route tables. See [VPC Networking](../cloud/aws/VPC%20Networking.md).
 
 ## Layer 2 and layer 3
 
@@ -50,7 +50,7 @@ Network Address Translation rewrites addresses at the border:
 * Port address translation (PAT, or NAPT): the router also rewrites the source port, so thousands of private hosts share one public address. A table of private (address, port) to public (address, port) lets it rewrite the replies.
 * Destination NAT (DNAT): inbound, the router rewrites the destination to a chosen private host. Port forwarding is DNAT.
 
-The router can only deliver a reply it has a table entry for, so an unsolicited inbound packet is dropped. That is a side effect of the table, not a security control: port forwarding, UPnP (any program inside can open a path in) and hairpinning all punch through it. Docker's default bridge and a cloud NAT gateway are the same mechanism, see [Containers](../platform/Containers.md) and [VPC Networking](../../cloud/aws/VPC%20Networking.md).
+The router can only deliver a reply it has a table entry for, so an unsolicited inbound packet is dropped. That is a side effect of the table, not a security control: port forwarding, UPnP (any program inside can open a path in) and hairpinning all punch through it. Docker's default bridge and a cloud NAT gateway are the same mechanism, see [Containers](../platform/Containers.md) and [VPC Networking](../cloud/aws/VPC%20Networking.md).
 
 ## The DMZ
 

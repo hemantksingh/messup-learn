@@ -28,7 +28,7 @@ AMQP **1.0**, the ISO standard used by Azure Service Bus and ActiveMQ, is a diff
 
 A **queue** delivers each message to one of its consumers. Several consumers on one queue compete for messages. A **topic** is publish-subscribe: every subscriber gets its own copy of every message.
 
-The word "topic" means something different in each broker. In AMQP 0-9-1 it is an exchange type that routes by pattern, and fan-out is done by binding several queues to one exchange. In Kafka a topic is the partitioned log itself and each consumer group reads the whole of it. On AWS they are separate services, SNS for topics and SQS for queues, see [AWS Messaging](../../cloud/aws/Messaging.md). The common shape is a topic in front and a queue per consumer behind it.
+The word "topic" means something different in each broker. In AMQP 0-9-1 it is an exchange type that routes by pattern, and fan-out is done by binding several queues to one exchange. In Kafka a topic is the partitioned log itself and each consumer group reads the whole of it. On AWS they are separate services, SNS for topics and SQS for queues, see [AWS Messaging](../cloud/aws/Messaging.md). The common shape is a topic in front and a queue per consumer behind it.
 
 ## Queue brokers versus log brokers
 

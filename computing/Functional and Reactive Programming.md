@@ -26,7 +26,7 @@ A **higher-order function** is a different thing: one that takes a function as a
 
 Shared state is only a problem if it is mutable. An immutable value cannot change after it is created, so it can be shared freely: no reader can be surprised by a write. Change means producing a new value from the old one; anyone still holding the old one sees what they had before.
 
-In an ordinary codebase this becomes: I/O and mutation at the edges, pure domain logic in the middle. [Testing Strategy](../../practice/Testing%20Strategy.md) makes the same point from the testing side.
+In an ordinary codebase this becomes: I/O and mutation at the edges, pure domain logic in the middle. [Testing Strategy](../practice/Testing%20Strategy.md) makes the same point from the testing side.
 
 ### Currying and partial application
 

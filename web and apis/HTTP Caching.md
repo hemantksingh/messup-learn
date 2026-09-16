@@ -24,7 +24,7 @@ Caching API data that is continuosuly being updated in the backend especially if
 
 Caching content at the reverse proxy that is unique to a user, such as API keys, user profile data etc is not advisable because it is meant for that user and only ever going to be requested for that specific user.
 
-![Spectrum of content types: static content (images, CSS, simple HTML) is easy to cache, dynamic content (blog posts, status, API data) is micro-cacheable, user content (shopping cart, account data) cannot be cached](../../images/cacheable-content.jpg "Cacheable Content")
+![Spectrum of content types: static content (images, CSS, simple HTML) is easy to cache, dynamic content (blog posts, status, API data) is micro-cacheable, user content (shopping cart, account data) cannot be cached](../images/cacheable-content.jpg "Cacheable Content")
 
 ### Caching authenticated requests
 

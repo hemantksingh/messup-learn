@@ -6,7 +6,7 @@ DevOps and SRE have a lot in common.  *SRE is defined as the class that implemen
 
 ## DevOps capabilities
 
-People who can work within organizations to bring people, processes and products together to enable continuous delivery of value to end users. What that looks like as a role (transforming infra/ops departments, shaping cloud migrations, CapEx to OpEx, change and incident management) is in [Roles and Hiring](../../practice/Roles%20and%20Hiring.md).
+People who can work within organizations to bring people, processes and products together to enable continuous delivery of value to end users. What that looks like as a role (transforming infra/ops departments, shaping cloud migrations, CapEx to OpEx, change and incident management) is in [Roles and Hiring](../practice/Roles%20and%20Hiring.md).
 
 ## DevOps Metrics
 

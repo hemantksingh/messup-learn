@@ -56,7 +56,7 @@ Domain objects as data holders with public getters and setters and no behaviour 
 
 Coverage reports which lines or branches ran while the tests ran. It says nothing about whether any assertion checked the result, and nothing about the health of the code. Uncovered code is a real signal: nobody has exercised it. High coverage is not the reverse signal. It lowers perceived risk, not risk.
 
-Use it as a trigger, not a target. A drop below an agreed threshold starts a conversation; [Testing Strategy](../../practice/Testing%20Strategy.md) has the rest of that argument.
+Use it as a trigger, not a target. A drop below an agreed threshold starts a conversation; [Testing Strategy](../practice/Testing%20Strategy.md) has the rest of that argument.
 
 ## Tools
 

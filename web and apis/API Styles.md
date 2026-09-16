@@ -136,7 +136,7 @@ GraphQL devloves power to clients by allowing them to write their own queries - 
 
 Your API I/O mechanism can be REST, GraphQL or RPC but you can fulfill requests coming through each I/O channel with the same business logic layer
 
-![REST, GraphQL and RPC front-ends sharing one business layer](../../images/business-layer.png "Shared business layer")
+![REST, GraphQL and RPC front-ends sharing one business layer](../images/business-layer.png "Shared business layer")
 
 ### Disadvantages of GraphQL
 

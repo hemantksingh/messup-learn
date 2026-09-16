@@ -75,7 +75,7 @@ Several [cloud security tool categories](https://www.uptycs.com/blog/whats-the-d
 
 The choice and combination depend on the security requirements and cloud architecture of the organisation.
 
-Prowler (`prowler-cloud/prowler`) and ScoutSuite (`nccgroup/ScoutSuite`) are open-source CSPM scanners that assess an account against CIS and other benchmarks; the AWS assessment tooling that uses them is in [AWS](../../cloud/aws/README.md).
+Prowler (`prowler-cloud/prowler`) and ScoutSuite (`nccgroup/ScoutSuite`) are open-source CSPM scanners that assess an account against CIS and other benchmarks; the AWS assessment tooling that uses them is in [AWS](../cloud/aws/README.md).
 
 ## SIEM and SOAR
 
@@ -85,7 +85,7 @@ Firewalls, network appliances and intrusion detection systems produce more event
 
 A SOAR takes those incidents and runs playbooks against them: gather context, open a case, isolate a host, notify. Manual response steps become workflow, which is how a small team keeps up with alert volume.
 
-Provider implementations: AWS Security Hub and GuardDuty are described in [AWS](../../cloud/aws/README.md); Microsoft Defender for Cloud and Microsoft Sentinel in [Azure security services](../../cloud/azure/Tenants,%20Subscriptions%20and%20RBAC.md#security-services).
+Provider implementations: AWS Security Hub and GuardDuty are described in [AWS](../cloud/aws/README.md); Microsoft Defender for Cloud and Microsoft Sentinel in [Azure security services](../cloud/azure/Tenants%2C%20Subscriptions%20and%20RBAC.md#security-services).
 
 ## How to rederive this
 

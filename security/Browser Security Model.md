@@ -16,7 +16,7 @@ JavaScript on one page may read another page or response only if both have the s
 
 The policy **restricts reading cross-origin responses, not embedding them**. Images, stylesheets and scripts load across origins through their tags (fonts excepted), but the page cannot read them: a cross-origin `<script>` runs with its source opaque, and a cross-origin image displays but taints any canvas it is drawn into. A cross-origin `fetch()` is sent, but the response is withheld unless the server opts in.
 
-Those requests still carry the user's cookies for the target site. That is the basis of [Cross Site Request Forgery](./Cross%20Site%20Request%20Forgery.md): the attacker only needs the authenticated request to happen, not to read the response.
+Those requests still carry the user's cookies for the target site. That is the basis of [Cross Site Request Forgery](Cross%20Site%20Request%20Forgery.md): the attacker only needs the authenticated request to happen, not to read the response.
 
 ## CORS relaxes it
 
@@ -39,7 +39,7 @@ CSP and the same-origin policy sit at opposite ends of a request. If `foo.com` w
 2. If not, the request goes to `bar.com` with whatever `bar.com` cookies the browser holds.
 3. `bar.com` responds. The same-origin policy stops `foo.com` reading it unless `Access-Control-Allow-Origin` names `foo.com`.
 
-COOP, COEP and CORP are in [Security Headers](./Security%20Headers.md).
+COOP, COEP and CORP are in [Security Headers](Security%20Headers.md).
 
 ## Cookies
 
@@ -95,7 +95,7 @@ Safari has blocked third-party cookies since 2020 (Intelligent Tracking Preventi
 
 `localStorage` and `sessionStorage` are key-value stores scoped to the origin, not the domain: `https://mybank.com` and `https://login.mybank.com` have separate stores.
 
-There is no `HttpOnly` for storage. Any script on the origin reads all of it, so a [Cross Site Scripting](./Cross%20Site%20Scripting.md) payload lifts a token from `localStorage` in one line.
+There is no `HttpOnly` for storage. Any script on the origin reads all of it, so a [Cross Site Scripting](Cross%20Site%20Scripting.md) payload lifts a token from `localStorage` in one line.
 
 | | Cookies | localStorage |
 |---|---|---|

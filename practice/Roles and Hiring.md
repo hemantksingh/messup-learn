@@ -42,7 +42,7 @@ Whilst the role of a product owner is primarily to look at problems from the end
 
 ## Infrastructure/Cloud Architect  
 
-Someone who can put the DevOps definition in [DevOps and Delivery](../fundamentals/platform/DevOps%20and%20Delivery.md) into practice inside an organization.
+Someone who can put the DevOps definition in [DevOps and Delivery](../platform/DevOps%20and%20Delivery.md) into practice inside an organization.
 
 * Transforming infra/ops departments (i.e. reorganising them and getting them to adopt agile practices across the department, bridging silos and adopt DevOps culture) by having **cross functional teams** capable of building, running, securing and supporting their apps.
 
@@ -83,7 +83,7 @@ Some competencies to look out for:
     * separation of production code from test code
     * mocking at architectural boundaries
 * CICD - branching techniques, impact of frequent releases, feature toggling, blue green deployments
-* REST APIs - significance of REST interface, idempotent operations, authentication techniques (see [REST](../fundamentals/web%20and%20apis/REST.md))
+* REST APIs - significance of REST interface, idempotent operations, authentication techniques (see [REST](../web%20and%20apis/REST.md))
 * DBs - relational and non-relational DB trade offs
 
 ## Fact finding

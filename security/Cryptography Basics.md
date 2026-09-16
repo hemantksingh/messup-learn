@@ -67,7 +67,7 @@ A **salt** is a random value, unique per password, mixed in before hashing and s
 
 Use a dedicated password hashing function, not plain SHA-256. OWASP Password Storage Cheat Sheet, as of 2024: Argon2id (19 MiB memory, 2 iterations, parallelism 1) first; scrypt (N=2^17, r=8, p=1) if Argon2id is unavailable; bcrypt (work factor 10 or more) for legacy systems; PBKDF2-HMAC-SHA256 with 600,000 iterations where FIPS compliance is required.
 
-![Password creation: the password and a random salt go through the hash and the salt is stored with the hash. Verification: the entered password and the stored salt go through the same hash and the result is compared with the stored hash](../../images/password-hashing.png "Password hashing with a per-password salt")
+![Password creation: the password and a random salt go through the hash and the salt is stored with the hash. Verification: the entered password and the stored salt go through the same hash and the result is compared with the stored hash](../images/password-hashing.png "Password hashing with a per-password salt")
 
 ## Encoding is not encryption
 

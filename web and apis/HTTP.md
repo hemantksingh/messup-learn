@@ -24,7 +24,7 @@ With six ordered connections, the number of requests is the bottleneck. So the p
 
 Under HTTP/2 these [optimisations actually hurt](https://www.nginx.com/blog/7-tips-for-faster-http2-performance/). Sharding splits requests across several connections, each paying its own TCP and TLS handshake and keeping its own header-compression context, and the server cannot prioritise between requests it does not see together. Sprites and bundles make the browser download bytes the page does not use, and a change to one icon or one function invalidates the cache for the whole bundle. With multiplexing, many small requests on one connection are cheap, so the advice reverses: ship small, cacheable files from one origin.
 
-![Timeline: HTTP/1.1 sends one request and waits for its response before sending the next; HTTP/2 sends several requests at once and receives the responses concurrently over one connection](../../images/http-v-http2.jpg "HTTP/1.1 v HTTP/2")
+![Timeline: HTTP/1.1 sends one request and waits for its response before sending the next; HTTP/2 sends several requests at once and receives the responses concurrently over one connection](../images/http-v-http2.jpg "HTTP/1.1 v HTTP/2")
 
 ## HTTP/2
 
@@ -50,7 +50,7 @@ HTTP/3 (RFC 9114, 2022) runs over QUIC (RFC 9000, 2021) instead of TCP. QUIC mov
 
 QUIC also builds in TLS 1.3, so HTTP/3 is always encrypted and the transport and TLS handshakes are one round trip instead of two. It supports 0-RTT connection resumption, where a client returning to a server sends its first request in the first packet. QUIC runs over UDP rather than as a new transport because routers, firewalls and operating systems already pass UDP; a new transport would have taken decades to deploy.
 
-![Protocol stacks: HTTP/1.1 over TCP with optional TLS, HTTP/2 over TLS and TCP, HTTP/3 over QUIC (with TLS built in) and UDP; the browser makes several TCP connections for HTTP/1.1 but one connection for HTTP/2 and HTTP/3](../../images/http-stacks.PNG "HTTP stacks")
+![Protocol stacks: HTTP/1.1 over TCP with optional TLS, HTTP/2 over TLS and TCP, HTTP/3 over QUIC (with TLS built in) and UDP; the browser makes several TCP connections for HTTP/1.1 but one connection for HTTP/2 and HTTP/3](../images/http-stacks.PNG "HTTP stacks")
 
 ## How to rederive this
 

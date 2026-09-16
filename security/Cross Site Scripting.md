@@ -25,11 +25,11 @@ XSS allows an attacker to circumvent the same origin policy, which is designed t
     ```
 
     OWASP [XSS Filter Evasion cheat sheet](https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet) has more examples of filter evasion techniques.
-* Flag Cookies as `HttpOnly`. Reduce the attack surface by preventing javascript access to sensitive cookies, otherwise scripting attack can get access to user session info in the cookie and perform operations as a logged in user. Flagging cookies as Http only can be read by the server as usual but are not accessible to client javascript. Cookie attributes are covered in [Browser Security Model](./Browser%20Security%20Model.md).
+* Flag Cookies as `HttpOnly`. Reduce the attack surface by preventing javascript access to sensitive cookies, otherwise scripting attack can get access to user session info in the cookie and perform operations as a logged in user. Flagging cookies as Http only can be read by the server as usual but are not accessible to client javascript. Cookie attributes are covered in [Browser Security Model](Browser%20Security%20Model.md).
 * Treat everything as suspicious. Any untrusted data source rendered into HTML, including DNS TXT records or log lines, can carry an XSS payload.
 * Other mitigations, each of which limits the damage when encoding is missed:
-  * A strict [Content-Security-Policy](./Security%20Headers.md#content-security-policy) using nonces or hashes and `'strict-dynamic'`, so injected inline script does not run.
+  * A strict [Content-Security-Policy](Security%20Headers.md#content-security-policy) using nonces or hashes and `'strict-dynamic'`, so injected inline script does not run.
   * Trusted Types (Chromium), which make dangerous DOM sinks such as `innerHTML` accept only sanitised values.
   * Framework auto-escaping in templates (React, Angular, Razor), and avoiding the raw-HTML escape hatches.
   * DOMPurify to sanitise any HTML that genuinely must be rendered from untrusted input.
-  * `X-XSS-Protection` is deprecated and should be set to `0` or omitted; see [Security Headers](./Security%20Headers.md#deprecated).
+  * `X-XSS-Protection` is deprecated and should be set to `0` or omitted; see [Security Headers](Security%20Headers.md#deprecated).
