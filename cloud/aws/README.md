@@ -1,175 +1,70 @@
-# AWS Security
+# AWS
+
+Notes on AWS, organised around one idea: every action in AWS is an API call that IAM authenticates and authorises, and the same three controls apply to every service. The rest of AWS security is detecting when those controls fail and responding.
+
+## Pages in this folder
+
+* [Identity](Identity.md): how IAM evaluates a request, users and roles, identity and resource policies, ARNs, permission boundaries.
+* [Key Management](Key%20Management.md): KMS key material, custom key stores, rotation, the three permission models, why deletion is scheduled and not instant.
+* [VPC Networking](VPC%20Networking.md): subnets and route tables, why security groups are stateful and NACLs are not, endpoints, PrivateLink, Direct Connect and VPN.
+* [Messaging](Messaging.md): SNS, SQS and EventBridge, what each guarantees, fan out, dead letter queues.
+* [Disaster Recovery](Disaster%20Recovery.md): high availability versus DR, RTO and RPO, the four DR strategies, multi Region serverless.
+* [EKS](EKS.md): what AWS runs and what you own, IAM as the cluster authenticator, pod networking with the VPC CNI, version lifecycle.
+
+## Three controls for every service
 
 Fundamentally there are a few patterns that can be used to secure all your AWS services.
 
-* Control your cloud infrastructure: [AWS IAM](Identity.md)
-  * Every AWS service uses IAM to authenticate and authorize API calls
-  * How to make authenticated API calls to AWS from human and non human IAM identities
-* Control your data: [AWS KMS](Key%20Management.md)
-* Control your network: [Amazon VPC](VPC%20Networking.md)
+* Control your cloud infrastructure: [AWS IAM](Identity.md). Every AWS service uses IAM to authenticate and authorise API calls, from human and non human identities.
+* Control your data: [AWS KMS](Key%20Management.md). When you control the key a service encrypts with, that key lives in KMS, and every use of it is an IAM decision.
+* Control your network: [Amazon VPC](VPC%20Networking.md). Which addresses and ports can reach a resource, and whether traffic to AWS services leaves your network at all.
 
-![aws-security-patterns.png](../../images/aws-security-patterns.png "AWS Security Patterns")
+![Three controls that apply to every AWS service: IAM decides who may call the API, KMS decides how the data is encrypted, VPC decides which network path reaches the resource](../../images/aws-security-patterns.png "AWS security patterns")
 
-## Security Best Practices
+An AWS account is the isolation boundary. Resources in one account cannot access resources in another unless explicitly allowed through a trust relationship. Accounts are also cost boundaries for billing, and service quotas are enforced per account (most are adjustable). Hence the usual advice: many small accounts under one organisation.
 
-The [AWS security docs](https://docs.aws.amazon.com/security/) provide the list of best practices for all the services in each category of AWS services. e.g. [AWS IAM security best practices](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html)
+## Shared responsibility
 
-What are the common security mistakes customers make, how to fix them, and why they are important?
+AWS secures the cloud: the buildings, the hardware, the hypervisor and the software inside managed services. You secure what you put in the cloud: identities and their permissions, network rules, what is encrypted and with which key, and the data itself. The line moves with the service type. On EC2 you patch the operating system. On Lambda or S3, AWS does. Managed services shift work to AWS but never the decisions about who may access what, so the three controls above are always yours.
 
-### How do I make my account secure?
+## Five kinds of control
 
-An AWS Account creates a logical boundary to provide isolation environment by enforcing permissions that prevent cross account access
+The five areas below are those of the AWS Well-Architected security pillar. Services are named as examples only; the [AWS security docs](https://docs.aws.amazon.com/security/) list best practices per service.
 
-* Therefore resources present in one account cannot access resources provisioned in another account unless explicitly allowed via a trust relationship
-* AWS Accounts also provide cost boundaries for reporting and billing purposes
-* AWS also enforces service limits at the AWS account level e.g. you can only have 100 S3 buckets within an account by default
+### Identity
 
-AWS has a primary set of services to help customers maintain a strong security posture over their AWS accounts
+Who is calling and what they may do. IAM roles with temporary credentials for people (through IAM Identity Center) and for workloads (instance profiles, execution roles). Service control policies set guardrails across an organisation. IAM Access Analyzer finds resources shared outside your organisation, validates policies and generates least privilege policies from CloudTrail activity.
 
-* AWS Security Hub - is a Cloud Security Posture Management (CSPM) tool that assesses your security alerts and security posture across all your accounts and regions at the organization level. It can **continually assess your accounts** for things like:
-  * AWS foundational security practice
-  * CIS Benchmarks
-  * PCI DSS compliance
-* Amazon Detective - key tool for an incident’s root cause analysis, which can help in a thorough investigation of security incidents.
-* Amazon GuardDuty - an Intrusion Detection system (IDS) which can detect threats like compromised accounts, unauthorized access, and data exfiltration based on unexpected/unusual activity.
-* AWS Config - audit and evaluate AWS resource configurations
-* AWS Well-Architected reviews - less technical, more broader security assessment
-* AWS Trusted Advisor - can Provide recommendations that help you follow AWS best practices. Trusted Advisor evaluates your account by using checks. These checks identify ways to optimize your AWS infrastructure, improve security and performance, reduce costs, and monitor service quotas. 
+### Detection
 
-If an organisation has not implemented any of the above services, there may be a need to conduct a rapid security assessment of the cloud environment. [AWS Security Assessment Tool](https://github.com/awslabs/aws-security-assessment-solution) helps in assessing **point in time** security posture of the deployed AWS environment. It leverages ScoutSuite and Prowler to run a point in time security check on your AWS account.
+Knowing what happened and what is wrong. CloudTrail is the CCTV for the account: who did what, when and from where, for every API call, but not for SSH or RDP sessions. AWS Config records resource configuration and evaluates it against rules you choose, such as "no public S3 buckets". GuardDuty is threat detection: it reads CloudTrail, VPC flow logs and DNS logs, learns normal behaviour and flags the unusual, such as credentials used from a suspicious address or an instance mining cryptocurrency. It alerts only; it is not an intrusion prevention system. Inspector is the opposite kind of scanner: known vulnerabilities (CVEs) in EC2 instances, ECR container images and Lambda functions, using the SSM agent or agentless EBS snapshot scanning. Inspector Classic, which needed its own agent, ended support in May 2026.
 
-## AWS Security Services
+Security Hub CSPM (the original Security Hub, renamed in 2025) checks accounts against standards such as AWS Foundational Security Best Practices, CIS Benchmarks and PCI DSS. The new unified Security Hub, generally available since December 2025, correlates findings from CSPM, GuardDuty and Inspector into one view. If none of these are enabled, the [AWS Security Assessment Tool](https://github.com/awslabs/aws-security-assessment-solution) runs Prowler and ScoutSuite for a point in time assessment; the tools themselves are described in [Cloud Security](../../fundamentals/security/Cloud%20Security.md#tool-categories).
 
-AWS provides a [range of services](https://aws.amazon.com/products/security/?nc=sn&loc=2) to secure your workloads and applications in the cloud. These services are broadly categorized into:
+### Infrastructure protection
 
-### Detection and Response
+Keeping unwanted traffic away from workloads. Inside the VPC that is security groups, NACLs and route tables. At the edge, Shield Standard protects every AWS customer against common layer 3 and 4 DDoS attacks at no charge; Shield Advanced is the paid tier with wider coverage and response support. AWS WAF filters layer 7 traffic (SQL injection, cross site scripting, bots) in front of CloudFront, ALB and API Gateway. Network Firewall inspects traffic at the VPC boundary. Background: [DDoS protection](../../fundamentals/security/Web%20Application%20Risks.md#ddos-protection).
 
-#### Amazon Detective
+### Data protection
 
-* Automatically collects and analyzes data from various sources like AWS CloudTrail logs, Amazon VPC Flow Logs, Amazon EKS audit logs, Amazon GuardDuty findings, AWS Security Hub findings, and other integrated AWS security services.
+Encryption, classification and secrets. KMS holds the keys; every use of a key is an IAM decision and a CloudTrail record. Macie scans S3 for sensitive data such as PII, PHI and financial records and flags public or unencrypted buckets, which matters for HIPAA and GDPR. Secrets Manager stores and rotates credentials; rotation starts immediately when enabled, so make sure every consumer already reads from Secrets Manager first. Parameter Store is the free alternative for configuration and secrets, with a per Region limit on the standard tier and a paid Advanced tier; the trade offs are in [Secrets Management](../../fundamentals/security/Secrets%20Management.md).
 
-* Creates a graph model of your AWS environment, which shows the relationships between your resources, users, and accounts. This graph model can help identify the root cause of a security incident.
+### Incident response
 
-#### AWS Security Hub
+Turning a finding into an action. Detective builds a graph from CloudTrail, flow logs and GuardDuty findings so you can trace an incident back to its cause. Findings from the detection services land in EventBridge, where a rule can invoke Lambda or Step Functions to isolate an instance, revoke a key or open a ticket. The response is your work; the services only alert.
 
-* Single pane of glass for all your AWS accounts that identifies gaps in your security coverage
-* Automating and enforcing organisation wide security policies and centralise security alerts e.g. control for checking automation of secrets rotation.
-* Can automate response and remediation actions to improve Mean time to resolution (MTTR)
-* AWS Security Hub is integrated with AWS CloudTrail, a service that provides a record of actions taken by a user, role, or an AWS service in Security Hub. CloudTrail captures API calls for Security Hub as events
+## How to rederive this
 
-#### Guard Duty
+* Start from "everything is an API call": then authentication and authorisation (IAM) is the first control, and a log of every call (CloudTrail) is the basis of detection.
+* Ask what a call needs besides permission: a network path (VPC) and, if it touches stored data, a key (KMS). That gives the three controls.
+* Ask what AWS cannot decide for you: who may access what. That is your half of shared responsibility, whatever the service.
+* Detection splits into known (Inspector, Config rules, CSPM standards) and unusual (GuardDuty). Response is glue you write on EventBridge.
 
-* Automated scans for *active intrusion* attempts. **Threat detection** service that uses ML to continuously monitor for malicious behavior. It receives feeds from 3rd parties like Proofpoint and Crowdstrike about known malicious domains and IP addresses.
-* Detects anomalies by learning what normal behavior looks like in your account and alerts of any abnormal malicious behavior
-  * IAM users and AWS accounts credentials being used in a suspicious way, such as from IP addresses associated with known malicious actors
-  * EC2 instances trying to mine cryptocurrency or communicate with IP addresses and domains associated with known malicious actors
-  * container workloads in EKS
-  * storage - S3 policy allowing public read access
-* Allows you to monitor CloudTrail logs, VPC flow logs and DNS query logs for potential threats.
-* What Guard Duty is not?
-  * It only alerts about an unusual activity, therefore it is **not an Intrusion Prevention System (IPS)**. You could build your actions on top of GuardDuty alerts with AWS Lambda, but it is not part of the service itself.
-  * It is **different from Inspector** as it is assessing *unusual/unexpected* behavior whereas Inspector scans your EC2 instances and network for *known* security vulnerabilities such as zero day. Inspector doesn't scan behavior, just known and new security vulnerabilities based on an up to date database.
+## Sources
 
-#### Inspector
-
-* Automated scans for *potential known* vulnerabilities and reports on them based on severity.
-* Automatically assesses applications for vulnerabilities or deviations from best practices by **inspecting the network and EC2 instances**, e.g. whether port 22 has been left open on your security group. It can perform
-  * network assessment - network configuration analysis to check for ports reachable from outside VPC, inspector agent not required
-  * host assessment - Vulnerable software (CVE), host hardening using CIS Benchmarks, inspector agent is required
-
-#### Macie
-
-* Monitors S3 buckets, uses ML and pattern matching to discover sensitive data stored in S3
-* Uses AI to recognize if your S3 objects contain sensitive data such as PII (Personally Identifiable Information), PHI and financial data
-* Great for frameworks like HIPPA and GDPA compliance
-* Alerts you about public and unencrypted buckets, buckets shared with AWS accounts outside of those defined in your AWS organization. Alerts can be
-  * filtered and searched in your AWS console
-  * sent to Amazon EventBridge and integrated with your SIEM system
-  * integrated with AWS Security Hub for a broader analysis of your organization's security posture
-  * integrated with other AWS services, such as Step functions to take remediatory action
-
-### Identity and Access Management
-
-#### IAM Access Analyser
-
-Access Analyzer lets you identify unintended access to your resources and data. It helps you identify the resources in your organization and accounts, such as Amazon S3 buckets or IAM roles, shared with an external entity.
-
-IAM Access Analyzer identifies resources shared with external principals by using logic-based reasoning to analyze the resource-based policies in your AWS environment.
-
-* validates IAM policies against policy grammar and best practices
-* generates IAM policies based on access activity in your AWS CloudTrail logs
-
-### Compliance and Auditing
-
-#### AWS CloudTrail
-
-* CCTV monitoring for your AWS account. Keeps a record of actions taken - Who, what, when and where
-* Logs API calls made to your AWS account and stores them in S3
-* not for RDP/SSH connections
-
-#### AWS Config
-
-* service that enables you to assess, audit, and evaluate the configurations of your AWS resources. An older alternative was Security Monkey <https://github.com/Netflix/security_monkey>
-* continuously monitors and records your AWS resource configurations and allows you to automate the evaluation of recorded configurations against desired configurations
-* this is achieved by enabling AWS Config rules in one or multiple of your AWS accounts (enabling across multiple accounts [can be costly](https://dzone.com/articles/we-turned-off-aws-config)) to check for your configuration settings against best practices or your desired/approved settings like:
-
-  | AWS Config Rule | Alerted |
-  | ----------------|:-------:|
-  | acm-certificate-expiration-check         | Yes |
-  | ec2-instances-in-vpc                     | Yes |
-  | ec2-volume-inuse-check                   | Yes |
-  | encrypted-volumes                        | Yes |
-  | restricted-ssh                           | Yes |
-  | iam-root-access-key-check                | Yes |
-  | iam-password-policy                      | Yes |
-  | iam-user-no-policies-check               | Yes |
-  | lambda-function-settings-check           | Yes |
-  | db-instance-backup-enabled               | Yes |
-  | rds-snapshots-public-prohibited          | Yes |
-  | rds-storage-encrypted                    | Yes |
-  | dynamodb-throughput-limit-check          | No  |
-  | s3-bucket-public-read-prohibited         | Yes |
-  | s3-bucket-public-write-prohibited        | Yes |
-  | s3-bucket-replication-enabled            | Yes |
-  | s3-bucket-server-side-encryption-enabled | Yes |
-  | s3-bucket-ssl-requests-only              | No  |
-  | s3-bucket-logging-enabled                | Yes |
-  | s3-bucket-versioning-enabled             | Yes |
-  | cloudtrail-enabled                       | Yes |
-  
-### Network and Application Protection
-
-#### AWS Shield
-
-Prevention of [DDOS attacks](../../fundamentals/security/Web%20Application%20Risks.md#ddos-protection) There are 2 tiers of AWS Shield
-
-* Standard
-  * All AWS customers get the automatic protections of AWS Shield Standard, at no additional charge
-  * Provides DDOS protection against SYN/UDP floods, reflection attacks and other layer 3 and layer 4 attacks when used with CloudFront and Route53
-* Advanced
-  * Protection against larger & more sophisticated attacks targeting applications running on EC2, ELB, CloudFront AWS Global Accelerator and Route 53 resources
-  * Always on, flow based monitoring to provide realtime notifications of DDOS attacks
-
-### Data Protection & Privacy
-
-#### Systems Manager
-
-* Allows you to select a resource group and view its recent API activity, resource configuration changes, related notifications, operational alerts, software inventory, and patch compliance status. It lets you take action on each resource group depending on your operational needs
-* Systems Manager provides a central place to view and manage your AWS resources, so you can have complete visibility and control over your operations
-
-#### Secrets Manager
-
-Secrets manager is a service that securely stores, encrypts and rotates your database credentials, SSH keys, API keys and other secrets
-
-* Encryption in transit and at rest using KMS
-* Automatic credentials rotation. When enabled secrets manager will rotate credentials immediately, therefore before enabling credential rotation make sure all your application instances are configured to use SecretsManager
-* Fine-grained access control using IAM policies
-* Cross account access
-* Costs money
-
-#### Parameter Store
-
-* a capability of AWS Systems Manager, provides secure, hierarchical storage for configuration data management and secrets management
-* store data such as passwords, database strings, Amazon Machine Image (AMI) IDs, and license codes as parameter values. You can store values as plain text or encrypted data
-* Free, but limited to 10000 parameters with no key rotation
-* Uses KMS in the backend
+* AWS Well-Architected Framework, Security Pillar: <https://docs.aws.amazon.com/wellarchitected/latest/security-pillar/welcome.html>
+* AWS Shared Responsibility Model: <https://aws.amazon.com/compliance/shared-responsibility-model/>
+* AWS security documentation, per service best practices: <https://docs.aws.amazon.com/security/>
+* Security Hub unified service GA (December 2025): <https://aws.amazon.com/about-aws/whats-new/2025/12/security-hub-near-real-time-risk-analytics/>
+* Amazon Inspector Classic end of support: <https://docs.aws.amazon.com/inspector/v1/userguide/inspector_introduction.html>
+* Diagram source: `AWS.drawio` in this folder, page "IAM" (icon triad).

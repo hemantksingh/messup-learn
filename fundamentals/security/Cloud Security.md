@@ -1,114 +1,107 @@
-# Cloud Security Controls Framework
+# Cloud Security
 
-Overall view of control domains reviewed and assessed for Public cloud adoption. Over time new controls can be added to attain a maturity level optimal for the organisational needs. 
+Overall view of the control domains reviewed and assessed for public cloud adoption. Over time new controls can be added to attain a maturity level optimal for the organisational needs.
 
-## Holistic Cyber Security Risk Framework
+The frameworks below are easy to confuse because they all talk about "controls". They sit at different layers and answer different questions. Read them as a stack.
 
-* NIST - The NIST Framework is the most thorough and holistic approach to cybersecurity program best practices. However, it's the most complex framework to implement covering over 900 controls over 5 major functions. The functions are important because they allow security teams to prioritize all areas of a holistic program equitably. Identify, Protect, Detect, Respond, and Recover are the five functions, and they cover all areas that you would want to address.
-* MITRE ATT&CK Framework
-  * Classifies attacks and assess an organization's risk
-  * Document adversary behaviours, their goals and techniques - how adversaries 
-    * penetrate networks
-    * move laterally
-    * escalate privileges
-    * evade defences 
-    * exfiltrate data 
-* ENSIA Threat Taxonomy - The European Union Agency for Cybersecurity (ENISA) is the Union's agency dedicated to achieving a high common level of cybersecurity across Europe
+| Layer | Question it answers | Frameworks |
+|---|---|---|
+| Threat model | What do attackers do? | MITRE ATT&CK, ENISA threat taxonomy |
+| Function model | What must a security programme do? | NIST CSF 2.0 |
+| Control catalogue | Which controls, stated precisely? | NIST SP 800-53, CSA Cloud Controls Matrix, ISO/IEC 27002 |
+| Configuration baseline | How is this system set up safely? | CIS Benchmarks |
+| Provider assurance | Can I trust this provider? | CSA STAR and CAIQ, NCSC cloud security principles, SOC 2 and ISO 27001 reports |
 
-## Cloud Controls
+## Threat models
 
-* SOX Security Controls - The Global SOX Control Model for Public cloud
-* Cloud Security Alliance (CSA) - The Cloud Security Alliance (CSA) is a nonprofit organization that promotes research into best practices for securing cloud computing and the use of cloud technologies to secure other forms of computing. [CSA](https://searchcloudsecurity.techtarget.com/definition/Cloud-Security-Alliance-CSA) leverages the expertise of industry practitioners, associations and governments, as well as its corporate and individual members, to offer research, education, certification, events and products specific to cloud security. The industry group also provides security education and guidance to companies in different stages of cloud adoption and helps cloud service providers address security in their software delivery models. Cloud Service Providers can register for the [Security Trust Assurance and Risk (STAR)](https://cloudsecurityalliance.org/star) program that documents the security and privacy controls provided by popular cloud computing offerings. This publicly accessible registry allows cloud customers to assess their security providers in order to make the best procurement decisions. The [Consensus Assessments Initiative Questionnaire (CAIQ)](https://searchcloudsecurity.techtarget.com/definition/CAIQ-Consensus-Assessments-Initiative-Questionnaire) is a survey provided by the Cloud Security Alliance (CSA) for cloud consumers and auditors to assess the security capabilities of a cloud service provider. The CAIQ was developed to create commonly accepted industry standards to document the security controls in infrastructure-as-a-service, platform-as-a-service and software-as-a service applications. This document can be uploaded to the [STAR registry](https://cloudsecurityalliance.org/star/registry) for making your security controls publicly accessible. The [Cloud Security Alliance Cloud Controls Matrix (CSA CCM)](https://cloudsecurityalliance.org/blog/2020/10/16/what-is-the-cloud-controls-matrix-ccm/) is an industry strength cloud oriented control set.
-* [Cloud Security Principles](https://www.ncsc.gov.uk/collection/cloud/the-cloud-security-principles) are designed to help you choose a cloud provider that meets your security needs. These principles apply to both cloud platforms and to Software-as-a-Service.
-* [CIS Benchmarks](https://www.cisecurity.org/cis-benchmarks/) for technical controls - The Centre of Internet Security (CIS) Benchmarks is the best practice for secure configuration of systems. CIS establishes an initial security baseline configuration. It also supports continuous posture management that will help the environment remain safe.
+* MITRE ATT&CK classifies adversary behaviour by tactic and technique: how attackers get in, move laterally, escalate privileges, evade defences and exfiltrate data. It has a cloud matrix. It is not a list of controls. Its use is to check coverage: for each technique that applies to you, which control prevents it and which detection would see it.
+* ENISA, the European Union Agency for Cybersecurity, publishes a threat taxonomy and an annual threat landscape report. Both are a checklist of threat categories to walk through when you build a risk register.
 
-### Technical Controls Security checklist
+## Function model: NIST CSF
 
-A technical set of controls to complete the more abstract type of controls within holistic. A checklist to assess your cloud application security footprint for running cloud based applications
+The NIST Cybersecurity Framework (CSF) organises a security programme into functions. CSF 2.0 (2024) has six: Govern, Identify, Protect, Detect, Respond and Recover. Govern was added in 2.0 and covers strategy, roles, policy and supply chain risk. Under each function sit categories and subcategories that describe outcomes, not controls.
 
-| Requirement                                  | Description                               |
-| ---------------------------------------------|:------------------------------------------|
-| Malware Detection and Response               | The cloud solution should have an active system to detect malware, automatically remove an infection, and alert on operational status|
-| Vulnerability Management                     | The cloud solution should be assessed for vulnerabilities, missing patches, and improperly configured resources in accordance with established procedures |
-| Intrusion Detection and Intrusion Prevent    | IDS and IPS are parts of network infrastructure to detect malicious activity including unauthorized connectivity and when appropriate, prevent inappropriate activity. IDS analyze network traffic for signatures that match known cyber attacks. IPS also analyzes packets, but can also stop the packet from being delivered based on what kind of attacks it detects — helping stop the attack.|
-| Security Information Event Monitoring (SIEM) | All security logs should be consolidated to identify indicators or evidence of compromise |
-| Standard Operating Procedures                | All standard operating procedures should be updated to govern daily operations and exception management|
-| Penetration Test                             | A third party organization should perform penetration test on the SaaS offering to isolated and determine any weaknesses before general availability |
-| Access Control                               | Access control is required for access to Cloud production resources with assigned authorized actions to support the least privilege model |
-| Cryptography                                 | Cryptographic controls should be in place to support data in transit and data at rest for the both the product and the supporting infrastructure |
-| Network Security                             | The cloud offering should have the ability to develop and maintain network security groups to perform network access control and network segmentation |
-| Patch Management                             | The cloud offering should incorporate patch management to remediate vulnerabilities appropriately |
+The functions matter because they force even coverage. A programme that is all Protect and no Detect or Respond is lopsided, and the CSF makes that visible.
 
-#### CIS Hardened Images
+The CSF has no control catalogue of its own. Each subcategory maps to controls in NIST SP 800-53, ISO/IEC 27002 and the CSA CCM. Keep the two apart: the CSF says a detection capability must exist, SP 800-53 says which audit and monitoring controls make it exist.
 
-CIS (Centre for Internet Security) hardened VM images are configured to meet [CIS Benchmarks](https://www.cisecurity.org/cis-benchmarks/), consensus-based configuration guidelines developed (and relied upon) by cyber security experts around the world. Some of the common threats that can be mitigated by using a CIS Hardened Image include:
+## Control catalogues
 
-* Denial of service
-* Insufficient authorization
-* Overlapping trust boundaries threats
+* NIST SP 800-53 is the US federal control catalogue, organised into control families (access control, audit and accountability, system and communications protection, and so on). It is the most thorough catalogue and the heaviest to implement in full. Organisations select a baseline (low, moderate, high) rather than everything.
+* The Cloud Security Alliance (CSA) is a non-profit that publishes cloud-specific security guidance. Its Cloud Controls Matrix (CCM) is a control set written for cloud services, with mappings to ISO 27001, SP 800-53 and PCI DSS so one assessment can be reused against several standards.
+* ISO/IEC 27001 and its control set 27002, SOC 2 and PCI DSS are covered in [Standards and Compliance](Standards%20and%20Compliance.md).
 
-CIS Hardened Images have been hardened to either the Level 1 or Level 2 CIS Benchmark profile. A Level 1 CIS Benchmark profile meets minimum and essential security requirements, while a Level 2 profile provides more advanced settings for situations where security is paramount.
+## Configuration baseline: CIS Benchmarks
 
-Microsoft Azure marketplace [provides CIS hardened images](https://www.cisecurity.org/blog/cis-hardened-images-now-in-microsoft-azure-marketplace/) that are certified to run on Microsoft Azure.
+The Center for Internet Security (CIS) Benchmarks are consensus configuration guides for operating systems, databases, Kubernetes and each cloud provider's account settings. Where a control catalogue says "harden the host", a benchmark says which settings and what value. CIS establishes the initial baseline and supports continuous posture management against it.
 
-#### Cloud Security Tools
+Each benchmark has two profiles. Level 1 meets minimum and essential security requirements with little effect on function. Level 2 is defence in depth for situations where security is paramount and some functionality can be lost. CIS also publishes hardened VM images built to those profiles, available in the cloud marketplaces.
 
-Several [cloud security tools](https://www.uptycs.com/blog/whats-the-difference-between-casb-cwpp-cspm-and-cnapp) go into securing cloud applications and workloads. While each of these cloud security solutions has its own distinct focus, they can be used in conjunction to provide comprehensive cloud security coverage. For example, 
-* a combination of CASB and CWPP can help protect cloud services and the workloads running within them
-* CSPM can be used alongside CASB to ensure compliance and security best practices are followed
-* CNAPP can be used in conjunction with CWPP to secure cloud-native applications and their underlying infrastructure.
+## Provider assurance
 
-The choice and combination of these solutions depend on the specific security requirements and cloud architecture of the organization.
+* CSA STAR (Security, Trust, Assurance and Risk) is a public registry where cloud providers document their security and privacy controls. A customer reads the registry before procurement instead of sending their own questionnaire.
+* The CAIQ (Consensus Assessments Initiative Questionnaire) is the yes/no questionnaire that a provider answers against the CCM. The completed CAIQ is what gets uploaded to STAR. So CCM is the control set, CAIQ is the self-assessment against it, STAR is where it is published.
+* The UK NCSC's [cloud security principles](https://www.ncsc.gov.uk/collection/cloud/the-cloud-security-principles) are fourteen principles for choosing a provider. They apply to platforms and to SaaS and are the shortest useful checklist for a procurement conversation.
 
-| Tool                                                         | Description                                         |
-|:-------------------------------------------------------------|:----------------------------------------------------|
-| Prowler - <https://github.com/toniblyx/prowler>              | Assesses AWS against CIS Benchmarks, Superior security tool vs ScoutSuite, Per resource exception process, Better reporting summaries and filtering vs ScottSuite                 |
-| CloudMapper - <https://github.com/duo-labs/cloudmapper>      | Generates a visual representation of the environment|
-| PMapper - <https://github.com/nccgroup/PMapper>              | Maps out principles in IAM                          |
-| SQLMap - <https://github.com/sqlmapproject/sqlmap>           | Automates testing for SQL injection                 |
-| Scout2 - <https://github.com/nccgroup/Scout2>                | Superior security-auditing tool vs Prowler. From the NCC Group, Scout Suite is an open source, multi cloud tool that uses the APIs exposed by cloud providers, gathers configuration data for manual inspection and highlights risk areas. More elegant exceptions process vs Prowler. No benchmarks, better reporting UI vs Prowler|
-| AWS_IP_Finder - <https://github.com/arkadiyt/aws_public_ips> | Finds all public IPs assigned in AWS                |
+## Technical controls checklist
 
-##### SIEM and SOAR
+A technical set of controls to complete the more abstract type of controls above. A checklist to assess your cloud application security footprint for running cloud based applications. The family column is the spine: identity, network, data, detection, response.
 
-Although security information and event management (SIEM) and security orchestration, automation and response (SOAR) have capabilities that complement each other, they are not the same thing. SIEM system helps in identifying and analysing security incidents and SOAR allows you to respond to these incidents in an automated way.
+| Family | Requirement | Description |
+|---|---|---|
+| Identity | Access control | Access to cloud production resources requires an identity with assigned authorised actions, following least privilege |
+| Network | Network security | The offering can define and maintain network security groups for network access control and segmentation |
+| Network | Intrusion detection and prevention | An IDS inspects traffic for patterns that match known attacks and raises an alert. An IPS does the same inline and can drop the packet, so it stops the attack rather than reporting it |
+| Data | Cryptography | Controls for data in transit and data at rest, for both the product and the supporting infrastructure |
+| Data | Data access and confidentiality | No public access to object storage buckets; data at rest encrypted with a managed key service; access and usage monitored for audit and troubleshooting |
+| Data | Catalogue, integrity, retention, recovery | Every service that stores data has an owner and a classification, integrity checks, a retention period and a recovery target that is monitored |
+| Detection | Malware detection and response | An active system detects malware, removes an infection automatically and reports its operational status |
+| Detection | Vulnerability management | Resources are assessed for vulnerabilities, missing patches and misconfiguration according to an agreed procedure |
+| Detection | Security information and event monitoring (SIEM) | All security logs are consolidated so indicators or evidence of compromise can be found in one place |
+| Response | Patch management | Vulnerabilities found are remediated within an agreed time |
+| Response | Standard operating procedures | Daily operations and exception handling are written down and kept current |
+| Response | Penetration test | A third party tests the offering to find weaknesses before general availability |
 
-Firewalls, network appliances and intrusion detection systems generate an immense amount of event-related data—more data than security teams can reasonably expect to interpret. A SIEM makes sense of all of this data by collecting and aggregating and then identifying, categorizing and analyzing incidents and events. This is often done using machine learning, specialized analytics software and dedicated sensors.
+The data rows are both preventive and detective. Preventive stops the bucket being public; detective notices when someone makes it public anyway.
 
-SIEM tools usually need regular tuning to continually understand and differentiate between anomalous and normal activity. The need for regular tuning leads to security analysts and engineers wasting precious time on making the tool work for them instead of triaging the constant influx of data. Manual incident response processes, insufficient workflows and difficulty hiring security personnel leave security operations teams struggling to keep up with the growing volume of alerts.
+## Tool categories
 
-SOAR combines automated data gathering, security automation, case management and analytics to provide organizations the ability to easily implement sophisticated **defense-in-depth** capabilities based on internal and external data sources.
+Several [cloud security tool categories](https://www.uptycs.com/blog/whats-the-difference-between-casb-cwpp-cspm-and-cnapp) go into securing cloud applications and workloads. Each has its own focus and they are used together.
 
-##### Azure Security center
+* CSPM (cloud security posture management) reads the provider's configuration through its APIs and flags drift from a benchmark: a public bucket, a wide-open security group, a user without MFA.
+* CWPP (cloud workload protection platform) protects what runs: VMs, containers and functions, with vulnerability scanning and runtime detection.
+* CASB (cloud access security broker) sits between users and SaaS to enforce policy on what data goes where.
+* CNAPP (cloud-native application protection platform) is the vendor bundle of CSPM and CWPP with code-to-cloud context.
 
-Azure security center provides endpoint threat detection and provides security alerts based on signals detected on resources being monitored. Azure security center requires agents to be running on the VMs that you're going to be monitoring. You use configuration (workspace ids and keys) for deploying and setting up the agents to talk back to Azure using `azcli`. Once your agents are deployed and configured, over a few hours you'll see data appear in your azure workspaces.
+The choice and combination depend on the security requirements and cloud architecture of the organisation.
 
-* Azure security centre allows you to run threat detection on Azure storage, SQL and app service
-* Integrates with windows defender ATP (Advanced Threat Protection) that expands the volume of signals available for better protection of windows environments
+Prowler (`prowler-cloud/prowler`) and ScoutSuite (`nccgroup/ScoutSuite`) are open-source CSPM scanners that assess an account against CIS and other benchmarks; the AWS assessment tooling that uses them is in [AWS](../../cloud/aws/README.md).
 
-##### Azure Sentinel
+## SIEM and SOAR
 
-Azure sentinel is a cloud native SIEM and SOAR solution, similar to Splunk or Rapid7. It allows ingestion of data from various sources
+Security information and event management (SIEM) and security orchestration, automation and response (SOAR) complement each other but are not the same thing. A SIEM helps identify and analyse security incidents. A SOAR lets you respond to those incidents in an automated way.
 
-![asc_as.png](../../images/asc_as.png "ASC v AS")
+Firewalls, network appliances and intrusion detection systems produce more event data than a team can read. A SIEM collects it and correlates events into incidents. It needs regular tuning to tell normal from anomalous, and the tuning competes for the analysts who should be triaging alerts.
 
-## Data Control Framework
+A SOAR takes those incidents and runs playbooks against them: gather context, open a case, isolate a host, notify. Manual response steps become workflow, which is how a small team keeps up with alert volume.
 
-Delivers a set of both preventive and detective controls that ensures that products and business services run securely in the cloud from a data point of view. This looks at very cloud service that involves data storage and proposes controls for categories such as
+Provider implementations: AWS Security Hub and GuardDuty are described in [AWS](../../cloud/aws/README.md); Microsoft Defender for Cloud and Microsoft Sentinel in [Azure security services](../../cloud/azure/Tenants,%20Subscriptions%20and%20RBAC.md#security-services).
 
-* data access and confidentiality
-  * No public access to S3 buckets
-  * Data stored in S3 buckets is encrypted e.g. using AWS Key Management Service
-  * Monitor access and usage for audit and troubleshooting purposes
-* catalogue
-* reliability & integrity
-* retention
-* availability and recovery monitoring
+## How to rederive this
 
-## Acronyms
+* Ask what layer a document sits at: threat, function, control, configuration or assurance. Two documents at different layers do not compete.
+* A function model has no controls; a control catalogue has no priorities. You need one of each.
+* A benchmark is a control made concrete for one product. If it names a setting and a value, it is a benchmark.
+* Assurance is someone else's evidence about their controls. STAR, SOC 2 and ISO certificates are read, not implemented.
+* CSPM reads configuration, CWPP watches workloads, SIEM reads logs, SOAR acts on incidents.
 
-* SIEM - Security information and event management
-* SOAR - Security orchestration, automation and response
-* SOR - Security automation and orchestration
-* SOC - Security Operations center
-* PRA - Probabilistic risk assessment
+## Sources
+
+* NIST Cybersecurity Framework 2.0 (February 2024)
+* NIST SP 800-53 Rev 5, Security and Privacy Controls for Information Systems and Organizations
+* Cloud Security Alliance: Cloud Controls Matrix, STAR registry, CAIQ
+* CIS Benchmarks and CIS Hardened Images, Center for Internet Security
+* MITRE ATT&CK, Enterprise and Cloud matrices
+* ENISA Threat Landscape reports
+* NCSC, The cloud security principles
+* Uptycs, "What's the difference between CASB, CWPP, CSPM and CNAPP"

@@ -147,7 +147,7 @@ Questions to have an answer for before a cluster carries production traffic:
 
 ## Service mesh and serverless
 
-A service mesh moves mutual TLS, retries, timeouts and request telemetry out of application code into the platform. The data plane is a sidecar proxy in every pod or, in ambient mode, a per-node proxy; a control plane pushes policy to it. Istio and Linkerd are CNCF graduated projects and emit traces with OpenTelemetry.
+A service mesh moves mutual TLS, retries, timeouts and request telemetry out of application code into the platform ([Resilience Patterns](Resilience%20Patterns.md)). The data plane is a sidecar proxy in every pod or, in ambient mode, a per-node proxy; a control plane pushes policy to it. Istio and Linkerd are CNCF graduated projects and emit traces with OpenTelemetry.
 
 Serverless on Kubernetes means scale-to-zero and request-driven scaling for containers. Knative, a CNCF project, provides that on a standard cluster. Underneath it is still pods, plus an autoscaler that counts requests and a router that holds them while a pod starts.
 

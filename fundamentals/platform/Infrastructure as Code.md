@@ -1,162 +1,60 @@
-# Terraform
+# Infrastructure as Code
 
-Tool to automate the deployment of your infrastructure across multiple clouds, both public and private. This enables Infrastructure as code to provision and manage any cloud, infrastructure or service.
+What does infrastructure as code give me, how does Terraform's model work, and where does state fit?
 
-* Friendly custom syntax (supports comments), uses HCL - Hashicorp configuration language but also has support for JSON
-* Visibility into changes before they actually happen.
-* Built-in graphing feature to visualize the infrastructure.
-* Understands resource relationships. One example is failures are isolated to dependent resources while non-dependent resources still get created, updated, or destroyed. Resource referencing is intuitive.
-* Open source project with a community of thousands of contributors who add features and updates.
-* The ability to break down the configuration into smaller chunks for better organization, re-use, and maintainability. The last part of this article goes into this feature in detail.
+Infrastructure as code (IaC) means describing servers, networks and services in files, then letting a tool make the real environment match the files. Terraform is the example here. OpenTofu and Pulumi follow the same model; CloudFormation and Bicep declare the same way but keep no separate state file.
+
+## What infrastructure as code gives you
+
+You declare the end state you want, not the steps to reach it. The tool works out the steps.
+
+* The description lives in version control. A change to infrastructure is a diff, a review and a commit.
+* You see changes before they happen. The tool prints the difference between declared and real; nothing changes until you accept it.
+* The same files build the same environment again. Dev, test and prod come from one description with different inputs.
+* Drift becomes visible. Drift is the gap that opens when someone changes a resource by hand. The next comparison shows it and the tool can put it back.
+
+Terraform reads its own syntax, HCL (HashiCorp configuration language), and also accepts JSON. It builds a dependency graph from the references between resources, creates or destroys them in the right order, and works on independent resources in parallel. A failure in one resource stops only the resources that depend on it.
 
 Will Brock's [terraform playlist](https://www.youtube.com/playlist?list=PL8HowI-L-3_9bkocmR3JahQ4Y-Pbqs2Nt) is a good resource for learning terraform.
 
-## Arm and Terraform
+## Terraform's model
 
-On Azure, you can run terraform directly in the azure cloud shell, which has the `azcli` and `terraform` both installed.
+* **Provider**: a plugin that knows one API. Terraform itself knows nothing about Azure or AWS; the provider translates HCL blocks into API calls. Each is versioned and published on the [registry](https://registry.terraform.io/browse/providers).
+* **Resource**: one object the provider manages, such as a virtual network.
+* **Data source**: a read-only lookup of something that exists already, such as a marketplace image or a network another team provisioned.
+* **Module**: a folder of configuration used as a unit. It takes inputs and returns outputs.
+* **Variables, locals and outputs**: variables are the inputs to a configuration or module, locals are values computed from them, and outputs are what it hands back, for example an id another module needs.
 
-![arm-terraform.png](../../images/arm-terraform.png "Arm Terraform")
+### Providers
 
-## Providers
+The Azure providers are `azurerm` for resources through the Azure Resource Manager API, `azuread` for Entra ID (the provider keeps its old name), `azapi` for resources that `azurerm` does not cover yet, and `azurestack`, which is minimally maintained. A provider authenticates with the Azure CLI (`az`), with a managed identity when Terraform runs inside Azure, or with a service principal using a client secret or certificate.
 
-A provider is responsible for understanding API interactions and exposing resources. [Providers](https://registry.terraform.io/browse/providers) generally are an IaaS (e.g. Alibaba Cloud, AWS, GCP, Microsoft Azure, OpenStack), PaaS (e.g. Heroku), or SaaS services (e.g. Terraform Cloud, DNSimple, Cloudflare). There are 3 Azure providers in Terraform
+Pin the provider in a `required_providers` block. The `provider` block then holds its settings. For `azurerm` an empty `features {}` block is mandatory.
 
-* Azure - Used to interact with Azure public cloud, Azure gov cloud or one of the sovereign clouds. It uses the Azure Resource Manager (Azure RM) API.
-* Azure Stack - On premise extension of Microsoft Azure. It uses the same ARM API, but some of the versions and resources are different.
-* Azure Active Directory - Explicitly deals with Azure AD
-
-Providers have:
-
-* Version: Terraform providers are versioned, allows you to specify the version of the provider to use
-* Data sources: Information that you can pull from the provider about your target environments. e.g. get a list of marketplace images or get an existing virtual network that's already been provisioned or subscription details of the target subscription
-* Resources: e.g. create an Azure VM in a Vnet that you got from the data sources.
-* Modules: help deploy common configurations for that provider. These modules can be found on public terraform registry: `registry.terraform.io`
-* Authentication:
-  * azcli
-  * managed service identity - a VM running in azure under managed identity
-  * service principal with client secret
-  * service principal with client certificate
-
-```sh
-    provider "azurerm" {
-        version         = "~> 1.0" # stay in the 1 major version 1.x
-        alias           = "networking" # allows you to create multiple instances of the same provider
-        subscription_id = var.subscription_id
-        cliend_id       = var.client_id
-        client_secret   = var.client_secret
+```hcl
+terraform {
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~> 4.0" # stay within one major version
     }
-```
+  }
+}
 
-## Modules
-
-As teams and operations scale you want to organise your infrastructure resources into meaningful groups by keeping their configurations separate.
-
-A module is a container for multiple resources that are used together. Modules can be used to create lightweight abstractions, so that you can describe your infrastructure in terms of its architecture, rather than directly in terms of physical objects.
-
-Generally it is advisable to **avoid preemptively creating modules** and only doing it after seeing patterns emerging. Eventually you may end up with a structure like:
-
-* application
-  * modules
-    * frontend
-    * backend
-    * database
-
-Using a standard [module structure](https://www.terraform.io/docs/modules/index.html#module-structure) is recommended for reusable modules. Terraform tooling is built to understand the standard module structure and use that structure to generate documentation, index modules for the module registry, and more.
-
-### Passing variables to modules
-
-You cannot pass references into variables as variables are initialized before any parsing is done. Rather than passing arguments as `variables` if you need to dynamically obtain the value for a module variable, you can use `local` constructs as they are evaluated later in the plan/apply process. An example of this is provided [here](https://discuss.hashicorp.com/t/passing-values-in-existing-variables-to-modules/4803/3)
-
-## Remote state
-
-Terraform stores state about your managed infrastructure and configuration. This state is used by Terraform to map real world resources to your configuration, keep track of metadata, and to improve performance for large infrastructures.
-
-This state is stored by default in a local file named `terraform.tfstate`, but it can also be stored remotely, which works better in a team environment.
-
-A [backend](https://www.terraform.io/docs/backends/index.html) in Terraform determines how state is loaded and how an operation such as apply is executed. This abstraction enables non-local file state storage, remote execution, etc. e.g. when commands like plan, apply or destroy are running terraform puts a lock on the state file to ensure it can only be modified in isolation.
-
-A backend like Azure blob storage supports locking
-
-```sh
-backend "azurerm" {
-    storage_account_name = "storestate"
-    container_name       = "terraform-state"
-    key                  = "prod.terraform.tfstate"
-    access_key           = "access_key"
+provider "azurerm" {
+  features {}
+  subscription_id = var.subscription_id
+  client_id       = var.client_id
+  client_secret   = var.client_secret
 }
 ```
 
-## Workspaces
+### Resources and data sources
 
-```sh
-terraform workspace -h
-```
+A resource block names a type, a label that is local to your configuration, and the arguments the provider needs.
 
-Terraform CLI workspaces are associated with a specific working directory and isolate multiple state files in the same working directory, letting you manage multiple groups of resources with a single configuration.
-
-One configuration -> multiple states (multiple workspaces)
-
-```sh
-* dev.tfstate
-* qa.tfstate
-* prod.tfstate
-```
-
-The persistent data stored in the backend belongs to a workspace. Initially the backend has only one workspace, called "default", and thus there is only one Terraform state associated with that configuration. Some backends support multiple named workspaces, allowing multiple states to be associated with a single configuration. Unfortunately, one workspace can only be associated with a single backend, therefore all your state for all your environments ends up in the same bucket. If you require separate backends for separate environments [workspaces are not ideal for system decomposition](https://developer.hashicorp.com/terraform/language/state/workspaces#using-workspaces).
-
-## Provisioners
-
-[Provisioners](https://www.terraform.io/docs/provisioners/index.html) can be used to model specific actions on the local machine or on a remote machine in order to prepare servers or other infrastructure objects for service.
-
-Provisioners are a Last resource and be used with caution. An example of running a local provisioner on the machine that terraform is running on, rather than running the provisioner on a remote VM.
-
-```sh
-resource "null_resource" "post_config" {
-
-    depends_on = [azurerm_role_assignment.vnet]
-
-    provisioner "local-exec" {
-        command = <<EOT
-    echo "export TF_VAR_my_vnet_id=${module.vnet-my.vnet_id}" >> file.txt
-    EOT
-    }
-}
-```
-
-## Terraform workflow
-
-Terraform [Infrastructure as Code (IaC) workflow](https://learn.hashicorp.com/tutorials/terraform/infrastructure-as-code?in=terraform/aws-get-started) uses Terraform plugins called [providers](https://registry.terraform.io/browse/providers) that let Terraform interact with cloud platforms and other services via their application programming interfaces (APIs).
-
-### terraform init
-
-* pulls down and installs all the providers e.g. `azurerm` and modules(written in the Terraform language) being referenced in your configuration
-* initializes the `.terraform` directory: a local cache where terraform retains some files it will need for subsequent operations against this configuration. Its contents are not intended to be included in version control
-* creates or updates the dependency lock file `.terraform.lock.hcl`: determines compatibility between the current terraform configuration and dependencies (providers and modules). At present, the dependency lock file tracks only provider dependencies. Terraform does not remember version selections for remote modules, and so Terraform will always select the newest available module version that meets the specified version constraints.
-
-### terraform plan
-
-Identify the changes that terraform will apply based on your configuration
-
-Pass inline variables
-
-`terraform plan -var client_id=$AZURE_CLIENT_ID -var client_secret=$AZURE_CLIENT_SECRET -out my.tfplan # output the plan to a file 'my.tfplan'`
-
-Pass variables as file
-
-`terraform plan -var-file="terraform.example.tfvars" -out my.tfplan`
-
-### terraform apply
-
-`terraform apply "my.tfpan" # apply the plan`
-
-### Logs
-
-For debugging purposes, log levels can be set using the `TF_LOG` environment variable. e.g. `TF_LOG=DEBUG terraform destroy`
-
-### Defining resources
-
-```sh
-resource "<type>" "<terraform_identifier>" { # <terraform_identifier> or variable name
+```hcl
+resource "<type>" "<terraform_identifier>" {
   name     = "resourceGroup1"
   location = "West US"
 }
@@ -168,15 +66,139 @@ resource "azurerm_resource_group" "rg1" {
 }
 ```
 
+Other blocks refer to it as `azurerm_resource_group.rg1.name`. That reference is also the dependency: Terraform creates the group before anything that mentions it. A data source has the same shape with `data` in place of `resource`, and reads instead of creating.
+
+### Modules
+
+As teams and operations scale you want to organise your infrastructure resources into meaningful groups by keeping their configurations separate. A module groups resources that change together. It lets you describe infrastructure in terms of its architecture (a frontend, a database) rather than one physical object at a time.
+
+Generally it is advisable to **avoid preemptively creating modules** and only do it after seeing patterns emerging. Eventually you may end up with a structure like:
+
+* application
+  * modules
+    * frontend
+    * backend
+    * database
+
+Reusable modules follow the standard [module structure](https://developer.hashicorp.com/terraform/language/modules/develop/structure).
+
+**Passing values to modules.** A variable's default must be a literal; it cannot reference a resource. If a module input has to be computed, compute it in a `local` and pass the local in. Locals are evaluated during plan, so they can hold references. An example is [here](https://discuss.hashicorp.com/t/passing-values-in-existing-variables-to-modules/4803/3).
+
+## State
+
+State is the map between what you declared and what exists. For every resource block Terraform records the real object's id and its last known attributes. Plan reads three things: the configuration, the state and the live API. Configuration against state tells it what you changed. State against the API tells it what drifted. Without state Terraform could not know which real object a block refers to, and it would have to query everything on every run.
+
+By default state is a local file named `terraform.tfstate`. It holds every attribute, including secrets the provider returned, so treat it as sensitive.
+
+### Remote state and locking
+
+In a team a local file fails in two ways: two people hold different copies, and two people apply at once. A [backend](https://developer.hashicorp.com/terraform/language/backend) tells Terraform where state lives. A remote backend fixes the first problem. Locking fixes the second: when plan, apply or destroy run, Terraform takes a lock on the state so one operation at a time can change it. Azure blob storage locks through blob leases.
+
+```hcl
+terraform {
+  backend "azurerm" {
+    resource_group_name  = "tfstate"
+    storage_account_name = "storestate"
+    container_name       = "terraform-state"
+    key                  = "prod.terraform.tfstate"
+    use_azuread_auth     = true
+  }
+}
+```
+
+`use_azuread_auth` uses the identity Terraform already has. Never put a storage access key in this block; if you must use one, pass it through `ARM_ACCESS_KEY` or `-backend-config`.
+
+### Workspaces
+
+```sh
+terraform workspace -h
+```
+
+CLI workspaces let one configuration hold several state files in the same working directory. One configuration, multiple states:
+
+* `dev.tfstate`
+* `qa.tfstate`
+* `prod.tfstate`
+
+The state stored in the backend belongs to a workspace. A backend starts with one workspace called `default`. All workspaces of one configuration share that one backend, so every environment's state lands in the same storage account and container. If separate environments need separate backends or credentials, HashiCorp's advice is separate root configurations; [workspaces are not the tool for system decomposition](https://developer.hashicorp.com/terraform/language/state/workspaces#using-workspaces).
+
+## Workflow: init, plan, apply
+
+`terraform init`
+
+* downloads the providers (for example `azurerm`) and the modules the configuration references
+* creates the `.terraform` directory, a local cache that stays out of version control
+* creates or updates `.terraform.lock.hcl`, which pins provider versions but not module versions
+
+`terraform plan` shows what Terraform will change. Save the plan to a file so that apply does exactly what you reviewed.
+
+```sh
+# inline variables, plan written to my.tfplan
+terraform plan -var client_id=$AZURE_CLIENT_ID -var client_secret=$AZURE_CLIENT_SECRET -out my.tfplan
+
+# variables from a file
+terraform plan -var-file="terraform.example.tfvars" -out my.tfplan
+
+# apply the saved plan
+terraform apply my.tfplan
+```
+
+Newer language features worth looking up are `moved` blocks, `import` blocks and the built-in test framework.
+
+## Provisioners
+
+[Provisioners](https://developer.hashicorp.com/terraform/language/resources/provisioners/syntax) run a script on the local machine or on a remote one after Terraform creates a resource. They are a last resort: Terraform cannot plan what a script will do, cannot undo it, and cannot see drift in its result. Prefer cloud-init, a configuration management tool or a provider resource. If you need one, attach it to a `terraform_data` resource, which replaces `null_resource`. This one runs on the machine running Terraform rather than on a remote VM:
+
+```hcl
+resource "terraform_data" "post_config" {
+  depends_on = [azurerm_role_assignment.vnet]
+
+  provisioner "local-exec" {
+    command = <<-EOT
+      echo "export TF_VAR_my_vnet_id=${module.vnet-my.vnet_id}" >> file.txt
+    EOT
+  }
+}
+```
+
+## ARM templates and Terraform
+
+On Azure the native IaC format is the ARM template. The concepts map one to one. Adapted from the *Terraform for the Azure Admin* slide:
+
+| ARM template | Terraform |
+|---|---|
+| JSON | HCL |
+| Parameters | Variables |
+| Variables | Locals |
+| Resources | Resources |
+| Functions | Functions |
+| Nested templates | Modules |
+| Explicit dependency (`dependsOn`) | Automatic dependency from references |
+| Refer by `reference()` or `resourceId()` | Refer by resource or data source |
+
+Bicep is the current language for ARM; it compiles to ARM JSON and replaces writing templates by hand.
+
 ## Terragrunt
 
-Terragrunt is a thin wrapper (executable) that can auto generate terraform configuration prior to invoking terraform. e.g. parameterising remote state config. This is controlled by `hcl` files, usually one per module that you put within your directories. This can help in
+Terragrunt is a thin wrapper that generates Terraform configuration before calling Terraform. A `terragrunt.hcl` per environment names the module to run and its inputs, and inherits the remote state block from a root file found with [find_in_parent_folders()](https://terragrunt.gruntwork.io/docs/reference/built-in-functions/#find_in_parent_folders). It removes repetition across environments and keeps one state file per module.
 
-* Reducing repetition. It helps provide configuration to terraform which can also be provided at runtime via a text file or environment variables. However, Terragrunt is useful if you want to avoid repetition in defining your settings per environment. It allows you to neatly define common settings (e.g. tfvars) across multiple environments in one place with the ability to override the ones unique to each env.
-  * You can [use a tfvar file per environment](https://stackoverflow.com/questions/60084611/how-best-to-handle-multiple-tfvars-files-that-use-common-tf-files) and define `terragrunt.hcl` per environment. Each `terragrunt.hcl` file specifies a `terraform { …​ }` block that specifies from where to download the terraform code, as well as the environment-specific values for the input variables in that terraform code.
-  * Using `"-var-file="common.tfvars" -var-file="$env.tfvars"` in `terraform apply` can probably achieve the same result
-  * If you define multiple `terragrunt.hcl` files the [find_in_parent_folders()](https://terragrunt.gruntwork.io/docs/reference/built-in-functions/#find_in_parent_folders) helper will automatically search up the directory tree to find the root `terragrunt.hcl` and inherit the remote_state configuration from it
-* Working with multiple terraform modules
-* Managing terraform state by making it more granular e.g. one state file per module. Large configurations in a single state file used to be resource intensive to apply in terraform
+> Own view: Terraform has probably evolved to fill the gap in functionality that terragrunt once provided.
 
-Terraform has probably evolved to fill the gap in functionality that terragrunt once provided. Especially post 0.12 versions terraform state is less brittle and terraform plans are based on diffs as opposed to a complete state refresh.
+## Licence
+
+Terraform moved from the MPL 2.0 to the Business Source License 1.1 in August 2023. It is source-available, not open source. OpenTofu is the open-source fork under the Linux Foundation and reads the same configuration. Terraform Cloud, HashiCorp's hosted service, is now HCP Terraform.
+
+## How to rederive this
+
+* Files describe what you want, the API describes what exists, and something must remember which real object each block refers to. That is state.
+* Plan is a three-way comparison: configuration against state shows your change, state against the API shows drift.
+* Two people and one state file means stale copies or concurrent writes, so state must be remote and locked.
+* Anything Terraform cannot plan, undo or compare it cannot manage, which is why provisioners are a last resort.
+
+## Sources
+
+* HashiCorp, [Terraform language documentation](https://developer.hashicorp.com/terraform/language)
+* HashiCorp, [Infrastructure as Code tutorial](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/infrastructure-as-code)
+* *Terraform for the Azure Admin* slide (ARM to Terraform mapping)
+* Gruntwork, [Terragrunt documentation](https://terragrunt.gruntwork.io/docs/)
+* HashiCorp, [BSL announcement](https://www.hashicorp.com/blog/hashicorp-adopts-business-source-license); [OpenTofu](https://opentofu.org)

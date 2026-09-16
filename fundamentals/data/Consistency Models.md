@@ -34,7 +34,7 @@ The slide's top rung, "strict consistency", means every read returns the latest 
 * **Causal.** Writes that depend on each other are seen in order: a reply after the comment it answers. Unrelated writes may be seen in different orders. Loosely connected systems like Git use this, with conflict resolution.
 * **Read-your-writes.** After you write, your own later reads see it. Users must see the data they have just changed; a reload served by a lagging replica breaks this.
 * **Monotonic reads.** Once you have seen a value you never see an older one. PRAM on the slide is read-your-writes, monotonic reads and monotonic writes together.
-* **Eventual.** If writes stop, all replicas converge. No bound on when, no promise about what you see meanwhile. [Asynchronous messaging](../messaging/Asynchronous%20Messaging.md) between services gives you this.
+* **Eventual.** If writes stop, all replicas converge. No bound on when, no promise about what you see meanwhile. [Asynchronous messaging](../messaging/Messaging%20Fundamentals.md) between services gives you this.
 
 ## CAP
 

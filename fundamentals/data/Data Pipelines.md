@@ -43,7 +43,7 @@ Polling (select rows whose `updated_at` is newer than last time) loads the sourc
 
 **Change data capture** (CDC) instead reads the write-ahead log or binlog, the stream the database uses for replication: every insert, update and delete, in order, with almost no load on the source. Debezium publishes each change as an event. Kleppmann (*Designing Data-Intensive Applications* ch. 11): the log is the source of truth and every downstream store is a derived view kept current by consuming it.
 
-CDC is also the plumbing behind the **transactional outbox** in [Asynchronous Messaging](../messaging/Asynchronous%20Messaging.md): event and state change are written in one transaction and CDC publishes the outbox rows, so they cannot disagree.
+CDC is also the plumbing behind the **transactional outbox** in [Messaging Fundamentals](../messaging/Messaging%20Fundamentals.md#the-transactional-outbox): event and state change are written in one transaction and CDC publishes the outbox rows, so they cannot disagree.
 
 ## Formats and schema
 
@@ -53,7 +53,7 @@ Schema changes break consumers. Formats with an explicit schema (Avro, Parquet, 
 
 ## Delivery guarantees
 
-A network hop can lose a message or deliver it twice. Practical exactly-once is **at-least-once delivery plus an idempotent sink**: retry until acknowledged; the destination overwrites on a key or remembers what it has seen. The reasoning is in [Asynchronous Messaging](../messaging/Asynchronous%20Messaging.md) and applies to a warehouse table.
+A network hop can lose a message or deliver it twice. Practical exactly-once is **at-least-once delivery plus an idempotent sink**: retry until acknowledged; the destination overwrites on a key or remembers what it has seen. The reasoning is in [Messaging Fundamentals](../messaging/Messaging%20Fundamentals.md#at-least-once-delivery-and-idempotent-consumers) and applies to a warehouse table.
 
 ## Log data
 

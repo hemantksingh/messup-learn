@@ -102,3 +102,7 @@ Most Azure PaaS services have a public endpoint by default. Two ways to stop tre
 * **Private endpoints** (Private Link) give the service a private IP inside your VNet, so there is no public endpoint to lock down at all. This is now the recommended approach for most services.
 
 Azure SQL adds server-level IP firewall rules. Use them when many databases share the same access needs. The "Allow Azure services" switch permits traffic from every Azure IP, including other tenants', so leave it off unless you know why you need it. Rules can be set with `az sql server firewall-rule create`.
+
+## Security services
+
+Microsoft Defender for Cloud (formerly Azure Security Center) is the cloud security posture management (CSPM) and workload protection service. It scores the subscription against benchmarks and raises alerts for storage, SQL, app service and VMs. Agentless scanning has replaced the old Log Analytics agent workflow, so VMs no longer need workspace ids and keys pushed to them. Microsoft Sentinel (formerly Azure Sentinel) is the cloud native SIEM and SOAR, the analogue of Splunk or Rapid7: Defender finds and alerts, Sentinel ingests, correlates and runs the response playbooks. The framework view (CSF, CIS, CSPM, SIEM versus SOAR) is in [Cloud Security](../../fundamentals/security/Cloud%20Security.md).

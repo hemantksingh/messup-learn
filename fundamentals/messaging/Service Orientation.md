@@ -91,7 +91,7 @@ Simple routing using [round robin load balancing](https://www.nginx.com/resource
 
 Nginx claims (vendor claim, not independently measured) that the least time algorithm has yielded the most valuable results for customers with microservices architectures. `least_time` is only available in the commercial NGINX Plus.
 
-Service discovery can be achieved by something as simple as DNS based routing using a load balancer, or by a central registry. In Kubernetes the built-in Service and DNS records are the registry; outside it **Consul** and **etcd** are common. **Apache ZooKeeper** filled this role in 2010s systems and is now mostly historical. Service meshes such as **Istio** and **Linkerd** sit on top of discovery and add routing, retries, mutual TLS and telemetry between services.
+Service discovery can be achieved by something as simple as DNS based routing using a load balancer, or by a central registry. In Kubernetes the built-in Service and DNS records are the registry; outside it **Consul** and **etcd** are common. **Apache ZooKeeper** filled this role in 2010s systems and is now mostly historical. Service meshes such as **Istio** and **Linkerd** sit on top of discovery and add routing, retries, mutual TLS and telemetry between services ([Resilience Patterns](../platform/Resilience%20Patterns.md)).
 
 ## Monolith to Microservices
 
