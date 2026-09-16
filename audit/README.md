@@ -123,7 +123,7 @@ Only breakages with one correct answer were fixed:
 - `Distributed Systems/Synchronous Messaging.md:140` image title "HTTP stacks" on the business-layer diagram, corrected.
 - `Security/Web Security/Cross Site Request Forgery.md:16-22` an unclosed code fence that rendered the rest of the file as code, closed and tagged `html`.
 
-Nothing is committed. `git diff` shows the five edits; `audit/` is untracked.
+The five edits and this folder were committed as the baseline on 2026-09-16.
 
 ## Method and limits
 
@@ -133,3 +133,7 @@ Nothing is committed. `git diff` shows the five edits; `audit/` is untracked.
 - Link status is a single fetch on 2026-09-16 with a browser user agent. 403 responses are reported as unverified, not dead. Two apparent dead links were false positives from trailing parentheses and were removed.
 - One reviewer reported a duplicate `consistency-models.png` / `.PNG` pair; only the `.PNG` exists (case-insensitive filesystem artefact). Disregard that row in `details/distsys-1.md`.
 - Detail-report line numbers refer to the files as they were before the five fixes above; the CSRF fix shifts later lines in that file by one.
+
+## Status
+
+Phase 1 (cut, merge, move) ran on 2026-09-16, straight after the baseline commit. Every path named in this folder is **pre-migration**; `phase1-moves.md` maps each old path to where its content now lives. Phases 2 onward (correct, rewrite, trim, wire up) had not started when this note was written.
