@@ -1,14 +1,14 @@
-# Testing approach
+# Testing Strategy
 
-The [purpose of testing](https://dannorth.net/2021/07/26/we-need-to-talk-about-testing) is not solely about identifying defects in code. It's about gaining confidence in the software's ability to meet user needs and business goals. Effective testing strategies should prioritise preventing issues from arising in the first place. This starts from architectural choices and defining well-designed user interfaces that minimise the likelihood of errors. The role of dedicated testers might diminish as development teams adopt better "_test thinking_" practices. 
+The [purpose of testing](https://dannorth.net/2021/07/26/we-need-to-talk-about-testing) is not solely about identifying defects in code. It's about gaining confidence in the software's ability to meet user needs and business goals. Effective testing strategies should prioritise preventing issues from arising in the first place. This starts from architectural choices and defining well-designed user interfaces that minimise the likelihood of errors. North argues that the role of dedicated testers might diminish as development teams adopt better "_test thinking_" practices.
 
 Automation is valuable, but not a silver bullet. Automated tests are beneficial in achieving repeatability and quick feedback but effective testing strategies should encompass a variety of approaches, including manual testing and exploratory testing and integrating testing throughout the development process, not just as a separate final stage. Confidence in the code being delivered is gained by working as a team that is evidence led and uses data to drive improvements
 
-* **Quality as shared responsibility**: Testing is a shared collective ownership, not gated by individual QA approvals. Engineers actively consider testability throughout the development process and collaborate with quality engineers from the outset to build confidence and the right checks as early as possible. This invovles defining the functional specs, detailing the acceptance criteria, identifying the layers of tests required, writing the test automation scripts and execution.
+* **Quality as shared responsibility**: Testing is a shared collective ownership, not gated by individual QA approvals. Engineers actively consider testability throughout the development process and collaborate with quality engineers from the outset to build confidence and the right checks as early as possible. This involves defining the functional specs, detailing the acceptance criteria, identifying the layers of tests required, writing the test automation scripts and execution.
 * **Automated testing as part of CI/CD**: Write automated tests that are independent of the environment that they run in. To reduce the risk of environment-specific bugs, tests should be able to run in a development environment and in a CI/CD pipeline.
 * **Fast feedback loop**: Strive for quick execution times for automated tests to provide immediate feedback and prevent long regressions.
-* **Independent tests**: Instead of testing your entire stack as one giant block, focus on testing components that fulfil a specific business functionality. The test boundaries should align with the your business domains and the external dependencies should be mocked.
-* **Measure test effectiveness**: While metrics alone do not gaurantee quality, they provide a measure of the team's quality benchmarks. If feature delivery ends up in dropping the test coverage below an agreed threshold, this should act as a trigger for a conversation, rather than being used as a stick to beat the team. Automation coverage can be tracked by measuring the number of test cases automated and identifying areas for improvement. Monitor the impact of automation on overall quality and defect detection rates.
+* **Independent tests**: Instead of testing your entire stack as one giant block, focus on testing components that fulfil a specific business functionality. The test boundaries should align with your business domains and the external dependencies should be mocked.
+* **Measure test effectiveness**: While metrics alone do not guarantee quality, they provide a measure of the team's quality benchmarks. If feature delivery ends up in dropping the test coverage below an agreed threshold, this should act as a trigger for a conversation, rather than being used as a stick to beat the team. Automation coverage can be tracked by measuring the number of test cases automated and identifying areas for improvement. Monitor the impact of automation on overall quality and defect detection rates.
 
 ## Unit or integration tests ?
 
@@ -24,18 +24,18 @@ Being able to [move I/O code to the edges of your application](https://www.youtu
 * does not have any side effects
 * does not necessarily need to handle exceptions
 
-I have been part of teams where some TDD enthusiasts must insist on adopting testing patterns like writing tests around **units of logic** e.g. *classes and functions* and **mocking** all dependencies other than the unit or subject under test. At this point, its worth asking: What is the purpose of writing a test - testing a class or fulfilling a business requirement? Classes and functions are implementation details and tests that are tied to implementation or infrastructure tend to break a lot when either of them changes. Therefore it is best to focus on testing application behavior as opposed to implementation.
+> Own view: I have been part of teams where some TDD enthusiasts must insist on adopting testing patterns like writing tests around **units of logic** e.g. *classes and functions* and **mocking** all dependencies other than the unit or subject under test. At this point, its worth asking: What is the purpose of writing a test - testing a class or fulfilling a business requirement? Classes and functions are implementation details and tests that are tied to implementation or infrastructure tend to break a lot when either of them changes. Therefore it is best to focus on testing application behavior as opposed to implementation.
 
 
-* BDD encourages you to stop thinking about HOW your software works to start thinking about WHAT your software does. It isn't about tools like `Cucumber` or team collaboration but shifting perspective to focus on observable behaviour of your software from the user's pov. Identify your System Under Test (SUT) that provides a specific business value. 
+* BDD encourages you to stop thinking about HOW your software works to start thinking about WHAT your software does. It isn't about tools like `Cucumber`. It is about collaboration, the conversations between business and delivery that produce shared examples, and about describing the observable behaviour of your software from the user's pov. Identify your System Under Test (SUT) that provides a specific business value. 
 
   * Test workflows not classes
-  * Test behavours not implementation
+  * Test behaviours not implementation
   * Test at the boundaries of a system not internals, unless you have implemented a complex algorithm e.g. A loan interest calculator, tax computation, or pricing engine. 
 
-![Testing behaviour](../images/testing-behaviour.jpg "Testing behaviour")
+![Two diagrams: tests that mirror each service class one-to-one, versus a single PlaceOrderTest exercising OrderService and its collaborators through behaviour](../images/testing-behaviour.jpg "Testing behaviour")
 
-There could  cases where enforcing the separation of I/O and non I/O code is either too costly or adds little real value — where you’re better off testing the integration as a whole.  For data intensive applications it maybe better to write an integration test. 
+There could be cases where enforcing the separation of I/O and non I/O code is either too costly or adds little real value — where you’re better off testing the integration as a whole.  For data intensive applications it maybe better to write an integration test. 
 
 e.g. A report generator that aggregates data from multiple tables using joins, filters, and window functions.
 - You could abstract every query behind a pure interface and test the aggregation logic separately with mock data — but:
@@ -50,12 +50,9 @@ While writing integration tests, you may want to mock external services that you
 
 ### What is a unit test?
 
-According to the definition by Kent Beck a unit test is a test that:
+Kent Beck's point about unit tests is isolation: a unit test runs in **isolation** from other tests, nothing more nothing less. The stricter rules come from Michael Feathers (2005): a test is not a unit test if it talks to the database, communicates across the network, touches the file system, or needs special environment set up to run. Those rules are about **side effects** that can leak between tests.
 
-* runs in **isolation** from other tests, nothing more nothing less.
-* has **no side effects** that can have an impact on other tests, thats why shared resources like file systems and databases are not touched.
-
-This means a unit test essentially has **no I/O**, where a unit does not mean a class or a function
+My own working definition follows from that: a unit test essentially has **no I/O**, where a unit does not mean a class or a function.
 
 Mocks/Stubs/Fakes allows tests to run in isolation. Adding abstractions, solely to achieve isolation can also end up creating multiple layers of indirection. So it is important to think about when to use mocks and what to mock?
 
@@ -63,22 +60,18 @@ Mocks/Stubs/Fakes allows tests to run in isolation. Adding abstractions, solely 
 
 Javascript can run either in the browser or on a Javascript runtime like `nodejs` that is built on Chrome's V8 Javascript engine (written in C++ and used in the Google Chrome browser).
 
-* Jasmine and Mocha are **test frameworks** for writing and executing unit tests in JS.
-  * Tests are run via an html file (e.g. `spec-runner.html`) that includes references to your source and test js files. It is possible to run Jasmine tests programmatically by using a **test runner** like `karma` rather than opening a browser each time you want to run tests. It runs tests programmatically across browsers and devices allowing you to target specific browser(s) like Chrome, Firefox, IE or PhantomJS (headless browser for faster test feedback) while running your tests.
-  * Mocha is a mature JS testing framework running on nodejs and in the browser. Jasmine is more commonly used in angular projects, including the angular project itself.
+* Vitest and Jest are the common **test frameworks** for writing and executing unit tests in JS. Mocha and Jasmine are older alternatives.
+  * Unit tests run on nodejs with a simulated DOM (`jsdom` or `happy-dom`), so no browser is opened. Run them in watch mode locally and headless in CI.
+  * When you need a real browser, use Playwright, which drives headless Chromium, Firefox and WebKit.
 
 ### What is an integration test
 
 Integration tests can be stateful i.e. they have side effects because they often involve testing systems that manage state e.g. the file system, database or a message queue. Therefore an integration test does not necessarily run in isolation with other integration tests, it can span more than one process space, therefore they are I/O dependent.
 
-Rather than worrying about classifying a test as unit or an integration test, **may be the right question to ask is whether the test is I/O dependent?** Consider using integration testing where I/O code is inseperable from the rest. This is appropriate for data-heavy activities:
+Rather than worrying about classifying a test as unit or an integration test, **may be the right question to ask is whether the test is I/O dependent?** Consider using integration testing where I/O code is inseparable from the rest. This is appropriate for data-heavy activities:
 * ETL and data transformation pipelines
 * Data science
 * Exploratory coding and throw-away scripts
-
-For testing REST APIs with outside-in tests exploiting BDD test narratives, in the Javascript ecosystem, you can consider 
- * <http://dareid.github.io/chakram/>
- * <https://github.com/apickli/apickli>
 
 ## Performance testing
 
@@ -109,8 +102,7 @@ The next step is to understand where performance bottlenecks might exist in your
 
 * Simulating Real-World Load
 
-  * Consider tools like JMeter or [Locust](https://locust.io) to simulate realistic user traffic patterns and measure response times under load. Locust allows you to describe all your tests in python code, with good support for running multiple injectors, basic statistics generation and a useful web dashboard. GUI based tools like JMeter are well proven performance testing tools, but creating and maintaining tests is all done in the UI, therefore CI/CD integration isn't well supported.
-  * `npm benchmark` can be used for local performance testing <https://github.com/a-h/templ/tree/main/benchmarks/react>
+  * Consider tools like JMeter or [Locust](https://locust.io) to simulate realistic user traffic patterns and measure response times under load. Locust allows you to describe all your tests in python code, with good support for running multiple injectors, basic statistics generation and a useful web dashboard. JMeter is a well proven tool. Test plans are authored in its GUI but saved as `.jmx` files and run headless in CI (`jmeter -n -t plan.jmx`). Code-first tools like Locust and [k6](https://k6.io) are still easier to review in a pull request.
 
 * Iterative Optimisation: Based on the identified bottlenecks, consider the following optimisation strategies:
   * Function Location: If latency is an issue, consider deploying functions closer to your users.

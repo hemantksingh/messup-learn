@@ -4,13 +4,15 @@
 
 Data security involves [three key properties](https://auth0.com/blog/how-secure-are-encryption-hashing-encoding-and-obfuscation/): confidentiality, integrity and authenticity.
 
-| Security Goal         | Hash | MAC       | Digital Signature|
-|:----------------------|:-----|:----------|:-----------------|
-|Integrity              |  Yes |    Yes    |   Yes            |
-|Authentication         |  No  |    Yes    |   Yes            |
-|Confidentiality        |  No  |    Yes    |   Yes            |
-|Non-repudiation        |  No  |    No     |   Yes            |
-|**Kind of keys**       | none | symmetric | asymmetric       |
+| Security Goal         | Hash | MAC       | Digital Signature| Encryption               |
+|:----------------------|:-----|:----------|:-----------------|:-------------------------|
+|Integrity              |  Yes |    Yes    |   Yes            |   No                     |
+|Authentication         |  No  |    Yes    |   Yes            |   No                     |
+|Confidentiality        |  No  |    No     |   No             |   Yes                    |
+|Non-repudiation        |  No  |    No     |   Yes            |   No                     |
+|**Kind of keys**       | none | symmetric | asymmetric       | symmetric or asymmetric  |
+
+A MAC or a digital signature is computed over plaintext and hides nothing. Only encryption provides confidentiality. AEAD modes (AES-GCM, ChaCha20-Poly1305) combine encryption with a MAC so one operation gives confidentiality, integrity and authenticity.
 
 ### Data masking
 
@@ -34,7 +36,9 @@ Modern encryption algorithms:
 * AES Advanced Encryption Standard
 * RSA Rivest-Shamir-Adlemen
 * ECC Elliptic Curve Cryptography
-* PGP Pretty Good Privacy
+* AEAD modes: AES-GCM, ChaCha20-Poly1305
+
+OpenPGP (PGP, GnuPG) is a message format, not an algorithm. It uses RSA or ECC for keys and AES for the message body.
 
 Usage
 
@@ -44,21 +48,23 @@ Usage
 
 ### Hashing
 
-Hashing is a one-way function where data is mapped to a fixed-length value. Hashing is primarily used for performing integrity checks on data. A **hash** is a unique code, generally hexadecimal that represents a dataset e.g a file. It is designed to be:
+Hashing is a one-way function where data is mapped to a fixed-length value. Hashing is primarily used for performing integrity checks on data. A **hash** is a fixed-length code, generally shown as hexadecimal, that represents a dataset e.g a file. A cryptographic hash is designed to have three properties:
 
-* unique - the hash changes if the contents of the input data change. No 2 inputs can generate the same hash thus a one-way function. This property is also known as **preimage resistance**.
-* random, to avoid generating the same hash code for different inputs, thus minimising collisions when used in hash tables, thus providing **collision resistance**.
-* reasonably quick to compute, but also not too quick. If it is too quick it is easy to break.
+* **preimage resistance** - given a hash, it is infeasible to find any input that produces it. This is what makes the function one-way.
+* **second-preimage resistance** - given an input, it is infeasible to find a different input with the same hash. In practice any change to the input changes the hash.
+* **collision resistance** - it is infeasible to find any two inputs with the same hash. Collisions always exist, because there are more possible inputs than outputs (the pigeonhole principle). The property is that nobody can find one.
+
+General-purpose cryptographic hashes such as SHA-256 are designed to be fast. Non-cryptographic hashes used in hash tables only need to spread inputs evenly to keep collisions rare; they offer no collision resistance in the cryptographic sense.
 
 Usage
 
-* A **checksum** is necessarily a hash, however not all hashes are checksums (one's used in hash tables) but if you can afford the computational cost, a cryptographically strong hash code is a good checksum. A cryptographic hash is designed to be computationally infeasible to reverse, thus provide confidentiality via encryption whereas a checksum is designed to detect data integrity errors and often to be fast to compute.
+* A **checksum** is necessarily a hash, however not all hashes are checksums (one's used in hash tables) but if you can afford the computational cost, a cryptographically strong hash code is a good checksum. A cryptographic hash is designed to be computationally infeasible to reverse, whereas a checksum is designed to detect data integrity errors and often to be fast to compute.
 
-* **Password hashing** uses a "Salt" - a unique value that can be added to the end of the password to create a different hash value. This adds a layer of security to the hashing process, specifically against brute force attacks.  
+* **Password hashing** uses a "Salt" - a random value, unique per password, that is combined with the password before hashing and stored alongside the hash. Two users with the same password get different hashes, which defeats precomputed (rainbow) tables. Unlike general-purpose hashes, password hashes are designed to be slow and memory-hard so that brute force is expensive. Use a dedicated password hashing function, not plain SHA-256. OWASP Password Storage Cheat Sheet recommendations as of 2024: Argon2id (19 MiB memory, 2 iterations, parallelism 1) as the first choice; scrypt (N=2^17, r=8, p=1) if Argon2id is unavailable; bcrypt (work factor 10 or more) for legacy systems; PBKDF2-HMAC-SHA256 with 600,000 iterations where FIPS compliance is required.  
 
   ![password-hashing.png](../../images/password-hashing.png "Password Hashing")
 
-* **Hash-based Message authentication codes (HMACs)** use hashes to verify the sender of the message and the integrity of a message. Hashing the same message multiple times results in the same hash. **Nonce** is a one time value used to generate a unique hash per request, to prevent replay attacks.
+* **Hash-based Message authentication codes (HMACs)** are keyed hashes. Sender and receiver share a secret key; the receiver recomputes the HMAC and, if it matches, knows the message is intact and came from a holder of the key. Hashing the same message with the same key always gives the same HMAC, so a captured message could be replayed. To prevent this a **nonce** (one-time value) or timestamp is included in the message that is authenticated; the receiver rejects a repeated nonce. The nonce does not change the MAC algorithm itself.
 
 ### Encoding
 

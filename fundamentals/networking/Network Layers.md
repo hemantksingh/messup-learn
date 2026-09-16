@@ -1,10 +1,14 @@
-# OSI Model
+# Network Layers
+
+Layering convention for this wiki: pages use the four-layer TCP/IP model (application, transport, internet, network access). TLS and SSH are treated as application-layer protocols in that model. OSI layer numbers appear only in the L4/L7 load-balancer vocabulary. The seven OSI layers below are listed for reference.
+
+## OSI Model
 
 * Application - Email, web browser, twitter, facebook
 * Presentation - Encryption, compression, translation of encodings (ASCII & EBCDIC) between different OS
 * Session - Authenticate and establish a session.
-* Transport - Guarantee end to end delivery of data. Ensure all packets of data arrive at the destination.
-* Network - Finds the destination network, the shortest route not physical distance but shortest time
+* Transport - End to end delivery of data between processes, addressed by ports. Reliable with TCP or best-effort with UDP.
+* Network - Finds the destination network and chooses a path using the routing protocol's metric (hop count, cost, bandwidth or policy), not physical distance
 * Data Link - Finds the physical device on the network.
 * Physical - Cables, voltages, frequencies, bits transfer rates
 
@@ -14,17 +18,17 @@
 
 PDU - Protocol data unit
 
-* Application layer - Http, SMTP, Telnet (does not have encryption), SSH (has encryption, therefore uses part of the Presentation layer) are all application level protocols.
+* Application layer - Http, SMTP, Telnet (does not have encryption), SSH (has encryption) are all application level protocols.
 
-* Transport layer - TCP, UDP. Application and transport layer addressing use ports to identify services. A web server listens for http traffic on port 80 and https traffic on 443. A client (browser) also gets a port assigned dynamically between 8000 to 65535. Firewalls make decisions based on the port number.`
+* Transport layer - TCP, UDP. Application and transport layer addressing use ports to identify services. A web server listens for http traffic on port 80 and https traffic on 443. A client (browser) also gets a port assigned dynamically from the ephemeral range, 49152-65535 by IANA convention (Windows, macOS) or 32768-60999 by default on Linux. Firewalls make decisions based on the port number.
 
 * Internet layer - Internet protocol, Internet Control Message Protocol (used in ping), Address Resolution Protocol. Internet layer PDU is a **packet**. Internet layer uses IP addresses.
 
-* Network access layer - Ethernet, Fiber optics, copper cables, RJ45, RJ48. PDU is **frames** (for the Data Link) and **bits** (for the Physical layer). Uses physical address (48 bit hexadecimal layer) also called the MAC address that is physically permanently burnt into a network interface card. There is a sub layer in the Data Link called Median Access Control.
+* Network access layer - Ethernet, Fiber optics, copper cables, RJ45, RJ48. PDU is **frames** (for the Data Link) and **bits** (for the Physical layer). Uses a physical address, the MAC address, a 48-bit value written as six hex octets. It is assigned by the factory but can be changed in software, and modern operating systems randomise the Wi-Fi MAC per network. There is a sub layer in the Data Link called Media Access Control.
 
 ### TCP
 
-The receiver sends an acknowledgement, therefore it is useful in cases where data loss is unacceptable for example loading an http page. PDU for TCP is a **segment**.
+The receiver sends an acknowledgement, therefore it is useful in cases where data loss is unacceptable for example loading an http page. HTTP/1.1 and HTTP/2 use TCP; HTTP/3 uses QUIC over UDP. PDU for TCP is a **segment**.
 
 ### UDP
 
@@ -40,9 +44,15 @@ Tool to transfer data from or to a server, using one of the supported protocols 
 
 *Unencrypted* terminal protocol, whose client just happens to be useful in testing other applications since it speaks '*raw*' tcp. Sensitive data sent over telnet is susceptible to *packet sniffing*. Connect to your web server through tcp protocol on the port 80
 
-`telnet hemantkumar.net 80` establishes a connection with the host on port 80 and the web server on hemantkumar.net waits for the client to say what it wants - `GET /index.html`
+`telnet hemantkumar.net 80` establishes a connection with the host on port 80 and the web server on hemantkumar.net waits for the client to say what it wants. HTTP/1.1 needs the version and a `Host` header followed by a blank line:
 
-`telnet telnet gmail-smtp-in.l.google.com 25` connect to the gmail server at port 25 (SMTP or mail traffic is on port 25)
+```http
+GET /index.html HTTP/1.1
+Host: hemantkumar.net
+
+```
+
+`telnet gmail-smtp-in.l.google.com 25` connect to the gmail server at port 25 (SMTP or mail traffic is on port 25)
 
 If the host uses ssl you can use **Openssl**
 
@@ -50,13 +60,13 @@ If the host uses ssl you can use **Openssl**
 
 ### SSH
 
-Secure shell is the same as telnet but with encryption to allow network services to operate securely over an unsecured network. Both telnet and ssh are application layer protocols in the OSI model. As it allows login and encryption SSH uses part of the Presentation layer too.
+Secure shell is the same as telnet but with encryption to allow network services to operate securely over an unsecured network. Both telnet and ssh are application layer protocols.
 
-* RSA fingerprint - is based on the hosts public key for easy identification of the host you are connecting to. You can generate fingerprint for a public key using `ssh-keygen -lf /path/to/key.pub`
+* Host key fingerprint - a SHA-256 hash of the host's public key for easy identification of the host you are connecting to. OpenSSH defaults to Ed25519 host keys. You can generate the fingerprint for a public key using `ssh-keygen -lf /path/to/key.pub`
 * `~/.ssh/known_hosts` - public keys of the ssh hosts that you connect to
 
 ## Network Admin Tools
 
-Port scanning on a MAC is available under Network Utilities. `netstat` can be used to determine which processes are listening on which ports on the system.
+Network Utility was removed from macOS in Big Sur. Use `nmap` or `nc -zv host port` to scan ports. To see which processes are listening on which ports use `lsof -iTCP -sTCP:LISTEN` on a Mac or `ss -ltnp` on Linux; `netstat` also works on both.
 
 ![network-admin-tools.jpg](../../images/network-admin-tools.jpg)

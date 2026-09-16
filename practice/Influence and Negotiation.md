@@ -1,4 +1,4 @@
-# Influencing others
+# Influence and Negotiation
 
 Influencing others can only begin once you [know your own goal](Self%20Awareness.md) and have clarity about what you want to achieve. In a business this could be a shared organization goal or a team goal. It is only when you have a clear understanding of what you want that you are going to be able to articulate it to others. People are going to take you seriously only if you are clear in your thinking.
 
@@ -17,11 +17,11 @@ The key thing to consider before going into a discussion is whether you are goin
 ### Listen, clarify and test assumptions
 
 * To get to know the other person try and **summarise their position** by clarifying their objective. [Steel man your opponent's argument](https://constantrenewal.com/steel-man) and assess what is it that you can learn from what they are saying? It is a mechanism of getting feedback on your position. If there is merit in the opposing argument or you can’t respond to the strongest argument from the other side, there’s a good chance you’re wrong. That's okay as long as you're willing to adjust your position.
-* **Get a yes** *"Let me see if I can summarise your position.. what you would like to be able to achieve is... Is that right?"* After a few sessions of back and forth communication, you should get a clear understanding of their viewpoint.
+* **Aim for "that's right"** *"Let me see if I can summarise your position.. what you would like to be able to achieve is... Is that right?"* Voss warns against chasing a "yes"; the goal is a summary so accurate that the other person says "that's right". After a few sessions of back and forth communication, you should get a clear understanding of their viewpoint.
 
 ## Align your goals
 
-> *If there is one secret of success, it lies in the ability to get the other person's point of view and see things from that person's angle as well as your own* - Henry Ford
+> *If there is any one secret of success, it lies in the ability to get the other person's point of view and see things from that person's angle as well as from your own* - Henry Ford, as quoted in Carnegie
 
 * Put yourself in the other person's shoes and try to think how they are thinking?
 * What are the questions brewing in their mind. How will they react to your suggestions?
@@ -49,7 +49,7 @@ The key thing to consider before going into a discussion is whether you are goin
 * Connections come from conversations - making purposeful connections requires intentionally devoting time for conversations
   * you feel connected and energised while speaking to someone who are at the same frequency as you with shared experiences, struggles, motivations or passions
   * active listening - engaging in the conversation by asking questions (labels and mirrors)
-  * provide psychological safety - be genuine and listen without any preconceived notions. The fact that someone hasn't opened up with you is likely because they may not feel psychologically safe to speak out. Realizing that you are not the finished article and showing your vulnerabilities allows others the space to open up about their own anxieties and fears
+  * provide psychological safety (Amy Edmondson's term) - be genuine and listen without any preconceived notions. The fact that someone hasn't opened up with you is likely because they may not feel psychologically safe to speak out. Realizing that you are not the finished article and showing your vulnerabilities allows others the space to open up about their own anxieties and fears; Coyle calls this the vulnerability loop
 
 * Agreeing on common goals is key to expanding your influence across teams.
 
@@ -72,7 +72,7 @@ The key thing to consider before going into a discussion is whether you are goin
   
 * Allow people to surface any disagreements, counter arguments, and frustrations. Acknowledge that you've heard them and understand their point of view. *Get curious not furious* Engage them by allowing them to have some ownership of the outcome.
 
-* Think about how you can use resistance to get critical feedback on your ideas and test underlying assumptions. Reframe the issue using questions like “How might we…?" to help people think differently about the issue. Invite them to explore different alternatives.
+* Think about how you can use resistance to get critical feedback on your ideas and test underlying assumptions. Reframe the issue using IDEO's question “How might we…?" to help people think differently about the issue. Invite them to explore different alternatives.
 
 * In situations when you are not able to reach an agreement with a contrarian view, think about trade-offs and compromise. In such circumstances rather than being driven by personal ego, emotion or resentment, assess whether the proposed alternative still provides you a route to achieve your main goal. Focusing your mind on the common goals will provide you the perspective to whether support the alternative or not.
 
@@ -93,3 +93,4 @@ And know your **BATNA**, the best alternative to a negotiated agreement. Knowing
 * Roger Fisher and William Ury, *Getting to Yes*: interests over positions, objective criteria, BATNA.
 * Chris Voss, *Never Split the Difference*: labels and mirrors, aiming for "that's right" rather than "yes".
 * IDEO / Stanford d.school: the "How might we..." reframing question.
+* Amy Edmondson: psychological safety. Daniel Coyle, *The Culture Code*: the vulnerability loop.

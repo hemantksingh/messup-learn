@@ -1,11 +1,13 @@
+# Kubernetes Security
 
-# Securing the API Server
+## Securing the API Server
 
 Communication with a kubernetes cluster is handled by the API server through REST requests. Authentication to the API server is configurable, and you could define one or more authentication methods. This is made possible using an authentication plugin that  is defined by the cluster administrator with configuration parameters on the API server itself. There are no usernames stored in the API server for authentication purposes, it's up to the selected authentication plugin to define and implement how a user is defined and authenticated. Some of the common authentication plugins available are:
 
-* Client Certificates - most commonly used way to authenticate to the API server e.g. in managed cloud service like AKS. A request is authenticated when a valid, trusted certificate is presented as part of the HTTP request. Certificate contains the username (used for authorization - i.e. what the user can do) in the Common Name (CN) field of the certificate.
-* Authentication Tokens - HTTP Authorization header in the client request
-* Basic HTTP - uses static password files read during API server startup, simple to setup and use (Dev)
+* Client Certificates - a request is authenticated when a valid, trusted certificate is presented as part of the HTTP request. The certificate carries the username (used for authorization - i.e. what the user can do) in the Common Name (CN) field and groups in the Organization (O) fields. Cluster components use certificates, and they are the bootstrap and break-glass path for admins. Humans on managed clusters (AKS, EKS, GKE) normally authenticate with OIDC or cloud IAM tokens instead.
+* Bearer tokens in the HTTP Authorization header. Sources include a static token file, bootstrap tokens (for joining nodes), service account tokens, OIDC ID tokens and webhook token authentication.
+
+Basic HTTP authentication (`--basic-auth-file`) was removed in Kubernetes 1.19 and is no longer an option.
 
 Open ID Connect enables external identity providers for authentication and remote authentication services. This requires additional set up integration with that external provider, but enables you to have a centralized user database which can facilitate for single sign on. This can be useful in scenarios where you have multiple clusters or multiple applications that require centralized authentication services for your organization.
 
@@ -17,7 +19,7 @@ Kubernetes uses certificates to provide TLS encryption. The API server is expose
 
 Every Kubernetes cluster has a cluster root Certificate Authority (CA). The CA is generally used by cluster components to validate the API server’s certificate, by the API server to validate `kubelet` or `kubectl` client certificates, etc. There can be [more than one CAs in a kubernetes cluster](https://jvns.ca/blog/2017/08/05/how-kubernetes-certificates-work/) e.g API server CA and kubelete CA.
 
-The API server provides a certificate API enabling you to submit a Certificate Signing Request (CSR) to be used to [request X.509 certificates](https://kubernetes.io/docs/tasks/tls/managing-tls-in-a-cluster/#requesting-a-certificate). Once generated and signed you can download a certificate for use in your cluster by users and system components. This could be done at the command line using certificate tools like `OpenSSL` or `CFSSSL`, but the API provides a programmatic interface for Certificate management for the internal cluster self signed CA on the control plane node.
+The API server provides a certificate API enabling you to submit a Certificate Signing Request (CSR) to be used to [request X.509 certificates](https://kubernetes.io/docs/tasks/tls/managing-tls-in-a-cluster/#requesting-a-certificate). Once generated and signed you can download a certificate for use in your cluster by users and system components. This could be done at the command line using certificate tools like `OpenSSL` or `CFSSSL`, but the API provides a programmatic interface for Certificate management for the internal cluster self signed CA on the control plane node. The CSR API is `certificates.k8s.io/v1` (since 1.19) and every request must name a `signerName`, e.g. `kubernetes.io/kube-apiserver-client` for client certificates.
 
 ```sh
 # Get the client certificate from kubeconfig
@@ -30,7 +32,7 @@ openssl x509 -in admin.crt -text -noout | more
 
 ## Authorization with service accounts
 
-Running a pod in kunernetes without a specified service account runs it with the default service account.
+Running a pod in kubernetes without a specified service account runs it with the default service account. Since 1.24 service account tokens are bound, time-limited projected tokens; long-lived token Secrets are no longer created automatically. Set `automountServiceAccountToken: false` on pods (or the service account) that do not call the API; it is the hardening default.
 
 ```sh
 # List all service accounts
@@ -63,17 +65,22 @@ ClusterRoleBinding -  ClusterRoleBinding is used to grant access to all namespac
 
 ### Default cluster roles
 
-![default-cluster-roles.png](../../images/default-cluster-roles.png "Default Cluster Roles")
+![The four default ClusterRoles (cluster-admin, admin, edit, view) and what each can do within a namespace](../../images/default-cluster-roles.png "Default Cluster Roles")
 
 ### Multi tenancy
 
-RBAC can be employed to run multi-tenant application in kubernetes. The namespace logical isolation along with RBAC provides the fundamentals of [multi-tenancy in kubernetes](https://www.infoq.com/presentations/multi-tenancy-kubernetes/). All tenants share the master control plane where secrets and ConfigMaps are stored, therefore the API server can be overloaded by a user from a particular tenant. This can result in tenants crowding each other accidentally or on purpose, however [API priority and fairness](https://kubernetes.io/docs/concepts/cluster-administration/flow-control/) by using the `--max-requests-inflight` flag can help limit the amount of outstanding work that will be accepted.  
+RBAC can be employed to run multi-tenant application in kubernetes. The namespace logical isolation along with RBAC provides the fundamentals of [multi-tenancy in kubernetes](https://www.infoq.com/presentations/multi-tenancy-kubernetes/). All tenants share the control plane where secrets and ConfigMaps are stored, therefore the API server can be overloaded by a user from a particular tenant. This can result in tenants crowding each other accidentally or on purpose. [API Priority and Fairness](https://kubernetes.io/docs/concepts/cluster-administration/flow-control/) (GA in 1.29) limits this: `FlowSchema` objects classify requests and `PriorityLevelConfiguration` objects share the capacity between them. The `--max-requests-inflight` and `--max-mutating-requests-inflight` flags only set the total budget.
+
+## Pod security
+
+* PodSecurityPolicy was removed in 1.25. Its replacement is Pod Security Admission, which enforces the Pod Security Standards (`privileged`, `baseline`, `restricted`) per namespace via labels.
+* Default-deny `NetworkPolicy` per namespace, then allow only the traffic each workload needs.
+* Encrypt Secrets at rest in etcd (`EncryptionConfiguration`) or use a KMS provider.
+* Enable API server audit logging and ship the logs off the cluster.
 
 ## Compliance
 
-How do you embed security and validate compliance against standards like PCI, NIST, and SOC2 across the lifecycle of containers and Kubernetes?
-
-* https://sysdig.com/products/kubernetes-security/
+How do you embed security and validate compliance against standards like PCI, NIST, and SOC2 across the lifecycle of containers and Kubernetes? Start from the CIS Kubernetes Benchmark for the cluster, the Pod Security Standards for workloads, and an admission policy engine (Kyverno, Gatekeeper or the built-in `ValidatingAdmissionPolicy`) to enforce your own rules.
 
 Check cluster against CIS kubernetes benchmarks
 
@@ -81,4 +88,4 @@ Check cluster against CIS kubernetes benchmarks
 
 Check for security weaknesses/vulnerabilities in Kubernetes clusters
 
-* [kube-hunter](https://github.com/aquasecurity/kube-hunter)
+* [kube-hunter](https://github.com/aquasecurity/kube-hunter) is no longer under active development; its README points to [Trivy](https://github.com/aquasecurity/trivy), also from Aqua, which scans clusters and runs the CIS checks that kube-bench covers.

@@ -24,7 +24,7 @@ Nginx can address many use cases and provides all the tools for delivering your 
 * Serves static content very efficiently and reliably, using relatively little memory
 * Set request limit (request rate) - Effective way to protect against DOS by blacklisting IP addresses. Possible to set the IPs in key value store. Also use Fail2ban.
 
-In addition to the above **Nginx Plus** provides commercial load balancing, authentication, access control, application‑aware health checks and more configuration and monitoring options. It can be used alongside or as a replacement for hardware load balancers.
+In addition to the above **Nginx Plus** provides commercial load balancing, authentication, access control, application-aware health checks and more configuration and monitoring options. It can be used alongside or as a replacement for hardware load balancers.
 
 ### Nginx and Apache
 
@@ -38,7 +38,7 @@ As well as performance, consider which web server you are more familiar with, wh
 
 ### Nginx as an API Gateway
 
-For most microservices‑based applications, it makes sense to implement an [API Gateway](https://www.nginx.com/blog/building-microservices-using-an-api-gateway), which acts as a single entry point into a system. The API Gateway is responsible for request routing, composition, and protocol translation. It provides each of the application’s clients with a custom API. The API Gateway can also mask failures in the backend services by returning cached or default data.
+For most microservices-based applications, it makes sense to implement an [API Gateway](https://www.nginx.com/blog/building-microservices-using-an-api-gateway), which acts as a single entry point into a system. The API Gateway is responsible for request routing, composition, and protocol translation. It provides each of the application’s clients with a custom API. The API Gateway can also mask failures in the backend services by returning cached or default data.
 
 An API gateway restricts access to your backend servers whereas [WAF](https://www.owasp.org/index.php/Web_Application_Firewall) - Web application firewall protects your application logic from layer 7 attacks including SQL injection, XSS, CSRF and more. It works as an intermediary between external users and web applications. While proxies generally protect a client machine’s identity by acting as an intermediary, WAFs protect servers.
 

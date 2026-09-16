@@ -1,6 +1,6 @@
-# Asynchronous message‑based integration
+# Asynchronous Messaging
 
-REST and RPC based integrations are synchronous approaches that result in **in-band** blocking calls between services, therefore scalability and fault tolerance are hindered. They introduce **temporal coupling** i.e. previous calls must succeed before the next one can be made. Asynchronous messaging allows servers to be more stable in case a client crashes after sending the request but before the server sends a response. The server's resources are not tied up waiting until the connection times out. Collaboration between services can be implemented via asynchronous messaging or each service publishing REST based feeds of their events to be consumed by other services.
+REST and RPC based integrations are synchronous approaches that result in **in-band** blocking calls between services, therefore scalability and fault tolerance are hindered. They introduce **temporal coupling**: caller and callee must both be up at the same time for the call to succeed. Asynchronous messaging allows servers to be more stable in case a client crashes after sending the request but before the server sends a response. The server's resources are not tied up waiting until the connection times out. Collaboration between services can be implemented via asynchronous messaging or each service publishing REST based feeds of their events to be consumed by other services.
 
 ## Domain and message persistence consistency
 
@@ -8,9 +8,9 @@ Adopting messaging between services requires you to give up on strict consistenc
 
 1. Domain model and messaging infrastructure share the same persistence store. This allows changes to the domain and adding new messages within a local transaction.
 
-1. Domain model's persistence and messaging persistence store are controlled under a global XA transaction (two-phase commit). Pat Helland in his paper [Life beyond Distributed Transactions](http://www-db.cs.wisc.edu/cidr/cidr2007/papers/cidr07p15.pdf) says *"Attempts to use distributed transactions are too fragile and perform poorly"*
+1. Domain model's persistence and messaging persistence store are controlled under a global XA transaction (two-phase commit). See the Helland quote under [Sagas and distributed transactions](#sagas-and-distributed-transactions) for why this is a poor option.
 
-1. Create a special storage area (e.g. a database table) for messages in the same persistence store that is used by the Domain model. Rather than the messaging mechanism controlling the message store, it is controlled by your service (bounded context). An out-of-band (background process) **event forwarding** mechanism monitors the message store for new messages, publishes them through the messaging mechanism and then marks them as dispatched/published. The message store also has the ability to provide REST-based notification feeds for the messages. The event forwarder must be custom developed in order to send messages through the messaging mechanism and it could fail just before marking a message as dispatched (assuming no global transactions between the message store and the messaging mechanism persistence). When the event forwarder recovers it will end up publishing the messages again. This enforces some constraints on consumers, like the ability to de-duplicate incoming messages.
+1. Create a special storage area (e.g. a database table) for messages in the same persistence store that is used by the Domain model. Rather than the messaging mechanism controlling the message store, it is controlled by your service (bounded context). This is the **Transactional Outbox** pattern. An out-of-band (background process) **event forwarding** mechanism monitors the message store for new messages, publishes them through the messaging mechanism and then marks them as dispatched/published. The message store also has the ability to provide REST-based notification feeds for the messages. The event forwarder must be custom developed in order to send messages through the messaging mechanism and it could fail just before marking a message as dispatched (assuming no global transactions between the message store and the messaging mechanism persistence). When the event forwarder recovers it will end up publishing the messages again. This enforces some constraints on consumers, like the ability to de-duplicate incoming messages.
 
 ### Producers guarantee at least once delivery and consumers implement idempotency
 
@@ -20,7 +20,7 @@ Adopting messaging between services requires you to give up on strict consistenc
 
 * Deduplication of messages/ Remembering processed messages - To ensure the idempotent processing of messages that are not naturally idempotent, the service must remember a message has been processed previously. This knowledge is state. The state accumulates as messages are processed. To ensure each message is processed at-most-once there must be some unique characteristic of the message e.g. (message id) that is remembered to ensure it will not be processed more than once.
 
-## Sagas & Process Mangers
+## Sagas & Process Managers
 
 There are occasions when a business process requires a flow of steps that need to execute in a particular order.
 
@@ -36,13 +36,13 @@ What if the order of the business flow changes? e.g. an inventory check now need
 
 Order (OrderPlaced) -> Payment (PaymentReceived) -> Order (OrderAccepted) -> Inventory (ItemFetched) -> Shipment (OrderShipped)
 
-The above approach leads to **temporal coupling** and will require a change to the Shipping service as it will now need to process a different event, published from the Inventory service.
+The above approach leads to **ordering coupling** (a change in the order of business steps forces a consumer change) and will require a change to the Shipping service as it will now need to process a different event, published from the Inventory service.
 
 [Avoiding puristic event chains](https://www.infoq.com/articles/microservice-event-choreographies?utm_campaign=rightbar_v2&utm_source=infoq&utm_medium=articles_link&utm_content=link_text) is key to reducing such coupling between services and managing complexity in an event driven asynchronous model. The communication between the services can be routed through a centralized component - **saga** that tracks the progress of the overall business process and passes control to the next process or reacts to an event raised by a service.
 
 OrderPlaced -> (Saga) Transformation -> CollectPayment -> Payment
 
-A **saga** is a long lived business transaction or process. It needs to exist when a business process spans more than one service/domain or bounded context. Using a combination of orchestration and choreography for collaboration amongst services a saga can be used for
+A **saga** is a long lived business transaction or process. It needs to exist when a business process spans more than one service/domain or bounded context. "Saga" on this page means the orchestrator style (also called a process manager), the usage NServiceBus and Udi Dahan popularised. The original saga (Garcia-Molina and Salem, 1987) is a sequence of local transactions with compensating actions, and it can also be choreographed, with each service reacting to the previous event and no central coordinator. Using a combination of orchestration and choreography for collaboration amongst services a saga can be used for
 
 * **event command transformation** - Sagas listen to events and dispatch commands while services receive commands and publish events
 * **handling long running processes** - Sagas use state machine to hold current status of the business process (e.g. an order status)
@@ -75,33 +75,33 @@ Sagas are conceptually similar to a distributed transaction coordinator (DTC) bu
 
 Open source messaging systems e.g. RabbitMQ, Apache Kafka, Apache ActiveMQ, and NSQ. Underlying messaging protocols
 
-* AMQP - (Advanced Message Queuing Protocol) designed as an open replacement for existing proprietary messaging middleware
-* STOMP - (Simple/Streaming Text Oriented Messaging Protocol) more analogous to HTTP https://docs.nats.io/
-* MQTT - (Message Queue Telemetry Transport) specifically designed for resource-constrained devices and low bandwidth, high latency networks
+* AMQP - (Advanced Message Queuing Protocol) designed as an open replacement for existing proprietary messaging middleware. AMQP 0-9-1 (the RabbitMQ exchange and queue model) and AMQP 1.0 (the ISO standard used by Azure Service Bus) are different, incompatible protocols; see [The AMQP 0-9-1 model](#the-amqp-0-9-1-model) below.
+* STOMP - (Simple/Streaming Text Oriented Messaging Protocol) more analogous to HTTP https://stomp.github.io/
+* MQTT - (originally MQ Telemetry Transport, no longer an acronym) specifically designed for resource-constrained devices and low bandwidth, high latency networks
 * Kafka uses its own binary [protocol](https://kafka.apache.org/protocol) over TCP to allow clients persistent connections for request pipelining.
 
 ### Kafka
 
-Kafka is a *log-based message broker* different from AMQP/JMS-style traditional brokers. It combines the durable storage of databases with low-latency notification facilities of messaging. Databases as we know them are global shared mutable state, Kafka provides centralized immutable state based on a distributed append-only log. This allows you to [turn the database inside out](https://martin.kleppmann.com/2015/11/05/database-inside-out-at-oredev.html) and move the data processing (querying) out of the data store into a distributed stream processor (e.g. Apache Samza - developed at LinkedIn, Apache Storm). As opposed to storing your data in a database, running ETL functions and querying it later, you can take the streams of facts as they come in, and functionally process them in real-time. Layered on top of Kafka distributed stream processors provide simple but powerful tools for joining streams and managing large amounts of data reliably.
+Kafka is a *log-based message broker* different from AMQP/JMS-style traditional brokers. It combines the durable storage of databases with low-latency notification facilities of messaging. Databases as we know them are global shared mutable state, Kafka provides centralized immutable state based on a distributed append-only log. This allows you to [turn the database inside out](https://martin.kleppmann.com/2015/11/05/database-inside-out-at-oredev.html) and move the data processing (querying) out of the data store into a distributed stream processor (e.g. Kafka Streams, Apache Flink; earlier Apache Samza - developed at LinkedIn, and Apache Storm). As opposed to storing your data in a database, running ETL functions and querying it later, you can take the streams of facts as they come in, and functionally process them in real-time. Layered on top of Kafka distributed stream processors provide simple but powerful tools for joining streams and managing large amounts of data reliably.
 
 ### Kafka and RabbitMQ
 
 Kafka stores events in categories called topics which are partitioned so that these topics can scale beyond a single server. These partitions are replicated across multiple nodes in case if one node goes down, the data is not going to be lost. RabbitMQ sends messages via exchanges to queues to which consumers bind to retrieve the messages.
 
-Kafka employs a dumb broker and uses smart consumers to read its buffer. This means the onus is on the consumer to keep track of messages that it has read in the past (by tracking their location in each log - consumer state). Kafka cluster retains all published messages - whether or not they have been consumed for a configurable amount of time.
+Kafka employs a dumb broker and uses smart consumers to read its buffer. This means the consumer decides how far it has read (its offset in each partition) and when to commit that position. Since Kafka 0.9 (2015) committed offsets are stored broker-side in the `__consumer_offsets` topic rather than in ZooKeeper or the client. Kafka cluster retains all published messages - whether or not they have been consumed for a configurable amount of time.
 
-Kafka is a durable message store and provides some database like ACID guarantees. This means clients can "replay" the event stream on demand as opposed to more traditional message brokers like RabbitMQ where even though messages are written to disk, once a message has been delivered, it is removed from the queue and deleted. Such message brokers are not suitable for long-term data storage. However, RabbitMQ is often used with Apache Cassandra to support durable storage and stream history, or with the LevelDB plugin for applications that need an “infinite” queue, but neither feature ships with RabbitMQ itself.
+Kafka is a durable message store and provides some database like ACID guarantees. This means clients can "replay" the event stream on demand as opposed to more traditional message brokers like RabbitMQ where even though messages are written to disk, once a message has been delivered, it is removed from the queue and deleted. Such queues are not suitable for long-term data storage. This comparison applies to RabbitMQ's classic and quorum queues. RabbitMQ Streams (3.9, 2021) are an append-only, replayable log with retention policies, much closer to a Kafka topic.
 
 Kafka supports **log compaction** (state snapshots) using key based compaction of messages for content beginning in time. If each message has a key, then of all the messages with the same key, only the most recent one is preserved. The other compaction throws away data after certain amount of time. This works well for events tracking type data e.g. if you want to keep only 2 weeks worth of data.
 
-AMQP or JMS style messaging systems in order to guarantee message delivery, expect an acknowledgement from consumers after they have processed the message. In case the consumer crashes without sending the ack to the broker for message m1, the only option the broker is left with is to retry delivery of m1.  Meanwhile the consumer could recover and process the next message m2. Depending upon when the retry occurs, the consumer could end up receiving m2 and then m1 (on redelivery). This results in **out-of-order arrival** of messages. Fundamentally Kafka does not suffer from this issue as it uses a time ordered event log to store messages.
+AMQP or JMS style messaging systems in order to guarantee message delivery, expect an acknowledgement from consumers after they have processed the message. In case the consumer crashes without sending the ack to the broker for message m1, the only option the broker is left with is to retry delivery of m1.  Meanwhile the consumer could recover and process the next message m2. Depending upon when the retry occurs, the consumer could end up receiving m2 and then m1 (on redelivery). This results in **out-of-order arrival** of messages. Kafka avoids this within a partition: order is preserved per partition only (choose the partition key accordingly), and redelivery after a consumer crash is by re-reading from the last committed offset, so m1 and m2 are re-processed in order.
 
-Therefore for disjointed job queue use case where order of execution of jobs is not important AMQP and JMS style brokers are a good fit e.g.
+As a heuristic, for a disjointed job queue use case where order of execution of jobs is not important AMQP and JMS style brokers are a good fit e.g.
 
 * send email
 * charge credit card
 
-However if the order of the messages is important Kafka is a better choice. e.g. a series of events that occur in sequence:
+However if the order of the messages is important Kafka is usually a better choice (RabbitMQ single active consumer and Azure Service Bus sessions also give ordering). e.g. a series of events that occur in sequence:
 
 * user viewed a webpage
 * customer purchased a product
@@ -114,7 +114,7 @@ However if the order of the messages is important Kafka is a better choice. e.g.
 
 ### MSMQ
 
-MSMQ (native to Windows) is a store and forward queueing system with queues local to each communicating server. Unlike a centralised message broker (like RabbitMQ) where messages and queues are stored on a central or a clustered server that enables pub-sub, events based pub-sub is not supported in MSMQ because there is no central server. NServiceBus does provide pub-sub capability with MSMQ by using its own persistence for managing publishers and subscribers.
+Legacy (Windows and .NET Framework only). MSMQ (native to Windows) is a store and forward queueing system with queues local to each communicating server. Unlike a centralised message broker (like RabbitMQ) where messages and queues are stored on a central or a clustered server that enables pub-sub, events based pub-sub is not supported in MSMQ because there is no central server. NServiceBus does provide pub-sub capability with MSMQ by using its own persistence for managing publishers and subscribers.
 
 MSMQ is a persistent queueing solution, but not by default. The default is to store messages in memory. To have MSMQ persist messages to disk so they are not lost in case of a server crash you have to specify it on each message.
 

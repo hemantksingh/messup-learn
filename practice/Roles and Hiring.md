@@ -1,4 +1,4 @@
-# Capabilities
+# Roles and Hiring
 
 ## Engineering Leadership
 
@@ -42,11 +42,11 @@ Whilst the role of a product owner is primarily to look at problems from the end
 
 ## Infrastructure/Cloud Architect  
 
-Someone who can work within organizations to bring **people, processes and products** together to enable continuous delivery of value to end users.
+Someone who can put the DevOps definition in [DevOps and Delivery](../fundamentals/platform/DevOps%20and%20Delivery.md) into practice inside an organization.
 
-* Transforming infra/ops departments (i.e. reorganising them and getting them to adopt agile practices across the department, bridging silos and adopt DevOps culture by having **cross functional teams** capable of building, running, securing and supporting their apps.
+* Transforming infra/ops departments (i.e. reorganising them and getting them to adopt agile practices across the department, bridging silos and adopt DevOps culture) by having **cross functional teams** capable of building, running, securing and supporting their apps.
 
-* People who know what it's like to shape and manage Cloud migrations strategies, who can talk to a client about the impact of moving to cloud on their budgeting **moving from CapEx to OpEx** (e.g moving from owning a car to renting a car), managing technical budgets and pros and cons of adoption of IAAS, PAAS or FAAS.
+* People who know what it's like to shape and manage Cloud migrations strategies, who can talk to a client about the impact of moving to cloud on their budgeting **moving from CapEx to OpEx** (e.g moving from owning a car to renting a car), managing technical budgets and pros and cons of adoption of IaaS, PaaS or FaaS.
 
 * Driving operational excellence - understand change management (e.g. CI/CD workflows, rollback and backup strategies), incident management and security auditing controls
 
@@ -75,7 +75,7 @@ Some competencies to look out for:
 
 ### Breadth of knowledge  
   
-* TDD - demonstrate understanding of
+* Testing (see [Testing Strategy](Testing%20Strategy.md)) - demonstrate understanding of
   * different levels of tests in the testing pyramid
   * approaches to testing - top down, bottom up
   * best practices
@@ -83,14 +83,14 @@ Some competencies to look out for:
     * separation of production code from test code
     * mocking at architectural boundaries
 * CICD - branching techniques, impact of frequent releases, feature toggling, blue green deployments
-* REST APIs - significance of REST interface, idempotent operations, authentication techniques
+* REST APIs - significance of REST interface, idempotent operations, authentication techniques (see [REST](../fundamentals/web%20and%20apis/REST.md))
 * DBs - relational and non-relational DB trade offs
 
 ## Fact finding
 
 ### What are the competency skills you are looking for?
 
-To get someone talking, it is a good idea to keep the discussion informal. However, you are always looking for examples of certain key competencies. To kick off a conversation [Amazon leadership questions](https://www.yoreoyster.com/blog/amazon-leadership-principles-questions/) is a good place to start looking for potential behavioral questions. While the degree of expertise may vary but these competency skills apply generally across all roles:
+To get someone talking, it is a good idea to keep the discussion informal. However, you are always looking for examples of certain key competencies. To kick off a conversation, [Amazon's Leadership Principles](https://www.amazon.jobs/en/principles) and this list of [Amazon leadership questions](https://www.yoreoyster.com/blog/amazon-leadership-principles-questions/) are a good place to start looking for potential behavioral questions. While the degree of expertise may vary but these competency skills apply generally across all roles:
 
 * Ownership/Accountability - Tell me about an unpopular decision of yours? Are they individually driven or lean on decisions made by the team?
 * Action/Results oriented - What is more important - getting things right or meeting deadlines/delivering value to customers? Understand how they manage competing priorities.
@@ -99,7 +99,7 @@ To get someone talking, it is a good idea to keep the discussion informal. Howev
 
 ### How do you gather information?
 
-* **Active lsitening** - During a conversation, you can adopt the [labels and mirrors](https://blog.blackswanltd.com/the-edge/7-negotiation-techniques-for-introverts) technique to learn more about others
+* **Active listening** - During a conversation, you can adopt Chris Voss's [labels and mirrors](https://blog.blackswanltd.com/the-edge/7-negotiation-techniques-for-introverts) technique to learn more about others
   * Use labels to dig deep into a persons core emotional drives
     * It looks like
     * It sounds like
@@ -108,7 +108,7 @@ To get someone talking, it is a good idea to keep the discussion informal. Howev
 
 * Asking **open ended questions** - e.g. to get a sense of organizational structure and ways of working within a company you can start by asking how does the team you work in fit into the wider business?
   * This should provide you a view of how work and value flow through the org and where the bottlenecks/silos may be?
-  * The question that you are really looking to get an answer to is - whether technology is at the core of the business, whether it drives business stratgy and to what extent data is used for decision making? Answers to these questions will give you an understanding of the engineering culture within the busniess - whether it has a [cost-centric or value-centric](https://www.thoughtworks.com/insights/blog/value-driven-digital-business) view of technology. In a cost-control culture the bulk of investment dollars are inwardly focused on such areas as accounting, reducing distribution costs, and efficient manufacturing—with external customer focus being mostly an afterthought. 
+  * The question that you are really looking to get an answer to is - whether technology is at the core of the business, whether it drives business strategy and to what extent data is used for decision making? Answers to these questions will give you an understanding of the engineering culture within the business - whether it has a [cost-centric or value-centric](https://www.thoughtworks.com/insights/blog/value-driven-digital-business) view of technology. As the ThoughtWorks article puts it: "In a cost-control culture the bulk of investment dollars are inwardly focused on such areas as accounting, reducing distribution costs, and efficient manufacturing—with external customer focus being mostly an afterthought."
 
 ## Selling the role you are recruiting for
 

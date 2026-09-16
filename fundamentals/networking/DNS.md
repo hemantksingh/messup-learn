@@ -1,4 +1,4 @@
-# DNS configuration
+# DNS
 
 A client machine is usually configured automatically to the name server of your ISP for domain name resolution. When you set DNS on your computer, you manually override the DNS servers provided by the DHCP server in your router.
 
@@ -14,7 +14,7 @@ You can trace the route of a network call - `tracert` on Windows `traceroute` on
 
 DNS servers cache the records so that if the same server is looked up the results can be retrieved quicker. Your local machines also cache this information.
 
-TTL is the value that determines how long your current DNS settings are cached with Internet Service Providers. What that means for you: In practice, if your Internet Service Provider has the current IP address for your website cached for 24 hours, it won't bother checking for a DNS update for your domain until that 24 hours has passed even if you made a DNS change for that domain 5 minutes ago.
+Each DNS record carries a TTL (Time To Live, in seconds). It tells any caching resolver, whether the stub resolver on your machine, a corporate or public resolver, or your ISP's, how long it may serve the record before querying again. In practice, if a resolver has the current IP address for your website cached for 24 hours, it won't check for a DNS update for your domain until that 24 hours has passed even if you made a DNS change for that domain 5 minutes ago.
 
 On the other hand, someone in another city may be using an Internet Service Provider that hasn't made a query for your domain's DNS settings recently. That person will get the new DNS information right away (and thus be shown your new website right away) because the Internet Service Provider did not cache the information previously.
 
@@ -24,33 +24,38 @@ You can find out the (remaining) TTL of any given DNS record with the dig comman
 
 `dig hemantkumar.net`
 
-On windows `ipconfig /displaydns` provides you local DNS cache stats
+On Windows `ipconfig /displaydns` lists the local DNS cache and `ipconfig /flushdns` clears it. On a Mac clear it with `sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder`.
 
 It is possible to raise and lower the TTL (Time To Live) value for your domains with your DNS provider.
 
 On a machine you can override DNS by modifying the `hosts` file `/etc/hosts` on a MAC and `windows\system32\drivers\etc\hosts` on Windows.
 
-### DNS Record Types
+## DNS Record Types
 
 **A record** turns a name into an IP address.
 
-**NS record** determines the name server used.
+**NS record** names the authoritative name servers for a zone (delegation).
 
-`nslookup`  
-`set type=NS`  
-`hemantkumar.net`
+`nslookup -type=NS hemantkumar.net` or `dig NS hemantkumar.net`
 
 **MX record** determines Mail Exchange server
 
-`set type=MX`  
-`hemantkumar.net`
+`nslookup -type=MX hemantkumar.net` or `dig MX hemantkumar.net`
 
 **CNAME record** determines the canonical name used for aliasing one name to another. For example you may want to access hemantkumar.net through www.hemantkumar.net as well.
 
-`set type=CNAME`  
-`www.hemantkumar.net`
+`nslookup -type=CNAME www.hemantkumar.net` or `dig CNAME www.hemantkumar.net`
 
 **AAAA record** Quad A IPv6 version of an A record. Turns a name into an IPv6 address.
 
-`set type=AAAA`  
-`google.com`
+`nslookup -type=AAAA google.com` or `dig AAAA google.com`
+
+**SOA record** Start Of Authority. One per zone, names the primary name server and the zone's serial number and refresh timers.
+
+**TXT record** free text attached to a name. Used for SPF, DKIM and DMARC mail policies and for domain ownership checks.
+
+**PTR record** the reverse of an A or AAAA record. Turns an IP address back into a name.
+
+**SRV record** locates a service by name, giving the host and port to use, for example for SIP or LDAP.
+
+**CAA record** lists which certificate authorities may issue TLS certificates for the domain.

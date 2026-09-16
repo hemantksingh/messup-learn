@@ -1,8 +1,8 @@
-# What is REST
+# REST
 
 We think of resources as something the server sends to the client. The server sends a representation of the state of a resource. The client sends a representation that it would like the resource to have. This is **representational state transfer**.
 
-* Resources have identity - can be identified by a URI (Universal resource Identifier).
+* Resources have identity - can be identified by a URI (Uniform Resource Identifier).
 * Resources have representations, renditions of their state in one or more formats. The representation could be XML, JSON document, HTML form’s post data or some binary format.
 * Communication is stateless - can interact with each Resource independent of other requests.
 * Common Interface -  If you are using HTTP, utilize HTTP features (HTTP verbs, status codes, headers ) whenever possible, instead of inventing conventions.
@@ -14,13 +14,15 @@ We think of resources as something the server sends to the client. The server se
 * Stateless communication means resources are loosely coupled. Service is reliable, performant, easy to scale and test.
 * Hypermedia driven application means the consumer uses just one URI, and from that URI is able to deduce how to interact with the API by following links, as one would when using a website. In theory only one URI is needed to interact with the API. This [talk](https://vimeo.com/20781278) explains it in more detail.
 
+The [Richardson Maturity Model](https://martinfowler.com/articles/richardsonMaturityModel.html) grades how far an HTTP API goes in adopting these constraints. Level 0 tunnels everything through one URI and one verb (POST), which is RPC over HTTP. Level 1 gives each resource its own URI. Level 2 uses the HTTP verbs and status codes with their standard meaning. Level 3 adds hypermedia controls, so responses carry links to the next allowed actions. Only level 3 is REST as Fielding described it.
+
 ### Resource modelling
 
 Nouns, rather than verbs. Breaking information into hypermedia-linked structures reduces the load on a service by reducing the amount of data that has to be served. Instead of downloading the entire information model, the application transfers only the parts pertinent to the user.Information can be lazy loaded.
 
 ### HTTP semantics
 
-* POST - Resource created acknowledgement with the resource state, the newly created URI in the response body and Http status code - 201
+* POST - Resource created is acknowledged with HTTP status code 201 Created and a `Location` header pointing at the new resource's URI. A representation of the new resource in the body is optional.
 
 * PUT - PUT is **idempotent**. It can be used safely for absolute updates not relative updates, for example incrementing or decrementing state through PUT would make it non idempotent.
 
@@ -28,11 +30,11 @@ Nouns, rather than verbs. Breaking information into hypermedia-linked structures
     * 204 No Content is more efficient since it returns no state and indicates that the server has accepted the request representation verbatim.
     * 409 Conflict - A request fails because of incompatibility between the consumer and service's view of the resource state, for example attempt to change an order when it has already been dispatched.
 
-* PATCH - [RFC 5789](https://tools.ietf.org/html/rfc5789) is used for partial modifications to a resource. PUT overwrites the resource with a complete new body, whereas PATCH provides a change-set (delta) to the server to apply. A PATCH request can be idempotent, which helps prevent collisions between two PATCH requests on the same resource in a similar time frame.
+* PATCH - [RFC 5789](https://tools.ietf.org/html/rfc5789) is used for partial modifications to a resource. PUT overwrites the resource with a complete new body, whereas PATCH provides a change-set (delta) to the server to apply. PATCH is not idempotent by nature. To prevent lost updates when two clients PATCH the same resource in a similar time frame, make the request conditional with `If-Match` and the ETag the client last saw.
 
 * DELETE - Successful deletion should return a
     * 204 No Content response from the server as a confirmation.
-    * 405 Method Not Allowed If the resource cannot be deleted, for example attempt to delete an order that has already been dispatched.
+    * 409 Conflict If the resource cannot be deleted in its current state, for example attempt to delete an order that has already been dispatched. 405 Method Not Allowed is for resources that never support DELETE, and it must carry an `Allow` header.
 
 #### PUT or POST
 
@@ -44,7 +46,7 @@ Nouns, rather than verbs. Breaking information into hypermedia-linked structures
 
 Use PATCH when the client knows the diff between the server's representation & its own representation of the resource. The server must apply this change-set atomically & in isolation i.e. the operation is not guaranteed to succeed if the resource state on the server has changed from what the client received.
 
-```sh
+```http
 PATCH /user/foo HTTP/1.1
 {  
    "user":{  
@@ -56,9 +58,9 @@ PATCH /user/foo HTTP/1.1
 }
 ```
 
-This request is going to replace the resource state regardless of what the state originally was, since there is no way for the server to know the validity of the request except from inclusion of additional header (If-Unmodified-Since or If-Match)  
+The patch document above is ad hoc. The standard formats are JSON Patch ([RFC 6902](https://www.rfc-editor.org/rfc/rfc6902), `application/json-patch+json`, a list of operations such as `replace` with a path and a value) and JSON Merge Patch ([RFC 7396](https://www.rfc-editor.org/rfc/rfc7396), `application/merge-patch+json`, a partial document whose fields overwrite the target).
 
-```sh
+```http
 PUT /user/foo HTTP/1.1
 
 {  
@@ -68,6 +70,8 @@ PUT /user/foo HTTP/1.1
 }
 
 ```
+
+This PUT request is going to replace the resource state regardless of what the state originally was, since there is no way for the server to know the validity of the request except from inclusion of additional header (If-Unmodified-Since or If-Match)
 
 If the patch document size is larger than the size of the new resource data that would be used in a PUT, then it might make sense to use PUT instead of PATCH.
 
@@ -101,7 +105,7 @@ A good hypermedia format conveys both Domain specific and protocol information. 
 
 Separate the act of defining links and adding meaning to the links. `rel` attribute is used to represent the application semantics of a particular link. It identifies the relationships and interactions between resources. For example if a payment needs to be cancelled
 
-```javascript
+```json
 "link": {
     "rel": "http://example.com/payment/cancel",
     "href": "http://example.com/payment/123"
@@ -110,7 +114,7 @@ Separate the act of defining links and adding meaning to the links. `rel` attrib
 
 or
 
-```javascript
+```json
 "link": {
     "rel": "cancelPayment",
     "href": "http://example.com/payment/123"
@@ -127,13 +131,13 @@ Event driven systems generally exhibit high degree of loose coupling, which allo
 
 In a system **Reference Data** is the kind of data other applications refer to in order to compete their own tasks. e.g. product and promotions data.
 
-In order to decouple producers and consumers of reference data, this data can be published as a time-ordered atom feed continuously polled by a set of consumers. Consumers maintain their own local copy of the reference data until it becomes stale. Distributing information this way allows dependent services to continue to function even if network partitions or depending services (e.g. Reference Data) become temporarily available. This is exactly how the web scales.
+In order to decouple producers and consumers of reference data, this data can be published as a time-ordered atom feed continuously polled by a set of consumers. Consumers maintain their own local copy of the reference data until it becomes stale. Distributing information this way allows dependent services to continue to function even if network partitions or depending services (e.g. Reference Data) become temporarily unavailable. This is exactly how the web scales.
 
-A polling solution provides guaranteed delivery and ensures messages always arrive in order. Atom trades scalability for latency making it unsuitable for low latency notifications. In a system where messages can take seconds, minutes or even hours to arrive publishing Atom feeds works really well.
+A polling solution provides guaranteed delivery and ensures messages always arrive in order. Atom trades latency for scalability, making it unsuitable for low latency notifications. In a system where messages can take seconds, minutes or even hours to arrive publishing Atom feeds works really well.
 
 ### Messaging or REST based feeds
 
-For extremely low latency notifications, appropriate proprietary messaging middleware specific to the domain may be considered. The tradeoff is scalability for latency, but with added complication of middleware lock in. AMQP and JMS style messaging brokers are based on a centralised server that store and routes all the messages, therefore the broker can be a single point of failure. Since every service talks to a single broker, for every service sending a single message to the broker the broker needs to receive the message and send another message to the next service. With multiple services talking through the broker this can very quickly lead to bottlenecks. Services can be scaled in isolation but the broker would need to scale more than the services. Clustering is often utilized in production environments to avoid this.
+For extremely low latency notifications, appropriate proprietary messaging middleware specific to the domain may be considered. Middleware trades scalability for latency, with the added complication of middleware lock in. *REST in Practice* (2010) argues that AMQP and JMS style messaging brokers are based on a centralised server that stores and routes all the messages, therefore the broker can be a single point of failure. Since every service talks to a single broker, for every service sending a single message to the broker the broker needs to receive the message and send another message to the next service. With multiple services talking through the broker this can very quickly lead to bottlenecks. Services can be scaled in isolation but the broker would need to scale more than the services. That argument is dated: JMS is an API rather than a broker design, and clustered or partitioned brokers (Kafka, RabbitMQ quorum queues, Pulsar) are now the norm in production.
 
 Polling solution moves the **guaranteed message delivery** responsibility from the service or middleware to the consumer, where each consumer becomes responsible for ensuring that it retrieves all relevant information. Since messages are collocated in time-ordered feeds, there is no chance of  **out-of-order arrival** of messages.
 

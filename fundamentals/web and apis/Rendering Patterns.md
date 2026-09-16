@@ -1,4 +1,4 @@
-# Web Frameworks
+# Rendering Patterns
 
 You need to manipulate HTML and CSS to create interactive websites. There are libraries and frameworks that allow you to manage the interactions between the HTML, CSS, and JavaScript according to their own rules.
 
@@ -9,12 +9,14 @@ Depending upon the type of web application you require and the performance and u
 1. **Server-side rendering (SSR)**: The web server generates the HTML content of a web page on the server-side and sends it to the client's browser. This is a good choice for
    - faster initial page loads, because UI rendering is performed quickly on the server without the need to download a large JavaScript bundle. By providing a faster, more responsive experience, SSR can help to ensure that your website is accessible to a wider range of users, especially those with slower internet connections or older devices.
    - SEO, as the HTML is available to be crawled allowing search engines to index the webpage.
-   - accessibility or users with disabilities, as many assistive technologies, such as screen readers, rely on the HTML content of a page to provide information to users. With client-side rendering, the HTML content may not be fully generated until the JavaScript code has been executed, which can cause issues for users relying on assistive technologies.
+   - accessibility. Screen readers read the live DOM, so a client-rendered page is not inherently less accessible once it has rendered. The real CSR risk is that route changes happen without a page load, so the app must manage focus and announce the new page itself. SSR gets full-page navigation for free.
    - simplicity of website's codebase. By moving some of the rendering logic to the server, developers can often simplify the client-side code, making it easier to maintain and update state. This can lead to a more [stable and reliable website](https://www.timr.co/server-side-rendering-is-a-thiel-truth/), helping improve the user experience for all visitors.
+
+   SSR has costs too: every request spends server CPU, rendered pages have to be cached and then invalidated, and time to first byte grows with the work the server does.
 2. **Client-side rendering (CSR)**: In CSR, the client's browser first loads Javascript, any JSON and then generates the HTML content of a web page on the client-side using JavaScript.
    - Provides a fast and interactive user experience but can be slower for initial loading times and bad for SEO.
    - Typically suited for Single Page Applications (SPA) that require rich, interactive and complex interactions with extremely low latency. e.g. Figma or Google Docs. Such apps require only the necessary content to be loaded and rendered dynamically, **reducing the need for full page reloads**.
-3. **Static site generation (SSG)**: In SSG, the HTML content of a web page is generated at build time and served to the client as a static file. A static site generator tool like Jekyll, Hugo, or Gatsby.js is used to compile the website's content from data sources such as markdown files, JSON files, or CMS data.
+3. **Static site generation (SSG)**: In SSG, the HTML content of a web page is generated at build time and served to the client as a static file. A static site generator tool like Jekyll, Hugo, Astro or Eleventy is used to compile the website's content from data sources such as markdown files, JSON files, or CMS data.
    - SSG pre-renders web pages at build time, there is no need to generate pages dynamically on the server or client-side, resulting in faster loading times and enhanced security but can be less flexible for dynamic content.
    - Suited for content that doesn't change frequently like blog posts, news articles or product details pages.
 
@@ -94,22 +96,22 @@ The DOM structure should be identical for browsers with the same capabilities, m
 
 ### jQuery DOM manipulation
 
-With jQuery, DOM manipulation, AJAX calls, event handling, and animations become simple. For example, performing AJAX calls can be quite complex and can take many lines of code when done using vanilla JavaScript. jQuery, on the other hand, provides us functions that we can directly call to perform an AJAX call. It reduces complexity through abstraction.
+With jQuery, DOM manipulation, AJAX calls, event handling, and animations become simple. For example, performing AJAX calls took many lines of code with the original `XMLHttpRequest` API, and jQuery provided functions that we could directly call. The browser `fetch()` API (universal since 2017) now covers that case, and `querySelector` covers most DOM selection, so new code rarely needs jQuery.
 
 ## Angular
 
-Popular web application framework by Google that helps you organise HTML and CSS for building Single Page Applications. It uses MVC architecture and features like Dependency Injection and separates concerns with **loosely coupled technical units** - Model, Views and Controllers.
+Popular web application framework by Google that helps you organise HTML and CSS for building Single Page Applications. It is component-based: a component pairs a template with a TypeScript class, and shared logic lives in services supplied through Dependency Injection. There are no controllers.
 
-Note that Angular is a complete rewrite of AngularJS, based on TypeScript
+Note that Angular is a complete rewrite of AngularJS, based on TypeScript. AngularJS (1.x) was the MVC-style framework with controllers and `$scope`; it reached end of life in January 2022.
 
 ## React
 
 React is a library for building web application User Interfaces (UI) that was originally written and used by Facebook. It is incredibly popular, and well supported. In an MVC (Model, View, Controller) architecture, it is the *View* part but it could be considered the controller too. It embraces the fact that rendering logic is inherently coupled with other UI logic: how events are handled, how the state changes over time, and how the data is prepared for display. Instead of artificially separating technologies by putting markup (View) and logic (Controller) in separate files, React separates concerns with **loosely coupled functional units** called “components” that contain both.
 
-React uses JSX - a declarative syntax to embed JavaScript into HTML
+React uses JSX - an XML-like syntax extension to JavaScript that describes the UI as markup inside JavaScript. JavaScript expressions are embedded in the markup with curly braces `{}`.
 
-```javascript
-// React JSX allows switching from HTML to JavaScript using curly braces '{}'
+```jsx
+// React JSX allows switching from markup back to JavaScript using curly braces '{}'
 function App() {
     const names = ['foo', 'bar', 'lol']
      
@@ -135,10 +137,10 @@ Next.js is a JavaScript/TypeScript-based React framework built on top of Node.js
 
 React is not a fully developed web application framework - it is a **library for creating HTML** that can be used by applications or frameworks such as Next.js. Out of the box React doesn't focus on routing, API integration, data fetching and server side rendering, it largely relies on 3rd party libraries to accomplish this. Next.js is a [full-stack React framework](https://react.dev/learn/start-a-new-react-project) and adds all those features, plus it also provides:
 
-- Hybrid static (SSR), client (CSR) and server (SSR) rendering. Developers can decide at a per-page level to serve content using SSR, pre-render with SSG, or fetch data client-side, which allows for greater control over performance.
+- Hybrid static (SSG), client (CSR) and server (SSR) rendering. With the Pages Router developers decide at a per-page level to serve content using SSR, pre-render with SSG, or fetch data client-side. The App Router (Next.js 13, 2022) uses React Server Components: each component is server or client, and server output streams to the browser.
 - It also supports Incremental Static Regeneration (ISR), which automatically regenerates static content at runtime, combining the performance of SSG with the freshness of SSR.
 - This flexibility makes Next.js ideal for high-traffic and SEO-focused sites, where varying levels of content freshness are required.
-- Next.js supports **PWA features** natively, enabling offline caching and background sync with service workers. This is particularly useful for mobile-first applications that need to work offline or in low-connectivity areas.
+- Next.js has no built-in PWA support. Offline caching and installability need a web app manifest and a service worker, written by hand or generated with a library such as Serwist.
 
 ## Node.js
 
@@ -148,20 +150,22 @@ Node.js is a Javascript runtime built on the Chrome V8 JavaScript Engine. We oft
 - Writing to a database
 - Reading data from a file
 
-Node.js is best for building real-time data-driven, I/O bound single-page applications, for example, live chats, and audio and video conferencing, etc. Node.js is not recommended for CPU-intensive applications that involve complex synchronous calculations with waiting times. As the load on the CPU increases, its efficiency decreases.
+Node.js suits I/O-bound servers: APIs, real-time and WebSocket backends such as live chat and signalling for audio and video conferencing. It is not recommended for CPU-intensive work, because a long synchronous calculation blocks the single event loop and every other request waits.
 
 ## ASP.NET
 
-Server side rendoring (SSR) technology for creating dynamic web content using HTML and C#. There are a [number of options](https://learn.microsoft.com/en-us/aspnet/core/tutorials/choose-web-ui?view=aspnetcore-8.0) for creating web apps using ASP.NET Core but these options can be used together as well
+Server side rendering (SSR) technology for creating dynamic web content using HTML and C#. There are a [number of options](https://learn.microsoft.com/en-us/aspnet/core/tutorials/choose-web-ui) for creating web apps using ASP.NET Core but these options can be used together as well
 
-- Blazor - supports both SSR and client interactivity in a single programming model where UI interactions are handled from the server over a real-time connection with the browser using SignalR. Minimises initial load times but each user requires a persistent connection to the server, impacting scalability for high-traffic apps.
-- Razor Pages - page based model for building SSR apps with Razor as the template engine (or View Engine in MVC). Razor can work in both SSR mode (with MVC) and hybrid rendering mode with:
-  - Blazor Server - SSR with persistent connections, enabling real-time interactivity and a reduced initial load.
+- Blazor - a component model (Razor components written in C#) with several [hosting models](https://learn.microsoft.com/en-us/aspnet/core/blazor/hosting-models), chosen per component since .NET 8:
+  - Static SSR - the component renders to HTML on the server with no interactivity.
+  - Blazor Server - UI interactions are handled on the server over a persistent SignalR connection. Reduced initial load, but each user holds a connection, which limits scale for high-traffic apps.
   - Blazor WebAssembly - runs .NET code in the browser without the need for a persistent server connection, but initial download size, including the .NET runtime can impact performance.
+  - Auto - uses Blazor Server on the first visit while the WebAssembly runtime downloads in the background, then WebAssembly on later visits.
+- Razor Pages - page based model for building SSR apps with Razor as the template engine (or View Engine in MVC).
 - MVC - enables SSR apps using the MVC pattern where user requests are routed to a controller responsible for handling user actions or retrieve data for queries. The controller chooses the view to display to the user and provides it with any model data it requires.
 - SPA with frontend [JS frameworks](#angular) like React, Angular, Vue
 
-### Component Gallery
+## Component Gallery
 
 A centralised set of reusable UI components can serve as a single source of truth for developers, designers and other stakeholders across agile teams to discover, understand, and integrate these components into their projects.
 

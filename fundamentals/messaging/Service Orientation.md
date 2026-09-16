@@ -2,7 +2,7 @@
 
 SOA allows organisations to form independent teams around business capabilities and deliver value to end users quickly and frequently. SOA-driven design enables platforms, build an entire constellation of products by allowing other people to do the work.
 
-Business management in 1950s was done by people passing files across business departments. People were the services and files were the messages. That is why we see organisational aspects keep getting linked back to SOA and microservices.
+A useful analogy: business management in the 1950s was done by people passing files across business departments. People were the services and files were the messages. That is why we see organisational aspects keep getting linked back to SOA and microservices.
 
 Conway's Law states organizations design systems that mirror their own communication structure.
 
@@ -20,19 +20,19 @@ Conway's Law states organizations design systems that mirror their own communica
 
 ### Identifying service boundaries
 
-In the context of [DDD](https://martinfowler.com/bliki/DomainDrivenDesign.html) a business capaility is synonymous with a business domain or **bounded context**
+In the context of [DDD](https://martinfowler.com/bliki/DomainDrivenDesign.html) a business capability usually maps to a subdomain; **bounded contexts** are the model and language boundaries you draw inside it (often one to one, not always)
 
 * Group of applications and services which together work towards some higher level business goal
 * These apps and services generally change for the same reason and share the same deployment cycle
-* Data going across domains is very basic, transmitted via stateful events and can be a call to action for other domains.
+* Data going across domains is very basic, transmitted via event-carried state transfer (events that carry the changed data with them) and can be a call to action for other domains.
 * Remote synchronous queries are limited to within a single bounded context and global queries across domains are rare e.g. queries to s Single Sign On service that rarely changes are generally acceptible
 * If you happen to share a lot of data between domains, even through events it is probably useful to revisit your service boundaries
 
 ## Cross cutting concerns
 
-### 1st law of distributed computing - Do not distribute
+### First Law of Distributed Object Design: don't distribute your objects
 
-Most systems can run on a single computer. The time to think about more than 1 is when you need availability, because a single machine is not going to be highly available.
+This is Martin Fowler's law from *Patterns of Enterprise Application Architecture* (2002). Most systems can run on a single computer. The time to think about more than 1 is when you need availability, because a single machine is not going to be highly available.
 
 <blockquote>“If you can't build a monolith what makes you think you can build distributed Microservices?” - *Simon Brown*</blockquote>
 
@@ -89,9 +89,9 @@ Simple routing using [round robin load balancing](https://www.nginx.com/resource
 * Least time algorithm - chooses the instance of the service that has the lowest current response time and continues to route traffic in that manner by continuously updating and monitoring those response times.
 * Least connection algorithm - instance with the fewest connections will receive the next connection
 
-According to **Nginx** the least time algorithm has yielded most valuable results for customers with microservices architectures.
+Nginx claims (vendor claim, not independently measured) that the least time algorithm has yielded the most valuable results for customers with microservices architectures. `least_time` is only available in the commercial NGINX Plus.
 
-Service discovery can be achieved by something simple as  DNS based routing using a load balancer or have a centralised service like **Apache zookeeper** as an address/naming registry to determine what service resides where for large distributed systems. For more dynamic runtime environments like kubernetes, service meshes like **Consul** and **Istio**
+Service discovery can be achieved by something as simple as DNS based routing using a load balancer, or by a central registry. In Kubernetes the built-in Service and DNS records are the registry; outside it **Consul** and **etcd** are common. **Apache ZooKeeper** filled this role in 2010s systems and is now mostly historical. Service meshes such as **Istio** and **Linkerd** sit on top of discovery and add routing, retries, mutual TLS and telemetry between services.
 
 ## Monolith to Microservices
 

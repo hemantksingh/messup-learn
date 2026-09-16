@@ -1,25 +1,27 @@
 # Leadership
 The foundations of strong leadership is in seeing others get better and helping them succeed. How do you empower others to achieve their best - their true potential? 
 
-- Culture - Creating the environment for others to succeed
+- Culture - Creating the environment for others to succeed. The safety, vulnerability and purpose framing below is Daniel Coyle's (*The Culture Code*).
   - Lead by example
     - Culture is not about what you say, its about what you do. Great leaders don't just talk culture, they embody it, authentically.
-    - In *The Corporate Culture*, Schien defines culture as a "pattern of shared tacit assumptions that was learned by a group as it solved its problems of external adaptation and internal integration,that has worked well enough to be considered valid and therefore, to be taught to new members as the correct way to perceive, think and feel in relation to those problems." You can let your teams culture emerge or be explicit about it by encouraging specific behaviors that
+    - In *The Corporate Culture Survival Guide*, Edgar Schein defines culture as a "pattern of shared tacit assumptions that was learned by a group as it solved its problems of external adaptation and internal integration,that has worked well enough to be considered valid and therefore, to be taught to new members as the correct way to perceive, think and feel in relation to those problems." You can let your teams culture emerge or be explicit about it by encouraging specific behaviours.
   - Create purpose 
     - People have the yearning to do or be part of something larger than themselves. Can you help create opportunities for others to be part of something bigger or make them realise the importance of their work and the impact it can have?
   - Establish safety and openness
     - get to know others: background, goals, fun, strengths, weaknesses
     - discourage blame e.g. are people given the autonomy to act and trusted to take risks? Is failure punished or does it lead to enquiry and improvements of our systems?
-    - say no to talented jerks - scientific experiments have shown jerks diminish a team's performance by 30-40%
+    - say no to talented jerks - Will Felps's bad-apple experiments (2006), as reported in Coyle's *The Culture Code*, found one such person cut a team's performance by 30-40%
   - Establish vulnerability - As a leader the most important thing that you can say to your team is - *I messed up* or *I need help to achieve x*
   - Keep the culture alive (culture capture) 
     - seek and provide constructive feedback. What excites them, what frustrates them, what is their biggest challenge? 
-    - surveys and questionnaires to measure e.g. Dimensions of Learning Organizations Questionnaire (DLOQ) is a tool designed to assess the following five dimensions of a learning organization:
-      - Continuous learning: This dimension measures an organization's commitment to ongoing learning and improvement through training, development, and knowledge sharing.
-      - Participative decision making: This dimension assesses the degree to which employees are involved in decision making processes and encouraged to contribute their ideas and expertise.
-      - Team learning: This dimension measures the extent to which teams collaborate and share knowledge to achieve common goals.
-      - Embedded systems for learning: This dimension assesses the presence and effectiveness of systems and processes within the organization to support learning and knowledge sharing.
-      - Visionary leadership: This dimension measures the leadership's commitment to fostering a culture of learning and supporting learning initiatives.
+    - surveys and questionnaires to measure e.g. the Dimensions of the Learning Organization Questionnaire (DLOQ, Marsick and Watkins) assesses seven dimensions of a learning organization:
+      - Continuous learning
+      - Inquiry and dialogue
+      - Collaboration and team learning
+      - Systems to capture and share learning
+      - Empower people toward a collective vision
+      - Connect the organization to its environment
+      - Strategic leadership for learning
 
 - Delegation
   - Getting results through others requires getting to know them. Its always easier to get someone to do something if you have built a rapport with them. Sometimes you may require to be a mentor - you shift from being a player to a coach, from doing to leading and putting the interests of others before you.
@@ -27,14 +29,14 @@ The foundations of strong leadership is in seeing others get better and helping 
   - Avoid being the bottleneck by taking on too much work yourself, let others take ownership of initiatives where you provide guidance and support.
   
 
-- Pulling in the same direction - Direction Alignment and Commitment (DAC)
+- Pulling in the same direction - Direction, Alignment and Commitment (DAC), a Center for Creative Leadership (CCL) model
   - There are a couple of ways to think about DAC:
-    - Push mode, where your are may use your influence and try to set expectations across the board and getting everyone to pull in the same direction. 
+    - Push mode, where you use your influence and try to set expectations across the board and getting everyone to pull in the same direction. 
     - Pull mode, where you seek information from your team and synthesise the information to agree on a set of principles that everyone buys into and has a shared understanding of. This allows decisions to be made objectively. In case personal motivations of individuals do not align the principles either the principles need readjusting or individual performance management is required, so that this works in the best interst of the team. For those that aren't willing to come on the journey with you, a safe way out for them needs to be considered.
   - Team goals, priorities and measures of success are key in determining the team direction. Think [OKRs](https://dannorth.net/blog/applying-okrs/). A good way to gauge the commitment levels of a team is to get them to come up with team objectives and confidence in meeting them.
 
 - Self awareness
-  - requires gaining your own perspective and how you come across to others  
+  - requires gaining your own perspective and how you come across to others. [Self Awareness](Self%20Awareness.md) uses the word differently: there it means the inner practice of directing your attention and energy, whereas here it means how you are perceived.
   - internal strategies for learning more about yourself include
     - journaling
     - reflection
@@ -67,24 +69,24 @@ Being able to communicate effectively is a key trait of a good leader.
   - Bounce a question back. Have you set out a budget for this piece of work?
 - Using humour to put your point across can be effective communication strategy in certain situations. Avoid plagiarizing but use inspiration.
 - Consider the impact of body language and non verbal communication on your message. This requires you to be fully present and be mindful of not only the thoughts but also the emotions around you.
-  - Closed positions like crossed arms represent defensiveness
-  - Open hands and hand movements while speaking represent confidence
-  - Eye movements give out a lot about whether you are being listened to or ignored
+  - Closed positions like crossed arms are commonly read as defensiveness
+  - Open hands and hand movements while speaking are commonly read as confidence
+  - Eye movements are commonly read as a sign of whether you are being listened to or ignored
 - *You haven't taught until they have learnt*. Seek confirmation that the words you say are well understood. Willingness to repeat will ensure your message lands.
 
 ### Engage and build trust
 
-Understanding that not all people are the same and that they are driven by different motivations is crucial to knowing them. People fall into different [personality traits](https://openpress.usask.ca/introductiontopsychology/chapter/personality-traits), however the deepest urge in all human nature is
+Understanding that not all people are the same and that they are driven by different motivations is crucial to knowing them. People fall into different [personality traits](https://openpress.usask.ca/introductiontopsychology/chapter/personality-traits), however, as Dale Carnegie puts it in *How to Win Friends and Influence People* (the passage below, including the Dewey, Freud, James and Schwab references, is his), the deepest urge in all human nature is
 
-- **the desire to be important** - John Dewey, one of America's most profound philosopher. It is what Freud calls "the desire to be great". The deepest principle in human nature is the craving to be appreciated.
+- **the desire to be important** - John Dewey, one of America's most profound philosopher. It is what Freud calls "the desire to be great". William James put it as "the deepest principle in human nature is the craving to be appreciated".
   - Be hearty in your approbation and lavish in our praise. **Recognition** and sincere appreciation is one of the secrets of dealing with people. Charles Schwab - one of the first people to be paid a salary of 1 million dollars a year says he was paid his salary because of his ability to deal with people. "*I consider my ability to arouse enthusiasm among my people*" said Schwab. The way to develop the best that is in a person is by appreciation and encouragement. The difference between appreciation and flattery? One is sincere and the other insincere. One comes from the heart out; the other from the teeth out. One is unselfish; the other is selfish. One is universally admired; the other universally condemned.
-  - Strive to provide positive as well as constructive **feedback**. When you do, you help people get better at their jobs. You let them know what is expected from them, as well as the good things you want them to continue to do. Using SIB (Situation Behavior and Impact) technique to provide feedback helps you to be precise about the time and place (situation), stick to the facts (behavior) and to uncover the impact - how it made you feel.
+  - Strive to provide positive as well as constructive **feedback**. When you do, you help people get better at their jobs. You let them know what is expected from them, as well as the good things you want them to continue to do. Using the SBI (Situation-Behavior-Impact) technique from CCL to provide feedback helps you to be precise about the time and place (situation), stick to the facts (behavior) and to uncover the impact - how it made you feel.
   
 - **the desire to belong** - people are social animals and have the innate ability to gravitate towards others with common shared values and beliefs, form communities and cultures. When you are surrounded by people with shared values and beliefs - trust emerges.
-  - You find others with similar beliefs and values by striking conversations and **becoming genuinely interested in them**. Often liking someone is a gut instinct, an intuitive decision, because it just feels right. The part of your brain that controls feeling, controls decision making it doesn't control language, it cannot rationalize why you like someone.
+  - You find others with similar beliefs and values by striking conversations and **becoming genuinely interested in them**. Often liking someone is a gut instinct, an intuitive decision, because it just feels right. Simon Sinek (*Start With Why*) argues that the part of the brain that drives feeling and decisions is not the part that handles language, which is why people struggle to explain why they like someone. Treat this as a simplification, not settled neuroscience.
   - Clarity about your beliefs and values gives you a purpose. Ability to clearly communicate your vision and repeat it often can rally others behind your cause
   - A carrot and stick (reward and punishment) policy is effective in routine, mechanical work, but actually reduces performance in the context of knowledge work. Rewarding efforts as opposed to outcomes taps into the intrinsic motivations of people encouraging them to take risks and innovate and be okay with failure.
-  - >*If you want people to be truly engaged in your vision give them **autonomy, mastery and purpose*** - Daniel Pink
+  - Daniel Pink (*Drive*) argues that engagement comes from **autonomy, mastery and purpose**.
   
 To become genuinely interested in other people and gain their trust, you have to go beyond the small talk and have meaningful conversations keeping their interests in mind.
 
@@ -106,7 +108,7 @@ To become genuinely interested in other people and gain their trust, you have to
   - People wait for you to share something intimate before opening up to you. After sharing something intimate, you may finish with *What about you?*
   - Showing up at events and gatherings is one way of proving what you believe. Increasing your exposure can increase your likeability
   - Providing reassurance during a difficult decision. Show that you are concerned, ask what's worrying them? e.g. *I sense there's something worrying you?*
-- Adopt **active listening**. When people come to you with a problem, your instinct may be is to give them a solution right away. Sometimes a deeper issue might need to be uncovered by just listening and letting the other person speak. To surface the underlying issue you can adopt the [labels and mirrors](https://blog.blackswanltd.com/the-edge/7-negotiation-techniques-for-introverts) technique or just say *Tell me more*
+- Adopt **active listening**. When people come to you with a problem, your instinct may be is to give them a solution right away. Sometimes a deeper issue might need to be uncovered by just listening and letting the other person speak. To surface the underlying issue you can adopt Chris Voss's [labels and mirrors](https://blog.blackswanltd.com/the-edge/7-negotiation-techniques-for-introverts) technique or just say *Tell me more*
   > *Listen to listen not to reply*
 
 ## Influence
@@ -119,7 +121,7 @@ To become genuinely interested in other people and gain their trust, you have to
   - Change people without giving offense or arouse resentment. Always **talk about your own mistakes first**. If you have made a mistake, admit that you're wrong and do it emphatically rather than defending yourself. *Dale Carnegie* suggests you own your mistake and vent how terrible the mistake was so you deflate the other person's anger.
     > *The only way I can get you to do anything is by giving you what you want*
   - When disagreeing with someone **make your point in a general sense**. Tackle the problem rather than the individual. Rejection of a viewpoint results in anger and pain
-  - Rather than saying *"No, the Community of Practice is a something that cannot be done away with"*, say something like
+  - Own example: rather than saying *"No, the Community of Practice is something that cannot be done away with"*, say something like
     >*Whilst commercials are hugely important, in order for people to feel engaged and drive new thinking it is important for them to get together, share experiences and learn from each other. This drives alignment organically and it doesn't feel enforced*
 
 - [Influencing others](Influence%20and%20Negotiation.md) requires you to build relationships and network for supporting your initiatives. Explore how you can engage and include others in the early stages of your initiative to get their buy-in and support
@@ -137,7 +139,7 @@ To become genuinely interested in other people and gain their trust, you have to
 ## Motivation
 
 - Motivation techniques
-  - Inspire commitment via extrinsic and intrinsic motivation techniques. Carrot and stick (extrinsic reward & punishment) has a limited effect when dealing with people.
+  - Inspire commitment via extrinsic and intrinsic motivation techniques. Carrot and stick (extrinsic reward & punishment) works for routine, mechanical work but reduces performance in knowledge work (Pink).
   - The deepest human urge is the desire to feel valued (importance) and be part of something larger than themselves (community). Give people what they most desire:
     - Recognition - arouse enthusiasm amongst others. Be hearty in your approbation and lavish in our praise.
     - Clarity about your beliefs and values gives you a purpose. Ability to clearly communicate your vision and repeat it often can rally others behind your cause. Letting people operate at a level where they are stretched but not stressed, leads to mastery.
@@ -150,7 +152,15 @@ To become genuinely interested in other people and gain their trust, you have to
   - Consider the power of a compelling vision to create a shared direction and motivation within a group
   - Reflect on the vision of your team or organization and how your work furthers it
 
+## Sources
+
+- Daniel Coyle, *The Culture Code*: safety, vulnerability, purpose; the Felps bad-apple figure.
+- Dale Carnegie, *How to Win Friends and Influence People*: the desire to be important, appreciation, admitting mistakes first.
+- Daniel Pink, *Drive*: autonomy, mastery, purpose; limits of carrot and stick.
+- Simon Sinek, *Start With Why*: communicating beliefs, the feeling-versus-language claim.
+- Chris Voss, *Never Split the Difference*: labels and mirrors.
+- Center for Creative Leadership (CCL): DAC, SBI feedback.
+
 ## Resources
 
 - <https://github.com/ryanburgess/engineer-manager>
-- <https://twitter.com/wdmorrisjr/status/1482718036758917122>

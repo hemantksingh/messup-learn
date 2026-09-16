@@ -1,20 +1,17 @@
-# Synchronous request/response‑based integration
+# API Styles
 
 Gregor Hohpe and Bobby Woolf provide 65 [integration patterns](http://www.enterpriseintegrationpatterns.com/patterns/messaging/) for integration and coordination between disparate services. These include shared database, file transfer and [messaging](http://www.enterpriseintegrationpatterns.com/patterns/messaging/toc.html) but here we look at synchronous request/response based integration where services are often built as APIs - https://blog.apisyouwonthate.com/
 
 ## REST
 
-REST is about a client-server relationship, where server-side data are made available through representations of data in simple formats, often JSON and XML. These representations for resources, or collections of resources, which are then potentially modifiable, with actions and relationships being made discoverable via a method known as hypermedia. Hypermedia is the concept of providing links to other resources and is fundamental to REST.
-
-HTTP based REST is a familiar standard. HTTP helps to enforce REST constraints such as modelling resources, providing a uniform interface, stateless requests and discoverability and self describing relationships through hypermedia. [Maturity model for REST](https://martinfowler.com/articles/richardsonMaturityModel.html) can be used as a technique for incrementally enforcing REST constraints in your APIs.
+REST models server-side data as resources with their own URIs, exchanges representations of them (often JSON or XML) using the HTTP verbs and status codes with their standard meaning, and makes the next allowed actions discoverable through hypermedia links. The constraints, the HTTP semantics and the Richardson Maturity Model are covered in [REST](REST.md).
 
 With HTTP REST you end up with API endpoints with the same path but different behaviour depending upon the verb (GET, POST) or the Content-Type.
 
-Getting a resource
+Getting a resource. The request is `GET /avatars HTTP/1.1` with no body; the response is
 
-```
-GET /avatars HTTP/1.1
-Host: localhost:3000
+```http
+HTTP/1.1 200 OK
 Content-Type: application/json
 Content-Length: 284
 
@@ -26,7 +23,7 @@ Content-Length: 284
 
 Uploading an image in the HTTP body
 
-```
+```http
 POST /avatars HTTP/1.1
 Host: localhost:3000
 Content-Type: image/jpeg
@@ -37,7 +34,7 @@ raw image content
 
 Support `application/json` requests on the same endpoint to handle the upload slightly differently
 
-```
+```http
 POST /avatars HTTP/1.1
 Host: localhost:3000
 Content-Type: application/json
@@ -49,27 +46,27 @@ Content-Type: application/json
 
 ### Standardising REST APIs
 
-[JSON API](http://jsonapi.org/) is a spec for standardising REST APIS with a designated media type ` application/vnd.api+json` for content negotiation. It has a predefined format for fetching data, related resources, sorting, pagination and filtering.
+[JSON API](http://jsonapi.org/) is a spec for standardising REST APIS with a designated media type `application/vnd.api+json` for content negotiation. It has a predefined format for fetching data, related resources, sorting, pagination and filtering.
 
 At first glance, it appears very verbose obfuscating your resource data under JSON API exchange semantics. Is it worth adopting for every API you are going to build ? Is there a universal standard that covers every use case? This [thread](https://news.ycombinator.com/item?id=9280058) captures the essence of the argument about standardising APIs.
 
-We should not confuse and API with a transport protocol (which is what JSON API seems to do). Making transports human readable appears to be a waste of resources. Those API's are meant to be consumed by machines and debugging can and should be done with tools, not by enforcing a standard. Lets work on improving the semantics and documentation around what constitutes an API e.g. Swagger.
+One commenter in that thread argues that we should not confuse an API with a transport protocol (which is what JSON API seems to do), that making transports human readable is a waste of resources because APIs are consumed by machines and debugged with tools, and that the effort is better spent on the semantics and documentation of the API, e.g. OpenAPI (formerly Swagger).
 
 If you have large and/or public API which needs to be stable, extensible, will be developed for years, JSON API maybe a good choice. It is a lot of overhead for a private API between one client and one server which might be completely reworked in a year.
 
 ## RPC
 
-Remote Procedure Call (RPC) is a protocol that one program can use to request a service from a program located in another computer on a network without having to understand the network's details. RPC spans the transport layer (TCP) and the application layer in the OSI model of network communication. It is dependent on having a **common interface definition** for describing message data types and service definition (available service methods) which happens to be either
+Remote Procedure Call (RPC) is a protocol that one program can use to request a service from a program located in another computer on a network without having to understand the network's details. RPC sits above the transport layer (TCP): the session and presentation layers in OSI terms, or simply the application layer in TCP/IP terms. It is dependent on having a **common interface definition** for describing message data types and service definition (available service methods), which is either an interface definition language file (Thrift IDL, protobuf, WSDL) or a type shared through a common platform (Java RMI, .NET Remoting).
 
-In earlier RPC implementations like *.Net Remoting* and *Java RMI* the interface definition was platform dependent. This meant a Java based service could not be invoked by a .Net client and vice versa. However a bunch of RPC frameworks made interoperability possible
+In earlier RPC implementations like *.NET Remoting* (legacy, .NET Framework only) and *Java RMI* the interface definition was platform dependent. This meant a Java based service could not be invoked by a .Net client and vice versa. However a bunch of RPC frameworks made interoperability possible
 
 ### SOAP
 
-Xml being platform independent, XML-RPC or SOAP based APIs attempted to resolve the interoperability problem. SOAP uses **UDDI** - XML based registry for service description and discovery and **WSDL** for interface definition.
+Xml being platform independent, XML-RPC or SOAP based APIs attempted to resolve the interoperability problem. SOAP contracts are described in **WSDL**. **UDDI**, the XML based registry meant for service discovery, was optional and is defunct (the OASIS committee closed in 2008).
 
-Ensuring data types of XML payloads in XML-RPC is tough. In XML you layer meta data on top in order to describe things such as which fields correspond to which data types. This means a SOAP envelope (message) can be incredibly verbose as compared to a JSON message in a JSON based API such as [Slack API](https://api.slack.com/web)
+XML-RPC types its values with explicit tags such as `<int>` and `<string>`. SOAP instead types payloads with XML Schema, layering meta data on top in order to describe which fields correspond to which data types. This means a SOAP envelope (message) can be incredibly verbose as compared to a JSON message in a JSON based API such as [Slack API](https://api.slack.com/web)
 
-SOAP is a network protocol which is routed over HTTP but ignores the existing well understood HTTP specification (HTTP verbs and the error codes are ignored). Moreover there are inconsistencies in different implementations of SOAP by different vendors therefore it still suffered from some degree of **platform coupling**.
+SOAP is a network protocol which is routed over HTTP but mostly ignores the existing well understood HTTP specification: it uses only POST and maps outcomes coarsely to 200 or 500 (a SOAP Fault is a 500). Moreover there are inconsistencies in different implementations of SOAP by different vendors therefore it still suffered from some degree of **platform coupling**.
 
 ### Thrift
 
@@ -84,7 +81,9 @@ SOAP is a network protocol which is routed over HTTP but ignores the existing we
 * Supports client, server bi-directional streaming calls. Largely follows HTTP semantics over HTTP/2 but explicitly allows for full-duplex streaming.
 * Reduced network usage with Protobuf binary serialization.
 
-A limitation with gRPC is that not every platform can use it. Browsers don't fully support HTTP/2, making REST and JSON the primary way to get data into browser apps. Because of gRPC's binary format it is harder for Javascript to parse it and contracts aren't suitable for web apps. Even with the benefits that gRPC brings, REST and JSON have an important place in web apps.
+A limitation with gRPC is that not every platform can use it. Browsers support HTTP/2, but JavaScript in a page cannot control HTTP/2 framing or read trailers, which the gRPC wire protocol needs. So the browser answers are gRPC-Web (a proxy such as Envoy or ASP.NET Core translates), the Connect protocol, or gRPC JSON transcoding (.NET 7+), and REST and JSON remain the primary way to get data into browser apps. Even with the benefits that gRPC brings, REST and JSON have an important place in web apps.
+
+gRPC over Unix domain sockets or named pipes for processes on the same machine is covered in [Local IPC](../networking/Local%20IPC.md).
 
 gRPC comes with an overhead as [compared to Thrift](https://groups.google.com/forum/#!msg/grpc-io/JeGybvbz8nc/wpqQdAfuBwAJ) since it uses HTTP2 at the transport layer which is a multiplexing wire protocol, but provides a variety of benefits like metadata exchange - allowing non-business data such as authentication tokens, standardized status codes for error handling, to be handled separately from actual business data.
 
@@ -92,7 +91,7 @@ gRPC comes with an overhead as [compared to Thrift](https://groups.google.com/fo
 
 https://www.smashingmagazine.com/2016/09/understanding-rest-and-rpc-for-http-apis/
 
-REST helps you model your domain as resource or entities whereas RPC based APIs are great for actions i.e. commands. RPC may be a better fit if you are writing your API in a functional language.
+REST helps you model your domain as resource or entities whereas RPC based APIs are great for actions i.e. commands. The Smashing Magazine article above suggests RPC may be a better fit if you are writing your API in a functional language.
 
 The fact that a remote procedure appears to be executing locally can lead to
 
@@ -107,9 +106,9 @@ GraphQL is a [query language for your API](https://graphql.org/learn/), and a se
 
 GraphQL is [typically served over HTTP](https://graphql.org/learn/serving-over-http/) via a single endpoint which expresses the full set of capabilities of the service. This is in contrast to REST APIs which expose a suite of URLs each of which expose a single resource. HTTP is commonly associated with REST, which used "resources" as its core concept. In contrast, GraphQL's conceptual model is an entity graph. As a result, entities in GraphQL are not identified by URLs. Instead, a GraphQL server operates on a single URL/endpoint, usually `/graphql`, and all GraphQL requests for a given service should be directed at this endpoint. Your GraphQL HTTP server should handle the HTTP GET and POST methods.
 
-GraphQL uses **sparse fieldsets** that allow clients to specify the fields they would like to be returned in the GraphQL query, thus skip all data that is not relevant to the response. GraphQL's query language moves the responsibility out of the hands of the API devs and into the clients. For example, the query:
+GraphQL uses **field selection** (the JSON:API equivalent is sparse fieldsets), which allows clients to specify the fields they would like to be returned in the GraphQL query, thus skip all data that is not relevant to the response. GraphQL's query language moves the responsibility out of the hands of the API devs and into the clients. For example, the query:
 
-```sh
+```graphql
 {
   me {
     name
@@ -119,7 +118,7 @@ GraphQL uses **sparse fieldsets** that allow clients to specify the fields they 
 
 Could produce the following JSON result:
 
-```sh
+```json
 {
   "me": {
     "name": "Luke Skywalker"
@@ -144,6 +143,6 @@ Your API I/O mechanism can be REST, GraphQL or RPC but you can fulfill requests 
 * Added complexity - GraphQL is not a replacement for server-side databases. It is just a simple query language.
   * So, it also shows the same problems when a client requests too many nested fields data at a single time. So there must be a mechanism like maximum query depths, query complexity weighting, avoiding recursion, or persistent queries to stop inefficient requests from the client-side.
 * Loss of native HTTP support
-  * Queries always return a HTTP status code of 200, regardless of whether or not that query was successful. If your query is unsuccessful, your response JSON will have a top-level errors key with associated error messages and stacktrace. This can make monitoring implementations more complex, as you'll have to implement some server side logic to raise monitoring aware errors.
+  * A query whose fields fail still returns HTTP status code 200; the response JSON carries a top-level `errors` key with the error messages. Under the GraphQL-over-HTTP spec (2023 onwards, media type `application/graphql-response+json`) request-level errors such as a malformed query may return 4xx, but many servers still return 200 for everything. This can make monitoring implementations more complex, as you'll have to implement some server side logic to raise monitoring aware errors.
   * Lack of built-in caching support - REST APIs have multiple endpoints, they can leverage native HTTP caching to avoid refetching resources. With GraphQL, you will need to setup your own caching support which means relying on another library, or setting up something like globally unique IDs for your backend.
   * Lack of Rate Limiting

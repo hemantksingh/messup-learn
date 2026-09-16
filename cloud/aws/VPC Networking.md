@@ -1,8 +1,8 @@
-# Networking
+# AWS VPC Networking
 
 VPC or Virtual Private Cloud is a logically isolated part of the AWS cloud, think of it as a virtual  data center in the cloud. You can leverage multiple layers of security, including security groups and network ACLs to help control access to Amazon EC2 instances in each subnet. The inbound and outbound connectivity to your VPC via the internet gateway or a VPN is established via three main lines of defense:
 
-* Routing tables - whether there is a route in or out to the internet. A **router** is required to create subnets and routes traffic between different subnets. A public subnet requires a route out to the internet (via an internet gateway) and a mapping to a public IP. This allows any EC2 instances within this subnet to reach out to the internet and be publicly available. **1 subnet always spans 1 Availability Zone**
+* Routing tables - whether there is a route in or out to the internet. Every VPC has an implicit **router** that routes traffic between subnets and out of the VPC; you never create one, you only edit its route tables. A public subnet requires a route out to the internet (via an internet gateway) and a mapping to a public IP. This allows any EC2 instances within this subnet to reach out to the internet and be publicly available. **1 subnet always spans 1 Availability Zone**
   * An **internet gateway** allows resources within your public subnet to access the internet, and the internet to access said resources. **You can only have 1 internet gateway per VPC**. To allow access to the internet, a route is defined in the route table with the destination as `0.0.0.0/0` and the target as the internet gateway. To allow communication between subnets another route is defined with destination as CIDR block for VPC and target `local`. Example of a route table for a public subnet, with routes for both IPv4 and IPv6.
     |Destination              |Target      |Description     |
     |:------------------------|:-----------|:---------------|
@@ -24,26 +24,26 @@ VPC or Virtual Private Cloud is a logically isolated part of the AWS cloud, thin
     * **Gateway VPC endpoints** - target specific IP routes in an Amazon VPC route table in the form of a `prefix-list` used for traffic destined to massive scale services like DynamoDb, S3.
       * App calls S3 -> Route table intercepts -> Direct to AWS backbone
       * DNS stays the same: You call s3.amazonaws.com but traffic gets redirected
-      * Free: No hourly charges, just data transfer charges
+      * Free: no hourly charge and no data processing charge for the endpoint
     * **Interface VPC endpoints** - enable you to privately connect your VPC to supported AWS services like API Gateway, CloudFormation, CloudWatch etc, services hosted by other AWS customers and partners in their own Amazon VPCs and supported AWS Marketplace partner services, powered by [PrivateLink](https://docs.aws.amazon.com/vpc/latest/privatelink/what-is-privatelink.html) 
       * App calls EC2 API -> DNS resolves to private IP -> ENI (Elastic Network Interface) forwards to service
       * Enables instances in your VPC to not require an internet gateway, NAT gateway or public IP to communicate with other AWS services.
 * Network ACLs - act as a firewall for controlling traffic in and out of one or more subnets, so any instance in the subnet with an associated NACL will follow rules of NACL. Each subnet in your VPC must be associated with a NACL. If not done explicitly the subnet is automatically associated with the default NACL. You can associate a NACL with multiple subnets, however **a subnet can be associated with only 1 NACL**. You may setup NACLs with rules similar to your security group to add another layer of security to your VPC
   * by default, a custom NACL denies all outbound and inbound traffic whereas the default NACL allows all outbound and inbound traffic
   * can be used to block specific IP addresses
-  * are stateless, therefore explicit rules are enforced for inbound and outbound traffic
+  * are stateless, therefore both directions need explicit rules. A reply to an allowed inbound request only gets out if an outbound rule allows it
 
 * Security Groups - virtual stateful firewalls for EC2 instances and the last line of defense.
-  * by default everything is blocked
+  * by default a new security group denies all inbound traffic and allows all outbound traffic
   * [security groups are tied to an instance whereas Network ACLs are tied to the subnet](https://medium.com/awesome-cloud/aws-difference-between-security-groups-and-network-acls-adc632ea29ae)
-  * security groups are stateful - this means any changes applied to an incoming rule will be automatically applied to the outgoing rule. e.g. If you allow an incoming port 80, the outgoing port 80 will be automatically opened.
+  * security groups are stateful - return traffic for an allowed connection is permitted without a rule in the other direction. Rules are not mirrored: allowing inbound port 80 does not create an outbound rule, it just lets the responses to those requests back out.
 ![aws-vpc.png](../../images/aws-vpc.png "AWS VPC Setup")
 
 ## Troubleshooting inbound network connectivity
 
 While accessing your ec2 instance from the browser, if you get a
 
-* timeout - it is probably because there is no inbound route defined in your route table or network ACL
+* timeout - most often the security group does not allow the inbound traffic; otherwise there is no route to the subnet in your route table or the network ACL is blocking it
 * *ERR connection refused* - means you are able to get through to the EC2 instance but it is not serving the requested HTTP page.
 
 ## VPC
@@ -56,14 +56,14 @@ While accessing your ec2 instance from the browser, if you get a
 
 ### Elastic Network Interfaces
 
-* Elastic Network Interface (ENI)s are virtual network cards you can attach to your EC2 instances. They are used to enable network connectivity for your instances, and having more than one of them connected to your instance allows it to communicate on two different subnets. You’re already using them if you’re running on EC2—the default interface, `eth0`, is attached to an ENI that was created when you launched the instance, and is used to handle all traffic sent and received from the instance. You’re not limited to just one network interface though—attaching a secondary network interface allows you to **connect your EC2 instance to two networks at once**. A common use case for ENIs is the creation of management networks. This allows you to have public-facing applications like web servers in a public subnet but lock down SSH access down to a private subnet on a secondary network interface.
+* Elastic Network Interface (ENI)s are virtual network cards you can attach to your EC2 instances. They are used to enable network connectivity for your instances, and having more than one of them connected to your instance allows it to communicate on two different subnets. You’re already using them if you’re running on EC2: the default interface, `eth0` or `ens5` depending on the AMI, is attached to an ENI that was created when you launched the instance, and is used to handle all traffic sent and received from the instance. You’re not limited to just one network interface though, attaching a secondary network interface allows you to **connect your EC2 instance to two networks at once**. A common use case for ENIs is the creation of management networks. This allows you to have public-facing applications like web servers in a public subnet but lock down SSH access down to a private subnet on a secondary network interface.
 
 ### AWS PrivateLink
 
 Opening services in a VPC to another VPC, sharing applications across VPCs within the AWS ecosystem be it within the same company or between companies and partners using AWS. In a multi tenant system if you have a VPC per customer then connecting 1000s of VPCs to your service VPC may not scale well. AWS PrivateLink allows you to expose a service VPC to tens, hundreds or thousands of customer VPCs.
 
 * Doesn't require VPC peering, no route tables, NAT gateways, internet gateways, or public IP addresses.
-* Requires a Network LB on the service VPC and an Elastic Network Interface on the customer VPC
+* Requires a load balancer on the service VPC, a Network Load Balancer or a Gateway Load Balancer, and an Elastic Network Interface on the customer VPC. Since December 2024 a PrivateLink Resource Gateway can share an individual resource such as an RDS instance without a load balancer
 * Can also provide [API Gateway private endpoints](https://aws.amazon.com/blogs/compute/introducing-amazon-api-gateway-private-endpoints/), securely exposing REST APIs only to the other services and resources inside your VPC, or those connected via Direct Connect to your own data centers.
 
 ## Connecting AWS to On-Premise Data Centres
@@ -73,22 +73,22 @@ AWS VPCs can be connected to on-premise networks via [Virtual Private Gateway or
 ### Virtual Private Gateway
 
 managed gateway endpoint for VPC for Site to Site VPN connection using VPN and AWS Direct Connect
-does not introduce any extra latency but can end up increasing complexity with scale
+adds little latency but can end up increasing complexity with scale
 
 ### Transit Gateway
 
 * Network transit hub that connects multiple VPCs and on-premise networks via VPNs or Direct Connect links
 offers a simpler design and allows you to easily connect VPCs, AWS accounts and on-premise networks to a central hub
-* simplifies your network by stopping complex peering relationships, experiences a slight delay but infrastructure is streamlined and scalable
+* simplifies your network by stopping complex peering relationships, adds a small amount of latency as an extra hop but infrastructure is streamlined and scalable
 
 ### AWS Direct Connect
 
-AWS Direct Connect bypasses the public Internet and establishes a secure, dedicated connection from your infrastructure into AWS. This dedicated connection occurs over a standard 1 GB or 10 GB Ethernet fiber-optic cable with one end of the cable connected to your router and the other to an AWS Direct Connect router. AWS has established these Direct Connect routers in large collocation facilities across the world, providing access to all AWS regions. With established connectivity via AWS Direct Connect, you can access your Amazon VPC and all AWS services.
+AWS Direct Connect bypasses the public Internet and establishes a secure, dedicated connection from your infrastructure into AWS. This dedicated connection occurs over a standard Ethernet fiber-optic cable with one end of the cable connected to your router and the other to an AWS Direct Connect router. Dedicated ports come in 1, 10, 100 or 400 Gbps (400 Gbps since July 2024); hosted connections through a Direct Connect partner range from 50 Mbps to 25 Gbps. AWS has established these Direct Connect routers in large collocation facilities across the world, providing access to all AWS regions. With established connectivity via AWS Direct Connect, you can access your Amazon VPC and all AWS services.
 
-AWS Direct Connect is a great option for businesses that are seeking secure, ultra-low latency connectivity into AWS. While provisioning AWS Direct Connect can sometimes be more involved, it is worth it once the connectivity is established the because of the ease of predictable network performance and 60% cost savings.
+AWS Direct Connect is a great option for businesses that are seeking secure, ultra-low latency connectivity into AWS. While provisioning AWS Direct Connect can sometimes be more involved, it is worth it once the connectivity is established because of the predictable network performance.
 
-### AWS-manged VPN
+### AWS Site-to-Site VPN
 
-AWS-managed VPN is a hardware IPsec VPN that enables you to create an encrypted connection over the public Internet between your Amazon VPC and your private IT infrastructure. The VPN connection lets you extend your existing security and management policies to your VPC as if they were running within your own infrastructure.
+AWS Site-to-Site VPN is a managed IPsec VPN that enables you to create an encrypted connection over the public Internet between your Amazon VPC and your private IT infrastructure. The VPN connection lets you extend your existing security and management policies to your VPC as if they were running within your own infrastructure.
 
 VPN is a great connectivity option for businesses that are just getting started with AWS. It is quick and easy to setup. Keep in mind, however, that VPN connectivity utilizes the public Internet, which can have unpredictable performance and despite being encrypted, can present security concerns.
