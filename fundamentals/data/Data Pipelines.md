@@ -36,7 +36,7 @@ Beats are used as lightweight agents installed on the different servers in your 
 * server metrics (Metricbeat)
 * any other type of data - write your own (Libbeat)
 
-![elastic-stack](../../Images/elastic-log-shippers.jpg)
+![elastic-stack](../../images/elastic-log-shippers.jpg)
 
 The ELK stack due to its impressive set of tooling has been a success in data analytics pipelines but [is elastic search a good fit for data science](https://towardsdatascience.com/elasticsearch-for-data-science-just-got-way-easier-95912d724636)?
 
@@ -48,7 +48,7 @@ Elasticsearch is trying to achieve widespread adoption in the data science indus
 
 [Logz.io](https://logz.io/blog/fluentd-logstash/) provides a good comparison of the two log collectors. Logstash is most known for being part of the ELK Stack while Fluentd (part of CNCF) has become increasingly used by communities of users of software such as Docker, GCP and Elasticsearch.
 
-![logstash-fluentd-comparison](../../Images/logstash-fluentd-comparison.png)
+![logstash-fluentd-comparison](../../images/logstash-fluentd-comparison.png)
 
 Fluentd has built in reliability for persistence across restarts and has a configurable in-memory or on-disk buffering system while [Logstash is limited to an in-memory queue](https://platform9.com/blog/kubernetes-logging-comparing-fluentd-vs-logstash) that holds 20 events and, therefore, relies on an external persistence, like Redis.
 

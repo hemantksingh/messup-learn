@@ -8,7 +8,7 @@ Fundamentally there are a few patterns that can be used to secure all your AWS s
 * Control your data: [AWS KMS](Key%20Management.md)
 * Control your network: [Amazon VPC](VPC%20Networking.md)
 
-![aws-security-patterns.png](../../Images/aws-security-patterns.png "AWS Security Patterns")
+![aws-security-patterns.png](../../images/aws-security-patterns.png "AWS Security Patterns")
 
 ## Security Best Practices
 
@@ -141,7 +141,7 @@ IAM Access Analyzer identifies resources shared with external principals by usin
 
 #### AWS Shield
 
-Prevention of [DDOS attacks](../../Fundamentals/Security/Web%20Application%20Risks.md#ddos-protection) There are 2 tiers of AWS Shield
+Prevention of [DDOS attacks](../../fundamentals/security/Web%20Application%20Risks.md#ddos-protection) There are 2 tiers of AWS Shield
 
 * Standard
   * All AWS customers get the automatic protections of AWS Shield Standard, at no additional charge

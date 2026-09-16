@@ -22,7 +22,7 @@ Caching API data that is continuosuly being updated in the backend especially if
 
 Caching content at the reverse proxy that is unique to a user, such as API keys, user profile data etc is not advisable because it is meant for that user and only ever going to be requested for that specific user.
 
-![cacheable-content.jpg](../../Images/cacheable-content.jpg "Cacheable Content")
+![cacheable-content.jpg](../../images/cacheable-content.jpg "Cacheable Content")
 
 ### Caching authenticated requests
 

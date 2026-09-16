@@ -37,7 +37,7 @@ VPC or Virtual Private Cloud is a logically isolated part of the AWS cloud, thin
   * by default everything is blocked
   * [security groups are tied to an instance whereas Network ACLs are tied to the subnet](https://medium.com/awesome-cloud/aws-difference-between-security-groups-and-network-acls-adc632ea29ae)
   * security groups are stateful - this means any changes applied to an incoming rule will be automatically applied to the outgoing rule. e.g. If you allow an incoming port 80, the outgoing port 80 will be automatically opened.
-![aws-vpc.png](../../Images/aws-vpc.png "AWS VPC Setup")
+![aws-vpc.png](../../images/aws-vpc.png "AWS VPC Setup")
 
 ## Troubleshooting inbound network connectivity
 

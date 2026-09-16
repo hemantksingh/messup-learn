@@ -168,7 +168,7 @@ A denial of service attack is not limited to layer 7 when a web server receives 
   * The client overwhelms ther server by sending SYN packets without sending ACK, crossing the number of TCP connections the server can support
 * [NTP amplification attack](https://www.cloudflare.com/en-gb/learning/ddos/ntp-amplification-ddos-attack) - The Network Time Protocol is designed to allow internet connected devices to synchronize their internal clocks, and serves an important function in internet architecture. The `monlist` command is a feature of NTP that allows a client to request a list of the last 600 IP addresses that have sent NTP packets to the server. In an NTP amplification attack, an attacker sends a spoofed "monlist" request to a vulnerable NTP server, which then responds with a large amount of data (up to 600 times the size of the original request) to the victim's IP address. This amplifies the attack traffic and can overwhelm the victim's network, causing a denial-of-service (DoS) condition. The use of the "monlist" command in NTP has been deprecated due to its potential for abuse in amplification attacks.
 
-![nginx-dos-protection.jpg](../../Images/nginx-dos-protection.jpg "Nginx DOS protection")
+![nginx-dos-protection.jpg](../../images/nginx-dos-protection.jpg "Nginx DOS protection")
 
 ### Protection offered by the browser
 

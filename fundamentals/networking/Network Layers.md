@@ -8,7 +8,7 @@
 * Data Link - Finds the physical device on the network.
 * Physical - Cables, voltages, frequencies, bits transfer rates
 
-![osi.gif](../../Images/osi.gif)
+![osi.gif](../../images/osi.gif)
 
 ## TCP/IP
 
@@ -59,4 +59,4 @@ Secure shell is the same as telnet but with encryption to allow network services
 
 Port scanning on a MAC is available under Network Utilities. `netstat` can be used to determine which processes are listening on which ports on the system.
 
-![network-admin-tools.jpg](../../Images/network-admin-tools.jpg)
+![network-admin-tools.jpg](../../images/network-admin-tools.jpg)

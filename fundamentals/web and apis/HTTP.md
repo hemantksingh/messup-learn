@@ -14,7 +14,7 @@ Multiple TCP connections can be opened in parallel by the browser to speed up pa
 
 HTTP 1.x may **pipeline** (send multiple requests without waiting for each response on a single TCP connection) its requests but it still means the requests are queued one after the other. As the entire connection is ordered and blocking (FIFO), a slow request can hold up the connection, slowing down all subsequent requests. Therefore to increase performance *CSS image sprites (image collection) & JS concatenation is perferred because it reduces the number of requests which reduces waiting on queue.*
 
-![http-v-HTTP/2.jpg](../../Images/http-v-http2.jpg "Http v Http 2")
+![http-v-HTTP/2.jpg](../../images/http-v-http2.jpg "Http v Http 2")
 
 ## HTTP/2
 
@@ -32,7 +32,7 @@ HTTP 1.x may **pipeline** (send multiple requests without waiting for each respo
 
 QUIC moves multiplexing to the transport protocol i.e. the reliability of receiving HTTP/3 frames for the right resources in the right order is moved down into the transport and leaves UDP just for the packetisation, therefore simplifying HTTP.
 
-![http-stacks.PNG](../../Images/http-stacks.PNG "HTTP stacks")
+![http-stacks.PNG](../../images/http-stacks.PNG "HTTP stacks")
 
 ## Persistent connections
 

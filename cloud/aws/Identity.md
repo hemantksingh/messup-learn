@@ -10,7 +10,7 @@ Identity and Access Management is used for
   * IAM role - is an IAM identity that you can create that has specific permissions (similar to a Service Principal in Azure or Service Account in GCP) with credentials that are valid for short durations. An IAM role is similar to an IAM user, in that it is an AWS identity with permission policies that determine what the identity can and cannot do in AWS. Instead of being uniquely associated with one person, a [role can be assumed](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html) by anyone who needs it. Also, a role does not have standard long-term credentials such as a password or access keys associated with it. Instead, when you assume a role, it provides you with **temporary security credentials** for your role session.
 * monitoring and auditing access to specific resources e.g. by enabling AWS Cloud Trail
 * federate access into AWS by integrating with corporate identity providers like Microsoft Active Directory when the users have identities defined outside of AWS
-<img src="../../Images/aws-federated-identity.png" title="AWS federated identity" width="600" height="400"/>
+<img src="../../images/aws-federated-identity.png" title="AWS federated identity" width="600" height="400"/>
 
 |Users (Who)            |Groups (Who)       |Roles (Who)    | Policies (What) |
 |:---------------------|:------------------|:--------------|:---------------|

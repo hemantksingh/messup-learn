@@ -56,7 +56,7 @@ Usage
 
 * **Password hashing** uses a "Salt" - a unique value that can be added to the end of the password to create a different hash value. This adds a layer of security to the hashing process, specifically against brute force attacks.  
 
-  ![password-hashing.png](../../Images/password-hashing.png "Password Hashing")
+  ![password-hashing.png](../../images/password-hashing.png "Password Hashing")
 
 * **Hash-based Message authentication codes (HMACs)** use hashes to verify the sender of the message and the integrity of a message. Hashing the same message multiple times results in the same hash. **Nonce** is a one time value used to generate a unique hash per request, to prevent replay attacks.
 

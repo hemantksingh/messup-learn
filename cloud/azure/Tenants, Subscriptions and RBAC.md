@@ -15,7 +15,7 @@
 
 Multiple subscriptions can trust the same Azure AD directory, but each subscription can only be associated with a single directory.
 
-![azuread-subscription.png](../../Images/azuread-subscription.png "AzureAD and Subscription Association")
+![azuread-subscription.png](../../images/azuread-subscription.png "AzureAD and Subscription Association")
 
 #### Transferring subscription to a different tenant (changing directories)
 
@@ -26,7 +26,7 @@ When a subscription is created there are 2 roles that get automatically assigned
 
 Transferring the subscription to another target (target tenant) means the account admin and service admin change to the target tenant. Several Azure resources have a dependency on a subscription or a directory. Transferring a subscription means role assignments, managed identities and a [range of other things](https://docs.microsoft.com/en-us/azure/role-based-access-control/transfer-subscription#understand-the-impact-of-transferring-a-subscription) are also deleted from the source subscription.
 
-![tenant-transfer.png](../../Images/tenant-transfer.png "AzureAD and Subscription Association")
+![tenant-transfer.png](../../images/tenant-transfer.png "AzureAD and Subscription Association")
 
 ## IAM
 
@@ -38,7 +38,7 @@ Identity is at the heart of cloud security, it is something that remains constan
 
 Users need access to apps and resources. Apps need access to resources and resources may need access to other resources. Access control is managed by Azure AD using **identities**
 
-![access-patterns.png](../../Images/access-patterns.png)
+![access-patterns.png](../../images/access-patterns.png)
 
 Azure AD can have different types of Identities
 
@@ -77,7 +77,7 @@ List all the SPs:  -> Select Role Assignments -> Select Type {Apps}
 
 Lists all the roles: -> Select Roles e.g. 'Owner' 'Contributor' 'Reader' and the Custom roles that you may have defined.
 
-![azure-role-assignment.png](../../Images/azure-role-assignment.png)
+![azure-role-assignment.png](../../images/azure-role-assignment.png)
 
 ### IAM for Active Directory
 

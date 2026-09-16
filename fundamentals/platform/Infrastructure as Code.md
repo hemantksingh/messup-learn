@@ -15,7 +15,7 @@ Will Brock's [terraform playlist](https://www.youtube.com/playlist?list=PL8HowI-
 
 On Azure, you can run terraform directly in the azure cloud shell, which has the `azcli` and `terraform` both installed.
 
-![arm-terraform.png](../../Images/arm-terraform.png "Arm Terraform")
+![arm-terraform.png](../../images/arm-terraform.png "Arm Terraform")
 
 ## Providers
 

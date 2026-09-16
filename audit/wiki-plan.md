@@ -19,31 +19,31 @@ Downstream use: a knowledge base that agents will read. That adds three requirem
 Three areas, two levels. Names are page titles and filenames at the same time.
 
 ```
-Fundamentals/
-  Computing/         Algorithms and Complexity · Code Quality · Functional and Reactive Programming ·
+fundamentals/
+  computing/         Algorithms and Complexity · Code Quality · Functional and Reactive Programming ·
                      Concurrency Models · The Unix Model
-  Networking/        Network Layers · IP Addressing · DNS · Local IPC · TLS · TLS Certificates
-  Web and APIs/      HTTP · Realtime Web · HTTP Caching · REST · API Styles · Web Performance ·
+  networking/        Network Layers · IP Addressing · DNS · Local IPC · TLS · TLS Certificates
+  web and apis/      HTTP · Realtime Web · HTTP Caching · REST · API Styles · Web Performance ·
                      Rendering Patterns
-  Data/              Consistency Models · Choosing a Database · Data Platforms · Data Pipelines ·
+  data/              Consistency Models · Choosing a Database · Data Platforms · Data Pipelines ·
                      Machine Learning
-  Messaging/         Messaging Fundamentals · Sagas and Process Managers · Message Brokers ·
+  messaging/         Messaging Fundamentals · Sagas and Process Managers · Message Brokers ·
                      Event Sourcing and CQRS · Service Orientation
-  Security/          Cryptography Basics · Security Principles and Threat Modelling ·
+  security/          Cryptography Basics · Security Principles and Threat Modelling ·
                      Browser Security Model · Cross Site Scripting · Cross Site Request Forgery ·
                      Security Headers · Web Application Risks · Secrets Management ·
                      Supply Chain and Container Security · Standards and Compliance ·
                      Data Privacy · Endpoint Security
-  Platform/          Containers · Kubernetes · Kubernetes Security · Load Balancing and Proxies ·
+  platform/          Containers · Kubernetes · Kubernetes Security · Load Balancing and Proxies ·
                      Resilience Patterns · Observability · DevOps and Delivery ·
                      Infrastructure as Code · Configuration Management
-Cloud/
-  AWS/               README (hub) · Identity · Key Management · VPC Networking · Messaging ·
+cloud/
+  aws/               README (hub) · Identity · Key Management · VPC Networking · Messaging ·
                      Disaster Recovery · (EKS, if rewritten)
-  Azure/             Tenants, Subscriptions and RBAC (incl. network access control)
-Practice/            Testing Strategy · Leadership · Influence and Negotiation · Roles and Hiring ·
+  azure/             Tenants, Subscriptions and RBAC (incl. network access control)
+practice/            Testing Strategy · Leadership · Influence and Negotiation · Roles and Hiring ·
                      Self Awareness
-Images/              16 editable .drawio.svg diagrams (source embedded in the SVG); no rasters
+images/              16 editable .drawio.svg diagrams (source embedded in the SVG); no rasters
 README.md            index: one line per page
 AGENTS.md            how an agent should read this repo
 ```
@@ -89,7 +89,7 @@ Body conventions:
 - **No product numbers unless the concept depends on them.** Quotas, prices, version-specific flags and click-paths go to a link. When a version matters (TLS 1.3 removed RSA key transport), say so because it changes the concept.
 - **No employer or personal data.** Use `example.com`, `<tenant>`, `<gpg-uid>`. Today: Okta client names and user counts, a former employer's tenant names in Azure CLI snippets, a personal Azure DevOps org URL, a personal email in GPG examples, a real public IP in an Ansible example.
 - **Code fences always have a language.** Command output goes in a separate `text` fence or is prefixed with `#`. (Today: 12 bare fences; HCL, YAML, HTTP and JSON tagged as `sh`, `javascript`, `js`.)
-- **Images have descriptive alt text** and live in `Images/`. Remote LaTeX-rendered images (6 in the TLS page) become inline code or text.
+- **Images have descriptive alt text** and live in `images/`. Remote LaTeX-rendered images (6 in the TLS page) become inline code or text.
 - **Every picture is a diagram we drew, as a `.drawio.svg` embedded in the page that explains it.** No screenshots, slides or third-party images; tables that were screenshotted become markdown tables. See "Diagrams and images" below.
 - **Internal links are relative** and point at pages, not the old folders. Run `audit/tools/linkcheck.sh` before committing external links.
 
@@ -97,7 +97,7 @@ Body conventions:
 
 Rule: **every picture in the wiki is a diagram we drew, stored as `.drawio.svg`.** No screenshots, no slides photographed from talks, no third-party artwork. This follows from the purpose (own understanding, own words) and it fixes three problems at once: images that contradict the corrected text, alt text that is just a filename, and copyright on borrowed pictures.
 
-Of the 35 images today, 30 are rasters. Viewed one by one: 14 are worth redrawing as our own diagrams (they illustrate a fundamental the page keeps), 4 are tables that were screenshotted and should become markdown tables, 12 are screenshots or vendor graphics that go with the content they belong to. The remaining 5 are PNG exports of the two draw.io files and are replaced by the SVG conversion below. End state: `Images/` holds 16 `.drawio.svg` files and nothing else.
+Of the 35 images today, 30 are rasters. Viewed one by one: 14 are worth redrawing as our own diagrams (they illustrate a fundamental the page keeps), 4 are tables that were screenshotted and should become markdown tables, 12 are screenshots or vendor graphics that go with the content they belong to. The remaining 5 are PNG exports of the two draw.io files and are replaced by the SVG conversion below. End state: `images/` holds 16 `.drawio.svg` files and nothing else.
 
 ### Redraw as `.drawio.svg` (14 images, 12 new files)
 
@@ -149,16 +149,16 @@ These are tables that were screenshotted. A table is searchable, diffable and re
 
 Today the two `.drawio` files are unreferenced, unreadable by agents, and their exported PNGs have drifted from the source (labels still say "Azure AD" and "Service Admin"). The fix is one file format that is both the source and the rendered image.
 
-**Convention.** Every diagram is a `.drawio.svg` file in `Images/`. It is a normal SVG, so GitHub, editors and agents render it as a picture. It also carries the draw.io XML inside, so opening it in draw.io edits the same file. One diagram page per file. The markdown embeds it like any image:
+**Convention.** Every diagram is a `.drawio.svg` file in `images/`. It is a normal SVG, so GitHub, editors and agents render it as a picture. It also carries the draw.io XML inside, so opening it in draw.io edits the same file. One diagram page per file. The markdown embeds it like any image:
 
 ```markdown
-![Federated access to AWS: corporate identities assume IAM roles for temporary credentials](../../Images/aws-federated-access.drawio.svg)
+![Federated access to AWS: corporate identities assume IAM roles for temporary credentials](../../images/aws-federated-access.drawio.svg)
 ```
 
 **Tooling on this machine.** The VS Code extension `hediet.vscode-drawio` is installed and handles `.drawio.svg` natively: open the file, edit visually, save, and the SVG is regenerated with the source embedded. To convert an existing multi-page `.drawio`, open it, use the extension's "Convert To .drawio.svg" command, then split pages so each file holds one diagram. If a batch export is ever needed, install the desktop app (`brew install --cask drawio`) and run:
 
 ```sh
-/Applications/draw.io.app/Contents/MacOS/draw.io -x -f svg --embed-diagram -p 0 -o Images/aws-federated-access.drawio.svg "Cloud and Infrastructure/AWS/AWS.drawio"
+/Applications/draw.io.app/Contents/MacOS/draw.io -x -f svg --embed-diagram -p 0 -o images/aws-federated-access.drawio.svg "Cloud and Infrastructure/AWS/AWS.drawio"
 ```
 
 The `--embed-diagram` flag is what makes the output re-editable; `-p` selects the page index.
@@ -167,10 +167,10 @@ The `--embed-diagram` flag is what makes the output re-editable; `-p` selects th
 
 | Source file and page | New file | Embed in |
 |---|---|---|
-| `AWS.drawio` page "IAM" (federated access flow; also holds the IAM / KMS / VPC icon triad, which becomes a second file or is dropped) | `Images/aws-federated-access.drawio.svg` | Cloud / AWS / Identity |
-| `AWS.drawio` page "Serverless DR" (never exported) | `Images/aws-serverless-dr.drawio.svg` | Cloud / AWS / Disaster Recovery |
-| `AzureAd.drawio` page "Azure Isolation" (relabel to Entra ID, replace "Service Admin" with RBAC Owner, fix "Managed Identites") | `Images/azure-tenant-subscription.drawio.svg` | Cloud / Azure / Tenants, Subscriptions and RBAC |
-| `AzureAd.drawio` page "Access patterns" | `Images/azure-access-patterns.drawio.svg` | Cloud / Azure / Tenants, Subscriptions and RBAC |
+| `AWS.drawio` page "IAM" (federated access flow; also holds the IAM / KMS / VPC icon triad, which becomes a second file or is dropped) | `images/aws-federated-access.drawio.svg` | Cloud / AWS / Identity |
+| `AWS.drawio` page "Serverless DR" (never exported) | `images/aws-serverless-dr.drawio.svg` | Cloud / AWS / Disaster Recovery |
+| `AzureAd.drawio` page "Azure Isolation" (relabel to Entra ID, replace "Service Admin" with RBAC Owner, fix "Managed Identites") | `images/azure-tenant-subscription.drawio.svg` | Cloud / Azure / Tenants, Subscriptions and RBAC |
+| `AzureAd.drawio` page "Access patterns" | `images/azure-access-patterns.drawio.svg` | Cloud / Azure / Tenants, Subscriptions and RBAC |
 
 Once embedded, delete the two `.drawio` files and the five PNGs they generated (`aws-federated-identity.png`, `aws-security-patterns.png`, `azuread-subscription.png`, `tenant-transfer.png`, `access-patterns.png`).
 

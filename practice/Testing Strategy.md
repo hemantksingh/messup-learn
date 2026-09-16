@@ -33,7 +33,7 @@ I have been part of teams where some TDD enthusiasts must insist on adopting tes
   * Test behavours not implementation
   * Test at the boundaries of a system not internals, unless you have implemented a complex algorithm e.g. A loan interest calculator, tax computation, or pricing engine. 
 
-![Testing behaviour](../Images/testing-behaviour.jpg "Testing behaviour")
+![Testing behaviour](../images/testing-behaviour.jpg "Testing behaviour")
 
 There could  cases where enforcing the separation of I/O and non I/O code is either too costly or adds little real value — where you’re better off testing the integration as a whole.  For data intensive applications it maybe better to write an integration test. 
 

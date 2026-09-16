@@ -88,7 +88,7 @@ When working with very large data sets, it can take a long time to run the sort 
 * Map: split the data and distribute the computation over multiple servers in parallel. For that computation to take place each server must have access to the data. HDFS makes this possible.
 * Reduce: take the O/P from the map phase (in a key value format) and aggregate the results
 
-![hadoop-stack.png](../../Images/hadoop-stack.png "Hadoop Stack")
+![hadoop-stack.png](../../images/hadoop-stack.png "Hadoop Stack")
 
 Gartner estimates the failure rate of Big Data projects is as high as 85% and predicted that Hadoop implementations are [deemed to be obsolete](https://www.analytics.today/blog/snowflake-vs-hadoop) as a result of complexity and questionable usefulness.
 

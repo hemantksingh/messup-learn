@@ -27,96 +27,96 @@ Every path in `details/`, `file-triage.md` and `README.md` is pre-migration. Use
 | Tools/Okta.md |
 | Tools/Tesseract.md |
 | Photography/Photography Basics.md |
-| Images/mac.png |
-| Images/patterns-effective-teams.jpg |
-| Images/okta-pricing.png |
-| Images/android-project-build.png |
-| Images/android-tools-architecture.png |
-| Images/data-analysis-experimentation.png |
+| images/mac.png |
+| images/patterns-effective-teams.jpg |
+| images/okta-pricing.png |
+| images/android-project-build.png |
+| images/android-tools-architecture.png |
+| images/data-analysis-experimentation.png |
 
 ## Moved (old → new)
 
 | Old | New |
 |---|---|
-| Cheat sheets/Unix Basics.md | Fundamentals/Computing/The Unix Model.md |
-| Computer Theory/NP Complete.md | Fundamentals/Computing/Algorithms and Complexity.md |
-| Computer Theory/Software Complexity.md | Fundamentals/Computing/Code Quality.md |
-| Distributed Systems/Concurrency Models.md | Fundamentals/Computing/Concurrency Models.md |
-| Networking/Network Layers.md | Fundamentals/Networking/Network Layers.md |
-| Networking/IPRouting.md | Fundamentals/Networking/IP Addressing.md |
-| Networking/DNS.md | Fundamentals/Networking/DNS.md |
-| Distributed Systems/Interprocess Communication.md | Fundamentals/Networking/Local IPC.md |
-| Security/Web Security/Transport Layer Security.md | Fundamentals/Networking/TLS.md |
-| Security/Web Security/TLS Certificates.md | Fundamentals/Networking/TLS Certificates.md |
-| Distributed Systems/HTTP.md | Fundamentals/Web and APIs/HTTP.md |
-| Distributed Systems/HTTP Caching.md | Fundamentals/Web and APIs/HTTP Caching.md |
-| Distributed Systems/REST.md | Fundamentals/Web and APIs/REST.md |
-| Distributed Systems/Synchronous Messaging.md | Fundamentals/Web and APIs/API Styles.md |
-| SEO/Web Performance.md | Fundamentals/Web and APIs/Web Performance.md |
-| Tools/Web Frameworks.md | Fundamentals/Web and APIs/Rendering Patterns.md |
-| Distributed Systems/Consistency Models.md | Fundamentals/Data/Consistency Models.md |
-| Distributed Systems/NoSql.md | Fundamentals/Data/Choosing a Database.md |
-| Data and AI/Big Data.md | Fundamentals/Data/Data Platforms.md |
-| Data and AI/Data Processing Pipeline.md | Fundamentals/Data/Data Pipelines.md |
-| Data and AI/Machine Learning.md | Fundamentals/Data/Machine Learning.md |
-| Distributed Systems/Asynchronous Messaging.md | Fundamentals/Messaging/Asynchronous Messaging.md |
-| Distributed Systems/Event Sourcing.md | Fundamentals/Messaging/Event Sourcing and CQRS.md |
-| Distributed Systems/Service Orientation.md | Fundamentals/Messaging/Service Orientation.md |
-| Security/Data Security.md | Fundamentals/Security/Cryptography Basics.md |
-| Security/Threat Modelling.md | Fundamentals/Security/Security Principles and Threat Modelling.md |
-| Security/Web Security/Security Cookies.md | Fundamentals/Security/Browser Security Model.md |
-| Security/Web Security/Cross Site Scripting.md | Fundamentals/Security/Cross Site Scripting.md |
-| Security/Web Security/Cross Site Request Forgery.md | Fundamentals/Security/Cross Site Request Forgery.md |
-| Security/Web Security/Security Headers.md | Fundamentals/Security/Security Headers.md |
-| Security/Web Security/Web Application Security.md | Fundamentals/Security/Web Application Risks.md |
-| Security/Storing secrets.md | Fundamentals/Security/Secrets Management.md |
-| Security/Container Security.md | Fundamentals/Security/Supply Chain and Container Security.md |
-| Security/Compliance.md | Fundamentals/Security/Standards and Compliance.md |
-| Security/Cloud Security.md | Fundamentals/Security/Cloud Security.md |
-| Security/Endpoint Security.md | Fundamentals/Security/Endpoint Security.md |
-| Cloud and Infrastructure/Docker.md | Fundamentals/Platform/Containers.md |
-| Cloud and Infrastructure/Kubernetes/Overview.md | Fundamentals/Platform/Kubernetes.md |
-| Cloud and Infrastructure/Kubernetes/Kubernetes Security.md | Fundamentals/Platform/Kubernetes Security.md |
-| Cloud and Infrastructure/Scalability.md | Fundamentals/Platform/Load Balancing and Proxies.md |
-| Distributed Systems/Monitoring and Observability.md | Fundamentals/Platform/Observability.md |
-| Cloud and Infrastructure/DevOps/Overview.md | Fundamentals/Platform/DevOps and Delivery.md |
-| Cloud and Infrastructure/DevOps/Terraform.md | Fundamentals/Platform/Infrastructure as Code.md |
-| Cloud and Infrastructure/DevOps/Ansible.md | Fundamentals/Platform/Configuration Management.md |
-| Cloud and Infrastructure/AWS/Security.md | Cloud/AWS/README.md |
-| Cloud and Infrastructure/AWS/Security - IAM.md | Cloud/AWS/Identity.md |
-| Cloud and Infrastructure/AWS/Security - KMS.md | Cloud/AWS/Key Management.md |
-| Cloud and Infrastructure/AWS/Security - Networking.md | Cloud/AWS/VPC Networking.md |
-| Cloud and Infrastructure/AWS/EventBridge_SQS_SNS.md | Cloud/AWS/Messaging.md |
-| Cloud and Infrastructure/AWS/DR and Business Continuity.md | Cloud/AWS/Disaster Recovery.md |
-| Cloud and Infrastructure/AWS/EKS.md | Cloud/AWS/EKS.md |
-| Cloud and Infrastructure/AWS/AWS.drawio | Cloud/AWS/AWS.drawio |
-| Cloud and Infrastructure/Azure/Overview.md | Cloud/Azure/Tenants, Subscriptions and RBAC.md |
-| Cloud and Infrastructure/Azure/AzureAd.drawio | Cloud/Azure/AzureAd.drawio |
-| Tools/Testing.md | Practice/Testing Strategy.md |
-| People/Leadership.md | Practice/Leadership.md |
-| People/Influence.md | Practice/Influence and Negotiation.md |
-| People/Capabilites.md | Practice/Roles and Hiring.md |
-| People/Self Awareness.md | Practice/Self Awareness.md |
+| Cheat sheets/Unix Basics.md | fundamentals/computing/The Unix Model.md |
+| Computer Theory/NP Complete.md | fundamentals/computing/Algorithms and Complexity.md |
+| Computer Theory/Software Complexity.md | fundamentals/computing/Code Quality.md |
+| Distributed Systems/Concurrency Models.md | fundamentals/computing/Concurrency Models.md |
+| Networking/Network Layers.md | fundamentals/networking/Network Layers.md |
+| Networking/IPRouting.md | fundamentals/networking/IP Addressing.md |
+| Networking/DNS.md | fundamentals/networking/DNS.md |
+| Distributed Systems/Interprocess Communication.md | fundamentals/networking/Local IPC.md |
+| Security/Web Security/Transport Layer Security.md | fundamentals/networking/TLS.md |
+| Security/Web Security/TLS Certificates.md | fundamentals/networking/TLS Certificates.md |
+| Distributed Systems/HTTP.md | fundamentals/web and apis/HTTP.md |
+| Distributed Systems/HTTP Caching.md | fundamentals/web and apis/HTTP Caching.md |
+| Distributed Systems/REST.md | fundamentals/web and apis/REST.md |
+| Distributed Systems/Synchronous Messaging.md | fundamentals/web and apis/API Styles.md |
+| SEO/Web Performance.md | fundamentals/web and apis/Web Performance.md |
+| Tools/Web Frameworks.md | fundamentals/web and apis/Rendering Patterns.md |
+| Distributed Systems/Consistency Models.md | fundamentals/data/Consistency Models.md |
+| Distributed Systems/NoSql.md | fundamentals/data/Choosing a Database.md |
+| Data and AI/Big Data.md | fundamentals/data/Data Platforms.md |
+| Data and AI/Data Processing Pipeline.md | fundamentals/data/Data Pipelines.md |
+| Data and AI/Machine Learning.md | fundamentals/data/Machine Learning.md |
+| Distributed Systems/Asynchronous Messaging.md | fundamentals/messaging/Asynchronous Messaging.md |
+| Distributed Systems/Event Sourcing.md | fundamentals/messaging/Event Sourcing and CQRS.md |
+| Distributed Systems/Service Orientation.md | fundamentals/messaging/Service Orientation.md |
+| Security/Data Security.md | fundamentals/security/Cryptography Basics.md |
+| Security/Threat Modelling.md | fundamentals/security/Security Principles and Threat Modelling.md |
+| Security/Web Security/Security Cookies.md | fundamentals/security/Browser Security Model.md |
+| Security/Web Security/Cross Site Scripting.md | fundamentals/security/Cross Site Scripting.md |
+| Security/Web Security/Cross Site Request Forgery.md | fundamentals/security/Cross Site Request Forgery.md |
+| Security/Web Security/Security Headers.md | fundamentals/security/Security Headers.md |
+| Security/Web Security/Web Application Security.md | fundamentals/security/Web Application Risks.md |
+| Security/Storing secrets.md | fundamentals/security/Secrets Management.md |
+| Security/Container Security.md | fundamentals/security/Supply Chain and Container Security.md |
+| Security/Compliance.md | fundamentals/security/Standards and Compliance.md |
+| Security/Cloud Security.md | fundamentals/security/Cloud Security.md |
+| Security/Endpoint Security.md | fundamentals/security/Endpoint Security.md |
+| Cloud and Infrastructure/Docker.md | fundamentals/platform/Containers.md |
+| Cloud and Infrastructure/Kubernetes/Overview.md | fundamentals/platform/Kubernetes.md |
+| Cloud and Infrastructure/Kubernetes/Kubernetes Security.md | fundamentals/platform/Kubernetes Security.md |
+| Cloud and Infrastructure/Scalability.md | fundamentals/platform/Load Balancing and Proxies.md |
+| Distributed Systems/Monitoring and Observability.md | fundamentals/platform/Observability.md |
+| Cloud and Infrastructure/DevOps/Overview.md | fundamentals/platform/DevOps and Delivery.md |
+| Cloud and Infrastructure/DevOps/Terraform.md | fundamentals/platform/Infrastructure as Code.md |
+| Cloud and Infrastructure/DevOps/Ansible.md | fundamentals/platform/Configuration Management.md |
+| Cloud and Infrastructure/AWS/Security.md | cloud/aws/README.md |
+| Cloud and Infrastructure/AWS/Security - IAM.md | cloud/aws/Identity.md |
+| Cloud and Infrastructure/AWS/Security - KMS.md | cloud/aws/Key Management.md |
+| Cloud and Infrastructure/AWS/Security - Networking.md | cloud/aws/VPC Networking.md |
+| Cloud and Infrastructure/AWS/EventBridge_SQS_SNS.md | cloud/aws/Messaging.md |
+| Cloud and Infrastructure/AWS/DR and Business Continuity.md | cloud/aws/Disaster Recovery.md |
+| Cloud and Infrastructure/AWS/EKS.md | cloud/aws/EKS.md |
+| Cloud and Infrastructure/AWS/AWS.drawio | cloud/aws/AWS.drawio |
+| Cloud and Infrastructure/Azure/Overview.md | cloud/azure/Tenants, Subscriptions and RBAC.md |
+| Cloud and Infrastructure/Azure/AzureAd.drawio | cloud/azure/AzureAd.drawio |
+| Tools/Testing.md | practice/Testing Strategy.md |
+| People/Leadership.md | practice/Leadership.md |
+| People/Influence.md | practice/Influence and Negotiation.md |
+| People/Capabilites.md | practice/Roles and Hiring.md |
+| People/Self Awareness.md | practice/Self Awareness.md |
 
 ## Merged into another page, then removed
 
 | Old | Folded into |
 |---|---|
-| Cheat sheets/Ansible.md | Fundamentals/Platform/Configuration Management.md |
-| Cheat sheets/Kubernetes.md | Fundamentals/Platform/Kubernetes.md |
-| Cloud and Infrastructure/Kubernetes/Production Readyness.md | Fundamentals/Platform/Kubernetes.md |
-| Cheat sheets/Nginx.md | Fundamentals/Platform/Load Balancing and Proxies.md |
-| Cloud and Infrastructure/Nginx.md | Fundamentals/Platform/Load Balancing and Proxies.md |
-| Cloud and Infrastructure/Haproxy.md | Fundamentals/Platform/Load Balancing and Proxies.md |
-| Cloud and Infrastructure/DevOps/SRE.md | Fundamentals/Platform/Observability.md |
-| Data and AI/Regression Analysis.md | Fundamentals/Data/Machine Learning.md |
-| Distributed Systems/AMQP.md | Fundamentals/Messaging/Asynchronous Messaging.md |
-| Distributed Systems/Servicebus Frameworks.md | Fundamentals/Messaging/Asynchronous Messaging.md |
-| Tools/Windows Background Tasks.md | Fundamentals/Messaging/Asynchronous Messaging.md |
-| Distributed Systems/Continuous Deployment.md | Fundamentals/Platform/DevOps and Delivery.md |
-| People/Negotiation.md | Practice/Influence and Negotiation.md |
-| Security/Certification.md | Fundamentals/Security/Standards and Compliance.md |
-| Cloud and Infrastructure/Azure/Security.md | Cloud/Azure/Tenants, Subscriptions and RBAC.md |
-| Data and AI/Algorithm Design.md | Fundamentals/Computing/Algorithms and Complexity.md |
-| Cheat sheets/Dotnet.md | Fundamentals/Web and APIs/Rendering Patterns.md |
-| Security/Data Security.md (privacy half) | Fundamentals/Security/Data Privacy.md |
+| Cheat sheets/Ansible.md | fundamentals/platform/Configuration Management.md |
+| Cheat sheets/Kubernetes.md | fundamentals/platform/Kubernetes.md |
+| Cloud and Infrastructure/Kubernetes/Production Readyness.md | fundamentals/platform/Kubernetes.md |
+| Cheat sheets/Nginx.md | fundamentals/platform/Load Balancing and Proxies.md |
+| Cloud and Infrastructure/Nginx.md | fundamentals/platform/Load Balancing and Proxies.md |
+| Cloud and Infrastructure/Haproxy.md | fundamentals/platform/Load Balancing and Proxies.md |
+| Cloud and Infrastructure/DevOps/SRE.md | fundamentals/platform/Observability.md |
+| Data and AI/Regression Analysis.md | fundamentals/data/Machine Learning.md |
+| Distributed Systems/AMQP.md | fundamentals/messaging/Asynchronous Messaging.md |
+| Distributed Systems/Servicebus Frameworks.md | fundamentals/messaging/Asynchronous Messaging.md |
+| Tools/Windows Background Tasks.md | fundamentals/messaging/Asynchronous Messaging.md |
+| Distributed Systems/Continuous Deployment.md | fundamentals/platform/DevOps and Delivery.md |
+| People/Negotiation.md | practice/Influence and Negotiation.md |
+| Security/Certification.md | fundamentals/security/Standards and Compliance.md |
+| Cloud and Infrastructure/Azure/Security.md | cloud/azure/Tenants, Subscriptions and RBAC.md |
+| Data and AI/Algorithm Design.md | fundamentals/computing/Algorithms and Complexity.md |
+| Cheat sheets/Dotnet.md | fundamentals/web and apis/Rendering Patterns.md |
+| Security/Data Security.md (privacy half) | fundamentals/security/Data Privacy.md |

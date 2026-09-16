@@ -33,7 +33,7 @@ Serializability comes at a cost - Concurrency control: Locking and coordination
 
 ## Consistency models
 
-![consistency-models.png](../../Images/consistency-models.PNG "Consistency Models")
+![consistency-models.png](../../images/consistency-models.PNG "Consistency Models")
 
 ### Strict consistency or Linearizability
 
