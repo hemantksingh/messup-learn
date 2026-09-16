@@ -87,6 +87,7 @@ Body conventions:
 - **Mark the owner's stance** with a blockquote prefix: `> Own view:`. Everything else is either derived or sourced.
 - **No pasted passages.** If a paragraph came from a blog, book or vendor doc, rewrite it or quote it with the source. Five files currently carry first-person text that is not the owner's (Kreps, Atlantic interviewees, Scott Helme, a Datadog team guideline, Google CRE).
 - **No product numbers unless the concept depends on them.** Quotas, prices, version-specific flags and click-paths go to a link. When a version matters (TLS 1.3 removed RSA key transport), say so because it changes the concept.
+- **Length budget: 3,000 words of body prose per page, hard ceiling.** Tables of requirements, contracts, schemas and data are not counted; they are read by lookup, not start to finish. A page over budget is split, or the overflow moves to an appendix page. Never fix length with denser prose.
 - **No employer or personal data.** Use `example.com`, `<tenant>`, `<gpg-uid>`. Today: Okta client names and user counts, a former employer's tenant names in Azure CLI snippets, a personal Azure DevOps org URL, a personal email in GPG examples, a real public IP in an Ansible example.
 - **Code fences always have a language.** Command output goes in a separate `text` fence or is prefixed with `#`. (Today: 12 bare fences; HCL, YAML, HTTP and JSON tagged as `sh`, `javascript`, `js`.)
 - **Images have descriptive alt text** and live in `images/`. Remote LaTeX-rendered images (6 in the TLS page) become inline code or text.

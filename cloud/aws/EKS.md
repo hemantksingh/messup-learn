@@ -10,7 +10,7 @@ The control plane is always AWS's. Workers come in three forms.
 * **Fargate.** No nodes to see or patch. Fargate allocates a dedicated, right-sized virtual machine to run any given pod. No two pods share a VM or an operating system, so a container escape stops at the VM boundary. With no nodes there are no DaemonSets: node agents become sidecars, and logs leave through the built-in Fluent Bit log router. Images are not cached, so pods start slower. No GPUs.
 * **EKS Auto Mode** (since December 2024). AWS also manages the nodes: launching, replacing, Karpenter-based scaling, and the core add-ons (networking, DNS, storage, load balancing). You write pod specs and choose node pools.
 
-> Own view: the main value of Fargate is not having to pay the [hidden cost of operations](https://aws.amazon.com/blogs/containers/saving-money-pod-at-time-with-eks-fargate-and-aws-compute-savings-plans/) for the nodes.
+> Own view: default to the option with the least management overhead, especially for an early-stage business where go-to-market is the primary goal. Today that is Auto Mode, or Fargate where a VM per pod is worth its start-up cost. The main value is not paying the [hidden cost of operations](https://aws.amazon.com/blogs/containers/saving-money-pod-at-time-with-eks-fargate-and-aws-compute-savings-plans/) for the nodes.
 
 ## Authentication
 
@@ -32,9 +32,7 @@ A /16 is the largest single IPv4 block a VPC can hold, but a VPC can hold severa
 
 Kubernetes ships three minor releases a year. EKS gives each about 14 months of standard support, then paid extended support, then upgrades the control plane for you. Upgrades are routine work: control plane first, then nodes and add-ons. Dates are in the [EKS release calendar](https://docs.aws.amazon.com/eks/latest/userguide/kubernetes-versions.html).
 
-> Own view: opt for multiple smaller clusters (around 100 worker nodes) rather than large ones.
-
-That is a preference, not a limit. Smaller clusters keep the blast radius small and upgrade on their own cadence. Clusters with thousands of nodes are ordinary; see the [quotas](https://docs.aws.amazon.com/eks/latest/userguide/service-quotas.html).
+Cluster size is a trade-off, not a limit: several small clusters keep the blast radius small and upgrade on their own cadence, one large cluster is less to run. Clusters with thousands of nodes are ordinary; see the [quotas](https://docs.aws.amazon.com/eks/latest/userguide/service-quotas.html).
 
 ## How to rederive this
 
