@@ -88,35 +88,7 @@ Browsers default to `strict-origin-when-cross-origin` when no policy is set (Chr
 
 ## Same-Origin Policy and CORS
 
-One of the key principles of security is data isolation. Same-origin policy is designed for segregating web content so that 2 different websites are not able to tamper with each other's content. Under this policy the web browser only allows Javascript in one web page to access data in another web page if the two pages have the same **origin**. An origin is [defined as](https://en.wikipedia.org/wiki/Same-origin_policy) a combination of the **protocol**, **domain name**, and **port**.
-
-The same origin policy prevents a malicious script on one page from obtaining access to sensitive data on another web page through that page's DOM. Code from `https://mybank.com` should only have access to `https://mybank.com`'s data, and `https://evil.example.com` should certainly never be allowed access. This keeps a strong separation of content of unrelated sites.
-
-It is important to note that the **same origin policy restricts reading cross-origin responses, not embedding them**. Resources such as images, CSS and scripts can be loaded across origins via the corresponding HTML tags (with fonts being a notable exception), but the embedding page cannot read their contents: a cross-origin `<script>` runs but its source is opaque, and an image displays but cannot be read back through a canvas. Attacks such as CSRF take advantage of the fact that these embedded requests are still sent with cookies.
-
-### Relaxing the same origin policy
-
-Depending upon whether the target service allows cross-origin requests the [browser can deny such requests](https://stackoverflow.com/questions/20035101/why-doesn-t-postman-get-a-no-access-control-allow-origin-header-is-present-on). However, for large websites with multiple subdomains or an API that is meant to be open, and is intended to be accessed from other origins by multiple web clients other than just the one hosted on the same server (origin) as your API, you may need to relax the same origin policy.
-
-This is what [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) is for. It extends HTTP with a new `Origin` request header and a new `Access-Control-Allow-Origin` response header; by returning that header the target service tells the browser which origins may read the response. It allows servers to use a header to explicitly list origins that may request a file or to use a wildcard and allow a file to be requested by any site.
-
-```sh
-Access-Control-Allow-Origin: * # resource can be shared by any domain
-
-Access-Control-Allow-Origin: https://foo.example # no domain other than https://foo.example can access the resource in a cross-site manner
-
-Access-Control-Allow-Methods: POST, GET, OPTIONS # POST and GET are viable methods to query the resource in question
-Access-Control-Allow-Headers: X-PINGOTHER, Content-Type # permitted headers to be used with the actual request
-Access-Control-Max-Age: 86400 # how long the response to the preflight request can be cached for without sending another preflight request
-```
-
-### CSP and CORS
-
-Content security policy and same-origin policy (the lack of CORS) act as multiple lines of defense in protecting against malicious content. e.g. if `foo.com` wants to send a request to `bar.com`
-
-1. When user visits `foo.com` in browser, `foo.com` server returns `foo.com` HTTP response, CSP restriction within this response can prevent `foo.com` in browser from issuing request to `bar.com`.
-2. If there is no CSP restriction within `foo.com` HTTP response, then `foo.com` in browser can send a request to `bar.com`.
-3. Upon receiving the request, `bar.com` server responds with `bar.com` HTTP response. The same-origin policy stops `foo.com` in the browser from reading it unless the response carries CORS headers (`Access-Control-Allow-Origin`) that permit `foo.com`.
+The same-origin policy, CORS and the `Access-Control-*` headers are covered in [Browser Security Model](./Browser%20Security%20Model.md), together with cookies and Web Storage. The headers below (COOP, COEP, CORP) decide which documents share a process and which resources may be embedded; they do not grant cross-origin reads.
 
 ## COOP and COEP
 

@@ -1,43 +1,77 @@
-# Search Engine Optimization
+# Web Performance
 
-* [Google SEO Guide](http://static.googleusercontent.com/media/www.google.com/en//webmasters/docs/search-engine-optimization-starter-guide.pdf)
+A page is fast when the user sees what they came for quickly, can act on it without waiting, and nothing jumps around. Three metrics, the Core Web Vitals, measure those three things: LCP, INP and CLS. Everything else in a report is a floor under them (TTFB), a lab stand-in for one of them (TBT), or a legacy event that measured the document, not the user.
 
-* Decreased keyword density for the words being targeted in the URL, the longer the URL the less emphasis is being placed on the keywords being targeted in the URL
+## Why it matters
 
-* Decreased emphasis on the importance of the page from a search engine standpoint, the further the page rests off of the root the less importance is attributed to that page
+Users leave slow pages. Since 2021 Google's page experience signal has used the Core Web Vitals as one ranking input among many. Between comparable pages the faster one wins.
 
-* Decreased adaptability over time, for example when time comes to redesign the site again in the future, suppose the navigation changes, by incorporating the folder you have reduced your ability to re-use the URLs on the new site and minimize any slippage in the search results
+## Lab vs field
 
-* Decreased usability for advertising the URL, suppose [company] wants to run a print campaign on a particular [product], the shorter URL would be more user friendly and more likely to lead to a conversion
+A lab tool (Lighthouse, WebPageTest) loads the page once on a simulated device and network with a cold cache. Nobody clicks or scrolls.
 
-Pages with faster response times [reduce bounce rate](https://blog.kissmetrics.com/loading-time/) and they can even [improve your ranking in Google searches](https://webmasters.googleblog.com/2010/04/using-site-speed-in-web-search-ranking.html). 
+Field data (CrUX, or your own real user monitoring, RUM) comes from real visitors on their own devices over the whole visit, reported at the 75th percentile (p75): the value three quarters of visits beat. Google judges every threshold at p75 in the field.
 
-## Website Performance Tools
+They disagree because the lab is one device and the field is a distribution that slow phones pull upwards; nobody interacts in the lab, so INP cannot be measured there and TBT stands in; nobody scrolls, so late layout shifts never appear; and the lab cache is empty. Diagnose in the lab, judge in the field.
 
-There are various tools for measuring website performance from free ones to paid
+## The three Core Web Vitals
 
-* Google PageSpeed Insights (PSI) and Lighthouse (available in Chrome DevTools) analyse web performance, generating a report (available on a URL) of the overall speed of your website and SEO indicators.
-  * PSI uses the lighthouse APIs to calculate the overall performance score for your website and enriches it with real world data. The performance score is a weighted average of the metrics score. The weightings keep changing based on the research and feedback to understand what is the biggest impact on user-perceived performance.
-  * To provide a good user experience, sites should strive to have a good score (90-100). More [heavily weighted metrics](https://developer.chrome.com/docs/lighthouse/performance/performance-scoring/?utm_source=lighthouse&utm_medium=lr#lighthouse-10) have a bigger effect on your Performance score like
-    * **Total blocking time** - Sum of all time periods between First Contentful paint and Time to Interactive
-    * **Largest contentful paint** - time at which the largest text/image is painted.  Top-performing sites render LCP in about 1,220ms
-    * **Cumulative layout shift** - measures the movement of visible elements within the viewport
-  * The scoring distribution is a log-normal distribution derived from the performance metrics of real website performance data on [HTTP Archive](https://httparchive.org/).
-  * You can integrate Lighthouse API into your systems and run audits programmatically
+"Good" means the p75 field value is under the threshold.
 
-* [WebPageTest](http://www.webpagetest.org/) can be used to get some numbers to start with. After getting the test results, the big question is: **What do the results mean**?
-  
-  * **Time to first byte** - Measured from the time the request is made to the host server to the time the first byte of the response is received by the browser. It primarily highlights issues with the back end server. It does not impact the overall user experience **significantly** as reducing it would only mean the first byte downloads quicker but the user is still seeing a blank page after this is measured until the page is fully loaded and rendered.
-  
-  * **Start render** - Indicates when content begins to display in the user’s browser. This term seems to have evolved as an alternative to “end-user response time”, but it’s not yet widely used outside of hardcore performance circles
-  
-  * **Load time** - The time it takes for all page resources to render in the browser — from those you can see, such as text and images, to those you can’t, such as third-party analytics scripts. Load time is also known as “document complete time” or “onLoad time”. It’s measured when the browser fires an `onLoad` event after all the page resources (DOM) have fully loaded. The ideal load time is thought to be **[2 seconds or less](http://www.webperformancetoday.com/2010/12/14/the-quest-for-the-holy-grail-of-website-speed-2-second-page-load-times/)**. Roughly speaking, load time includes:
+**Largest Contentful Paint (LCP), good under 2.5 s.** Time from navigation start until the largest image or text block in the viewport is painted. Moved by server response time, render-blocking CSS and scripts in the head, and the LCP image: large, lazy-loaded, or referenced only from CSS or JavaScript means it starts late.
 
-    * Getting all markup, replaced element content and embeds from server
-    * Parsing the markup
-    * Applying the CSS cascade to the markup
-    * Rendering the page
-    * Running all scripts that need to run on page load (which may include scripts that get more content and cause further parsing and rendering)
-    * From the user's point of view, load time is the time between navigating to a page and being able to access, visually and every other way, the finished output.
+**Interaction to Next Paint (INP), good under 200 ms.** For every click, tap and key press, the time from input to the next painted frame; INP is roughly the worst of them. It became a Core Web Vital in March 2024, replacing First Input Delay, which measured only the first interaction. Moved by long tasks on the main thread. The browser has one thread for JavaScript, input and painting, so a 300 ms task makes a tap during it wait up to 300 ms.
 
-  * **Time to interactive (TTI)** - Even if the page resources have loaded, some asynchronous resources may still be downloading. This could be the time the entire page is ready post this asynchronous download, to be interacted with by the user
+**Cumulative Layout Shift (CLS), good under 0.1.** A score, not a time. Each unexpected movement of visible content scores by how much of the viewport moved and how far; CLS is the largest burst of shifts in the visit. Moved by images without width and height attributes (no space is reserved, so text jumps) and content injected above existing content (banners, cookie notices).
+
+## Supporting metrics
+
+**Time to First Byte (TTFB), good under 0.8 s.** From the start of navigation to the first byte of the HTML. Not visible by itself, but a floor under everything: nothing paints before the first byte, so FCP and LCP can never be lower than TTFB. Moved by server work, distance to the server (a CDN helps) and redirects.
+
+**First Contentful Paint (FCP).** Time until the browser paints anything from the DOM: text, an image, a non-white canvas.
+
+**Speed Index.** How quickly the visible part of the page fills in, scored from a video of the load.
+
+**Total Blocking Time (TBT).** A long task holds the main thread for more than 50 ms. For each long task between FCP and TTI, take the portion beyond 50 ms and sum; a 300 ms task contributes 250 ms. TBT is the lab proxy for INP.
+
+**Time to Interactive (TTI).** Historical. After FCP, find the first five-second window with no long tasks and at most two requests in flight; TTI is the end of the last long task before it. Lighthouse removed it from the performance score in version 10 (2023).
+
+**`DOMContentLoaded` and `load`.** Legacy browser events. `DOMContentLoaded` fires when the HTML is parsed and deferred scripts have run. `load` fires when the document and its sub-resources (images, stylesheets, frames) have finished. Anything fetched afterwards by script is invisible to both, and on a client-rendered page `load` can fire on a blank screen. That is why "load under 2 seconds" stopped being the target.
+
+## The levers
+
+- **Fewer and smaller bytes.** Compress text (Brotli or gzip), serve images at the displayed size in a modern format, ship only the JavaScript the page uses.
+- **Fewer round trips.** HTTP/1.1 serialises requests per connection; HTTP/2 multiplexes them and HTTP/3 removes the remaining head-of-line blocking. See [HTTP](HTTP.md).
+- **Caching.** Repeat visitors should not fetch what has not changed. See [HTTP Caching](HTTP%20Caching.md).
+- **Rendering mode.** Server-side or static rendering gives the browser something to paint before any JavaScript runs; client-side rendering moves that work onto the main thread. See [Rendering Patterns](Rendering%20Patterns.md).
+- **Less main-thread JavaScript.** Break long tasks up and defer what the first paint does not need.
+
+## SEO
+
+A search engine can only index what it can see. Server-rendered and static HTML is indexed on the first pass; client-rendered content is indexed by Google after a [deferred rendering step](https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics). Rendering mode is therefore also an SEO choice. The rest is in Google's [SEO Starter Guide](https://developers.google.com/search/docs/fundamentals/seo-starter-guide).
+
+Deep, long URL paths have three costs:
+
+- Keywords in the URL are diluted: the longer the path, the less weight each word carries.
+- Pages far from the root are treated as less important than pages near it.
+- The URL is harder to reuse: a path that encodes today's navigation breaks at the next redesign, and a long URL is harder to print in a campaign.
+
+## Tools
+
+- **Lighthouse** (Chrome DevTools or CLI): lab audit with a list of fixes.
+- **PageSpeed Insights**: Lighthouse on Google's servers, with CrUX field data for the URL beside it.
+- **WebPageTest** (now a Catchpoint product): lab tests from chosen locations and devices.
+- **CrUX dashboard**: a site's p75 field history over time.
+
+## How to rederive this
+
+- Three user experiences: content is here, I can act, it is stable. LCP, INP, CLS measure them in that order.
+- The lab cannot click or scroll, so INP needs the field and TBT stands in.
+- Nothing paints before the first byte, so TTFB bounds FCP and LCP.
+
+## Sources
+
+- web.dev, Web Vitals and the metric articles linked from it: https://web.dev/articles/vitals
+- Lighthouse performance scoring: https://developer.chrome.com/docs/lighthouse/performance/performance-scoring
+- Google Search Central, page experience: https://developers.google.com/search/docs/appearance/page-experience
+- Chrome UX Report: https://developer.chrome.com/docs/crux

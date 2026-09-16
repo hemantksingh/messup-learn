@@ -1,92 +1,89 @@
 # Algorithms and Complexity
 
-## Computational complexity: P, NP and NP-complete
+An algorithm's speed is the growth rate of its step count as the input grows. A problem's hardness is the class of the best possible algorithm for it: P if it can be solved in polynomial time, NP if an answer can be checked in polynomial time, NP-complete if it is the hardest kind of checkable problem. Whether solving is harder than checking, P vs NP, is unproven.
 
-P - Set of all problems that can be solved in polynomial time. Polynomial time means that the time measured as the number of steps (S) required to solve a problem is a polynomial function of the input size (n).
-
-S = f(n).
-
-Polynomials are functions involving n + 5 or 2n + 5 or n^2 or 12n^7 - 6n^5 i.e they can be computed in reasonably fast time, e.g multiplication and sorting a collection of names alphabetically. Multiplication of even exponential numbers can be performed quickly even on a phone.
-
-NP - Set of all problems that can take exponential time to solve. e.g. 2^n as n increases the time required grows exponentially. Solution to a sudoku is an NP problem because as the number of grids increase on a sudoku grid it gets harder and harder for a computer to solve it in quick time.
-
-P = NP
-*Does being able to quickly verify the answer to a problem mean there is a quick way to solve it too ?*
-
-For example figuring out a solution to sudoku takes time but verifying the correctness of a sudoku solution is relatively quicker *(Hard to solve, easy to check)*. Does that mean we should be able to find a solution to Sudoku quicker too? or is NP = P ? No body has been able to prove or disprove this.
-
-For playing absolutely perfect chess there is no fast program. It falls in the EXP set of problems.
-
-NP Complete Problems - Set of problems that could be reduced to solving a single task. Solving the really hard part would result in solving all the problems, as they are connected to the same NP Complete level traversal.
-
-[P vs NP](https://www.youtube.com/watch?v=YX40hbAHx3s&nohtml5=False)
-
-https://www.youtube.com/watch?v=9MvbNPQiEE8&nohtml5=False
+"Complexity" as a code metric (cyclomatic complexity) is a different idea, see [Code Quality](Code%20Quality.md).
 
 ## Asymptotic notation
 
-Measuring the complexity of a program (Big Oh notation). It is a means of analyzing how fast a program's run-time grows asymptotically. i.e. as the size of the input to a program increases towards infinity how does the time to run the program grow?
+Write the steps an algorithm takes as a function of input size, f(n). Only the growth rate matters. The notation compares f against a simpler function g:
 
-Best case performance of an algorithm is called the **lower bound** and the worst case performance called the **upper bound**. Algorithms usually fall into the following performance classes:
+* O(g): f grows no faster than g. Upper bound.
+* Ω(g): f grows at least as fast as g. Lower bound.
+* Θ(g): both. Tight bound.
 
-* constant-time O(1)
-* logarithmic O(log n) - slow growth (opposite of exponential)
-* linear O(n) - a linear function is a polynomial of degree one or less (with no exponents), including the zero polynomial. It follows a straight line if plotted on a graph
-* polynomial O (2n) or O(n`2` )
-* exponential O (e `n` )
-* factorial 0(n!)
+These bound a *function*. Best, worst and average case decide *which* function you analyse: most steps over all inputs of size n, fewest, or the mean. "Binary search is Θ(log n) in the worst case" is a complete statement. The mistake to avoid: "best case is the lower bound, worst case is the upper bound". A best case of one step does not make Ω(1) the lower bound of the worst case.
 
-### Constant-time
+The common growth classes, slowest growing first:
 
-Eg. counting the number of characters of a string if the length is stored in a variable. `length = 20`
+| Class | Example |
+|---|---|
+| Θ(1) constant | reading a stored length |
+| Θ(log n) logarithmic | binary search, worst case |
+| Θ(n) linear | counting characters one by one |
+| Θ(n log n) | comparison sorting, such as merge sort |
+| Θ(n²) polynomial | comparing every pair of items |
+| Θ(2ⁿ) exponential | trying every subset of n items |
+| Θ(n!) factorial | trying every ordering of n items |
 
-Finding the length of the string does not depend on how long the string is. Checking the value of a variable is considered as an asymptotically constant time operation or O(1)
+O(2n) is not its own class: constants are dropped, so O(2n) = O(n).
 
-The upper and lower bound of the algorithm will be the same regardless of the size of the input. **Omega**(1)
+## Worked examples
 
-Best case constant time =  Worst case constant time = O(1).
+**Constant time.** Counting the characters of a string when the length is stored in a variable, `length = 20`. Reading a variable costs the same whatever the string holds: Θ(1).
 
-Since the best and worst case are the same this can be said to run in **Theta**(1).
+**Linear.** Counting the characters by walking the string. Twice the string, twice the steps: Θ(n).
 
+**Linear search.** Checking each element of an unsorted list in turn. Best case, the element is first: Θ(1). Worst case, last or absent: Θ(n). Average, about n/2 checks: still Θ(n).
 
-### Linear
-Eg. counting  the number of characters in a string. As the string length grows the time taken to count the number of characters will grow linearly. i.e the program run-time is proportional to the number of inputs. Denoted as O(n).
+**Binary search.** Finding an element in a sorted list. Compare with the middle element and discard the half it cannot be in. Each comparison halves the range. After ⌊log₂ n⌋ halvings one candidate is left and one more comparison decides, so the worst case is ⌊log₂ n⌋ + 1 comparisons: 4 for 8 elements, 5 for 16. Doubling the input adds one comparison. Best case Θ(1): the middle element is the one wanted. Worst case Θ(log n).
 
-Lower bound - Omega(1) The element being searched is the first one in the list. Upper bound - O(n) The element being searched is last in the list.
+## Data structures and their costs
 
+**Arrays** hold elements in contiguous memory. Index i is a fixed offset, so indexed lookup is Θ(1). A plain array is fixed size. A *dynamic array* (`List<T>`, `ArrayList`, `vector`) doubles when full: allocate a bigger block and copy. The copy is Θ(n) but happens once per n cheap appends, so each append is Θ(1) *amortised*.
 
-### Binary search
+**Linked lists** grow a node at a time and insert at a known position in Θ(1). There is no index arithmetic, so finding an element walks from the head: Θ(n).
 
-Finding an element in an already sorted list using [Binary search](https://en.wikipedia.org/wiki/Binary_search_algorithm). A list with 8 elements takes 3 operations to find a specific element.
-A list of 16 elements takes 4 operations to find a specific element. Doubling the input size only increases the time by 1.
+**Hash tables** find an element in Θ(1) and still grow. A hash table is an array plus a hash function from key to index. Two keys will eventually share an index: a *collision*. *Chaining* gives each slot a linked list. *Open addressing*, such as linear probing, tries the next slot until a free one is found.
 
-* log 1 = 0
-* log 2 = 1
-* log 4 = 2
-* log 8 = 3
+Cost depends on the load factor α = n/m, elements over slots. With a hash function that spreads keys evenly, a chained lookup costs about 1 + α steps and an unsuccessful probing lookup about 1/(1 − α). Both are expected Θ(1) while α stays below a constant. Worst case is Θ(n), when everything collides. Keeping α down is the dynamic-array trick: when the table fills, allocate a bigger one and rehash, amortised Θ(1) per insert. Open addressing needs α below 1, so it must resize; chaining tolerates more. 12 elements over 4 chains is a load factor of 3, an average chain length of 3, not "O(3)".
 
-log n denoted as O(log n).
+Hash tables keep no order, so no "next largest" and no range queries. **Binary search trees** do. Invariant: for every node, every key in its left subtree is smaller and every key in its right subtree is larger. Search is binary search down the tree, so the cost is the height. A balanced tree has height Θ(log n); self-balancing variants (red-black, AVL) keep it so. Insert sorted keys into a naive tree and it degenerates into a linked list of height n: Θ(n).
 
-Lower bound - the element to find is located in the middle of the list and happens to be the first one being interrogated. No matter what the size of the input the element in this case will be found in 1 operation. The asymptotic complexity is denoted by Omega(1).
-Upper bound - The asymptomatic complexity is denoted as explained above is denoted by O(log n).
+Note, scoped to .NET: the BCL `List<T>`, `Stack<T>` and `Queue<T>` are array-backed and carry array costs.
 
-## Data Structures
+## P, NP and NP-complete
 
-**Arrays** - store elements in contiguous memory and have a fixed size. They provide random access to elements with indexes. Due to fixed size arrays are unable to grow as it is difficult to find adjacent contiguous memory.
+Complexity classes sort *decision problems* (yes or no answers) by the growth rate of the best algorithm that solves them, with n the size of the written-down instance.
 
-**Linked lists** - can grow dynamically over time. Finding an element is O(n) as the entire list needs to be traversed to search a particular element.
+**P**: decision problems solvable in time bounded by a polynomial in n, such as n, n² or 12n⁷ - 6n⁵. Sorting names and multiplying numbers run in polynomial time (strictly, their yes/no versions are in P). Schoolbook multiplication is Θ(n²) in the number of digits.
 
-O(n) isn't great in terms of efficiency. Can we do better than O(n)and while still allowing our data structure to grow over time? Hash tables is the answer.
+**NP**: decision problems whose "yes" answers can be *checked* in polynomial time, given a proposed solution. The name is *nondeterministic polynomial* (a machine that guesses the solution, then checks it), not "non-polynomial". P ⊆ NP, because solving is one way of checking. Any NP problem can be solved in exponential time by trying every candidate, so P ⊆ NP ⊆ EXPTIME.
 
-**[Hash Tables](https://www.youtube.com/watch?v=tjtFkT97Xmc&ebc=ANyPxKoC9kkoTtcCSl4Kf133win8mxqWdnEZ_yfeH6tf1kE1htRp-aGiyYd7l0gGmPz93k5wIWRLKqUI6mWME8A6uVX224w9ng)** - allow the list to grow dynamically with better performance while searching an element. Speedy insertion, deletion and lookup.
+Sudoku: checking that a filled grid has each digit once per row, column and box is fast. Finding the filling is the hard part. *Hard to solve, easy to check* is what puts a problem in NP. A fixed 9x9 board is a single instance, so growth rates say nothing about it; generalised n²xn² sudoku is NP-complete (Yato and Seta, 2003).
 
-A hash table is an array with a hash function. The result of the hash function is used to determine which index an element is stored in the array. With the growth of the hash table the hash function is bound to produce the same result for 2 different values. This results in a **collision**. There are 2 approaches that can be used for resolving collisions:
+A **polynomial-time reduction** from A to B turns any instance of A into an instance of B with the same answer, in polynomial time. Solve B fast and you solve A fast, so B is at least as hard as A. A problem is **NP-hard** if every problem in NP reduces to it. It is **NP-complete** if it is NP-hard *and* in NP. NP-hard problems need not be in NP: the halting problem is NP-hard and not even decidable.
 
-* Linear probing - O(n) Finds the next available free index in the array to store the element. This could end up in traversing the entire array in worst case scenario.
-* Chaining - O(n/k) where k is the size of the hash table. Chaining involves using a linked list for each array index, with the array index storing a pointer to the head of the linked list.
+The Cook-Levin theorem (1971) gives the first one: boolean satisfiability, SAT, is NP-complete. Thousands more follow by reduction from SAT. So a polynomial algorithm for any one of them gives one for all of NP.
 
-For 12 elements spread over 4 linked lists with each linked list containing 3 elements. Complexity = O(No of inputs/Size of the hash table or No of linked lists) = O(12/4) = O(3).
+**P = NP?** asks whether a quick way to check an answer always means a quick way to find one. If P = NP, every NP-complete problem has a polynomial algorithm and cryptography built on hard-to-invert functions collapses (see [Cryptography Basics](../security/Cryptography%20Basics.md)). Most researchers expect P ≠ NP; that is a belief, not a theorem.
 
-**Trees and Graphs** - The List, Stack, Queue, Hashtable all use an underlying array as the means by which their data is stored. This means that, under the covers, these data structures are bound by the limitations imposed by an array. An array is stored linearly in memory, requires explicit resizing when the array's capacity is reached, and suffers from linear searching time.
+**EXPTIME**: problems solvable in time 2 to a polynomial in n. Generalised n x n chess is EXPTIME-complete (Fraenkel and Lichtenstein, 1981), so no polynomial program plays it perfectly. Ordinary 8x8 chess is a single instance; only its constant size makes it hard.
 
-*Binary Search Tree* is a collection of nodes and edges that imposes certain rules on how the nodes are arranged.
+Two talks: [P vs. NP and the Computational Complexity Zoo](https://www.youtube.com/watch?v=YX40hbAHx3s) (hackerdashery) and [Why is P vs NP Important?](https://www.youtube.com/watch?v=9MvbNPQiEE8) (Siraj Raval).
+
+## How to rederive this
+
+* Count steps as f(n), drop constants and lower-order terms. O, Ω, Θ bound a function; best, worst, average pick the function.
+* Halving each step gives log₂ n steps: binary search, and the height of a balanced tree.
+* A Θ(n) operation once per n cheap ones is Θ(1) amortised: dynamic-array append, hash-table resize.
+* P: solve in polynomial time. NP: check in polynomial time. Solving is checking (P ⊆ NP); trying every answer is exponential (NP ⊆ EXPTIME).
+* NP-complete: in NP and everything in NP reduces to it. Cook-Levin gives SAT; reductions give the rest.
+
+## Sources
+
+* Cormen, Leiserson, Rivest and Stein, *Introduction to Algorithms*.
+* Sipser, *Introduction to the Theory of Computation*, ch. 7.
+* Skiena, *The Algorithm Design Manual*.
+* Yato and Seta, 2003 (sudoku). Fraenkel and Lichtenstein, 1981 (chess).
+* CS50, [Hash Tables](https://www.youtube.com/watch?v=tjtFkT97Xmc) (video).

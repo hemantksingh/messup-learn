@@ -1,110 +1,125 @@
-# Virtualization
+# Containers
 
-*Take a physical machine and carve it up into multiple virtual machines where each virtual machine looks, feels and tastes just like the physical machine.*
+A container is not a small virtual machine. It is an ordinary [process](../computing/The%20Unix%20Model.md) (or process tree) on the host's kernel with a restricted view. No second kernel, no virtual hardware, no boot sequence: hence millisecond start-up and weaker isolation than a VM.
 
-Virtualization allows an unmodified operating system with all its installed software to run in an isolated environment on top of your existing operating system. This environment called a **virtual machine** is created by the virtualization software by intercepting access to certain hardware components and certain features. The physical computer (with an existing operating system) is usually called the **host**, while the isolated environment on top (virtual machine) is often called a **guest**. The isolation between the VM (guest) and the host allows software written for one operating system to run on another (say, Windows software on Linux) without having to reboot.
+## VM versus container
 
-## Containers
+*Take a physical machine and carve it up into multiple virtual machines where each virtual machine looks, feels and tastes just like the physical machine.* A hypervisor intercepts CPU, memory and device access so each **guest**, an unmodified OS with its own kernel, believes it owns the **host** hardware. Bringing its own kernel lets a guest run a different OS, and costs CPU, memory, disk, patching and sometimes a licence.
 
-VMs allow multiple applications to run on the same physical machine by having a VM per application but each VM requires a full blown OS. Just running the OS requires CPU, memory and disk space and can incur licensing costs too (RedHat Enterprise Linux isn't free and Windows is definitely not). An OS also needs feeding and caring for like updating, security patching, driver support and antivirus management which incurs an operational cost. Add to this the capex cost of the resources (CPU, memory & disk space) an OS needs while running. An OS therefore attaches a significant overhead to running a VM.
+A container skips that: the kernel is the host's and the container is a process it fences in, whether the image is a whole distribution's userland or one static binary (`scratch`). "Bare minimum Linux machine" is wrong: there is no machine.
 
-OS's are a necessary evil to run applications. What is important to us is to be able to run applications not an OS to support them. OS's as cool and important as they are, are a necessary evil. If we could run applications directly on the server hardware, we surely would.
+> Own view: OS's are a necessary evil to run applications. What is important to us is to be able to run applications not an OS to support them. If we could run applications directly on the server hardware, we surely would.
 
-In come *Containers* that are more like application runtime environments i.e. applications run inside a container. A container is quite like a VM but light-weight, it is a bare minimum linux machine with minimum packages installed, it uses less CPU, less memory and less disk space. It sits on the already existing OS (Docker host) and only creates an **isolated environment** called *container* in which to run your apps.
+## The three mechanisms
 
-Docker uses the resource isolation features of the Linux kernel such as cgroups and kernel namespaces, and a union-capable file system such as aufs and others to allow independent "containers" to run within a single Linux instance, avoiding the overhead of starting and maintaining virtual machines.
+**Namespaces decide what the process can see.** Each type gives it a private copy of one global resource:
 
-**Kernel Namespaces**  isolate the application's view of the operating system and allow each container to have its own:
+* pid: its own process tree, starting at PID 1, whose exit ends the container
+* net: its own interfaces, IP address, ports and routing table
+* mnt: its own root filesystem and mounts
+* uts: its own hostname
+* ipc: its own shared memory and message queues
+* user: its own user IDs, so root inside can be unprivileged outside
 
-* Independent process tree
-* View of the root file system
-* Network stack (own IP address, port range and routing table).
-* User accounts
+**cgroups decide what the process can use.** They meter and cap CPU, memory, I/O and process count. A memory limit is a cgroup limit; exceed it and the OOM killer takes the process.
 
-Unlike a traditional VM, containers place only a little extra load on the system, so there is very little overhead. Because of the shared kernel (OS), container isolation is not as good as a full VM’s, but depending upon the nature of your apps it suits many people just fine.
+**A union filesystem decides what the process sees on disk.** The storage driver (overlay2; aufs is history) stacks the image's read-only layers under one thin writable layer. Reads fall through to the first layer with the file; writes go to the top. A delete writes a marker on top that hides the lower file; the bytes stay.
 
-## Docker Commands
+## Images and containers
 
-Docker always runs based on the latest version of the image if no image version is specified. It downloads the latest image version if the local one is outdated. Therefore it is recommended to specify the image version while running docker.
+An **image** is read-only layers plus metadata (command, environment, ports). A **container** is a running instance: the same layers, a fresh writable layer, the namespaces and cgroup. Ten containers from one image share its layers on disk; only their top layers differ.
 
-`docker ps` - List currently running containers.
+A **tag** is a name pointing at an image. `latest` is just the default tag, not "the newest version"; publishers need not keep it current. `docker run` uses the local image under that tag without checking the registry (pull policy `missing`); `docker pull` or `--pull always` refreshes it, so two machines on "the same" tag can differ. Pin a tag, or better a digest (`image@sha256:...`), which names exact content.
 
-### Docker run
+## The runtime stack
 
-`docker run -it ubuntu /bin/bash` - Runs an *interactive* container based on 'ubuntu' image. This image is downloaded from *docker hub* - the public docker registry, if it is not present locally. Once the images are downloaded they are stored under `/var/lib/docker/<storage driver>` on the host.
+The `docker` CLI talks to the daemon (`dockerd`) over a socket. The daemon manages images, networks and volumes and hands running a container to **containerd**, which calls **runc** to create the namespaces and cgroup and exec the process.
 
-`docker run -it -p 8080:5000 -v $(pwd)/<app-name>:/app -w "/app" <image-name>` - Runs an interactive container, maps port 5000 on host to port 8080 on the container and volume mounts the <app-name> directory to `app` in the container.
+The boundaries are the open OCI image and runtime specs, so [Kubernetes](Kubernetes.md) dropped Docker (the dockershim went in 1.24): the kubelet talks to containerd or CRI-O through its Container Runtime Interface, and Docker-built images still run because they are OCI images.
 
-`docker run -d ubuntu:10.04 /bin/bash -c "ping 8.8.8.8 -c 30"` - Runs a *detached* container based on the specified (10.04) 'ubuntu' image. In detached mode, the specified command (ping Google's DNS server for 30 sec) is run, the process ends and docker exits. It is a short lived command as compared to interactive mode. Docker container exits as soon as the process running inside it exits, therefore in the above case the container will only exist for 30 sec (duration of the ping).
+## Networking
 
-`docker run --rm -v $(pwd)/StockportWebapp/test:/app/test/ -w "/app/test/StockportWebapp.Tests" microsoft/aspnet:1.0.0-rc1-update1-coreclr sh -c 'dnu restore && dnx test'` - Runs a container that automatically gets removed after it exits. The `sh` process allows you to run multiple commands in the running container.
+By default a container joins the `docker0` bridge, a virtual switch in the host's network namespace (on Docker Desktop, its Linux VM). Each container gets a virtual Ethernet pair, one end in its net namespace, one in the bridge, plus a private address from its subnet. Outbound traffic is [NATted](../networking/IP%20Addressing.md) to the host's address, so containers reach out but nothing reaches in until a port is published: `-p <host port>:<container port>`, so `-p 8080:5000` forwards host port 8080 to container port 5000.
 
-`docker run -d -p 80:80 <image-name>` - Runs a detached container and maps port 80 on host to port 80 on the container.
+On a **user-defined** network (`docker network create`) containers resolve each other by name through Docker's embedded DNS at `127.0.0.11`; the default bridge does not. Compose creates one per project, so services in `compose.yaml` reach each other by name.
 
-`docker run -d -P <image-name>` - Runs a detached container and maps all the ports specified in the Dockerfile to  random high numbered ports on the host.
+## Volumes and bind mounts
 
-`docker run --rm --env APP_VERSION=${APP_VERSION} --entrypoint 'make push' ${IMAGE}` - Override the default entry point
+The writable layer dies with the container; anything that must outlive it goes on a mount. A **bind mount** maps a host path into the mnt namespace: `-v $(pwd)/<app-name>:/app -w /app` puts the current directory at `/app` and starts there. A **volume** is a directory Docker manages under its own storage root, mounted the same way; use it for data nothing on the host needs by path.
 
-### Docker images
+## Building images
 
-`docker images` - Get local images
+A Dockerfile adds one layer per instruction that changes the filesystem (`RUN`, `COPY`, `ADD`); `ENV`, `EXPOSE`, `CMD` and the like only change metadata (zero size in `docker history`). Since Docker 23 the default builder is BuildKit, which runs independent stages in parallel and skips steps whose inputs are unchanged. Cache is per layer, so put what changes least (base image, dependencies) first and source last.
 
-`docker rm -f $(docker ps -a -q)` - Delete all containers
+A **multi-stage build** keeps the toolchain out of the shipped image: one stage compiles, the last copies only the output into a small runtime image:
 
-`docker rmi $(docker images -q)` - Delete all images
+```dockerfile
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-env
+WORKDIR /app
+COPY . .
+# The junit logger is the JunitXml.TestLogger package, not built in
+RUN dotnet test --logger "junit;LogFilePath=/app/junit.xml"
+RUN dotnet publish -c Release -o /app/output
 
-`docker rmi -f $(docker images -q -a -f dangling=true)` - Delete all unused images  
-or  
-`docker images | grep none | awk '{print$3}' | xargs -n 1 docker rmi`
-
-`docker-compose up` - Docker compose is a way to spin up more than one containers, subsequently more than one apps in a single command by configuring a `docker-compose.yml` file.
-
-## Docker debugging
-
-`docker logs -f <container-name>` - Tail logs of PID1 inside a running container
-
-`docker top <container-id>` - Lists the processes running inside the  specified container
-
-`docker attach <container-id>` - Attaches to PID 1 inside the container. This is fine as long as the running process inside the container is a shell, but usually this is not the case.
-
-`nsenter -m -u -n -p -i -t <container-Pid>` - Allows us to enter Namespaces. <container-Pid> can be found by `docker inspect <container-id> | grep Pid`
-
-`docker stop <container-id>` - Stop a given container (Stop sends a SIGTERM signal to the process with PID 1 running inside the container which stops the process, that in turn stops the container. Similarly a `kill` can be sent to the process with PID 1.
-
-## Dockerfile
-
-For each instruction in the Dockerfile, the daemon  spins up a new container, executes the instruction, commits the change to a  new image layer and bins the container.
-
-ENTRYPOINT is a way to specify the default runtime behavior of a container. Anything specified at the end of the docker run command is interpreted as arguments.
-
-## Copying contents
-
-```sh
-# For copying dir contents
-COPY --from=build-env /app/output /app/testresults # testresults is created if it does not exist
-
-# For copying files
+FROM mcr.microsoft.com/dotnet/aspnet:8.0
+WORKDIR /app
+# Copying a directory copies its contents
+COPY --from=build-env /app/output ./
+# File into a directory: keep the trailing slash
 COPY --from=build-env /app/junit.xml /app/testresults/
+ENTRYPOINT ["dotnet", "MyApp.dll"]
 ```
 
-### Create and export a docker image
+`ENTRYPOINT` is the default executable; arguments after the image name on `docker run` go to it.
 
-`docker run fedora /bin/bash -c "echo 'some content' > /tmp/some-content"` - Run container in detached mode
+## Weaker isolation
 
-`docker ps -a` - List all the containers that have run in the past on this host
+Every container shares one kernel, so a kernel bug reachable from one is reachable from all, and a process that escapes its namespaces is a process on the host, with no hypervisor in between. Root inside is real root unless the user namespace remaps it.
 
-`docker ps -l` Last container that ran on this host
+What closes the gap: run as non-root, or run the daemon rootless so container root is an ordinary host user; drop capabilities and add a seccomp profile to block unneeded syscalls; for untrusted workloads restore a boundary with gVisor (a user-space kernel), Kata Containers (a light VM per container) or Firecracker (microVMs, how AWS Lambda and Fargate isolate tenants). Provenance, scanning and runtime hardening: [Supply Chain and Container Security](../security/Supply%20Chain%20and%20Container%20Security.md).
 
-`docker commit <container-id> fridge` - Creates a new image named *fridge*
+## Commands
 
-`docker history fridge` - Shows the history of the the image
+```sh
+# host:container; the bind mount is the mnt namespace
+docker run -it -p 8080:5000 -v $(pwd)/<app-name>:/app -w /app <image>
 
-`docker save -o /tmp/fridge.tar` - Saves the image as a tar, that can be moved.
+# exec joins the container's namespaces; it replaced nsenter for this job
+docker exec -it <container> sh
 
-`docker load -i /tmp/fridge.tar` - Imports the image from tarball
+# The namespaces are files on a Linux host
+docker inspect -f '{{.State.Pid}}' <container>
+sudo ls -l /proc/<pid>/ns
 
-`Ctrl + P +Q` - Return to the host CLI without stopping the container or detach from a container
+# Without -a: dangling (untagged) images only; with -a: every image no container uses
+docker image prune -a
 
-## Docker Networking
+# Export and import an image; the image argument to save is required
+docker save -o /tmp/fridge.tar fridge
+docker load -i /tmp/fridge.tar
 
-**docker0 virtual bridge** - Its a virtual ethernet bridge that acts as an interface for all external network traffic and for connecting containers. The bridge is connected into the namespace of Docker host meaning all containers attached to it can communicate with the host and the outside world. Virtual Ethernet interfaces with one end in Docker namespace and the other in Docker host namespace allow external communication. Docker configures container networking so that all container IPs are [NAT**ted](../networking/IP%20Addressing.md) This means containers can get to the outside world, but the outside world cant necessarily get in.
+# Compose v2 is a CLI plugin; docker-compose v1 is end of life
+docker compose up
+```
+
+`docker commit` freezes a changed container as an image; outside experiments it is discouraged, as nothing records how it was made.
+
+## Docker Desktop and Podman
+
+Docker Desktop needs a paid subscription for larger organisations (the engine stays open source); Podman runs the same OCI images with a compatible CLI, no daemon, rootless by default.
+
+## How to rederive this
+
+* A container is a process: what it sees (namespaces), uses (cgroups) and sees on disk (layers).
+* One shared kernel: weaker isolation than a VM, faster start-up.
+* An image is layers plus metadata, a container adds a writable layer; a tag is a pointer, a digest is content.
+* Open specs between CLI, daemon, containerd and runc, so Kubernetes can drop Docker and keep its images.
+* Networking is a home router: private bridge, NAT, and a published port is a port forward.
+
+## Sources
+
+* Julia Evans, "What even is a container" (jvns.ca) and the *How Containers Work* zine
+* Docker documentation: storage drivers, bridge networking and embedded DNS, pull policy, BuildKit and multi-stage builds
+* Open Container Initiative, Image Format Specification and Runtime Specification
+* Liz Rice, *Container Security* (O'Reilly, 2020)
+* Kubernetes blog, "Dockershim removed from Kubernetes 1.24"

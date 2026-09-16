@@ -1,94 +1,76 @@
-# HTTPS
+# TLS
 
-HTTPS allows you to secure the connection between 2 machines on a network, providing
+HTTPS is HTTP inside TLS, which gives a connection three properties, each from a different primitive (table in [Cryptography Basics](../security/Cryptography%20Basics.md)):
 
-* Confidentiality - your **data is private** and protected from eavesdroppers through encryption
-* Integrity - your **data hasn't changed** in transit, achieved through signing
-* Authenticity - you know **who** you are talking to through validation of the owner of the resource (e.g. website).
+* Confidentiality: your **data is private**. Symmetric encryption under a key only the two ends know.
+* Integrity: your **data hasn't changed** in transit. Each record carries a MAC under that key; in TLS 1.3 encryption and MAC come from one AEAD cipher, AES-GCM or ChaCha20-Poly1305.
+* Authenticity: you know **who** you are talking to. The server proves it holds the private key a certificate authority has tied to its DNS name.
 
-Having a secure HTTPS connection allows a site to have:
+## Where TLS sits
 
-* Valid [TLS certificate](TLS%20Certificates.md): The connection to the site is using a valid, trusted certificate.
-* Secure TLS connection: The connection to the site is using a strong protocol version and cipher suite.
-* Secure resources: All resources on the page are served securely.
+TLS wraps HTTP transparently: in the four-layer model of [Network Layers](Network%20Layers.md) it is an application-layer protocol over TCP, invisible to everything below. HTTP/3 is the exception: QUIC builds TLS 1.3 into the transport (see [HTTP](../web%20and%20apis/HTTP.md)).
 
-## How does HTTPS work?
+## Versions
 
-The TLS protocol is implemented as a transparent wrapper around the HTTP protocol. It doesn't really fit into the OSI model but from a conceptual level it can be thought to [sit between HTTP and TCP](https://security.stackexchange.com/questions/93333/what-layer-is-tls), therefore between layer 4 and 7. In order to achieve the security guarantees mentioned above, the TLS protocol specifies:
+* 1.0 and 1.1: deprecated by RFC 8996 (2021), disabled in every major browser.
+* 1.2 (2008): still common and only as good as its configuration, since it allows RSA key transport and older ciphers alongside ephemeral Diffie-Hellman and AEAD.
+* 1.3 (RFC 8446, 2018): the target. Only AEAD ciphers, only ephemeral key exchange (forward secrecy is mandatory), one round trip, and everything after the server's first message is encrypted, certificate included. 0-RTT resumption puts a returning client's data in its first message; it can be replayed, so accept only idempotent requests there.
+* 2025: the hybrid post-quantum group X25519MLKEM768 (X25519 with ML-KEM) is becoming the default key exchange in browsers and OpenSSL 3.5, so traffic recorded today stays safe from a future quantum computer.
 
-Browser ----------------> website (e.g. google.com)
+## The handshake, rederived for TLS 1.3
 
-The website presents the browser with its certificate. To verify the authenticity of the certificate, a certificate is itself signed by a certificate authority (CA) using CA's private or secret key .
+Browser ----------------> website (e.g. `example.com`)
 
-![certificate](https://latex.codecogs.com/png.latex?Certificate=Sign_C_As_S_K(dnsName:publicKey))
+The client speaks first: its versions and cipher suites plus an **ephemeral key share**, a fresh Diffie-Hellman public value for this connection only.
 
-*CA -> Certificate Authority  
-SK -> Secret Key*
+The server replies with its own key share, its certificate chain, a **signature over the handshake so far** by the certificate's private key, and a Finished message, an HMAC over the transcript that catches any alteration.
 
-Web browsers come with a list of public keys of most commonly used CA's in order to verify certificates.
+Each side combines its private value with the other's public value; both get the same secret, never sent, and derive session keys from it and the transcript. The client verifies the certificate and signature, sends its own Finished, and data flows.
 
-![verify](https://latex.codecogs.com/png.latex?Verify_C_As_P_K(m,certificate)=ok?)
+The certificate's key **signs**; it never encrypts the session secret. Both sides contribute to the secret, so neither chooses it alone.
 
-*PK -> Public Key
-m -> message*
+Browsers ship the trusted CAs' public keys to check certificates:
 
-On establishing the validity of the certificate, the web browser then generates a new secret key and encrypts it with the websites public key so that the secret can be shared with the website using asymmetric key cryptography.
+`cert = Sign_CA(dnsName, publicKey)` and `Verify_CA_pk(cert) = ok?`
 
-Encryption ![encryption](https://latex.codecogs.com/png.latex?E_p_k(p)=c) and Decryption ![decryption](https://latex.codecogs.com/png.latex?D_s_k(c)=p)
+### Why RSA key transport was removed
 
-*pk -> website's public key  
-sk -> website's secret key  
-p -> new secret key in plain text  
-c -> cipher text*
+Up to 1.2 the browser could instead pick a random secret and encrypt it to the certificate's public key, `c = E_pk(secret)` and `secret = D_sk(c)`, then encrypt the traffic under it, `c = E_secret(plaintext)`.
 
-The [key exchange is vital to secure data transfer](https://www.jscape.com/blog/key-exchange#:~:text=The%20two%20most%20popular%20key,of%20the%20Internet%2C%20especially%20businesswise) between communicating parties. All further communication between the web browser and the website is encrypted with the shared secret key (only known to the 2 communicating parties) using symmetric key encryption. The two most popular key exchange algorithms are RSA (Rivest–Shamir–Adleman) and Diffie-Hellman (now known as Diffie-Helmlman-Merkle).
+One long-term key then protects every session ever made under that certificate: whoever recorded traffic and later gets the key (break-in, court order, Heartbleed) reads all of it. Ephemeral Diffie-Hellman discards its private values at close, so a leaked key allows impersonation in future but not reading the past. That is **forward secrecy**, mandatory in 1.3 since RSA key transport is gone; RSA survives only for signatures.
 
-Encryption ![encryption](https://latex.codecogs.com/png.latex?E_s_k(p)=c) and Decryption ![decryption](https://latex.codecogs.com/png.latex?D_s_k(c)=p)
+## What the certificate proves
 
-*sk -> secret key  
-p -> plain text  
-c -> cipher text*
+The handshake signature proves the server holds the private key; the certificate proves that key belongs to the name the client typed. The client checks that the hostname is in the Subject Alternative Names, the time is within validity, the signature chain leads through an intermediate CA to a root in its trust store, and nothing in it is revoked.
 
-## How do you decide the type of SSL certificate
+Intact chain, wrong name: a real server, just not the one asked for. That is the name-mismatch warning. Requesting, encoding, renewing and revoking them is in [TLS Certificates](TLS%20Certificates.md).
 
-Depending upon the nature of your business and how much users need to trust your website, you can pay anything from $5 to thousands of dollars for a certificate. What’s the difference?
+## Server Name Indication
 
-* How reputable is the certificate authority (CA)? If they have weak cryptography or a deficient implementation of SSL or TLS, they  get hacked, you get hacked!
-* How well does the CA check you are who you say you are?
+IPv4 addresses are scarce, so one address hosts many names, and the server must pick a certificate before HTTP starts and the `Host` header arrives. **Server Name Indication** (SNI, RFC 6066) fixes this: the client puts the hostname in its first message and the server picks the matching key and chain.
 
-* **Domain Validation or DV Certificates** Gives assurance that we are talking to the domain we think we are but provides no guarantees about the owner of the domain and whether they are good guys. Usually for personal websites and small forums without sensitive data. On viewing the certificate (Mozilla) no organisation is mentioned under *Issued to* section of the certificate. e.g.
-  * Organisation (O) `<Not Part Of Certificate>`
+The cost: the hostname travels in clear text, so an observer sees which site you visit. **Encrypted Client Hello** (ECH) is being deployed to close that gap.
 
-* **Organization Validation or OV Certificates** Checking of ownership as well as domain, additional vetting of the organization and individual applying for the certificate. On viewing the certificate (Mozilla) organisation name is listed on the certificate. e.g.
-  * Organisation (O) `Mozilla Corporation`
+## Mutual TLS
 
-* **Extended Validation or EV Certificates** Gives assurance that we are talking to the organisation we think we are. They cost money, because they require the certificate authority to check who you are. When the site has EV, the organisation name and the country of origin is displayed along with the URL in the browser (Chrome & Firefox) address bar. E-commerce and banking websites handling credit/debit card and financial transactional data.
+Rather than only the server identifying itself, clients can also identify themselves with certificates. The server asks for one in the handshake and validates it against its configured root CAs. Only if the certificate is valid, and only if its name or DN is in the server's list of trusted identities, is the client deemed trustworthy. It is presented per handshake, so per connection, not per request.
 
-Getting an EV certificate is [costly and not easy](https://www.troyhunt.com/journey-to-an-extended-validation-certificate/). You are probably going to pay more than 3 times for and EV certificate as compared to a normal one and you need a legal entity that can own the certificate i.e. a registered business under the laws of the country that you are operating in.
+[Proxy authentication](https://search-guard.com/elasticsearch-proxy-authentication-certificates/) delegates authentication and authorisation to a proxy in front of a service; mutual TLS is how proxy and service trust each other. A service mesh does the same in Kubernetes: each pod's sidecar holds a short-lived certificate with a SPIFFE workload name and speaks mutual TLS to the others ([Kubernetes](../platform/Kubernetes.md)).
 
-### How to tell DV and OV certificates apart
+Traditionally **IP based trust** was used instead, a list of IPs the server trusts; that breaks down where services come and go without fixed IPs.
 
-The only way to know with confidence that a certificate is of a specific type is to know the practices of each CA. **Certificate Transparency (CT)** helps businesses by making certificate information publicly available. In X.509 the way an issuer is supposed to express something like this is via the Certificate Policies extension which is defined in RFC 5280. This allows a CA to express a unique identifier called Object Identifier (OID) in their certificates that maps to a document that describes its practices associated with this certificate.
+## How to rederive this
 
-#### What is an Object Identifier (OID)
+* How do strangers share a key? Diffie-Hellman, signed with a key the client already trusts, else a man in the middle runs DH with each side.
+* What if the server's key leaks later? Recorded sessions encrypted under it are readable, so 1.3 kept only ephemeral DH.
+* What must the server know to pick a certificate? The hostname, before HTTP, so SNI goes in clear and ECH follows.
+* When can a client certificate be checked? Where the server's is, in the handshake, so per connection.
 
-Object Identifiers (OIDs) are used to define policies for processing certificates defined by the X.509 specification. Signatures that do not conform to the specified policies are deemed invalid. Root object identifiers are issued to individuals or organizations by national registration authorities. e.g. on the certificate issued to https://hemantkumar.net Policy Identifier=2.23.140.1.2.1 which belongs to [CA-Browser Forum](https://www.alvestrand.no/objectid/submissions/2.23.140.1.2.1.html)
+## Sources
 
-```
-[1]Certificate Policy:
-     Policy Identifier=2.23.140.1.2.1
-[2]Certificate Policy:
-     Policy Identifier=1.3.6.1.4.1.44947.1.1.1
-     [2,1]Policy Qualifier Info:
-          Policy Qualifier Id=CPS
-          Qualifier:
-               http://cps.letsencrypt.org
-```
-
-The [OID can be used programmatically](https://unmitigatedrisk.com/?p=203) to make trust decisions about a certificate or to differentiate the user interface in an application based on what type of certificate is being used.
-
-## TLS Client authentication
-
-Rather than only the server identifying itself, clients can also identify themselves to the server by using certificates. The client sends a TLS client certificate for every request to the server, the server validates the client certificate it received against one or more configured root CAs. Only if the certificate is valid, and only if the DN of the certificate matches a list of trusted DNs, the client is deemed trustworthy. [Proxy authentication](https://search-guard.com/elasticsearch-proxy-authentication-certificates/) allows delegating authentication and authorization to a proxy sitting in front of a service. It can use TLS client authentication to establish trust between the proxy and the service.
-
-Traditionally **IP based trust** has been used to identify clients where you had to tell the server the list of IPs that should be deemed trustworthy. Only requests from the specified IPs are treated as trustworthy requests, and only those are accepted for processing. Although you can specify multiple IPs and also use wildcards and regular expressions, the flexibility of this approach is limited, especially in dynamic environments where services come up and go down frequently and may not have fixed IPs.
+* RFC 8446, The Transport Layer Security (TLS) Protocol Version 1.3 (2018).
+* RFC 8996, Deprecating TLS 1.0 and TLS 1.1 (2021).
+* RFC 6066, TLS Extensions: Extension Definitions (Server Name Indication).
+* Mozilla, Server Side TLS guidelines (wiki.mozilla.org/Security/Server_Side_TLS).
+* Cloudflare Learning Center, "What happens in a TLS handshake?", and the Cloudflare blog on post-quantum key agreement.
+* SPIFFE project, spiffe.io.

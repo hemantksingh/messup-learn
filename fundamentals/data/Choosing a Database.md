@@ -1,78 +1,83 @@
-# Questions to think about before deciding on a DB
+# Choosing a Database
 
-* What is the mix of reads and writes? Is your application read heavy or write heavy? Is the datastore read optimized or write optimized? Does your db need to support multiple concurrent writes? Something like a mongodb has Global write lock per db per server - i.e. Multiple concurrent writes will be slow, because queued writes happen in order.
+Choose a datastore by the shape of the workload: how you write, how you read, how wrong an answer you can tolerate, how much you can lose. No store removes work. Each one decides which work it does for you (joins, transactions, consistency, durability) and which moves into your application.
 
-* How much data do you have? Can the data fit on a single machine or in memory?
-Disk based solutions are slower, is this your main data store rather than a copy of the data? Redis is an in memory data store but ever so often it persists the data to disk by forking the process (duplicating the data to another process before writing to disk). This can crash your server if it doesn't have 2X the memory as your data.
+## Questions to ask first
 
-* Do you need consistency guarantees (transactions)? Do you need authoritative correct answers over availability? What is your weird result tolerance?
+* **What is the mix of reads and writes?** A store is usually optimised for one. Reads scale with copies; writes need spreading over machines. Check how the engine handles concurrent writers.
+* **Does the data fit on one machine?** In memory, almost anything is fast. On one disk, a single relational server is the simplest answer. Distribute only when it does not fit.
+* **What are the access patterns?** A few primary key lookups: a key-value store may be enough. Joins and ad hoc questions: you want a query engine. If you have not partitioned on the keys you query by, you load everything and filter in the application.
+* **Do you need authoritative answers, or availability?** Do you need transactions? What is your weird result tolerance? A stale basket count is fine; a stale bank balance is not. Consistency costs coordination, which costs latency and availability ([Consistency Models](../data/Consistency%20Models.md)).
+* **How much loss can you tolerate?** Durability means the write is on disk before the server says "committed". Disk is slower than memory, so every store trades here. You could miss some writes to a logging store; you cannot miss an order.
+* **What latency and availability do you need?** How many concurrent users? Can you accept downtime?
+* **What does the team already run well?** A store you can operate at 3 a.m. beats a better fit nobody can debug.
 
-* What are your latency and availability requirements - How many concurrent users do you need to support? Are you willing to accept downtime?
-  
-* What kind of functionality do you require? Do you need strong integrity controls, or are you looking for more flexibility (e.g., schema-less data stores)? Do you require sophisticated reporting or search capabilities? Are your developers more familiar with relational databases than NoSQL?
+## Scaling a relational database
 
-* Durability or Data loss tolerance - Guarantee that when a client does a write, the server flushes that data to disk before telling the client ok (committed). Writing to disk is expensive than memory. Do you prefer safety over performance? MongoDb does not provide durable writes by default. It does not call fsync, it does not flush to disk before returning to client on a write. Redis is not a durable data store, it occasionally snapshots your data to disk but it can lose writes, therefore it should only be used for caching data or for soft state.
-You could possibly afford to miss some writes to a logging data store.
+A stateless application scales by adding servers. A database is stateful, so that does not work directly. The steps, cheapest first:
 
-* What are your access patterns? How are you going to query your data? Does your application need to do complicated queries (e.g. JOINS between multiple tables) and is it worth doing those queries inside the application? If you are doing a few primary key lookups then a key value store may just be okay. But if you haven't partitioned your data on the right keys, you might end up loading all the data in a single query and then filtering it to get to your answer.
+1. **Read replicas.** Asynchronous copies of the primary. They scale reads, not writes, and they lag: a client can write to the primary and not see its own write on a replica.
+2. **Functional partitioning.** Different tables on different servers (orders here, catalogue there). Often lines up with service boundaries, but it is a data technique, not an architecture.
+3. **Sharding.** Rows of one table split across servers by a key. This gives write capacity, and this is where the cost lands. You have lost:
+   * secondary indexes across the whole dataset
+   * foreign key constraints between shards
+   * joins across shards
+   * query optimisation, which collapses into key lookups
+   * transactions that span shards
 
-## Relational Databases
+   This work does not vanish; your application now does it, or nobody does. Under range partitioning an auto-increment key is an anti-pattern: every new row lands on the last shard. Hashing the key spreads writes but loses range scans.
 
-If your data can comfortably fit on a single database server relational database is a good choice. Having said that, there are still ways to handle large amounts of data using a relational database by horizontally distributing your data: Relational database workloads that need to scale their write capacity beyond the constraints of a single DB instance require a different approach
+## Aggregate-oriented stores
 
-* Replication - same copy of data distributed over multiple nodes. For read-heavy applications, you can also horizontally scale beyond the capacity constraints of a single DB instance by creating one or more read replicas. Read replicas are separate database instances that are replicated asynchronously. As a
-result, they are subject to replication lag and might be missing some of the latest transactions.
-* Partitioning - Partition data based on functionality over multiples nodes (aka microservices)
-* Sharding - Partition data stored in one table's rows into multiple different tables or databases
+Fowler and Sadalage call most NoSQL stores **aggregate-oriented**: the unit of storage is a whole aggregate, a group of data that changes together, not rows spread across tables. An order and its line items are one aggregate and travel together on every read and write. An aggregate lives on one node and needs no join, so it suits a cluster. It also removes the mismatch between objects in code and rows in tables.
 
-## NoSql Databases
+The cost shows when you slice the data another way. Revenue by product needs line items from many orders grouped by product, so the root is now the product. A relational database rearranges data with a query. An aggregate store needs a second copy shaped for that question. Schemaless, but the schema is still there, implicit in the code that reads the aggregate.
 
-NoSQL databases trade some of the query and transaction capabilities of relational databases for a more flexible data model that seamlessly scales horizontally.
+| Category | Unit stored | Examples |
+|---|---|---|
+| Key-value | opaque value under a key | Redis, DynamoDB |
+| Document | a structured document you can query into | MongoDB, Cosmos DB (multi-model), Couchbase |
+| Wide-column | rows with a sparse, flexible set of columns | Cassandra, HBase, Bigtable |
+| Graph | nodes and edges | Neo4j, Neptune |
 
-* Size and nature of data: Relational databases store aggregate data in various tables ending up with sliced and diced data. This supports higher order querying capabilities but makes distributing this data across multiple nodes for scalability and performance difficult.
+The first three are aggregate-oriented. Graph is Fowler's fourth category but is not: small records, many connections.
 
-* Ease of Development: Adoption of NoSql is primarily driven by the ability to rapidly develop new systems. Aggregate oriented databases get rid of the **aggregate impedance mismatch**.Original idea for looking at alternative to RDBMS was ability to store large amounts of data on distributed nodes, however the initial cost of setting up and configuring an RDBMS also means adoption of NoSql databases can aid agility.
+An aggregate is a natural transaction boundary; these stores update one aggregate atomically. MongoDB, DynamoDB and Cosmos DB now also offer transactions across several documents or items, at higher latency and with size limits. Design around the aggregate first.
 
-### Aggregate Oriented Databases - Key Value Stores, Document Stores, Column family
+## Consistency is a dial
 
-In NoSql databases same aggregate is being used to push data back and forth. Aggregate orientation naturally fits in nicely with storing data on large data clusters. This data can be distributed on system clusters. For example in a Shopping Basket scenario Orders and the Line items form an aggregate.
-Aggregate orientation is not always a good thing. If the data is sliced in different ways for example querying the revenue generated by a particular Product i.e. individual line items of many orders grouped together by Product. Now the root aggregate becomes the Product.
-In relational databases rearranging the data into different structures is quite easy. In an aggregate oriented database (NoSql) this is difficult but still possible. Map reduce jobs rearrange data into different aggregate forms and keep it persistent or may update the data incrementally.
+"NoSQL trades consistency for scale" is a slogan, not a property. Most of these stores default to eventual consistency and let you turn the dial up per operation: Cassandra lets each read and write say how many replicas must agree; DynamoDB offers strongly consistent reads; Cosmos DB has five levels from strong to eventual; MongoDB has read and write concerns up to majority and linearizable. Turning it up costs latency and availability during partitions ([Consistency Models](../data/Consistency%20Models.md)). Check the default.
 
-Schema less but implicit schema.
+## Durability
 
-ACID and BASE (Basically available, soft state, eventually consistent)
-Graph and relational databases (ACID).
-Aggregates are transaction boundaries (BASE). Relational databases prefer consistency over availability.
+Check what an acknowledgement means: on one node's disk, or on a majority of nodes, before the client hears "ok"? MongoDB by default acknowledges a write once a majority of the replica set has journaled it. Redis is in-memory with two persistence modes. RDB snapshots alone are not durable; everything since the last snapshot is lost on a crash. The append-only file is: `appendfsync everysec` loses at most about a second, `always` fsyncs every write. Redis with snapshots only is a cache; with AOF it is not.
 
-Conflict resolution is handled by versioning of aggregate data.
+Redis snapshots by forking. The child shares the parent's pages copy-on-write; only pages changed during the save are duplicated, so memory nears 2x only under heavy writes. The real failure is the kernel refusing `fork()` under `vm.overcommit_memory=0`; the Redis docs say set it to `1`. Redis left the BSD licence in 2024 and added AGPLv3 with Redis 8; Valkey is the fork that kept BSD.
 
-## Graph Databases
+## Graph databases
 
-Nodes and arch graph structure. Makes navigating through relationships easier. Relational dbs and NoSQL dbs lack relationships which makes it difficult to use them for connected data and graphs. Answers to queries like *Who bought a particular product rather than what products a customer bought?* become easier to find.
+Relational databases do not lack relationships; foreign keys and joins are relationships. What they and aggregate stores lack is cheap multi-hop traversal. Each hop is an index lookup, so "friends of friends who bought this" costs a join per hop and gets worse with depth. A graph database uses **index-free adjacency**: each node holds pointers to its neighbours, so a hop is a pointer follow and cost depends on the part of the graph you touch, not its total size. "Who bought a particular product", not just "what did a customer buy", becomes cheap. Native graph storage is built for this; some products serialise the graph into a general-purpose backend instead. Non-traversal queries (count everything) get harder (Robinson, Webber and Eifrem).
 
-Underlying storage: native graph storage. Some graph databases however serialize the graph data into a relational db, object-oriented db or some other general purpose data store.
-Native graph storage is purpose built for performance and scalability where as a non native graph storage typically depends upon a mature non graph backend (like MySQL) whose production characteristics are well understood by operations team.
+## Distributed SQL
 
-The processing engine: Index-free adjacency - connected (adjacent) nodes  contain physical pointers (links) to each other in the db.
-Native graph processing (Index free adjaceny)benefits traversal performance but at the expense of making some nontraversal queries difficult or memory intensive.
+Spanner, CockroachDB and YugabyteDB keep the relational model and SQL, partition rows across nodes, and stay strongly consistent by replicating each partition through consensus. Spanner orders transactions globally with TrueTime, backed by GPS and atomic clocks. You pay in commit latency and transaction size limits. Detail in [Consistency Models](../data/Consistency%20Models.md).
 
-Use cases for Graph Databases
+> Own view: if your data can comfortably fit on a single database server, a relational database is a good choice.
 
-* **Real-time recommendations**: Recommendation engines powered by graph databases can offer personalized product, content and service suggestions when they leverage the value of data relationships.
+## How to rederive this
 
-* **Fraud detection**: Banks, businesses and insurance companies use graph databases to discover hidden relationships, fraud rings and sophisticated scams.
+* Every store does the same jobs: store, find, keep consistent, keep safe. Ask which it does for you and which your application does.
+* Split data across machines and anything needing two pieces at once (join, constraint, transaction) crosses a machine boundary. That is the sharding cost list.
+* An aggregate lives on one node: cheap to read, atomic to update. Cutting across aggregates needs a second copy or coordination.
+* Replicas agreeing before answering costs a round trip and fails under partition. Hence a dial.
+* Index lookup per hop versus pointer per hop. That is the graph case.
 
-* **Master data management**: Enterprises uses graph databases to reduce complexity and significantly improve the speed and efficiency of their database applications for both organizational and product management data
+## Sources
 
-
-## Cloud Spanner  
-
-Based on the [Spanner and CAP Theorem white paper](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/45855.pdf) Spanner is a globally​ distributed database with consistency at scale. With NoSql you trade off consistency for scalability. 
-
-Spanner is technically a CP system but in effect its user can assume it to be CA. No system provides 100% availability, so the pragmatic question is whether or not Spanner delivers availability that is so high that most users don't worry about its outages. For example, given there are many sources of outages for an application, if Spanner is an insignificant contributor to its downtime, then users are correct to not worry about it.
-
-* Use Atomic clocks to synchronise time across Google data centres.
-* Uses Open standards - Standard SQL, JDBC drivers
-* Monotonically increasing sequence is an anti-pattern for horizontal scaling.
-* Imposes limitations on size and number of mutations in a transaction.
+* Sadalage and Fowler, *NoSQL Distilled* (aggregate orientation, the four categories, implicit schema)
+* Kleppmann, *Designing Data-Intensive Applications*, ch. 2 (data models), 5 (replication), 6 (partitioning)
+* Robinson, Webber and Eifrem, *Graph Databases* (index-free adjacency, native versus non-native storage)
+* [MongoDB default write concern](https://www.mongodb.com/docs/manual/reference/mongodb-defaults/)
+* [Redis persistence](https://redis.io/docs/latest/operate/oss_and_stack/management/persistence/) and the [Redis FAQ](https://redis.io/docs/latest/develop/get-started/faq/) on fork and `vm.overcommit_memory`
+* [Redis licences](https://redis.io/legal/licenses/)
+* Brewer, [Spanner, TrueTime and the CAP Theorem](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/45855.pdf)

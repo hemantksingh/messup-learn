@@ -91,12 +91,6 @@ The **Subject Alternative Name** (SAN) field lets you specify additional host na
 
 Every publicly trusted certificate is a SAN certificate today, because browsers ignore the CN. The useful distinction is [multi-domain versus wildcard](https://opensrs.com/blog/2012/09/san-and-wildcard-certificates-whats-the-difference): a wildcard (`*.example.com`) covers unlimited subdomains at one level, a multi-domain certificate lists several unrelated names, and one certificate can carry both.
 
-## Server hosting multiple TLS certificates
-
-Due to a [shortage of IPv4 addresses](https://en.wikipedia.org/wiki/IPv4_address_exhaustion) it doesn't make sense to host a single site per IP address. **Server Name Indication** (SNI) allows a server to safely host multiple TLS Certificates for multiple sites, all under a single IP address. The Internet Protocol version 4 (IPv4) has roughly 4 billion IP addresses. But, there are already more than 4 billion internet connected computers worldwide, so we are facing a shortage of IPv4 addresses. The anticipated shortage has been the driving factor in creating and adopting several new technologies, including network address translation (NAT), Classless Inter-Domain Routing (CIDR), and IPv6.
-
-SNI is an [extension to the TLS protocol](https://www.globalsign.com/en/blog/what-is-server-name-indication). The client specifies which hostname they want to connect to using the SNI extension in the TLS handshake. This allows a server (for example Apache, Nginx, or a load balancer such as HAProxy) to select the corresponding private key and certificate chain that are required to establish the connection from a list while hosting all certificates on a single IP address.
-
 ## Validity limits and automation
 
 Publicly trusted certificates have had a maximum lifetime of 398 days since Sep 2020. CA/Browser Forum ballot SC-081v3 (Apr 2025) shortens this in steps: 200 days from 15 Mar 2026, 100 days from 15 Mar 2027 and 47 days from 15 Mar 2029, and the period for which a domain validation can be reused falls to 10 days. Renewing by hand is not workable at that cadence, so automate with the ACME protocol: Let's Encrypt and ZeroSSL issue free certificates, `certbot` or your load balancer's built-in ACME client renews them, the DNS-01 challenge works for hosts that are not reachable from the internet, and wildcards cost nothing.
@@ -106,3 +100,43 @@ Publicly trusted certificates have had a maximum lifetime of 398 days since Sep 
 A Certificate Revocation List (CRL) is a list of digital certificates that have been revoked by the issuing Certificate Authority (CA) before their scheduled expiration date and should no longer be trusted.
 
 CRLs grew too large to download on every connection, so **OCSP** (Online Certificate Status Protocol) let a client ask the CA about one certificate at a time, at the cost of latency and of leaking browsing history to the CA. **OCSP stapling** fixes both by having the server fetch the signed OCSP response and attach it to the TLS handshake. In practice browsers now rely on aggregated revocation lists pushed by the vendor (Chrome CRLSets, Firefox **CRLite**) rather than live checks; the CA/Browser Forum made OCSP optional for CAs in 2023 and Let's Encrypt ended its OCSP service in 2025, publishing only CRLs. Short certificate lifetimes (see above) also reduce how much revocation matters.
+
+## Certificate types
+
+Every publicly trusted certificate makes the same technical promise: the holder of this private key controls this DNS name. What differs between DV, OV and EV is how much the certificate authority (CA) checked about the *organisation* behind the name, and two questions decide how much that is worth:
+
+* How reputable is the CA? If they have weak cryptography or a deficient implementation, they get hacked, you get hacked.
+* How well does the CA check you are who you say you are?
+
+**Domain Validation (DV)** gives assurance that we are talking to the domain we think we are, but says nothing about who owns it or whether they are good guys. The CA only checks control of the name, which is exactly the check ACME automates, so DV certificates are free from Let's Encrypt and similar CAs and are what most sites use. On viewing the certificate no organisation is listed under *Issued to*:
+
+* Organisation (O) `<Not Part Of Certificate>`
+
+**Organisation Validation (OV)** adds vetting of the organisation and the individual applying, so the organisation name appears in the certificate:
+
+* Organisation (O) `Mozilla Corporation`
+
+**Extended Validation (EV)** is stricter vetting still: the applicant must be a legal entity registered under the laws of the country it operates in, and the CA verifies that. EV certificates cost money because of that manual check. Browsers used to display the organisation name and country next to the URL for EV sites; Safari, Chrome and Firefox had all removed that indicator by the end of 2019, so today no browser shows EV in the address bar. The organisation name is only visible to someone who opens the certificate viewer, which almost nobody does, and the security benefit is close to nil: a DV certificate for the real name and an EV certificate for the same name get the same treatment from the browser. Troy Hunt's account of getting one ([Journey to an Extended Validation Certificate](https://www.troyhunt.com/journey-to-an-extended-validation-certificate/), 2018) puts the price at more than three times a normal certificate, before the paperwork.
+
+A DV certificate covers everything the browser needs; OV or EV are worth paying for only when a customer or a compliance regime asks for them.
+
+### How to tell DV, OV and EV apart
+
+Nothing in the visible subject fields tells you the type with confidence; the reliable way is the **Certificate Policies** extension defined in RFC 5280. It carries one or more Object Identifiers (OIDs), each of which maps to a document describing the practices the CA followed when issuing. The CA/Browser Forum reserves OIDs for its validation levels: `2.23.140.1.2.1` for DV, `2.23.140.1.2.2` for OV and `2.23.140.1.1` for EV. A CA may add its own OID pointing at its Certification Practice Statement (CPS). Root OIDs are handed out to organisations by national registration authorities, which is why every CA's private OID begins with a long prefix.
+
+This is a snapshot from an older Let's Encrypt certificate for `example.com` as Windows displays it. The first OID marks it as DV; the second was Let's Encrypt's own, with a CPS link:
+
+```text
+[1]Certificate Policy:
+     Policy Identifier=2.23.140.1.2.1
+[2]Certificate Policy:
+     Policy Identifier=1.3.6.1.4.1.44947.1.1.1
+     [2,1]Policy Qualifier Info:
+          Policy Qualifier Id=CPS
+          Qualifier:
+               http://cps.letsencrypt.org
+```
+
+Because the OIDs are machine readable, [software can use them](https://unmitigatedrisk.com/?p=203) to make trust decisions or change its UI depending on the type of certificate presented.
+
+**Certificate Transparency (CT)** is the other tool. CAs submit every publicly trusted certificate to public, append-only logs, and the major browsers refuse a certificate that carries no proof of logging, so anyone can search for every certificate ever issued for a name. A domain owner can find a certificate a CA issued to someone else for their domain, which is what CT was built to catch, and the same search shows which CA and policy every site uses.

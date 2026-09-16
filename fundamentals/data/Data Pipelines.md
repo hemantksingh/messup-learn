@@ -1,55 +1,75 @@
-# Data Pipeline
+# Data Pipelines
 
-A [data pipeline](https://www.youtube.com/watch?v=VtzvF17ysbc) facilitates [data flow management](https://docs.cloudera.com/HDPDocuments/HDF3/HDF-3.4.0/hdf-overview/content/overview.html) and fits into the "Curate" stage of your data analytics solution.
+Data is produced in one place and wanted in another; a pipeline carries it across the gap and reshapes it on the way. What breaks: data arrives late, twice or not at all, changes shape without warning, or a rerun gives a different result. Pipeline design is deciding up front how each is handled.
 
-* Capture - ingest and aggregate data from different data sources
-* Curate -  analyse, filter, transform, correlate and enhance data with processing tools e.g. R, Python
-* Consume - interpret via visualization and reporting
+## The stages
 
-## Data ingestion
+Four stages, whatever the tools:
 
-[Data warehousing and BI system pipelines](https://www.thoughtworks.com/insights/blog/agile-data-warehousing-and-business-intelligence-action) typically employ batch processing to data that has been stored over a period of time. This may involve polling to periodically look for data changes and process data in batches. The processing results may be consumed for visualization and reporting after day(s) or maybe week(s). Batch processing follows sequential processing steps in a directed acyclic graph that is difficult to scale.
+* **Capture** (ingest): export, read the change log, or receive events.
+* **Store**: land it cheap and durable (object storage, a raw table) before doing anything clever.
+* **Transform**: filter, join, clean, aggregate.
+* **Serve**: expose it to a query engine, dashboard or model.
 
-However if you are working in low latency scenarios where processing results in real time can affect business and security outcomes, [stream processing](https://medium.com/@gowthamy/big-data-battle-batch-processing-vs-stream-processing-5d94600d8103) will be your preferred choice. Examples of such cases are
+Capture, curate, consume is the same list with store and transform combined. Most failures are in the dull capture and store stages, and without a complete data flow the analytics on top have nothing to stand on (Kreps, "The Log").
 
-* fraud detection systems to detect credit card usage patterns in streams of events
-* trading systems to examine price changes in financial markets
-* infrastructure monitoring to identify faults & security risks in machines
-* military & intelligence systems to track potential signs of attack
+## Batch versus stream
 
-As opposed to working with stored data, stream processing allows you to process the data as it arrives in real time e.g. while streaming audio/video content - the binary content is transmitted over the wire and processed in real time to be rendered for consumption.
+A batch job runs on a schedule over stored data, so results are hours or a day old. Streaming handles each event as it arrives, so results are seconds old.
 
-### Data ingestion and transformation
+Batch input is fixed when the job starts, so output is a pure function of input and a failed job is rerun. It scales: the job is a directed acyclic graph (DAG) of steps and each step partitions its input across machines, as Spark does.
 
-Data transformation enables raw data to be converted into a format that can be used in data analytics and AI applications.
+Streaming is for results whose value decays quickly:
 
-Logstash started out as a log aggregator for parsing text based files but has evolved into a [powerful data processing tool]( https://opensource.com/article/17/10/logstash-fundamentals) for data ingestion and transformation (aggregation, filtering and enrichment). At the core it is an ETL tool that can be configured to stream and transform multiple data sources into Elastic Search and [send data to over 70 O/Ps](https://www.elastic.co/blog/archiving-your-event-stream-with-logstash) including S3 buckets.
+* fraud detection on a stream of card transactions
+* trading systems reacting to price changes
+* infrastructure monitoring spotting faults as they appear
 
-Logstash acts as an aggregator — pulling data from various sources before pushing it down the pipeline, usually into Elasticsearch but also into a buffering component in larger production environments. It’s worth mentioning that the latest version of Logstash also includes support for persistent queues when storing message queues on disk.
+Streaming is harder because the input never finishes. "Card payments per customer per five minutes" is a group-by in batch; a stream must be cut into **windows**, with two clocks: **event time** (when the payment happened) and **processing time** (when it reached the pipeline). Events arrive out of order and late, so the pipeline needs a **watermark** (all events up to T have probably arrived) to close a window, and a rule for **late data**: drop it, emit a correction, or hold the window open. None of this is streaming audio or video, which is delivering bytes to a player.
 
-Filebeat, and the other members of the Beats family, acts as a lightweight agent deployed on the edge host, pumping data into Logstash for aggregation, filtering and enrichment. Filebeat is one of the best log file shippers out there today — it’s lightweight, supports SSL and TLS encryption, supports back pressure with a good built-in recovery mechanism, and is extremely reliable. It cannot, however, in most cases, turn your logs into easy-to-analyze structured log messages using filters for log enhancements. That’s the role played by Logstash.
+## ETL versus ELT
 
-Beats are used as lightweight agents installed on the different servers in your infrastructure for shipping logs or metrics. These can be
+Extract, transform, load; the question is whether the transform happens before or after the data lands. Classic **ETL** transformed on the way in because warehouse storage and compute were expensive and shared, so only clean, modelled data was loaded. Cloud warehouses separate the two and bill compute by use, so loading raw and transforming in SQL became cheaper: **ELT**, now the default. dbt does this step: versioned, tested SQL run as a DAG. The raw layer stays untouched, so a wrong transformation is fixed by rerunning, not re-extracting.
 
-* log files (Filebeat)
-* network metrics (Packetbeat)
-* server metrics (Metricbeat)
-* any other type of data - write your own (Libbeat)
+## Orchestration
 
-![elastic-stack](../../images/elastic-log-shippers.jpg)
+The orchestrator (Airflow, Dagster) holds the DAG, starts each step when its upstreams finish, retries, alerts when retries run out, and records what ran.
 
-The ELK stack due to its impressive set of tooling has been a success in data analytics pipelines but [is elastic search a good fit for data science](https://towardsdatascience.com/elasticsearch-for-data-science-just-got-way-easier-95912d724636)?
+Each step must be **idempotent**: overwrite the output partition for the period (the day's folder or rows) rather than append. Then a **backfill** is just the same DAG rerun day by day. A step that appends, or reads "now" instead of taking the period as a parameter, can be neither retried nor backfilled.
 
-Data scientists are generally not used to NoSQL database engines for common tasks or even relying on REST APIs for analysis. Dealing with large amounts of data using Elasticsearch’s low-level python clients, for example, is also not that intuitive and has somewhat of a steep learning curve for someone coming from a field different from Software Engineering. Although Elastic made significant efforts in enhancing the ELK stack for Analytics and Data Science use cases, it still lacked an easy interface with the existing Data Science ecosystem (pandas, numpy, scikit-learn, PyTorch,and other popular libraries).
+## Change data capture
 
-Elasticsearch is trying to achieve widespread adoption in the data science industry, with the release of [Eland](https://eland.readthedocs.io/en/latest/), a brand new Python Elasticsearch client and toolkit with a powerful (and familiar) pandas-like API for analysis, ETL and Machine Learning. however the ELK stack Regression and Classification Machine learning jobs are still experimental.
+Polling (select rows whose `updated_at` is newer than last time) loads the source, misses deletes and misses the intermediate state of a row that changed twice between polls.
 
-#### Logstash and Fluentd
+**Change data capture** (CDC) instead reads the write-ahead log or binlog, the stream the database uses for replication: every insert, update and delete, in order, with almost no load on the source. Debezium publishes each change as an event. Kleppmann (*Designing Data-Intensive Applications* ch. 11): the log is the source of truth and every downstream store is a derived view kept current by consuming it.
 
-[Logz.io](https://logz.io/blog/fluentd-logstash/) provides a good comparison of the two log collectors. Logstash is most known for being part of the ELK Stack while Fluentd (part of CNCF) has become increasingly used by communities of users of software such as Docker, GCP and Elasticsearch.
+CDC is also the plumbing behind the **transactional outbox** in [Asynchronous Messaging](../messaging/Asynchronous%20Messaging.md): event and state change are written in one transaction and CDC publishes the outbox rows, so they cannot disagree.
 
-![logstash-fluentd-comparison](../../images/logstash-fluentd-comparison.png)
+## Formats and schema
 
-Fluentd has built in reliability for persistence across restarts and has a configurable in-memory or on-disk buffering system while [Logstash is limited to an in-memory queue](https://platform9.com/blog/kubernetes-logging-comparing-fluentd-vs-logstash) that holds 20 events and, therefore, relies on an external persistence, like Redis.
+Data at rest is **row-wise** (JSON, CSV, Avro: all fields of one record together) or **column-wise** (Parquet, ORC: all values of one field together). Columnar wins for analytics: a query touches few columns of many rows, so the engine reads only those, and similar values compress far better. Hence data lakes are mostly Parquet and warehouses are columnar inside.
 
-[Logstash can have performance issues](https://logz.io/blog/filebeat-vs-logstash/), it requires JVM to run, and this dependency coupled with the implementation in Ruby became the root cause of significant memory consumption, especially when multiple pipelines and advanced filtering are involved.
+Schema changes break consumers. Formats with an explicit schema (Avro, Parquet, Protobuf) let a reader check compatibility up front; the rules for changing one safely are the **data contract** in [Data Platforms](Data%20Platforms.md).
+
+## Delivery guarantees
+
+A network hop can lose a message or deliver it twice. Practical exactly-once is **at-least-once delivery plus an idempotent sink**: retry until acknowledged; the destination overwrites on a key or remembers what it has seen. The reasoning is in [Asynchronous Messaging](../messaging/Asynchronous%20Messaging.md) and applies to a warehouse table.
+
+## Log data
+
+Shipping application logs is a pipeline like any other (shipper, aggregator, store, dashboard) with the same failure modes; the tooling is in [Observability, log shipping](../platform/Observability.md#log-shipping).
+
+## How to rederive this
+
+* Start from the gap: produced here, needed there. Get it, keep it, shape it, expose it.
+* Complete input: batch, a pure function. Unbounded input: streaming; choose windows, a clock and a late-data rule.
+* Warehouse billed per query: transform after loading.
+* Getting changes out: polling misses deletes; the log has every change in order; the outbox is CDC on an events table.
+* Reruns and duplicates: overwrite on a key and both are harmless.
+
+## Sources
+
+* Martin Kleppmann, *Designing Data-Intensive Applications*, ch. 10 (batch) and ch. 11 (streams, CDC, derived data).
+* Jay Kreps, [The Log: What every software engineer should know about real-time data's unifying abstraction](https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying) (2013).
+* Joe Reis and Matt Housley, *Fundamentals of Data Engineering* (ingest, store, transform, serve; ETL versus ELT; orchestration).
+* Tyler Akidau, Slava Chernyak and Reuven Lax, *Streaming Systems* (event time, windows, watermarks, late data).

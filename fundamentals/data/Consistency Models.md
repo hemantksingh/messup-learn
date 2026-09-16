@@ -1,90 +1,67 @@
-# Distributed Databases
+# Consistency Models
 
-Stateless applications can be scaled relatively easily by adding more servers, that means if your website gets more traffic you add more servers. But databases are inherently difficult to scale because they are stateful. Generally you solve this problem by getting a bigger machine that has higher resources and multiple cores, but the laws of physics allow you to fit only so many transistors on a chip. The other way to scale your database is by partitioning the data functionally or via sharding over multiple databases. As compared to a monolithic database, in a distributed database you have suddenly lost
+A distributed database keeps several copies of the data. The consistency model says which writes a read is guaranteed to see. The strongest, linearizability, behaves like one copy on one machine: a read sees every write that finished before it. The weakest, eventual consistency, only promises that replicas converge once writes stop. Each stronger model costs coordination: latency on every request, unavailability when nodes cannot talk.
 
-* Secondary indexes
-* Foreign key constraints
-* Query optimization, possibly in favour of key value lookups
-* Joins
+## Why databases are hard to scale
 
-All of this work does not just vanish but is now done by your application.
+Stateless applications scale by adding servers. Databases are stateful, so they do not. A bigger machine only goes so far. The other way is to partition the data, functionally or by sharding, over multiple databases. Compared to a monolithic database you then lose secondary indexes, foreign key constraints, joins and much of the query optimiser. That work does not vanish; the application does it. [Choosing a Database](Choosing%20a%20Database.md) covers replication and sharding.
 
-Consistency in the database and distributed systems world can be viewed in terms of
+## Two meanings of consistency
 
-* Consistency in ACID context means application correctness in terms of business behaviour e.g. bank account balance cannot be negative.
-* Consistency models
-* CAP theorem
+The C in ACID is application correctness: business rules hold after every transaction. A bank account balance cannot be negative. If the quantity on an order line changes, the order total must change too. These rules keep the aggregate (a group of properties that change together) consistent. The database cannot know them; only the application can (Kleppmann). If one transaction must span several aggregates, relook at the use case and ask whether eventual consistency between them would do (Vernon).
 
-## ACID
+Consistency models are the other meaning: which writes each read sees, and in what order. Serializability is formally the I in ACID, not the C.
 
-Application consistency is enforcing the rules that keep the aggregate (group of properties that change together) consistent. e.g. if the quantity of an order changes, the order amount will also need to change for it to be consistent.
-
-Smaller aggregates can perform and scale better, they are also more likely to be transactionally consistent with lesser chances of concurrent conflicts during a commit. If you happen to keep multiple aggregates consistent through a single transaction by folding multiple aggregates into a bigger aggregate, it is time to relook at the use case and assess if it can be fulfilled using eventual consistency.
-
-### Serializability
+## Serializability, linearizability, strict serializability
 
 *Serializability is not about doing one thing at a time but the effect of what you did is like you did one thing at a time.*
 
-Result of executing a set of transactions is equivalent to executing those transactions one at a time, in some serial order. Each transaction might be executed concurrently but, serializability  guarantees the final result will be the same. This allows us to reason about the transactions in a serial order without having to worry about their concurrent execution. That complexity is taken care by the database.
+Running a set of transactions gives the same result as running them one after another in some serial order. Serializability is not serial execution. It costs concurrency control: locking and coordination. It does not say which serial order.
 
-Serializability != serial execution
+Linearizability is about single objects. Each read or write appears to take effect at one instant between request and reply, and those instants agree with real time. It is like running your code on a single thread on a single processor: once a write returns, every later read sees it, so events are **totally ordered**.
 
-Serializability comes at a cost - Concurrency control: Locking and coordination
+A **total ordering** fixes the exact order of every element. A **partial ordering** only fixes the order between elements that depend on each other. With three events `{A, B, C}`, they are totally ordered if they must happen as `A > B > C`. If A must happen before C but you do not care when B happens, then `A > B > C`, `A > C > B` and `B > A > C` all satisfy the partial ordering.
 
-## Consistency models
+The two are independent. Commit a transfer, wait for the reply, then read the balance in a second transaction. A serializable database may pick the order "read, then transfer" and return the old balance; only real time was broken. **Strict serializability** adds the rule that an operation which finished before another started comes first (Bailis). Spanner's **external consistency** is strict serializability: if T1 commits before T2 starts, T2 sees T1's writes.
 
-![consistency-models.png](../../images/consistency-models.PNG "Consistency Models")
+![Ladder of consistency models from stronger to weaker: strict, sequential, causal, PRAM, read-your-writes, eventual](../../images/consistency-models.PNG "Consistency models from stronger to weaker")
 
-### Strict consistency or Linearizability
+The slide's top rung, "strict consistency", means every read returns the latest write by absolute global time. That needs a perfect shared clock, which nothing has. Read that rung as linearizability.
 
-Reads and writes execute in a total order that matches time. Just like running your code on a single thread in a single processor. Linearization makes things simple because the order in which events happen is **totally ordered**. It's cheaper and a reasonable thing to be doing. Majority of the systems can be linearized.
+## Weaker models
 
-**Total ordering** is an ordering that defines the exact order of every element in the series.
+* **Sequential.** Everyone sees all writes in the same order, and each client's own operations in the order it issued them. That order need not match real time.
+* **Causal.** Writes that depend on each other are seen in order: a reply after the comment it answers. Unrelated writes may be seen in different orders. Loosely connected systems like Git use this, with conflict resolution.
+* **Read-your-writes.** After you write, your own later reads see it. Users must see the data they have just changed; a reload served by a lagging replica breaks this.
+* **Monotonic reads.** Once you have seen a value you never see an older one. PRAM on the slide is read-your-writes, monotonic reads and monotonic writes together.
+* **Eventual.** If writes stop, all replicas converge. No bound on when, no promise about what you see meanwhile. [Asynchronous messaging](../messaging/Asynchronous%20Messaging.md) between services gives you this.
 
-**Partial ordering** of elements in a series is an ordering that doesn't specify the exact order of every item, but only defines the order between certain key items that depend on each other.
+## CAP
 
-For example if you have three events `{A, B, C}`, then they are totally ordered if they always have to happen in the order `A > B > C`. However, if A must happen before C, but you don't care when B happens, then they are partially ordered. In this case we would say that the sequences `A > B > C, A > C > B, and B > A > C` all satisfy the partial ordering.
+CAP uses three narrow terms (Gilbert and Lynch). Consistency means linearizability: the client perceives that a set of operations occurred all at once. Availability means every request to a non-failed node gets a response. Partition tolerance means the system keeps working when messages between nodes are lost or delayed indefinitely.
 
-Reasons for non-linearization:
+Partitions are a given. Servers stop hearing from each other (a garbage collection pause is enough), for an unknown time, and a delayed server looks like a dead one. During a partition you choose: refuse some operations until it heals (CP), or keep answering on both sides and reconcile later (AP). Brewer wrote in 2012 that "2 of 3" is misleading; Kleppmann's phrasing is "either consistent or available when partitioned". PACELC (Abadi) adds the no-partition case: there you trade latency against consistency.
 
-* Loosely connected systems (example is Git) When you prefer availability over consistency. For consistency these systems might use **causal consistency** and [conflict resolution](https://www.youtube.com/watch?v=yCcWpzY8dIA&t=506s).
-* When you have low latency and high throughput requirements.
-* In general, external consistency (linearizability) requires **monotonically increasing timestamps**.
+## What linearizability costs
 
-### Eventual consistency
+To guarantee a read returns the latest write, the answering node must be the single leader every write passes through, or must check with a majority of replicas. Either way a round trip sits on every request: latency. If the leader or majority cannot be reached, the node must refuse: unavailability. Single-leader replication and consensus (Raft, Paxos) give linearizability this way with no synchronised clocks.
 
-**CAP Theorem** - Eric Brewer, a professor at the University of California, Berkeley, and cofounder and chief scientist at Inktomi proposed Off the three properties of shared data systems only two can be achieved at a given time.
+Overuse of transactions creates bottlenecks across a network (two-phase commit) and across CPU cores on one machine (serialisation, cache line transfers). The Spanner authors still preferred transactions and fixing bottlenecks as they arise (Corbett et al., 2012). Identify the transactions that always need to be consistent and let the rest be eventually consistent.
 
-* Consistency - Client perceives that a set of operations has occurred all at once, Consistency here means linearizability.
-* Availability - Every operation must terminate in an intended response.
-* Partition tolerance - Operations will complete, even if individual components are unavailable.
+TrueTime is Spanner's answer, not a general requirement. Spanner gets serializability from locks and external consistency from TrueTime timestamps. TrueTime (GPS and atomic clocks) returns an interval guaranteed to contain the true time. Non-overlapping intervals are ordered; overlapping ones are not, so a transaction waits out the uncertainty before committing. That orders transactions across independent Paxos groups.
 
-In large scale distributed-scale systems, network partitions are a given and
-partition tolerance is a failure model i.e. sometimes your servers are not going to be able to talk to each other (it may decide to do garbage collection and pause) and sometimes you won't know how long they wont be able to talk to each other. It is not possible to decide if the server is delayed or faulty.
+## How to rederive this
 
-Given that partition tolerance is rarely achievable therefore, there really are 2 choices **consistency** or **availability**
+* One copy on one machine: every read sees the last write. Copies over a network break that.
+* Serializability allows any serial order. Add "respect real time" and you have strict serializability; for single operations, linearizability.
+* Each weaker rung drops one promise: same order for all, order only for dependent writes, only your own writes, never backwards, converge someday.
+* In a partition a cut-off node can answer (maybe wrong) or refuse (unavailable). P is never what you give up.
 
-Relaxing consistency will allow the system to remain highly available under partitionable conditions, whereas making consistency a priority means that under certain conditions (while performing a distributed transaction involving a 2 phase commit that involves locks and coordination) the system will not be available.
+## Sources
 
-Do not show the users the same data that they have changed.
-Identify transactions that always need to be  consistent.
-Stay out of the newspapers.  Avoid globalised widespread failure by compromising the architecture. Localised failure for a certain user is less frequent and can be accommodated as the cost of doing business.
-
-## Google Spanner paper
-
-https://static.googleusercontent.com/media/research.google.com/en//archive/spanner-osdi2012.pdf
-
-[Spanner, True Time & The CAP Theorem](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/45855.pdf)
-
-Spanner claims to be a CA system but technically it is a CP system i.e. in case of some partions, Spanner chooses Consistency and forfiets Availability. It does not guarantee 100% availability but rather something like 5 or more "9s" (1 failure in 10^5 or less)
-
-**TrueTime** is a global synchronized clock with bounded non-zero error: it returns a time interval that is guaranteed to contain the clock’s actual time for some time during the call’s execution. Thus, if two intervals do not overlap,
-then we know calls were definitely ordered in real time. If the intervals overlap, we do not know the actual order. The TrueTime API uses inputs from GPS & atomic clocks to calculate a bound of time for when an event occurred. Based on this they are able to have **total ordering** in the system.
-
-Spanner gets its *serializability* from locks, but it gets its external consistency (similar to *linearizability*) from TrueTime.
-
-*We believe it is better to have application programmers deal with performance problems due to overuse of transactions as bottlenecks arise, rather than always coding around the lack of transactions.*
-
-### *Overuse of transactions = bottlenecks*
-
-This is not only true across a network on a distributed db (2 phase commit coordination costs) but also across CPU cores on a single multicore db (serialization and cache line transfers costs).
+* Kleppmann, *Designing Data-Intensive Applications* (2017), ch. 7 and 9.
+* Brewer, "CAP Twelve Years Later" (2012); Gilbert and Lynch, "Brewer's Conjecture" (2002).
+* Bailis, "Linearizability versus Serializability" (2014); Kingsbury, Jepsen consistency models.
+* Corbett et al., "Spanner" (OSDI 2012); Brewer, "Spanner, TrueTime and the CAP Theorem" (2017).
+* Abadi, "Consistency Tradeoffs in Modern Distributed Database System Design" (2012).
+* Vernon, "Effective Aggregate Design" (2011).

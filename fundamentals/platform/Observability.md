@@ -309,3 +309,13 @@ AWS has built its own [AWS-supported distribution of OpenTelemetry](https://aws.
 * **Drain and roll back** beats debugging under fire. To roll back you must know the previous state, so record it before changing anything (file permissions are the classic example).
 * Global load balancers front a single anycast address so traffic enters at the nearest edge; load balancing is itself a reliability tool, not just a scaling one.
 * Capacity has to allow for hostile load (DDoS) and for routine risk (a router firmware upgrade), not only for expected traffic.
+
+## Log shipping
+
+Getting logs off hosts is a small data pipeline (see [Data Pipelines](../data/Data%20Pipelines.md)) with a fixed shape: a **shipper** on each host tails files or reads journald and forwards; an **aggregator** parses, enriches and buffers; a **store** indexes; a dashboard **visualises**. Tooling facts worth knowing:
+
+* Logstash has had persistent (on-disk) queues since 5.x; the default is still the in-memory queue, so durability has to be switched on. It does not need Redis in front for that.
+* Beats (Filebeat, Metricbeat and the rest) remain supported but Elastic now steers new deployments to the single Elastic Agent managed through Fleet.
+* On Kubernetes the common shippers today are Fluent Bit (the lighter sibling of Fluentd, both CNCF projects) and the OpenTelemetry Collector, which carries logs alongside metrics and traces (see [OpenTelemetry](#opentelemetry)).
+
+"ELK" is the Elastic Stack. Its licence changed away from Apache 2.0 in 2021, which produced the OpenSearch fork; check the current licence terms before choosing either.
