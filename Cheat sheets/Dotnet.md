@@ -15,7 +15,7 @@ Server side rendoring (SSR) technology for creating dynamic web content using HT
 * Blazor
 * Razor Pages
 * MVC
-* SPA with frontend [JS frameworks](../Tools/Javascript%20Frameworks.md) like React, Angular, Vue
+* SPA with frontend [JS frameworks](../Tools/Web%20Frameworks.md) like React, Angular, Vue
 
 The template engine (or View Engine in MVC) is used to generate the HTML from data. In SSR the HTML is generated on the server and sent back to the client browser. The preferred template engine for ASP.NET MVC is Razor. It allows you to write C# code inside HTML that is converted to plain HTML for the browser.
 

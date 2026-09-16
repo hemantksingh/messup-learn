@@ -71,7 +71,7 @@ The tools you use for data analysis and processing defer depending upon the type
   * Once the data has been collected and processed properly, the next step is to analyse the data. Whether that be in a dashboard, excel or python, the data is poured through to find insights. These tend to be pieces of work as a result of  a question that someone has asked or some exploratory analysis off the back of an A/B test, but ultimately this is where actionable insight can be found to make change in the product
 * Post experiment analysis to feed further experimentation
   * While the Optimisation analysts handle the prioritisation, running and in-flight analysis of A/B tests, the digital analyst’s will support optimisation analysts by performing proactive analysis to uncover areas of opportunities that feed hypothesis backlog for running A/B tests.
-  ![data-analysis-experimentation.png](../Images/data-analysis-experimentation.png "AWS Security Patterns")
+  ![Data analysis and experimentation](../Images/data-analysis-experimentation.png "Data analysis and experimentation")
 * Tools used
   * Analytics: Excel, SQL
   * Attribution and marketing analytics platform where primary focus is user acquisition and marketing ROI:  AppsFlyer for mobile apps

@@ -159,7 +159,7 @@ Server side rendoring (SSR) technology for creating dynamic web content using HT
   - Blazor Server - SSR with persistent connections, enabling real-time interactivity and a reduced initial load.
   - Blazor WebAssembly - runs .NET code in the browser without the need for a persistent server connection, but initial download size, including the .NET runtime can impact performance.
 - MVC - enables SSR apps using the MVC pattern where user requests are routed to a controller responsible for handling user actions or retrieve data for queries. The controller chooses the view to display to the user and provides it with any model data it requires.
-- SPA with frontend [JS frameworks](../Tools/Javascript%20Frameworks.md) like React, Angular, Vue
+- SPA with frontend [JS frameworks](#angular) like React, Angular, Vue
 
 ### Component Gallery
 

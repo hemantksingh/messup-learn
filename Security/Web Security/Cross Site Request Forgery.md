@@ -13,13 +13,15 @@ e.g. you go to securepuppies.com & rather than just displaying cute puppies the 
 
 State change operations (POST,PUT) that are predictable and make it easy for the attacker to predict a request pattern, allow the attacker to forge a request on the user's behalf. e.g. changing password could be a form action that needs 2 parameters 'new password' & 'confirm password', a POST operation and the URL at which this action is performed. In order to prevent against CSRF we need to add some unpredictability and this is achieved by adding an anti **CSRF token** to the requested form. The server does this by including a hidden input field with a common name such as "CSRFToken" to the form as well as the Cookie.
 
-```<form action="/transfer.do" method="post">
+```html
+<form action="/transfer.do" method="post">
   <input type="hidden" name="CSRFToken" 
   value="OWY4NmQwODE4ODRjN2Q2NTlhMmZlYWE...
   wYzU1YWQwMTVhM2JmNGYxYjJiMGI4MjJjZDE1ZDZ...
   MGYwMGEwOA==">
   …
-  </form>```
+</form>
+```
 
 While processing this form, the server checks for the presence of this token along with the Cookie to determine if it is a valid request. CSRF tokens need to be secret, otherwise attacker would have the missing piece required to forge a request. The token is generated as a pair with the session token stored in the Cookie header. They are a cryptographic pair, you can see them but cannot tell whats inside them. The only way an attacker can set both  the CSRF token in the form field and the Cookie in a request is if they perform a XSS attack to inject their own arbitrary cookie. This is a separate risk and needs to be accounted for separately. Even in this case the attacker might not be able to do much because once you are authenticated the cookie gets keyed to your username. If the cookie and the form field are both keyed to your username and your identity comes from the **AuthCookie** then the attacker is out of luck, they can't generate the right form field and the right cookie for your username, if they could they have just hijacked your user session and you have a different problem.
 
