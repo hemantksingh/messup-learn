@@ -1,0 +1,390 @@
+# Phase 5 dead-link fix list for messup-learn
+# Generated 2026-09-16 from audit/tools/linkcheck-one.sh over computing networking "web and apis" data messaging security platform cloud practice
+# 345 unique URLs checked: 257 OK, 36 MOVED, 9 DEAD, 8 ERR, 28 UNVERIFIED (403/429/5xx), 7 PLACEHOLDER
+# `old` is the exact in-file string (the checker truncates at "(" / ")"; the manifest does not).
+# Match on file + `old`, not on `line`: pages were being edited while this ran and line numbers drifted
+# (they were recomputed against the working tree at the time of writing, but may drift again).
+# `verified` is the HTTP status curl returned for `new`; 403 means the host blocks curl and the page was confirmed another way (see note).
+# For `remove` entries (new: null) `verified` is the status of `old` (404 / ERR, or 200 when the redirect lands on an unrelated page).
+# section: dead     = 404/410
+#          err      = no response
+#          landing  = redirect lands on a generic product/marketing page
+#          cleanup  = version pin, tracking parameter or session token worth stripping (page not broken)
+#          optional = redirect works; cosmetic move to the canonical URL
+
+# ---------------------------------------------------------------------------
+# DEAD (404)
+# ---------------------------------------------------------------------------
+
+- file: "cloud/aws/README.md"
+  line: 69
+  old: "https://docs.aws.amazon.com/inspector/v1/userguide/inspector_introduction.html"
+  action: remove
+  new: null
+  verified: 404
+  section: dead
+  note: >-
+    Every Amazon Inspector Classic (v1) doc page was withdrawn after the 20 May 2026 end of support
+    (inspector_introduction, document-history, inspector_limits, inspector-migration all 404).
+    The bullet is a bare autolink after "Amazon Inspector Classic end of support:", so reword it to
+    state the retirement date rather than leave a dangling colon. The current Inspector user guide
+    (https://docs.aws.amazon.com/inspector/latest/user/what-is-inspector.html, 200) is a different product page,
+    so it is not offered as a same-content replacement.
+
+- file: "data/Data Pipelines.md"
+  line: 75
+  old: "https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying"
+  action: replace
+  new: "https://www.linkedin.com/blog/engineering/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying"
+  verified: 200
+  section: dead
+  note: "engineering.linkedin.com retired; article lives on the LinkedIn Engineering blog (title and author Jay Kreps confirmed)"
+
+- file: "data/Data Platforms.md"
+  line: 13
+  old: "https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying"
+  action: replace
+  new: "https://www.linkedin.com/blog/engineering/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying"
+  verified: 200
+  section: dead
+  note: "Kreps, The Log; moved to LinkedIn Engineering blog"
+
+- file: "data/Data Platforms.md"
+  line: 77
+  old: "https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying"
+  action: replace
+  new: "https://www.linkedin.com/blog/engineering/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying"
+  verified: 200
+  section: dead
+  note: "Kreps, The Log; moved to LinkedIn Engineering blog"
+
+- file: "platform/Observability.md"
+  line: 41
+  old: "https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying"
+  action: replace
+  new: "https://www.linkedin.com/blog/engineering/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying"
+  verified: 200
+  section: dead
+  note: "Kreps, The Log; moved to LinkedIn Engineering blog"
+
+- file: "platform/Observability.md"
+  line: 147
+  old: "https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying"
+  action: replace
+  new: "https://www.linkedin.com/blog/engineering/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying"
+  verified: 200
+  section: dead
+  note: "Kreps, The Log; moved to LinkedIn Engineering blog"
+
+- file: "security/Web Application Risks.md"
+  line: 34
+  old: "https://owasp.org/www-project-application-security-verification-standard/"
+  action: replace
+  new: "https://owasp.org/projects/asvs"
+  verified: 200
+  section: dead
+  note: "OWASP project pages moved to owasp.org/projects/<slug>; the ASVS slug is asvs (title: OWASP Application Security Verification Standard (ASVS))"
+
+- file: "security/Web Application Risks.md"
+  line: 147
+  old: "https://owasp.org/www-project-application-security-verification-standard/"
+  action: replace
+  new: "https://owasp.org/projects/asvs"
+  verified: 200
+  section: dead
+  note: "OWASP ASVS project page moved"
+
+- file: "security/Security Headers.md"
+  line: 3
+  old: "https://owasp.org/www-project-secure-headers/#tab=Headers"
+  action: replace
+  new: "https://owasp.org/projects/secure-headers-project"
+  verified: 200
+  section: dead
+  note: "OWASP Secure Headers Project moved to owasp.org/projects/secure-headers-project; the new page has no tabs so the #tab=Headers fragment is dropped"
+
+- file: "platform/DevOps and Delivery.md"
+  line: 26
+  old: "https://www.leanix.net/en/wiki/vsm/flow-metrics#introduction"
+  action: remove
+  new: null
+  verified: 404
+  section: dead
+  note: "LeanIX wiki removed after the SAP acquisition (/en/wiki/vsm and /flow-metrics both 404); only product docs at docs-vsm.leanix.net remain and they are not the same article. Keep the words 'flow metrics'."
+
+- file: "security/Cross Site Request Forgery.md"
+  line: 12
+  old: "https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet"
+  action: replace
+  new: "https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html"
+  verified: 200
+  section: dead
+  note: "old OWASP wiki moved to the Cheat Sheet Series; line 28 of the same page already uses the new URL"
+
+- file: "security/Cross Site Scripting.md"
+  line: 27
+  old: "https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet"
+  action: replace
+  new: "https://cheatsheetseries.owasp.org/cheatsheets/XSS_Filter_Evasion_Cheat_Sheet.html"
+  verified: 200
+  section: dead
+  note: "moved to cheat sheet series"
+
+- file: "platform/DevOps and Delivery.md"
+  line: 36
+  old: "https://www.tutorialworks.com/devops-metrics/"
+  action: remove
+  new: null
+  verified: 404
+  section: dead
+  note: >-
+    Article "Get your metrics on: How to measure DevOps success" is gone; the site redirects to /devops/metrics/ which
+    also 404s and tutorialworks.com/devops/ still lists the dead link. The bullet is a bare autolink, so delete the bullet.
+
+# ---------------------------------------------------------------------------
+# ERR (no response)
+# ---------------------------------------------------------------------------
+
+- file: "messaging/Messaging Fundamentals.md"
+  line: 23
+  old: "http://www-db.cs.wisc.edu/cidr/cidr2007/papers/cidr07p15.pdf"
+  action: replace
+  new: "https://www.cidrdb.org/cidr2007/papers/cidr07p15.pdf"
+  verified: 200
+  section: err
+  note: "www-db.cs.wisc.edu no longer answers; CIDR proceedings are hosted at cidrdb.org. PDF text confirmed: Pat Helland, Life beyond Distributed Transactions: an Apostate's Opinion"
+
+- file: "messaging/Messaging Fundamentals.md"
+  line: 66
+  old: "http://www-db.cs.wisc.edu/cidr/cidr2007/papers/cidr07p15.pdf"
+  action: replace
+  new: "https://www.cidrdb.org/cidr2007/papers/cidr07p15.pdf"
+  verified: 200
+  section: err
+  note: "Helland CIDR 2007 paper, same PDF at cidrdb.org"
+
+- file: "computing/Concurrency Models.md"
+  line: 7
+  old: "http://www.usingcsp.com/cspbook.pdf"
+  action: replace
+  new: "https://www.cs.ox.ac.uk/ucs/hoarebook.pdf"
+  verified: 200
+  section: err
+  note: "usingcsp.com no longer answers; Oxford hosts the same free electronic edition (PDF text confirmed: Communicating Sequential Processes, C. A. R. Hoare, June 21 2004 edition of the 1985 book)"
+
+- file: "security/Cross Site Scripting.md"
+  line: 13
+  old: "https://blog.sqreen.com/reflected-xss/"
+  action: remove
+  new: null
+  verified: ERR
+  section: err
+  note: "blog.sqreen.com no longer resolves and blog.sqreen.io is also down (Sqreen was absorbed into Datadog). Keep the text 'lack of data escaping'."
+
+- file: "practice/Influence and Negotiation.md"
+  line: 19
+  old: "https://constantrenewal.com/steel-man"
+  action: remove
+  new: null
+  verified: ERR
+  section: err
+  note: "constantrenewal.com refuses connections (ECONNREFUSED / timeout). The article is only reposted on third-party sites, not at a canonical URL. Keep the text 'Steel man your opponent's argument'."
+
+# ---------------------------------------------------------------------------
+# MOVED to a generic landing page
+# ---------------------------------------------------------------------------
+
+- file: "web and apis/HTTP.md"
+  line: 25
+  old: "https://www.nginx.com/blog/7-tips-for-faster-http2-performance/"
+  action: replace
+  new: "https://www.f5.com/company/blog/nginx/7-tips-for-faster-http2-performance"
+  verified: 200
+  section: landing
+  note: "nginx.com/blog now lands on f5.com/products/nginx; the article is at the F5 NGINX blog (title: 7 Tips for Faster HTTP/2 Performance | F5)"
+
+- file: "web and apis/HTTP.md"
+  line: 72
+  old: "https://www.nginx.com/blog/7-tips-for-faster-http2-performance/"
+  action: replace
+  new: "https://www.f5.com/company/blog/nginx/7-tips-for-faster-http2-performance"
+  verified: 200
+  section: landing
+  note: "NGINX blog moved to f5.com/company/blog/nginx"
+
+- file: "messaging/Service Orientation.md"
+  line: 98
+  old: "https://www.nginx.com/blog/introducing-the-nginx-microservices-reference-architecture"
+  action: replace
+  new: "https://www.f5.com/company/blog/nginx/introducing-the-nginx-microservices-reference-architecture"
+  verified: 200
+  section: landing
+  note: "NGINX blog moved to f5.com/company/blog/nginx (title: Introducing the Microservices Reference Architecture from NGINX | F5)"
+
+- file: "messaging/Service Orientation.md"
+  line: 102
+  old: "https://www.nginx.com/blog/refactoring-a-monolith-into-microservices/"
+  action: replace
+  new: "https://www.f5.com/company/blog/nginx/refactoring-a-monolith-into-microservices"
+  verified: 200
+  section: landing
+  note: "NGINX blog moved to f5.com/company/blog/nginx (title: Refactoring a Monolith into Microservices | F5)"
+
+- file: "web and apis/Realtime Web.md"
+  line: 45
+  old: "https://www.nginx.com/blog/websocket-nginx/"
+  action: replace
+  new: "https://www.f5.com/company/blog/nginx/websocket-nginx"
+  verified: 200
+  section: landing
+  note: "NGINX blog moved to f5.com/company/blog/nginx (title: NGINX as a WebSocket Proxy | F5)"
+
+- file: "web and apis/Realtime Web.md"
+  line: 88
+  old: "https://www.nginx.com/blog/websocket-nginx/"
+  action: replace
+  new: "https://www.f5.com/company/blog/nginx/websocket-nginx"
+  verified: 200
+  section: landing
+  note: "NGINX blog moved to f5.com/company/blog/nginx"
+
+- file: "messaging/Service Orientation.md"
+  line: 87
+  old: "https://www.nginx.com/resources/glossary/round-robin-load-balancing/"
+  action: replace
+  new: "https://www.f5.com/glossary/round-robin-load-balancing"
+  verified: 200
+  section: landing
+  note: "NGINX glossary folded into the F5 glossary (title: What Is Round-Robin Load Balancing? | F5)"
+
+- file: "computing/Concurrency Models.md"
+  line: 20
+  old: "https://blog.sessionstack.com/how-javascript-works-event-loop-and-the-rise-of-async-programming-5-ways-to-better-coding-with-2f077c4438b5"
+  action: replace
+  new: "https://medium.com/sessionstack-blog/how-javascript-works-event-loop-and-the-rise-of-async-programming-5-ways-to-better-coding-with-2f077c4438b5"
+  verified: 403
+  section: landing
+  note: >-
+    blog.sessionstack.com now redirects to playbookux.com (unrelated). The article is on Medium under the SessionStack
+    publication with the same slug/id; Medium returns 403 to curl and WebFetch, so the status is unverified by HTTP,
+    but the search index shows the exact title ("How JavaScript works: Event loop and the rise of Async programming +
+    5 ways to better coding with async/await", Alexander Zlatkov, 8 Nov 2017) at this URL. Check once in a browser.
+
+- file: "platform/Observability.md"
+  line: 3
+  old: "https://www.catchpoint.com/observability-vs-monitoring"
+  action: remove
+  new: null
+  verified: 200
+  section: landing
+  note: >-
+    Redirects to logicmonitor.com/deep-dive/observability-vs-monitoring/introduction, which is a LogicMonitor product
+    marketing page (headings are Platform/Solutions/Agentic AIOps..., no monitoring-vs-observability explanation).
+    catchpoint.com/learn/observability-vs-monitoring is 404. Keep the word 'Monitoring' unlinked.
+
+# ---------------------------------------------------------------------------
+# CLEANUP: version pins, tracking parameters, session tokens (pages still work)
+# ---------------------------------------------------------------------------
+
+- file: "messaging/Service Orientation.md"
+  line: 13
+  old: "https://docs.microsoft.com/en-us/previous-versions/bb402954(v=msdn.10)?redirectedfrom=MSDN"
+  action: replace
+  new: "https://learn.microsoft.com/en-us/previous-versions/bb402954(v=msdn.10)"
+  verified: 200
+  section: cleanup
+  note: "not dead (the checker truncated at the parenthesis); strip ?redirectedfrom=MSDN and use the learn.microsoft.com host it redirects to"
+
+- file: "security/Standards and Compliance.md"
+  line: 10
+  old: "https://docs.microsoft.com/en-gb/microsoft-365/compliance/offering-home?view=o365-worldwide"
+  action: replace
+  new: "https://learn.microsoft.com/en-gb/compliance/regulatory/offering-home"
+  verified: 200
+  section: cleanup
+  note: "drop the ?view=o365-worldwide pin; the page moved from microsoft-365/compliance to compliance/regulatory on learn.microsoft.com"
+
+- file: "data/Machine Learning.md"
+  line: 11
+  old: "https://www.analyticsvidhya.com/blog/2017/05/comprehensive-guide-to-linear-algebra/?utm_source=blog&utm_medium=mathematics-behind-machine-learning"
+  action: replace
+  new: "https://www.analyticsvidhya.com/blog/2017/05/comprehensive-guide-to-linear-algebra/"
+  verified: 200
+  section: cleanup
+  note: "strip utm_* tracking parameters"
+
+- file: "security/Security Principles and Threat Modelling.md"
+  line: 4
+  old: "https://www.youtube.com/watch?v=VbW-X0j35gw&ab_channel=OWASPFoundation"
+  action: replace
+  new: "https://www.youtube.com/watch?v=VbW-X0j35gw"
+  verified: 200
+  section: cleanup
+  note: "strip &ab_channel= attribution parameter"
+
+- file: "security/Web Application Risks.md"
+  line: 81
+  old: "https://www.youtube.com/watch?v=uyq8yxWO1ls&ab_channel=JavaBrains"
+  action: replace
+  new: "https://www.youtube.com/watch?v=uyq8yxWO1ls"
+  verified: 200
+  section: cleanup
+  note: "strip &ab_channel= attribution parameter"
+
+- file: "security/Web Application Risks.md"
+  line: 149
+  old: "https://www.youtube.com/watch?v=uyq8yxWO1ls&ab_channel=JavaBrains"
+  action: replace
+  new: "https://www.youtube.com/watch?v=uyq8yxWO1ls"
+  verified: 200
+  section: cleanup
+  note: "strip &ab_channel= attribution parameter"
+
+- file: "practice/Testing Strategy.md"
+  line: 19
+  old: "https://www.youtube.com/watch?v=P1vES9AgfC4&t=1327s&ab_channel=NDCConferences"
+  action: replace
+  new: "https://www.youtube.com/watch?v=P1vES9AgfC4&t=1327s"
+  verified: 200
+  section: cleanup
+  note: "strip &ab_channel=; keep the t=1327s timestamp, it is part of the reference"
+
+- file: "networking/TLS Certificates.md"
+  line: 90
+  old: "http://www.jasinskionline.com/technicalwiki/%28X%281%29S%28fdjqoj45vcgk5z225tt5qaey%29%29/Print.aspx?Page=Requesting-an-SSL-Certificate-for-Multiple-Domains"
+  action: replace
+  new: "http://www.jasinskionline.com/technicalwiki/Print.aspx?Page=Requesting-an-SSL-Certificate-for-Multiple-Domains"
+  verified: 200
+  section: cleanup
+  note: "the (X(1)S(...)) segment is a baked-in ASP.NET cookieless session token; the original returned 503, the token-free URL returns 200 (site is http-only)"
+
+- file: "web and apis/HTTP.md"
+  line: 3
+  old: "https://twitter.com/kosamari/status/859958929484337152?lang=en"
+  action: replace
+  new: "https://x.com/kosamari/status/859958929484337152"
+  verified: 200
+  section: cleanup
+  note: "optional: strip ?lang=en; twitter.com -> x.com redirect works so this is cosmetic"
+
+# ---------------------------------------------------------------------------
+# OPTIONAL: OWASP project pages whose redirect works but the canonical slug changed
+# ---------------------------------------------------------------------------
+
+- file: "security/Web Application Risks.md"
+  line: 151
+  old: "https://owasp.org/www-project-modsecurity/"
+  action: replace
+  new: "https://owasp.org/projects/modsecurity"
+  verified: 200
+  section: optional
+  note: "optional: www-project-* redirects (200) to owasp.org/projects/modsecurity; use the canonical URL so a future redirect removal does not break it"
+
+- file: "security/Web Application Risks.md"
+  line: 152
+  old: "https://owasp.org/www-project-juice-shop"
+  action: replace
+  new: "https://owasp.org/projects/juice-shop"
+  verified: 200
+  section: optional
+  note: "optional: redirect works today; canonical is owasp.org/projects/juice-shop"

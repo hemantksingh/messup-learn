@@ -1,3 +1,12 @@
+---
+title: "DNS"
+summary: "How name resolution and caching work, why TTL delays a change, and what each DNS record type is for."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources: []
+tags: [dns, dns-records, ttl, caching]
+---
 # DNS
 
 A client machine is usually configured automatically to the name server of your ISP for domain name resolution. When you set DNS on your computer, you manually override the DNS servers provided by the DHCP server in your router.

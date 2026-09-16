@@ -1,3 +1,12 @@
+---
+title: "Network Layers"
+summary: "The four layer TCP/IP model this wiki uses, mapped against OSI, with the protocols and PDUs at each layer."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources: []
+tags: [network-layers, osi, tcp-ip, tcp, udp, ssh]
+---
 # Network Layers
 
 Layering convention for this wiki: pages use the four-layer TCP/IP model (application, transport, internet, network access). TLS and SSH are treated as application-layer protocols in that model. OSI layer numbers appear only in the L4/L7 load-balancer vocabulary. The seven OSI layers below are listed for reference.
@@ -12,7 +21,7 @@ Layering convention for this wiki: pages use the four-layer TCP/IP model (applic
 * Data Link - Finds the physical device on the network.
 * Physical - Cables, voltages, frequencies, bits transfer rates
 
-![osi.gif](../images/osi.gif)
+![Two columns of network layers. The OSI model's seven layers (application, presentation, session, transport, network, data link, physical) on the left; the TCP/IP model's four layers on the right, with application spanning the top three OSI layers, transport and internet matching one OSI layer each, and network access spanning data link and physical. Each TCP/IP layer lists its protocol data unit (data; segment or datagram; packet; frame) and example protocols (HTTP, TLS, SSH, SMTP; TCP, UDP; IP, ICMP; Ethernet, Wi-Fi). A caption says this wiki uses the four-layer model and counts TLS and SSH as application layer.](../images/network-layers.drawio.svg "OSI and TCP/IP layers")
 
 ## TCP/IP
 
@@ -69,4 +78,18 @@ Secure shell is the same as telnet but with encryption to allow network services
 
 Network Utility was removed from macOS in Big Sur. Use `nmap` or `nc -zv host port` to scan ports. To see which processes are listening on which ports use `lsof -iTCP -sTCP:LISTEN` on a Mac or `ss -ltnp` on Linux; `netstat` also works on both.
 
-![network-admin-tools.jpg](../images/network-admin-tools.jpg)
+| Tool | Question it answers |
+|---|---|
+| `ping` | Can I reach this host, and how long does a round trip take? |
+| `dig` or `nslookup` | What does DNS say this name resolves to, and which server answered? |
+| `ss` (`netstat`) | Which sockets are open or listening on this machine, and which process owns them? |
+| `ip` (`ifconfig`) | What interfaces, addresses and routes does this machine have? |
+| `tcpdump` | What packets are actually going over this interface right now? |
+| `wireshark` | Same as tcpdump, but decoded and searchable in a GUI. What is inside these packets? |
+| `traceroute` or `mtr` | Which hops does traffic take to get there, and where is it slow or dropped? |
+| `nc` (netcat) | Is this port open, and what happens if I send raw bytes to it? |
+| `nftables` or `iptables` | Which firewall and NAT rules is the kernel applying to this traffic? |
+| `iw` | What is the state of this wireless interface and which networks can it see? |
+| `ethtool` | What speed, duplex and link state is this wired interface negotiating? |
+| `tc` | How is the kernel shaping, delaying or dropping traffic on this interface? |
+| `arp` | Which MAC address does this IP map to on the local network? |

@@ -1,3 +1,16 @@
+---
+title: "Functional and Reactive Programming"
+summary: "Functional programming is about side effects, reactive programming about values over time, and why the two answer different questions."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources:
+  - "Fowler, Collection Pipeline"
+  - "ReactiveX, Introduction and Observable documentation"
+  - "RxJS documentation"
+  - "Elliott and Hudak, Functional Reactive Animation, ICFP 1997"
+tags: [functional-programming, reactive-programming, pure-functions, immutability, observables]
+---
 # Functional and Reactive Programming
 
 What do "functional" and "reactive" buy me, and what is each word actually about?

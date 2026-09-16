@@ -1,3 +1,12 @@
+---
+title: "REST"
+summary: "What makes an API RESTful: resources, HTTP semantics, idempotency and hypermedia, and how PUT, PATCH and POST differ."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources: []
+tags: [rest, http, hypermedia, hateoas, idempotency, api-design]
+---
 # REST
 
 We think of resources as something the server sends to the client. The server sends a representation of the state of a resource. The client sends a representation that it would like the resource to have. This is **representational state transfer**.

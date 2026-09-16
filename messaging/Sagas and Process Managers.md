@@ -1,3 +1,17 @@
+---
+title: "Sagas and Process Managers"
+summary: "How a business process stays consistent across services without a distributed transaction, using compensation, orchestration and durable timeouts."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources:
+  - "Hector Garcia-Molina and Kenneth Salem, Sagas, SIGMOD 1987"
+  - "Bernd Rücker, Avoiding puristic event chains; What are long running processes"
+  - "Udi Dahan, Saga persistence and event driven architectures"
+  - "Jonathan Oliver, CQRS sagas with event sourcing"
+  - "Roy Fielding, on transactions and REST, rest-discuss mailing list"
+tags: [sagas, process-manager, orchestration, choreography, compensation, messaging]
+---
 # Sagas and Process Managers
 
 How do I keep a business process consistent across services without a distributed transaction?
@@ -41,6 +55,8 @@ A **saga** is a long lived business transaction or process. It needs to exist wh
 ## Orchestration versus choreography
 
 The original saga can also be choreographed, with each service reacting to the previous event and no central coordinator. That is the event chain above, and its coupling grows with every step.
+
+![The Order, Payment, Inventory and Shipment steps drawn twice: as choreography, an event chain where Order publishes OrderPlaced to Payment, Payment publishes PaymentReceived back to Order, Order publishes OrderAccepted to Inventory and Inventory publishes ItemFetched to Shipment; and as orchestration, where a saga in the middle receives the events OrderPlaced, PaymentReceived, ItemFetched and OrderShipped and sends commands such as CollectPayment to the services, with a red compensating action arrow from the saga back to Order when the Payment step fails](../images/saga-orchestration-vs-choreography.drawio.svg "Saga: choreography versus orchestration")
 
 Orchestration puts the sequence in one place. The saga knows the order of steps; the services do not.
 

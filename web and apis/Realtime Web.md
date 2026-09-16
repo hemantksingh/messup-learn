@@ -1,3 +1,18 @@
+---
+title: "Realtime Web"
+summary: "How a server pushes data to a browser: polling, long polling, WebSockets and Server-Sent Events, and how they scale."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources:
+  - "RFC 6455, The WebSocket Protocol, sections 1.3 and 10.2"
+  - "WHATWG HTML Standard, Server-sent events"
+  - "NGINX, WebSocket proxying; InfoQ, WebSocket and HTTP/2 coexist"
+  - "Stack Overflow, resources held for 1,000,000 open WebSockets"
+  - "Ably, WebSockets vs HTTP"
+  - "ASP.NET Core SignalR introduction and scaling (Microsoft Learn)"
+tags: [websockets, server-sent-events, long-polling, realtime, http]
+---
 # Realtime Web
 
 In [HTTP](HTTP.md) the request is always initiated by the client and the response is produced by the server. That makes HTTP a client-initiated, half-duplex protocol: the server cannot start a message, and only one side talks at a time. A chat app, a stock ticker or a monitoring dashboard needs the opposite. These are the ways a server gets data to a browser that did not just ask for it.
@@ -42,7 +57,7 @@ Origin: https://app.example.com
 
 The server replies with status `101 Switching Protocols`, `Upgrade: websocket`, `Connection: Upgrade` and a `Sec-WebSocket-Accept` derived from the client's key so the client can confirm the server understood the WebSocket handshake. From then on either side sends WebSocket frames at any time. The scheme is `ws://` or, preferably, `wss://` (WebSocket over TLS).
 
-HTTP compatibility lets WebSockets fit existing infrastructure: they use the standard ports 80 and 443, so existing firewall rules apply. Proxies need two things to [support WebSocket](https://www.nginx.com/blog/websocket-nginx/):
+HTTP compatibility lets WebSockets fit existing infrastructure: they use the standard ports 80 and 443, so existing firewall rules apply. Proxies need two things to [support WebSocket](https://www.f5.com/company/blog/nginx/websocket-nginx):
 
 * Upgrade is hop-by-hop, so when a proxy intercepts an Upgrade request from a client it needs to send its own Upgrade request to the backend server, including the appropriate headers.
 * The connections are long lived, as opposed to the typical short-lived HTTP connections, so the proxy needs to let them stay open rather than closing them because they seem idle.
@@ -85,7 +100,7 @@ Two things follow. Heavy use of connection-related resources by WebSockets can s
 
 - RFC 6455 (The WebSocket Protocol), section 1.3 on the handshake and section 10.2 on origin: https://www.rfc-editor.org/rfc/rfc6455
 - WHATWG HTML Standard, Server-sent events: https://html.spec.whatwg.org/multipage/server-sent-events.html
-- NGINX, WebSocket proxying: https://www.nginx.com/blog/websocket-nginx/
+- NGINX, WebSocket proxying: https://www.f5.com/company/blog/nginx/websocket-nginx
 - InfoQ, WebSocket and HTTP/2 coexist: https://www.infoq.com/articles/websocket-and-http2-coexist/
 - Stack Overflow, resources held for 1,000,000 open WebSockets: https://stackoverflow.com/questions/17448061/how-many-system-resources-will-be-held-for-keeping-1-000-000-websocket-open
 - Ably, WebSockets vs HTTP (the "WebSockets are usually the better choice for ongoing communication" position): https://ably.com/topic/websockets-vs-http

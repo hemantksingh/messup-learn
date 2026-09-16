@@ -1,4 +1,13 @@
-# Disaster Recovery and Business Continuity
+---
+title: "Disaster Recovery"
+summary: "How disaster recovery differs from high availability, what RTO and RPO mean, and which of the four AWS strategies each budget buys."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources: []
+tags: [aws, disaster-recovery, high-availability, rto-rpo, dynamodb, multi-region]
+---
+# Disaster Recovery
 
 Key questions to think about before before planning your DR strategy
 
@@ -66,6 +75,8 @@ AWS describes four DR strategies, from cheapest and slowest to most expensive an
 ### Active/Active
 
 Since serverless has the pricing model of pay for what you use, having your serverless resources like Lambda functions and API Gateways deployed in a redundant region costs little at idle; fixed-cost components such as provisioned concurrency, Route 53 health checks and CloudWatch alarms still bill. Where the main additional cost comes into play is getting your data into your failover region.
+
+![Multi-Region serverless active/active: Route 53 weighted DNS routing sends traffic to API Gateway and Lambda in both a primary region and a failover region; the DynamoDB global table replicas in the two regions are multi-active and the S3 buckets replicate two ways](../../images/aws-serverless-dr.drawio.svg "Multi-Region serverless, active/active")
 
 DynamoDB automatically distributes data and traffic to tables across a sufficient number of servers to handle throughput and storage requirements. All data is automatically replicated across multiple Availability Zones in an AWS Region. You can implement DynamoDB **global tables** to replicate data across regions in to a failover region. Global tables are multi-active: every replica accepts writes, with last-writer-wins by default, and since 2025 you can instead opt for multi-Region strong consistency at the cost of higher write latency. This means you pay for
 

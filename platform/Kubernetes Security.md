@@ -1,3 +1,12 @@
+---
+title: "Kubernetes Security"
+summary: "How the API server authenticates callers, how roles and bindings scope what they may do, and what hardens pods and the cluster."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources: []
+tags: [kubernetes, rbac, authentication, service-accounts, pod-security, cis-benchmarks]
+---
 # Kubernetes Security
 
 ## Securing the API Server
@@ -65,7 +74,16 @@ ClusterRoleBinding -  ClusterRoleBinding is used to grant access to all namespac
 
 ### Default cluster roles
 
-![The four default ClusterRoles (cluster-admin, admin, edit, view) and what each can do within a namespace](../images/default-cluster-roles.png "Default Cluster Roles")
+Kubernetes ships four ClusterRoles meant for people. `cluster-admin` is bound cluster-wide with a ClusterRoleBinding; the other three are meant to be bound within a namespace with a RoleBinding.
+
+| Role | Scope | Can | Cannot |
+|---|---|---|---|
+| `cluster-admin` | Cluster-wide superuser. With a RoleBinding, full admin within that namespace, including the namespace object itself | Any action on any resource | Nothing is off limits |
+| `admin` | One namespace | Read and write most resources; create and edit Roles and RoleBindings | Write resource quotas or the namespace itself |
+| `edit` | One namespace | Read and write most resources, including Secrets; run pods as any service account in the namespace | View or edit Roles and RoleBindings; write resource quotas |
+| `view` | One namespace | Read most resources | View Roles, RoleBindings or Secrets; write anything |
+
+`edit` can read Secrets and run pods as any service account, so it can reach the API with any service account's permissions in that namespace. `view` cannot read Secrets for the same reason. Source: [Kubernetes RBAC, user-facing roles](https://kubernetes.io/docs/reference/access-authn-authz/rbac/#user-facing-roles).
 
 ### Multi tenancy
 

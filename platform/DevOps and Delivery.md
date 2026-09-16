@@ -1,3 +1,12 @@
+---
+title: "DevOps and Delivery"
+summary: "What DevOps means beyond the acronym, which metrics tell you delivery is improving, and why deployment and release are separate acts."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources: []
+tags: [devops, dora-metrics, ci-cd, feature-flags, continuous-delivery]
+---
 # DevOps and Delivery
 
 In the [SRE book by Google](https://sre.google/workbook/how-sre-relates/) DevOps is defined as a loose set of practices, guidelines, and culture designed to break down silos in IT development, operations, networking, and security. Articulated by John Willis, Damon Edwards, and Jez Humble, CA(L)MS—which stands for Culture, Automation, Lean (as in Lean management; also see continuous delivery), Measurement, and Sharing—is a useful acronym for remembering the key points of DevOps philosophy.
@@ -23,7 +32,7 @@ The [devops metrics](https://docs.aws.amazon.com/solutions/latest/devops-monitor
 * change failure rate
 * reliability (added in 2021)
 
-Although there is value in understanding where a team is spending time, whether it be on product innovation or keeping the lights on, the above metrics measure a specific part of the value stream - the engineering effort. Just measuring the number of deployments per day, number of incidents, number of work in progress items in isolation of the wider business context can be an exercise in vanity. To measure the end-to-end flow of a software value stream, [flow metrics](https://www.leanix.net/en/wiki/vsm/flow-metrics#introduction) can be used alongside DORA metrics.
+Although there is value in understanding where a team is spending time, whether it be on product innovation or keeping the lights on, the above metrics measure a specific part of the value stream - the engineering effort. Just measuring the number of deployments per day, number of incidents, number of work in progress items in isolation of the wider business context can be an exercise in vanity. To measure the end-to-end flow of a software value stream, flow metrics can be used alongside DORA metrics.
 
 ### Reference Implementation
 
@@ -33,7 +42,6 @@ AWS reference implementation of a DevOps monitoring solution
 
 DevOps metrics using Grafana
 
-* <https://www.tutorialworks.com/devops-metrics/>
 * <https://github.com/Justus-e/DevOpsMetrics>
 * Apache dev lake (uses Grafana dashboards) <https://www.darraghoriordan.com/2022/10/16/report-on-dora-metrics-apache-dev-lake/>
 

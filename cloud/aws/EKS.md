@@ -1,3 +1,14 @@
+---
+title: "EKS"
+summary: "What AWS runs and what you still own on EKS, why pods run out of IP addresses, and how IAM becomes the cluster authenticator."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources:
+  - "AWS, EKS User Guide and EKS Best Practices Guide"
+  - "Kubernetes documentation: cluster networking model"
+tags: [aws, eks, kubernetes, fargate, vpc-cni, iam]
+---
 # EKS
 
 Running Kubernetes yourself means patching, securing, scaling and upgrading machines and the software on them. EKS takes the control plane off you: AWS runs the API server and etcd, patches them and upgrades them when you ask. The worker nodes stay yours unless you pick a mode that hands more over. Pod IPs come from your VPC. By default every pod gets a real address from its node's subnet, which is why running out of addresses is the classic EKS problem.
@@ -19,6 +30,8 @@ Kubernetes has no user database. It trusts whatever authenticator is configured 
 ## Pod networking with the VPC CNI
 
 Kubernetes requires that every pod can reach every other pod without NAT (see [Kubernetes](../../platform/Kubernetes.md)). The AWS VPC CNI does this the direct way. It attaches extra [elastic network interfaces](VPC%20Networking.md) to each node and assigns secondary private IPs to them, one per pod.
+
+![One worker node (an EC2 instance) drawn as a dashed box. Its primary ENI takes one address, 10.0.1.10, from the node subnet 10.0.1.0/24 in the VPC's primary CIDR. Two secondary ENIs sit in the pod subnet 100.64.1.0/24, which comes from the VPC's secondary CIDR 100.64.0.0/10; each ENI slot is delegated one /28 prefix of 16 addresses (100.64.1.16/28 and 100.64.1.32/28) and pods hang off addresses inside it, for example 100.64.1.17, .18 and .19, with the rest of the prefix as a warm pool. The node keeps its address in the original subnet; only the pod ENIs move to the secondary range. Addresses are examples.](../../images/eks-pod-addressing.drawio.svg "Where an EKS pod address comes from: secondary CIDR and prefix delegation")
 
 The cost is addresses. ENIs per node and IPs per ENI depend on the instance type, so max pods per node does too. The plugin also pre-assigns a warm pool of IPs, so one node can hold from a handful to a couple of hundred addresses, most idle. A small subnet runs out of IPs long before it runs out of compute.
 

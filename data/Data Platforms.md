@@ -1,3 +1,18 @@
+---
+title: "Data Platforms"
+summary: "How to organise data across an organisation: data mesh and data contracts, and lake versus warehouse versus lakehouse."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources:
+  - "Dehghani, How to Move Beyond a Monolithic Data Lake to a Distributed Data Mesh (2019); Data Mesh Principles and Logical Architecture (2020)"
+  - "Helland, Data on the Outside versus Data on the Inside (CIDR 2005)"
+  - "Stopford, The Data Dichotomy (Confluent, 2016)"
+  - "Kreps, The Log (2013)"
+  - "Kleppmann, Designing Data-Intensive Applications, ch. 10"
+  - "Armbrust et al., Lakehouse: A New Generation of Open Platforms that Unify Data Warehousing and Advanced Analytics (CIDR 2021)"
+tags: [data-platforms, data-mesh, data-lake, data-warehouse, lakehouse, data-contracts]
+---
 # Data Platforms
 
 How should data be organised across an organisation, and what is the difference between a lake, a warehouse and a lakehouse? Short answer: the teams that produce data own it and publish it as a product over a shared platform. A warehouse models data before loading, a lake stores raw files and models later, a lakehouse gives the lake's files the warehouse's table guarantees.
@@ -10,7 +25,7 @@ Big data is data that is too big (100s of TB to PB) or moves too fast to be proc
 
 Traditional [big data architectures](https://docs.microsoft.com/en-us/azure/architecture/data-guide/big-data/) move data from the operational plane (producers) to the analytical plane (consumers) via a [data pipeline](Data%20Pipelines.md). This creates silos: data engineers have little knowledge of the domain, and domain teams produce data without considering how it is used externally, so quality, accuracy and freshness suffer.
 
-Kreps ([The Log](https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying)) describes a hierarchy of needs: capture all the relevant data in one place and model it uniformly before building processing, and processing before visualisation and prediction; in his experience most organisations have holes at the base and try to jump to the top.
+Kreps ([The Log](https://www.linkedin.com/blog/engineering/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying)) describes a hierarchy of needs: capture all the relevant data in one place and model it uniformly before building processing, and processing before visualisation and prediction; in his experience most organisations have holes at the base and try to jump to the top.
 
 ## Data mesh
 
@@ -74,6 +89,6 @@ Hadoop was a child of the cheap storage era; Spark is a child of the memory and 
 * Zhamak Dehghani, [How to Move Beyond a Monolithic Data Lake to a Distributed Data Mesh](https://martinfowler.com/articles/data-monolith-to-mesh.html) (2019) and [Data Mesh Principles and Logical Architecture](https://martinfowler.com/articles/data-mesh-principles.html) (2020).
 * Pat Helland, [Data on the Outside versus Data on the Inside](https://www.cidrdb.org/cidr2005/papers/P12.pdf) (CIDR 2005).
 * Ben Stopford, [The Data Dichotomy](https://www.confluent.io/blog/data-dichotomy-rethinking-the-way-we-treat-data-and-services) (Confluent, 2016).
-* Jay Kreps, [The Log](https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying) (2013).
+* Jay Kreps, [The Log](https://www.linkedin.com/blog/engineering/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying) (2013).
 * Martin Kleppmann, *Designing Data-Intensive Applications*, ch. 10.
 * Michael Armbrust et al., [Lakehouse: A New Generation of Open Platforms that Unify Data Warehousing and Advanced Analytics](https://www.cidrdb.org/cidr2021/papers/cidr2021_paper17.pdf) (CIDR 2021).

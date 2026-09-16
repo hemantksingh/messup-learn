@@ -1,6 +1,15 @@
+---
+title: "Security Headers"
+summary: "What each HTTP security header makes the browser do, which are obsolete, and why adding them blindly teaches you nothing."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources: []
+tags: [security-headers, content-security-policy, hsts, clickjacking, cross-origin-isolation, web-security]
+---
 # Security Headers
 
-OWASP has a list of HTTP [Security headers](https://owasp.org/www-project-secure-headers/#tab=Headers) that you should consider adding to your web application to make it more secure. Adopting best practices for [hardening your HTTP response headers](https://scotthelme.co.uk/hardening-your-http-response-headers/) e.g. webserver config for [IIS](https://gist.github.com/The-Scott/f7b5d03e260036cfc4dce5ad89578377) or [nginx](https://gist.github.com/plentz/6737338) is a good baseline, however understanding the impact of including or excluding these headers should be duly considered. Blindly following best practice guides or security scanners that tell you headers are missing does not help you understand the security impact. For example
+OWASP has a list of HTTP [Security headers](https://owasp.org/projects/secure-headers-project) that you should consider adding to your web application to make it more secure. Adopting best practices for [hardening your HTTP response headers](https://scotthelme.co.uk/hardening-your-http-response-headers/) e.g. webserver config for [IIS](https://gist.github.com/The-Scott/f7b5d03e260036cfc4dce5ad89578377) or [nginx](https://gist.github.com/plentz/6737338) is a good baseline, however understanding the impact of including or excluding these headers should be duly considered. Blindly following best practice guides or security scanners that tell you headers are missing does not help you understand the security impact. For example
 
 - if your website is not public-facing web application or locked down to a corporate network?
 - if your website does not serve any dynamic content and thereby does not allow any user actions e.g. button clicks, it is clickjacking safe. In such a case having `X-Frame-Options` set to `DENY` may not do any harm, it probably adds a bit of protection but the missing header doesn't necessarily open you up to attacks.

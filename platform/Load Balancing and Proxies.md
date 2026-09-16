@@ -1,3 +1,18 @@
+---
+title: "Load Balancing and Proxies"
+summary: "What a reverse proxy or load balancer does for you, layer 4 against layer 7, and how Nginx and HAProxy differ in doing it."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources:
+  - "AWS, Architecting for the Cloud: AWS Best Practices whitepaper, 2018"
+  - "Nginx docs and the changelog entries for the stream module"
+  - "Apache MPM docs"
+  - "HAProxy configuration manual"
+  - "HAProxy blog"
+  - "F5, NGINX ModSecurity WAF Is Transitioning to End-of-Life, 2022"
+tags: [load-balancing, reverse-proxy, nginx, haproxy, health-checks, scaling]
+---
 # Load Balancing and Proxies
 
 What does a load balancer or reverse proxy do for me, and how do Nginx and HAProxy differ in doing it?

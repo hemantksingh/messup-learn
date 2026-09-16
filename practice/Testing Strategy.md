@@ -1,3 +1,12 @@
+---
+title: "Testing Strategy"
+summary: "What a test is for, why the I/O boundary matters more than the unit or integration label, and how to test performance."
+kind: opinion
+status: current
+last_reviewed: 2026-09-16
+sources: []
+tags: [testing, tdd, bdd, unit-tests, integration-tests, performance-testing]
+---
 # Testing Strategy
 
 The [purpose of testing](https://dannorth.net/2021/07/26/we-need-to-talk-about-testing) is not solely about identifying defects in code. It's about gaining confidence in the software's ability to meet user needs and business goals. Effective testing strategies should prioritise preventing issues from arising in the first place. This starts from architectural choices and defining well-designed user interfaces that minimise the likelihood of errors. North argues that the role of dedicated testers might diminish as development teams adopt better "_test thinking_" practices.
@@ -16,7 +25,7 @@ Test Driven Development (TDD) advocates writing automation tests before writing 
 
 > _Separation of I/O code from domain (Non I/O) code_
 
-Being able to [move I/O code to the edges of your application](https://www.youtube.com/watch?v=P1vES9AgfC4&t=1327s&ab_channel=NDCConferences) results in good design, where the **Non I/O** based code becomes easier to test because it
+Being able to [move I/O code to the edges of your application](https://www.youtube.com/watch?v=P1vES9AgfC4&t=1327s) results in good design, where the **Non I/O** based code becomes easier to test because it
 
 * has explicit inputs and outputs
 * is deterministic - for a set of inputs it will give you the same results, everytime
@@ -26,14 +35,13 @@ Being able to [move I/O code to the edges of your application](https://www.youtu
 
 > Own view: I have been part of teams where some TDD enthusiasts must insist on adopting testing patterns like writing tests around **units of logic** e.g. *classes and functions* and **mocking** all dependencies other than the unit or subject under test. At this point, its worth asking: What is the purpose of writing a test - testing a class or fulfilling a business requirement? Classes and functions are implementation details and tests that are tied to implementation or infrastructure tend to break a lot when either of them changes. Therefore it is best to focus on testing application behavior as opposed to implementation.
 
-
 * BDD encourages you to stop thinking about HOW your software works to start thinking about WHAT your software does. It isn't about tools like `Cucumber`. It is about collaboration, the conversations between business and delivery that produce shared examples, and about describing the observable behaviour of your software from the user's pov. Identify your System Under Test (SUT) that provides a specific business value. 
 
   * Test workflows not classes
   * Test behaviours not implementation
   * Test at the boundaries of a system not internals, unless you have implemented a complex algorithm e.g. A loan interest calculator, tax computation, or pricing engine. 
 
-![Two diagrams: tests that mirror each service class one-to-one, versus a single PlaceOrderTest exercising OrderService and its collaborators through behaviour](../images/testing-behaviour.jpg "Testing behaviour")
+![Two panels. Top, marked with a cross: OrderServiceTest, PaymentServiceTest and InventoryServiceTest, tinted red, each point at their own class inside the system under test, one test per class tied to implementation. Bottom, marked with a tick: a single PlaceOrderTest enters the system under test at OrderService on its boundary, and PaymentService and InventoryService inside the system are reached through OrderService](../images/test-boundaries.drawio.svg "Test behaviour at the boundary, not classes")
 
 There could be cases where enforcing the separation of I/O and non I/O code is either too costly or adds little real value — where you’re better off testing the integration as a whole.  For data intensive applications it maybe better to write an integration test. 
 

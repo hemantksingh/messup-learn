@@ -1,3 +1,17 @@
+---
+title: "AWS"
+summary: "Index of the AWS pages, built on one idea: every action is an API call that IAM, KMS and VPC control and CloudTrail records."
+kind: index
+status: current
+last_reviewed: 2026-09-16
+sources:
+  - "AWS Well-Architected Framework, Security Pillar"
+  - "AWS Shared Responsibility Model"
+  - "AWS security documentation, per service best practices"
+  - "AWS, Security Hub unified service GA (December 2025)"
+  - "AWS, Amazon Inspector Classic end of support"
+tags: [aws, cloud-security, iam, kms, vpc, shared-responsibility]
+---
 # AWS
 
 Notes on AWS, organised around one idea: every action in AWS is an API call that IAM authenticates and authorises, and the same three controls apply to every service. The rest of AWS security is detecting when those controls fail and responding.
@@ -19,7 +33,7 @@ Fundamentally there are a few patterns that can be used to secure all your AWS s
 * Control your data: [AWS KMS](Key%20Management.md). When you control the key a service encrypts with, that key lives in KMS, and every use of it is an IAM decision.
 * Control your network: [Amazon VPC](VPC%20Networking.md). Which addresses and ports can reach a resource, and whether traffic to AWS services leaves your network at all.
 
-![Three controls that apply to every AWS service: IAM decides who may call the API, KMS decides how the data is encrypted, VPC decides which network path reaches the resource](../../images/aws-security-patterns.png "AWS security patterns")
+![Three controls around one AWS resource: IAM decides who may call the API, VPC decides which network path reaches it and KMS decides which key encrypts its data; a CloudTrail strip underneath records every call](../../images/aws-security-patterns.drawio.svg "Three controls for every AWS service")
 
 An AWS account is the isolation boundary. Resources in one account cannot access resources in another unless explicitly allowed through a trust relationship. Accounts are also cost boundaries for billing, and service quotas are enforced per account (most are adjustable). Hence the usual advice: many small accounts under one organisation.
 
@@ -66,5 +80,4 @@ Turning a finding into an action. Detective builds a graph from CloudTrail, flow
 * AWS Shared Responsibility Model: <https://aws.amazon.com/compliance/shared-responsibility-model/>
 * AWS security documentation, per service best practices: <https://docs.aws.amazon.com/security/>
 * Security Hub unified service GA (December 2025): <https://aws.amazon.com/about-aws/whats-new/2025/12/security-hub-near-real-time-risk-analytics/>
-* Amazon Inspector Classic end of support: <https://docs.aws.amazon.com/inspector/v1/userguide/inspector_introduction.html>
-* Diagram source: `AWS.drawio` in this folder, page "IAM" (icon triad).
+* Amazon Inspector Classic reached end of support on 20 May 2026; its documentation has been withdrawn.

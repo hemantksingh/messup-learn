@@ -1,0 +1,243 @@
+- file: "aws-federated-access.drawio"
+  page: "cloud/aws/Identity.md"
+  replaces: "aws-federated-identity.png"
+  after_line_containing: "federate access into AWS by integrating with corporate identity providers"
+  alt: "Federated access to AWS: corporate developers and administrators authenticate with the corporate identity provider, which passes their federated identity to AWS STS inside the AWS account; STS issues temporary security credentials and each user assumes the matching IAM role, developer or administrator"
+  title: "Federated access to AWS"
+
+- file: "aws-security-patterns.drawio"
+  page: "cloud/aws/README.md"
+  replaces: "aws-security-patterns.png"
+  after_line_containing: "Control your network: [Amazon VPC]"
+  alt: "Three controls around one AWS resource: IAM decides who may call the API, VPC decides which network path reaches it and KMS decides which key encrypts its data; a CloudTrail strip underneath records every call"
+  title: "Three controls for every AWS service"
+
+- file: "aws-serverless-dr.drawio"
+  page: "cloud/aws/Disaster Recovery.md"
+  replaces: null
+  after_heading: "### Active/Active"
+  alt: "Multi-Region serverless active/active: Route 53 weighted DNS routing sends traffic to API Gateway and Lambda in both a primary region and a failover region; the DynamoDB global table replicas in the two regions are multi-active and the S3 buckets replicate two ways"
+  title: "Multi-Region serverless, active/active"
+
+- file: "azure-tenant-subscription.drawio"
+  page: "cloud/azure/Tenants, Subscriptions and RBAC.md"
+  replaces: "azuread-subscription.png, azure-role-assignment.png"
+  after_line_containing: "Multiple subscriptions can trust the same Entra ID directory"
+  alt: "One Entra ID tenant holding Users, Apps, Managed Identities and their Service Principals, trusted by Dev, QA and Prod subscriptions; inside the Prod subscription a role assignment links a role, Owner (RBAC), to a resource as its scope and to the Service Principal it is assigned to. Entra roles manage the directory, Azure RBAC roles manage resources"
+  title: "Entra ID tenant, subscriptions and role assignments"
+
+- file: "azure-tenant-transfer.drawio"
+  page: "cloud/azure/Tenants, Subscriptions and RBAC.md"
+  replaces: "tenant-transfer.png"
+  after_line_containing: "Transferring the subscription to another directory (target tenant) does not by itself change the billing Account Administrator"
+  alt: "A subscription transferred from a source tenant to a target tenant: the Account Administrator (billing) is unchanged, while RBAC role assignments, managed identities and Key Vault access policies are deleted from the source and must be recreated in the target directory"
+  title: "Transferring a subscription between tenants"
+
+- file: "azure-access-patterns.drawio"
+  page: "cloud/azure/Tenants, Subscriptions and RBAC.md"
+  replaces: "access-patterns.png"
+  after_line_containing: "Access control is managed by Entra ID using"
+  alt: "Access patterns in Entra ID: users reach apps and resources through user sign-in, apps reach resources through a service principal, and a resource reaches another resource through a managed identity"
+  title: "Who accesses what, and with which identity"
+- file: "consistency-ladder.drawio"
+  page: "data/Consistency Models.md"
+  replaces: "consistency-models.PNG"
+  after_line_containing: "Spanner's **external consistency** is strict serializability"
+  alt: "Ladder of consistency models from strongest at the top to weakest at the bottom: linearizability for single objects with strict serializability for transactions alongside, then sequential, causal, PRAM (read-your-writes, monotonic reads and monotonic writes together) and eventual. Above the ladder, dashed and separate, strict consistency, which needs a perfect shared clock and is not implementable. An arrow on the right pointing up reads more coordination, more latency, less availability."
+  title: "Consistency models, strong to weak"
+- file: "http-protocol-stacks.drawio"
+  page: "web and apis/HTTP.md"
+  replaces: "http-stacks.PNG"
+  after_line_containing: "a new transport would have taken decades to deploy"
+  alt: "Three protocol stacks side by side. HTTP/1.1 over optional TLS over TCP over IP, using several TCP connections. HTTP/2 over TLS (effectively required) over TCP over IP, using one TCP connection with many streams. HTTP/3 over QUIC with TLS 1.3 built in, over UDP over IP, using one QUIC connection with independent streams."
+  title: "HTTP protocol stacks"
+- file: "http-multiplexing.drawio"
+  page: "web and apis/HTTP.md"
+  replaces: "http-v-http2.jpg"
+  after_line_containing: "because a loss on one of the six stalls only that one"
+  alt: "Three client-to-server timelines. HTTP/1.1 sends one request and waits for its response before sending the next, so the next request waits behind the previous response (head-of-line blocking). HTTP/2 sends several requests on one TCP connection and the response frames of different streams interleave, but one lost TCP packet stalls all streams. HTTP/3 does the same over independent QUIC streams, so one lost packet stalls only its own stream."
+  title: "Multiplexing in HTTP/1.1, HTTP/2 and HTTP/3"
+- file: "api-styles-shared-core.drawio"
+  page: "web and apis/API Styles.md"
+  replaces: "business-layer.png"
+  after_line_containing: "fulfill requests coming through each I/O channel with the same business logic layer"
+  alt: "REST, GraphQL and RPC (gRPC) front-ends across the top each send requests into one shared business logic layer, which contains an authorisation band, and the business logic layer talks to one persistence layer below."
+  title: "REST, GraphQL and RPC sharing one business logic layer"
+- file: "network-layers.drawio"
+  page: "networking/Network Layers.md"
+  replaces: "osi.gif"
+  after_line_containing: "Physical - Cables, voltages, frequencies, bits transfer rates"
+  alt: "Two columns of network layers. The OSI model's seven layers (application, presentation, session, transport, network, data link, physical) on the left; the TCP/IP model's four layers on the right, with application spanning the top three OSI layers, transport and internet matching one OSI layer each, and network access spanning data link and physical. Each TCP/IP layer lists its protocol data unit (data; segment or datagram; packet; frame) and example protocols (HTTP, TLS, SSH, SMTP; TCP, UDP; IP, ICMP; Ethernet, Wi-Fi). A caption says this wiki uses the four-layer model and counts TLS and SSH as application layer."
+  title: "OSI and TCP/IP layers"
+- file: "web-performance-timeline.drawio"
+  page: "web and apis/Web Performance.md"
+  replaces: null
+  after_heading: "## The three Core Web Vitals"
+  alt: "A page-load timeline from navigation start with TTFB (first byte of the HTML), FCP (first content painted), LCP (largest image or text block painted) and a later layout shift that counts toward CLS marked left to right. Below it a main-thread lane shows two long tasks with the part of each beyond 50 ms shaded and labelled as counting toward TBT. A tap arrives during the first long task and waits; the time from that input to the next painted frame is labelled INP."
+  title: "Web performance metrics on a page load"
+- file: "password-hashing.drawio"
+  page: "security/Cryptography Basics.md"
+  replaces: "password-hashing.png"
+  after_line_containing: "PBKDF2-HMAC-SHA256 with 600,000 iterations"
+  alt: "Two panels. Creation: the password and a random salt, unique per password, go into Argon2id, a slow memory-hard hash; the resulting hash is stored and the salt is stored next to it. Verification: the entered password and the stored salt go into the same Argon2id hash and the result is compared with the stored hash"
+  title: "Password hashing with a per-password salt"
+
+- file: "digital-signature.drawio"
+  page: "security/Cryptography Basics.md"
+  replaces: null
+  after_heading: "## Digital signatures"
+  alt: "Two panels side by side. MAC: the sender computes a tag over the message with a shared key and sends message plus tag; the receiver recomputes the tag with the same key and compares; both parties hold the key, so either side could have made the tag and there is no non-repudiation. Digital signature: the sender hashes the message and signs the digest with the private key, which never leaves its owner, and sends message plus signature; the receiver verifies with the published public key; only the key holder could have made it, so a third party can check and non-repudiation holds"
+  title: "MAC versus digital signature"
+
+- file: "test-boundaries.drawio"
+  page: "practice/Testing Strategy.md"
+  replaces: "testing-behaviour.jpg"
+  after_line_containing: "not internals, unless you have implemented a complex algorithm"
+  alt: "Two panels. Top, marked with a cross: OrderServiceTest, PaymentServiceTest and InventoryServiceTest, tinted red, each point at their own class inside the system under test, one test per class tied to implementation. Bottom, marked with a tick: a single PlaceOrderTest enters the system under test at OrderService on its boundary, and PaymentService and InventoryService inside the system are reached through OrderService"
+  title: "Test behaviour at the boundary, not classes"
+
+- file: "ansible-push-model.drawio"
+  page: "platform/Configuration Management.md"
+  replaces: "ansible-components.png"
+  after_line_containing: "leaving no residual software on the remote node"
+  alt: "Ansible push model: the Inventory (hosts, groups, variables), a Playbook of tasks and Modules feed the control server, which pushes to three managed nodes over SSH, or WinRM for a Windows node. Notes: the control server opens every connection and managed nodes never call back to a master; no agent runs on the managed nodes, the Python package is delivered over SSH, runs from a temp dir, returns its result as JSON and is deleted"
+  title: "Ansible push model"
+
+- file: "log-pipeline.drawio"
+  page: "platform/Observability.md"
+  replaces: null
+  after_heading: "### Log shipping"
+  alt: "Log shipping pipeline: three hosts each run a shipper that tails files or reads journald; the shippers send to an aggregator that parses, enriches and buffers; the aggregator writes to a store that indexes; a query and visualise dashboard sits above the store and queries it. A caption gives examples: shippers Fluent Bit, Beats and the OpenTelemetry Collector; aggregators Logstash and Fluentd; stores Elasticsearch, OpenSearch and Loki; dashboards Kibana and Grafana"
+  title: "Log shipping: shipper, aggregator, store, dashboard"
+
+- file: "persisted-background-jobs.drawio"
+  page: "messaging/Messaging Fundamentals.md"
+  replaces: null
+  after_heading: "## Persisted background jobs"
+  alt: "A web application serialises the call and writes it as a job to a persisted job store, a database such as SQL Server or Redis. A worker dequeues, runs and retries the job; it is drawn twice, dashed inside the web process and solid in a separate worker process, because where it runs is a hosting choice. If the process dies the job is still in the store; the store is a queue and the worker a consumer, so a job may run twice and must be idempotent"
+  title: "Persisted background jobs"
+
+- file: "aws-vpc-layers.drawio"
+  page: "cloud/aws/VPC Networking.md"
+  replaces: "aws-vpc.png"
+  after_line_containing: "lets the responses to those requests back out"
+  alt: "One VPC, 10.0.0.0/16, with an internet gateway and a virtual private gateway above it feeding the VPC's implicit router. The router has two route tables, one sending 0.0.0.0/0 to the internet gateway for the public subnet 10.0.1.0/24 and one sending 0.0.0.0/0 to a NAT gateway for the private subnet 10.0.2.0/24. Each subnet has a network ACL at its edge, stateless so rules are needed both ways, and inside each subnet an EC2 instance is wrapped by a security group, stateful so return traffic is allowed"
+  title: "VPC layers: route tables, network ACLs, security groups"
+- file: tls-1-3-handshake.drawio
+  page: networking/TLS.md
+  replaces: null
+  after_heading: "## The handshake, rederived for TLS 1.3"
+  alt: "Sequence diagram of the TLS 1.3 handshake between a client and a server: the client sends ClientHello with its versions, cipher suites, ephemeral key share and SNI; the server replies with ServerHello carrying its key share plus the encrypted Certificate, CertificateVerify (a signature over the transcript with the certificate's private key) and Finished; both sides derive session keys from the shared secret and the transcript; the client sends its Finished and application data flows in both directions"
+  title: "TLS 1.3 handshake"
+- file: kubernetes-architecture.drawio
+  page: platform/Kubernetes.md
+  replaces: null
+  after_heading: "## Architecture"
+  alt: "Kubernetes architecture: a control plane containing the API server (the only door), etcd behind it, the scheduler and the controller manager, above two nodes each running kubelet, kube-proxy, a container runtime spoken to through CRI, and pods; every arrow from the scheduler, controller manager, kubelets and kube-proxies points at the API server, and only the API server talks to etcd"
+  title: "Kubernetes architecture: control plane and nodes"
+- file: pod-networking-paths.drawio
+  page: platform/Kubernetes.md
+  replaces: null
+  after_line_containing: "so the underlying network only routes between nodes."
+  alt: "Pod networking on two nodes: on each node two pods with their own IPs connect through veth pairs to a bridge; between the nodes the cross-node path is drawn twice, once Routed through a route table entry saying 10.244.1.0/24 lives on node B, and once Overlay through a node-to-node VXLAN tunnel; a caption lists the three rules a CNI plugin must satisfy"
+  title: "Pod networking: routed and overlay paths between nodes"
+- file: transactional-outbox.drawio
+  page: messaging/Messaging Fundamentals.md
+  replaces: null
+  after_heading: "### The Transactional Outbox"
+  alt: "Transactional outbox: the service writes the domain row and the outbox row into its own database in one local transaction; a forwarder, polling the table or reading the change log (CDC), reads new outbox rows, publishes them to the broker and marks them dispatched; a crash marker between publish and mark is labelled duplicate from here, consumer must be idempotent, and the broker delivers to the consumer at least once"
+  title: "Transactional outbox and event forwarder"
+- file: queue-vs-log-broker.drawio
+  page: messaging/Message Brokers.md
+  replaces: null
+  after_heading: "## Queue brokers versus log brokers"
+  alt: "Queue broker versus log broker side by side: on the left a queue with competing consumers where a message is deleted on ack, showing consumer 1 receiving m1, crashing before the ack, processing m2 and then receiving m1 redelivered, so order is lost; on the right a topic split into partitions that retains messages, read by two consumer groups each holding their own committed offset, with a re-read from the committed offset after a crash so m1 and m2 arrive again in order within a partition"
+  title: "Queue broker versus log broker"
+- file: saga-orchestration-vs-choreography.drawio
+  page: messaging/Sagas and Process Managers.md
+  replaces: null
+  after_heading: "## Orchestration versus choreography"
+  alt: "The Order, Payment, Inventory and Shipment steps drawn twice: as choreography, an event chain where Order publishes OrderPlaced to Payment, Payment publishes PaymentReceived back to Order, Order publishes OrderAccepted to Inventory and Inventory publishes ItemFetched to Shipment; and as orchestration, where a saga in the middle receives the events OrderPlaced, PaymentReceived, ItemFetched and OrderShipped and sends commands such as CollectPayment to the services, with a red compensating action arrow from the saga back to Order when the Payment step fails"
+  title: "Saga: choreography versus orchestration"
+- file: circuit-breaker-states.drawio
+  page: platform/Resilience Patterns.md
+  replaces: null
+  after_heading: "## Circuit breakers"
+  alt: "State machine of a circuit breaker with three states. Closed is normal, calls go through and outcomes are counted; when failures cross the threshold it moves to Open, where calls fail without touching the dependency; after a cool-off it moves to Half-open and lets one probe through; if the probe succeeds it returns to Closed, if the probe fails it returns to Open. Caption: a timeout bounds one call; a breaker stops calling."
+  title: "Circuit breaker states"
+
+- file: secrets-spectrum.drawio
+  page: security/Secrets Management.md
+  replaces: null
+  after_heading: "# Secrets Management"
+  alt: "Four stages of secret handling left to right: plaintext in the repo, encrypted in the repo (SOPS, sealed-secrets), an external store (Vault, cloud secret managers), and workload identity with no long-lived secret. Under each, what is still secret (the file, the decryption key, the store credential or secret zero, nothing long-lived) and what happens when it leaks (cannot fix history, every historical ciphertext is open, rotate one value, the token expires)."
+  title: "The secrets spectrum"
+
+- file: iac-state-map.drawio
+  page: platform/Infrastructure as Code.md
+  replaces: null
+  after_heading: "## State"
+  alt: "Three boxes in a row: Configuration (HCL resource blocks), State (resource block to real object id) and Real infrastructure (live API). A two-headed arrow between configuration and state is labelled your change; one between state and the API is labelled drift. Below, plan reads all three, then apply writes the API and updates state."
+  title: "Terraform state: the map between configuration and reality"
+
+- file: origin-vs-site.drawio
+  page: security/Browser Security Model.md
+  replaces: null
+  after_heading: "## Origins and sites"
+  alt: "A dashed boundary labelled Site mybank.com (eTLD+1) contains four separate origin boxes: https://login.mybank.com, https://cdn.mybank.com, https://mybank.com and https://mybank.com:8443, the last noted as port ignored for site. Outside the boundary sits the origin http://mybank.com, noted as a separate site because the scheme differs in current browsers. Two labels: same-origin policy and Web Storage are origin-scoped; cookie Domain and SameSite are site-scoped, port ignored."
+  title: "Origin versus site"
+
+- file: ipv4-prefix-and-mask.drawio
+  page: networking/IP Addressing.md
+  replaces: null
+  after_line_containing: "So for `192.168.21.17/24` the network is"
+  alt: "The address 192.168.21.17 written as four octets in binary (11000000, 10101000, 00010101, 00010001), with a bracket over the first three octets labelled network part (/24) and over the last octet labelled host part. Beneath it the mask 255.255.255.0 as 11111111, 11111111, 11111111, 00000000. ANDing the two gives the network address 192.168.21.0, shown as a third row where the last octet is 00000000."
+  title: "Prefix length, mask and network address"
+
+- file: vlan-subnet-arp.drawio
+  page: networking/IP Addressing.md
+  replaces: null
+  after_line_containing: "A VLAN is a layer-2 segment"
+  alt: "One switch drawn as a dashed box holding two VLANs: VLAN 10 carrying 10.10.20.0/24 with hosts 10.10.20.3, .4 and .5, and VLAN 20 carrying 10.10.30.0/24 with hosts 10.10.30.3 and .4. Host 10.10.20.3 sends the ARP broadcast who has 10.10.20.4, shown as dashed red arrows reaching every port in VLAN 10 and ending at a box marked broadcast stops at the VLAN boundary; 10.10.20.4 replies with its MAC. Below the switch a router (or layer-3 switch) forwards between the two subnets. Caption: ARP maps IP to MAC; the VLAN is where the broadcast stops."
+  title: "One VLAN, one subnet: where ARP stops"
+- file: vm-vs-container.drawio
+  page: platform/Containers.md
+  replaces: null
+  after_heading: "## VM versus container"
+  alt: "Two stacks side by side. Left, virtual machines: hardware at the bottom, a hypervisor above it, and two dashed VM (guest) boxes each holding its own guest kernel and an app. Right, containers: the same hardware, one host kernel shared by every container, and two dashed boxes labelled namespaces + cgroup each holding an app that is just a process, with a note that there is no second kernel and no virtual hardware. Caption: the kernel is the trust boundary difference."
+  title: "VM versus container: where the kernel sits"
+
+- file: image-layers-overlay2.drawio
+  page: platform/Containers.md
+  replaces: null
+  after_heading: "## Images and containers"
+  alt: "A stack of three wide read-only image layers, base image at the bottom, then dependencies, then app (source). On top sit two thin writable layers side by side, one for container A and one for container B, both sharing the same lower layers. Container A's process writes and the written file lands in its writable layer; its read falls through the layers to the base image. Container B's process deletes a file and a red marker in its writable layer hides the lower file while the bytes stay below. Caption: two containers from one image share its read-only layers on disk; only their writable layers differ."
+  title: "Image layers and the writable container layer (overlay2)"
+
+- file: container-runtime-stack.drawio
+  page: platform/Containers.md
+  replaces: null
+  after_heading: "## The runtime stack"
+  alt: "Two paths to the same runtime. Bottom row: docker CLI talks to dockerd over a socket, dockerd hands the container to containerd, containerd calls runc across the OCI runtime spec boundary, and runc creates the namespaces and cgroup and execs the process. Top row: kubelet talks to CRI (Container Runtime Interface), which joins at containerd or goes to CRI-O; CRI-O also calls runc across the OCI runtime spec. Between the rows an OCI image from the registry feeds both containerd and CRI-O across the OCI image spec boundary. Caption: Kubernetes dropped Docker (dockershim removed in 1.24) and Docker-built images still run because they are OCI images."
+  title: "The container runtime stack and the OCI boundaries"
+
+- file: supply-chain-path.drawio
+  page: security/Supply Chain and Container Security.md
+  replaces: null
+  after_line_containing: "Both are described under"
+  alt: "Six hops left to right from commit to running process: Source, Dependencies, Build, Registry, Admission, Running container. Under each hop its tamper point in red: code swapped or added at the commit; a vulnerable dependency (Log4Shell); a tampered build (SolarWinds); a tag moved to another image; an image not from the registry or not signed; a privileged container or a kernel bug as a way out. Above each hop the control that closes it in green: reviewed changes; base image pinned by digest and scanning in CI; SLSA provenance with the pipeline protected like production; signature and SBOM stored next to the image with rescans when a new CVE lands; an admission controller allowing only the private registry and a pinned signer identity; non-root, dropped capabilities and a seccomp profile with a gVisor, Kata or Firecracker boundary."
+  title: "The supply chain path: hops, tamper points and controls"
+
+- file: eks-pod-addressing.drawio
+  page: cloud/aws/EKS.md
+  replaces: null
+  after_heading: "## Pod networking with the VPC CNI"
+  alt: "One worker node (an EC2 instance) drawn as a dashed box. Its primary ENI takes one address, 10.0.1.10, from the node subnet 10.0.1.0/24 in the VPC's primary CIDR. Two secondary ENIs sit in the pod subnet 100.64.1.0/24, which comes from the VPC's secondary CIDR 100.64.0.0/10; each ENI slot is delegated one /28 prefix of 16 addresses (100.64.1.16/28 and 100.64.1.32/28) and pods hang off addresses inside it, for example 100.64.1.17, .18 and .19, with the rest of the prefix as a warm pool. The node keeps its address in the original subnet; only the pod ENIs move to the secondary range. Addresses are examples."
+  title: "Where an EKS pod address comes from: secondary CIDR and prefix delegation"
+
+- file: data-pipeline-stages.drawio
+  page: data/Data Pipelines.md
+  replaces: null
+  after_line_containing: "Capture, curate, consume is the same list"
+  alt: "Four stage boxes left to right: Capture (ingest), Store (object storage, raw table), Transform (filter, join, clean, aggregate) and Serve (query engine, dashboard, model). A source database feeds Capture through an arrow labelled CDC: read the change log, from its write-ahead log or binlog. The row itself is the batch path, with the Store to Transform arrow labelled batch: scheduled DAG over stored data. A second arrow runs beneath from Capture straight to Transform labelled stream: each event as it arrives, windows over an unbounded input. Caption: batch input is fixed when the job starts so a failed job is rerun; a stream never finishes so it is cut into windows with event time, processing time, a watermark and a late-data rule."
+  title: "Pipeline stages with the batch and stream paths"

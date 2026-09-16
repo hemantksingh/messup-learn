@@ -1,3 +1,16 @@
+---
+title: "Endpoint Security"
+summary: "How antivirus, EPP and EDR differ, how to read a VirusTotal verdict, and how YARA turns a malware description into a detector."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources:
+  - "eSecurity Planet, Antivirus vs EPP vs EDR"
+  - "VirusTotal documentation: How it works, API, Livehunt"
+  - "YARA documentation; mandiant/capa README"
+  - "security.stackexchange.com, How to interpret VirusTotal scan"
+tags: [endpoint-security, edr, antivirus, malware, yara, threat-hunting]
+---
 # Endpoint Security
 
 Securing endpoints in an enterprise has traditionally relied on antivirus software, which is suitable if you have a limited number of devices to protect and a small budget. At the other end, endpoint detection and response (EDR), for example CrowdStrike Falcon, suits numerous devices and a larger budget.

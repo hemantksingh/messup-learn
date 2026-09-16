@@ -1,4 +1,13 @@
-# AWS VPC Networking
+---
+title: "VPC Networking"
+summary: "How route tables, NACLs and security groups decide what reaches a VPC resource, and how traffic to AWS services and on premises stays private."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources: []
+tags: [aws, vpc, security-groups, nacl, vpc-endpoints, privatelink]
+---
+# VPC Networking
 
 VPC or Virtual Private Cloud is a logically isolated part of the AWS cloud, think of it as a virtual  data center in the cloud. You can leverage multiple layers of security, including security groups and network ACLs to help control access to Amazon EC2 instances in each subnet. The inbound and outbound connectivity to your VPC via the internet gateway or a VPN is established via three main lines of defense:
 
@@ -37,7 +46,7 @@ VPC or Virtual Private Cloud is a logically isolated part of the AWS cloud, thin
   * by default a new security group denies all inbound traffic and allows all outbound traffic
   * [security groups are tied to an instance whereas Network ACLs are tied to the subnet](https://medium.com/awesome-cloud/aws-difference-between-security-groups-and-network-acls-adc632ea29ae)
   * security groups are stateful - return traffic for an allowed connection is permitted without a rule in the other direction. Rules are not mirrored: allowing inbound port 80 does not create an outbound rule, it just lets the responses to those requests back out.
-![aws-vpc.png](../../images/aws-vpc.png "AWS VPC Setup")
+![One VPC, 10.0.0.0/16, with an internet gateway and a virtual private gateway above it feeding the VPC's implicit router. The router has two route tables, one sending 0.0.0.0/0 to the internet gateway for the public subnet 10.0.1.0/24 and one sending 0.0.0.0/0 to a NAT gateway for the private subnet 10.0.2.0/24. Each subnet has a network ACL at its edge, stateless so rules are needed both ways, and inside each subnet an EC2 instance is wrapped by a security group, stateful so return traffic is allowed](../../images/aws-vpc-layers.drawio.svg "VPC layers: route tables, network ACLs, security groups")
 
 ## Troubleshooting inbound network connectivity
 

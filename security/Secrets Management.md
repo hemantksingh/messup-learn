@@ -1,6 +1,22 @@
+---
+title: "Secrets Management"
+summary: "Where a secret can live, why each step from repo to store to workload identity moves the problem, and how to sign your work."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources:
+  - "OWASP Secrets Management Cheat Sheet"
+  - "HashiCorp Vault documentation (secret zero, dynamic secrets, Vault Agent)"
+  - "Git documentation, git-config; GitHub Docs, About commit signature verification"
+  - "SOPS README"
+  - "Sigstore and gitsign documentation"
+tags: [secrets-management, vault, workload-identity, rotation, code-signing, gpg]
+---
 # Secrets Management
 
 A secret is anything that gives access when disclosed: a password, an API key, a private key, a token. Where it lives is a chain. Plaintext in the repo is in history forever, so encrypt it. Encryption needs a key, so the key is now the secret and moves to a store. Reaching the store needs a credential, so one secret is left (Vault calls it secret zero). Workload identity removes that one: the platform vouches for the process and gives it a token that expires in minutes. No long-lived secret is the goal. Signing is the other half: proving that what you published came from you.
+
+![Four stages of secret handling left to right: plaintext in the repo, encrypted in the repo (SOPS, sealed-secrets), an external store (Vault, cloud secret managers), and workload identity with no long-lived secret. Under each, what is still secret (the file, the decryption key, the store credential or secret zero, nothing long-lived) and what happens when it leaks (cannot fix history, every historical ciphertext is open, rotate one value, the token expires).](../images/secrets-spectrum.drawio.svg "The secrets spectrum")
 
 ## Why "in the repo" fails
 

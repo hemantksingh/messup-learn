@@ -1,7 +1,16 @@
-# Threat Modelling
+---
+title: "Security Principles and Threat Modelling"
+summary: "How to find and rank the threats to a system with four questions and STRIDE, and the principles good mitigations follow."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources: []
+tags: [threat-modelling, stride, security-principles, attack-surface, least-privilege]
+---
+# Security Principles and Threat Modelling
 
 
-[Threat Modelling](https://cheatsheetseries.owasp.org/cheatsheets/Threat_Modeling_Cheat_Sheet.html) is a structured approach of identifying and prioritizing potential threats to a system, and determining the value that potential mitigations would have in reducing or neutralizing those threats. Essentially it is trying to find answers to the following four [questions](https://www.youtube.com/watch?v=VbW-X0j35gw&ab_channel=OWASPFoundation) (Adam Shostack's Four-Question Frame, adopted by the [Threat Modeling Manifesto](https://www.threatmodelingmanifesto.org/), 2020):
+[Threat Modelling](https://cheatsheetseries.owasp.org/cheatsheets/Threat_Modeling_Cheat_Sheet.html) is a structured approach of identifying and prioritizing potential threats to a system, and determining the value that potential mitigations would have in reducing or neutralizing those threats. Essentially it is trying to find answers to the following four [questions](https://www.youtube.com/watch?v=VbW-X0j35gw) (Adam Shostack's Four-Question Frame, adopted by the [Threat Modeling Manifesto](https://www.threatmodelingmanifesto.org/), 2020):
 
 * What are we working on?
 * What could go wrong?

@@ -1,4 +1,13 @@
-# Key Management Service (KMS)
+---
+title: "Key Management"
+summary: "Where KMS key material lives, how envelope encryption gets round the 4 KB limit, who may use a key and why deletion waits."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources: []
+tags: [aws, kms, envelope-encryption, hsm, key-rotation, encryption]
+---
+# Key Management
 
 AWS-managed encryption and decryption service
 

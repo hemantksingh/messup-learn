@@ -1,3 +1,18 @@
+---
+title: "Message Brokers"
+summary: "What a broker does, how queue brokers and log brokers differ, and when ordering makes Kafka the better choice."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources:
+  - "RabbitMQ, AMQP 0-9-1 model explained; Native AMQP 1.0 in RabbitMQ 4.0"
+  - "Martin Kleppmann, Turning the database inside out, Oredev 2015"
+  - "Apache Kafka, protocol guide"
+  - "STOMP specification"
+  - "Stack Overflow, Is there any reason to use RabbitMQ over Kafka"
+  - "DZone, Understanding when to use RabbitMQ or Apache Kafka"
+tags: [message-brokers, kafka, rabbitmq, amqp, ordering, messaging]
+---
 # Message Brokers
 
 What does a broker do, and how do queue brokers and log brokers differ?
@@ -33,6 +48,8 @@ The word "topic" means something different in each broker. In AMQP 0-9-1 it is a
 ## Queue brokers versus log brokers
 
 Kafka is a *log-based message broker* different from AMQP/JMS-style traditional brokers. It combines the durable storage of databases with low-latency notification facilities of messaging. Databases as we know them are global shared mutable state, Kafka provides centralised immutable state based on a distributed append-only log.
+
+![Queue broker versus log broker side by side: on the left a queue with competing consumers where a message is deleted on ack, showing consumer 1 receiving m1, crashing before the ack, processing m2 and then receiving m1 redelivered, so order is lost; on the right a topic split into partitions that retains messages, read by two consumer groups each holding their own committed offset, with a re-read from the committed offset after a crash so m1 and m2 arrive again in order within a partition](../images/queue-vs-log-broker.drawio.svg "Queue broker versus log broker")
 
 Kafka topics are partitioned to scale beyond a single server, and partitions are replicated so that losing one node loses no data.
 

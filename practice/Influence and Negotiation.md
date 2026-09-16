@@ -1,3 +1,17 @@
+---
+title: "Influence and Negotiation"
+summary: "How to move people towards a goal by knowing theirs first, and the four Getting to Yes principles behind it."
+kind: opinion
+status: current
+last_reviewed: 2026-09-16
+sources:
+  - "Dale Carnegie, How to Win Friends and Influence People"
+  - "Roger Fisher and William Ury, Getting to Yes"
+  - "Chris Voss, Never Split the Difference"
+  - "IDEO / Stanford d.school, the How might we reframing question"
+  - "Amy Edmondson, psychological safety; Daniel Coyle, The Culture Code"
+tags: [influence, negotiation, listening, psychological-safety, stakeholders]
+---
 # Influence and Negotiation
 
 Influencing others can only begin once you [know your own goal](Self%20Awareness.md) and have clarity about what you want to achieve. In a business this could be a shared organization goal or a team goal. It is only when you have a clear understanding of what you want that you are going to be able to articulate it to others. People are going to take you seriously only if you are clear in your thinking.
@@ -16,7 +30,7 @@ The key thing to consider before going into a discussion is whether you are goin
 
 ### Listen, clarify and test assumptions
 
-* To get to know the other person try and **summarise their position** by clarifying their objective. [Steel man your opponent's argument](https://constantrenewal.com/steel-man) and assess what is it that you can learn from what they are saying? It is a mechanism of getting feedback on your position. If there is merit in the opposing argument or you can’t respond to the strongest argument from the other side, there’s a good chance you’re wrong. That's okay as long as you're willing to adjust your position.
+* To get to know the other person try and **summarise their position** by clarifying their objective. Steel man your opponent's argument and assess what is it that you can learn from what they are saying? It is a mechanism of getting feedback on your position. If there is merit in the opposing argument or you can’t respond to the strongest argument from the other side, there’s a good chance you’re wrong. That's okay as long as you're willing to adjust your position.
 * **Aim for "that's right"** *"Let me see if I can summarise your position.. what you would like to be able to achieve is... Is that right?"* Voss warns against chasing a "yes"; the goal is a summary so accurate that the other person says "that's right". After a few sessions of back and forth communication, you should get a clear understanding of their viewpoint.
 
 ## Align your goals

@@ -1,3 +1,16 @@
+---
+title: "Data Pipelines"
+summary: "How data moves from where it is produced to where it is wanted: batch or stream, ETL or ELT, CDC and idempotent steps."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources:
+  - "Kleppmann, Designing Data-Intensive Applications, ch. 10 and 11"
+  - "Kreps, The Log: What every software engineer should know about real-time data's unifying abstraction (2013)"
+  - "Reis and Housley, Fundamentals of Data Engineering"
+  - "Akidau, Chernyak and Lax, Streaming Systems"
+tags: [data-pipelines, etl, streaming, batch, change-data-capture, orchestration]
+---
 # Data Pipelines
 
 Data is produced in one place and wanted in another; a pipeline carries it across the gap and reshapes it on the way. What breaks: data arrives late, twice or not at all, changes shape without warning, or a rerun gives a different result. Pipeline design is deciding up front how each is handled.
@@ -12,6 +25,8 @@ Four stages, whatever the tools:
 * **Serve**: expose it to a query engine, dashboard or model.
 
 Capture, curate, consume is the same list with store and transform combined. Most failures are in the dull capture and store stages, and without a complete data flow the analytics on top have nothing to stand on (Kreps, "The Log").
+
+![Four stage boxes left to right: Capture (ingest), Store (object storage, raw table), Transform (filter, join, clean, aggregate) and Serve (query engine, dashboard, model). A source database feeds Capture through an arrow labelled CDC: read the change log, from its write-ahead log or binlog. The row itself is the batch path, with the Store to Transform arrow labelled batch: scheduled DAG over stored data. A second arrow runs beneath from Capture straight to Transform labelled stream: each event as it arrives, windows over an unbounded input. Caption: batch input is fixed when the job starts so a failed job is rerun; a stream never finishes so it is cut into windows with event time, processing time, a watermark and a late-data rule.](../images/data-pipeline-stages.drawio.svg "Pipeline stages with the batch and stream paths")
 
 ## Batch versus stream
 
@@ -70,6 +85,6 @@ Shipping application logs is a pipeline like any other (shipper, aggregator, sto
 ## Sources
 
 * Martin Kleppmann, *Designing Data-Intensive Applications*, ch. 10 (batch) and ch. 11 (streams, CDC, derived data).
-* Jay Kreps, [The Log: What every software engineer should know about real-time data's unifying abstraction](https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying) (2013).
+* Jay Kreps, [The Log: What every software engineer should know about real-time data's unifying abstraction](https://www.linkedin.com/blog/engineering/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying) (2013).
 * Joe Reis and Matt Housley, *Fundamentals of Data Engineering* (ingest, store, transform, serve; ETL versus ELT; orchestration).
 * Tyler Akidau, Slava Chernyak and Reuven Lax, *Streaming Systems* (event time, windows, watermarks, late data).

@@ -1,10 +1,21 @@
-# Ansible
+---
+title: "Configuration Management"
+summary: "How a configuration management tool converges machines to a declared state, using Ansible's push over SSH model as the example."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources: []
+tags: [configuration-management, ansible, ssh, playbooks, inventory]
+---
+# Configuration Management
 
-Ansible can be used for provisioning infrastructure, orchestrating and automating deployements. Unlike Puppet and Chef that use a **pull model** where agents deployed on the remote nodes (also called managed nodes) request relevant info (using HTTP APIs) from the masters that control configuration information, ansible uses a **push model** where the ansible control server pushes configuration to managed nodes over SSH.
+Configuration management means declaring the desired state of your machines (packages, files, services, users) and having a tool converge them to it; Ansible is the tool this page uses as the example.
 
-In contrast to other configuration management frameworks, Ansible does not require the installation of any agents within managed environments. Instead commands are pushed over SSH and interpreted by a Python runtime. The Ansible **control server**, packages up the configuration in a python package and delivers it to the remote nodes over SSH, which upon execution return the execution result as json. The python package that was delivered is stored in a temp dir on the remote node and deleted after execution, therefore leaving no residual software on the remote node.
+Ansible can be used for provisioning infrastructure, orchestrating and automating deployements. Unlike Puppet and Chef that use a **pull model** where agents deployed on the remote nodes (also called managed nodes) request relevant info (using HTTP APIs) from the masters that control configuration information, ansible uses a **push model** where the ansible control node pushes configuration to managed nodes over SSH (WinRM for Windows hosts; `ansible-pull` inverts this and has each node fetch and apply a playbook from a git repository).
 
-![ansible-components.png](../images/ansible-components.png "Ansible Components")
+In contrast to other configuration management frameworks, Ansible does not require the installation of any agents within managed environments. Instead commands are pushed over SSH and interpreted by a Python runtime. The Ansible **control node**, packages up the configuration in a python package and delivers it to the remote nodes over SSH, which upon execution return the execution result as json. The python package that was delivered is stored in a temp dir on the remote node and deleted after execution, therefore leaving no residual software on the remote node.
+
+![Ansible push model: the Inventory (hosts, groups, variables), a Playbook of tasks and Modules feed the control server, which pushes to three managed nodes over SSH, or WinRM for a Windows node. Notes: the control server opens every connection and managed nodes never call back to a master; no agent runs on the managed nodes, the Python package is delivered over SSH, runs from a temp dir, returns its result as JSON and is deleted](../images/ansible-push-model.drawio.svg "Ansible push model")
 
 ## Ansible in practice: things that bit me
 

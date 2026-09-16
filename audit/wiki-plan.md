@@ -47,8 +47,6 @@ README.md            index: one line per page
 AGENTS.md            how an agent should read this repo
 ```
 
-Blog posts derived from wiki pages are drafted and published in the separate Jekyll repo `../hemantksingh.github.io`, never here (see `audit/blog-candidates.md`).
-
 That is 61 topic pages from 96 notes (62 if EKS is rewritten rather than dropped), plus `README.md` and `AGENTS.md`. The mapping from every current file is in `file-triage.md`.
 
 Why these moves, in one line each:
@@ -75,7 +73,6 @@ last_reviewed: 2026-09-16
 sources:                              # books, talks, RFCs the page leans on
   - Kleppmann, Designing Data-Intensive Applications, ch. 9
 tags: [consistency, linearizability, cap-theorem]
-posts: []                             # blog posts derived from this page, once published (URL)
 ---
 ```
 
@@ -196,8 +193,6 @@ It is not documentation for any product.
 - Titles equal filenames. If you are looking for a topic, search titles first.
 - Under `audit/` you will find the September 2026 audit that produced this structure. It is
   history, not reference material.
-- Some pages list blog posts in their `posts:` frontmatter. Those are opinion pieces with a date
-  on the owner's website; the wiki page is the source of truth.
 ```
 
 ## Migration sequence

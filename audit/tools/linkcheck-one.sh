@@ -1,6 +1,6 @@
 #!/bin/bash
 u="$1"
-case "$u" in *example.com*|*example.org*|*example.net*|*localhost*|*169.254.*|*'$'*|*starter-agent*|*schemas.android.com*|*foo.example*|*nuget.example*) printf 'PLACEHOLDER\t-\t%s\t-\n' "$u"; exit;; esac
+case "$u" in *example.com*|*example.org*|*example.net*|*localhost*|*169.254.*|*'$'*|*starter-agent*|*schemas.android.com*|*foo.example*|*nuget.example*|*mybank.com*) printf 'PLACEHOLDER\t-\t%s\t-\n' "$u"; exit;; esac
 out=$(curl -s -o /dev/null -m 20 -L --max-redirs 5 -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36" -w "%{http_code} %{url_effective}" "$u" 2>/dev/null)
 code=${out%% *}; eff=${out#* }
 case "$code" in

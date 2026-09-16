@@ -1,3 +1,17 @@
+---
+title: "Browser Security Model"
+summary: "Which rules the browser enforces by origin and which by site, and why cookies ride along on requests the page cannot read."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources:
+  - "MDN: Same-origin policy, CORS, HTTP cookies, Web Storage API"
+  - "RFC 6265 and the RFC 6265bis draft"
+  - "web.dev: SameSite cookies explained; Schemeful Same-Site"
+  - "Chrome Privacy Sandbox announcements, July 2024 and April 2025"
+  - "OWASP Session Management Cheat Sheet"
+tags: [same-origin-policy, cors, cookies, samesite, web-storage, web-security]
+---
 # Browser Security Model
 
 A page can send a request almost anywhere and embed almost anything, but it can only read what came from its own origin. That is the same-origin policy. Cookies are older and looser: the browser attaches them to every request that matches their host and path, whoever started it. Web Storage is newer and locked to the origin.
@@ -5,6 +19,8 @@ A page can send a request almost anywhere and embed almost anything, but it can 
 ## Origins and sites
 
 An **origin** is scheme + host + port. `https://mybank.com`, `http://mybank.com`, `https://mybank.com:8443` and `https://login.mybank.com` are four origins.
+
+![A dashed boundary labelled Site mybank.com (eTLD+1) contains four separate origin boxes: https://login.mybank.com, https://cdn.mybank.com, https://mybank.com and https://mybank.com:8443, the last noted as port ignored for site. Outside the boundary sits the origin http://mybank.com, noted as a separate site because the scheme differs in current browsers. Two labels: same-origin policy and Web Storage are origin-scoped; cookie Domain and SameSite are site-scoped, port ignored.](../images/origin-vs-site.drawio.svg "Origin versus site")
 
 A **site** is the registrable domain, eTLD+1. `login.mybank.com` and `cdn.mybank.com` are one site. The public suffix list decides what counts as a TLD, so `alice.github.io` and `bob.github.io` are different sites. Current browsers also compare the scheme.
 

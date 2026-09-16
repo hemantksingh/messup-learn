@@ -1,4 +1,13 @@
-# Azure
+---
+title: "Tenants, Subscriptions and RBAC"
+summary: "How an Entra ID tenant, its subscriptions and RBAC role assignments relate, what moving a subscription breaks, and how identities reach resources."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources: []
+tags: [azure, entra-id, subscriptions, rbac, managed-identity, iam]
+---
+# Tenants, Subscriptions and RBAC
 
 Azure is multi-tenant: the cost of shared physical servers and other infrastructure is spread across many customers. [Azure isolation](https://docs.microsoft.com/en-us/azure/security/azure-isolation) is what stops that sharing from becoming a risk, so that one customer cannot see or affect another customer's applications and data.
 
@@ -14,7 +23,7 @@ Azure is multi-tenant: the cost of shared physical servers and other infrastruct
 
 Multiple subscriptions can trust the same Entra ID directory, but each subscription can only be associated with a single directory.
 
-![One Entra ID tenant holding users, apps and managed identities, trusted by separate Dev, QA and Prod subscriptions](../../images/azuread-subscription.png "Entra ID tenant and subscription association")
+![One Entra ID tenant holding Users, Apps, Managed Identities and their Service Principals, trusted by Dev, QA and Prod subscriptions; inside the Prod subscription a role assignment links a role, Owner (RBAC), to a resource as its scope and to the Service Principal it is assigned to. Entra roles manage the directory, Azure RBAC roles manage resources](../../images/azure-tenant-subscription.drawio.svg "Entra ID tenant, subscriptions and role assignments")
 
 ## Transferring subscription to a different tenant (changing directories)
 
@@ -25,7 +34,7 @@ When a subscription is created, the user who created it gets two things
 
 Transferring the subscription to another directory (target tenant) does not by itself change the billing Account Administrator. Several Azure resources have a dependency on a subscription or a directory. Transferring a subscription means RBAC role assignments, managed identities and a [range of other things](https://docs.microsoft.com/en-us/azure/role-based-access-control/transfer-subscription#understand-the-impact-of-transferring-a-subscription) are deleted from the source subscription and have to be recreated in the target directory.
 
-![A subscription moved from a source tenant to a target tenant; its role assignments and managed identities are dropped on the way](../../images/tenant-transfer.png "Transferring a subscription between tenants")
+![A subscription transferred from a source tenant to a target tenant: the Account Administrator (billing) is unchanged, while RBAC role assignments, managed identities and Key Vault access policies are deleted from the source and must be recreated in the target directory](../../images/azure-tenant-transfer.drawio.svg "Transferring a subscription between tenants")
 
 ## IAM
 
@@ -37,7 +46,7 @@ Identity is at the heart of cloud security, it is something that remains constan
 
 Users need access to apps and resources. Apps need access to resources and resources may need access to other resources. Access control is managed by Entra ID using **identities**
 
-![Users access apps and resources, apps access resources, and resources access other resources, each through an identity](../../images/access-patterns.png)
+![Access patterns in Entra ID: users reach apps and resources through user sign-in, apps reach resources through a service principal, and a resource reaches another resource through a managed identity](../../images/azure-access-patterns.drawio.svg "Who accesses what, and with which identity")
 
 Entra ID can have different types of Identities
 
@@ -80,8 +89,6 @@ Role assignments associate Service Principals to resources
 List all the SPs:  -> Select Role Assignments -> Select Type {Apps}
 
 Lists all the roles: -> Select Roles e.g. 'Owner' 'Contributor' 'Reader' and the Custom roles that you may have defined.
-
-![Access control (IAM) view of a subscription listing role assignments by role and by principal type](../../images/azure-role-assignment.png)
 
 ### IAM for Entra ID
 

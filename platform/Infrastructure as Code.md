@@ -1,3 +1,17 @@
+---
+title: "Infrastructure as Code"
+summary: "What infrastructure as code gives you, how Terraform's providers, resources and modules fit together, and why state must be remote and locked."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources:
+  - "HashiCorp, Terraform language documentation"
+  - "HashiCorp, Infrastructure as Code tutorial"
+  - "Terraform for the Azure Admin slide (ARM to Terraform mapping)"
+  - "Gruntwork, Terragrunt documentation"
+  - "HashiCorp, BSL announcement; OpenTofu"
+tags: [infrastructure-as-code, terraform, terraform-state, terraform-modules, azure]
+---
 # Infrastructure as Code
 
 What does infrastructure as code give me, how does Terraform's model work, and where does state fit?
@@ -87,6 +101,8 @@ Reusable modules follow the standard [module structure](https://developer.hashic
 ## State
 
 State is the map between what you declared and what exists. For every resource block Terraform records the real object's id and its last known attributes. Plan reads three things: the configuration, the state and the live API. Configuration against state tells it what you changed. State against the API tells it what drifted. Without state Terraform could not know which real object a block refers to, and it would have to query everything on every run.
+
+![Three boxes in a row: Configuration (HCL resource blocks), State (resource block to real object id) and Real infrastructure (live API). A two-headed arrow between configuration and state is labelled your change; one between state and the API is labelled drift. Below, plan reads all three, then apply writes the API and updates state.](../images/iac-state-map.drawio.svg "Terraform state: the map between configuration and reality")
 
 By default state is a local file named `terraform.tfstate`. It holds every attribute, including secrets the provider returned, so treat it as sensitive.
 

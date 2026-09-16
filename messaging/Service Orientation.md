@@ -1,3 +1,12 @@
+---
+title: "Service Orientation"
+summary: "Where to draw service boundaries, and why distributing for isolation rather than availability builds a monolith over a network."
+kind: opinion
+status: current
+last_reviewed: 2026-09-16
+sources: []
+tags: [soa, microservices, bounded-contexts, service-discovery, coupling, deployment]
+---
 # Service Orientation
 
 SOA allows organisations to form independent teams around business capabilities and deliver value to end users quickly and frequently. SOA-driven design enables platforms, build an entire constellation of products by allowing other people to do the work.
@@ -10,7 +19,7 @@ Conway's Law states organizations design systems that mirror their own communica
 
 ## Business capability mapping
 
-[Business capability mapping](https://docs.microsoft.com/en-us/previous-versions/bb402954(v=msdn.10)?redirectedfrom=MSDN) is the exercise of modelling *what* a business does to reach its objectives (its capabilities), instead of *how* it does it (its business processes)
+[Business capability mapping](https://learn.microsoft.com/en-us/previous-versions/bb402954(v=msdn.10)) is the exercise of modelling *what* a business does to reach its objectives (its capabilities), instead of *how* it does it (its business processes)
 
 * Model the business on its most stable elements (Business processes likely to change frequently but the capabilities that it offers remain constant)
 * Linked to how businesses organized themselves traditionally around departments
@@ -84,7 +93,7 @@ We are repeatedly fed the microservices juice that tells you to have individual 
 
 Services need to communicate with each other to fulfill a business request and highly reliable distributed coordination is a challenge in a microservices architecture. In an auto scaling environment, services can be coming up and going down quite frequently, service discovery allows each service to be have a single named identifier that gets resolved or **load balanced** to individual service location. DNS server enables mapping a service location to its IP and PORT. Having a central **service registry** of all the available services, provides the ability to discover a healthy service by querying the central registry. Whenever a new service comes in, it populates that registry and allows other services to know that service X is now available at a particular IP and port. This lets us build much more dynamic infrastructure where, as services come and go or get scaled up and down, we don't have to wait for load balancers and firewalls to be updated before starting to use those services.
 
-Simple routing using [round robin load balancing](https://www.nginx.com/resources/glossary/round-robin-load-balancing/) is sufficient in most cases, however more granular control over load balancing algorithms to each of the services allows us to optimize the resources available to each of the instances of our services.
+Simple routing using [round robin load balancing](https://www.f5.com/glossary/round-robin-load-balancing) is sufficient in most cases, however more granular control over load balancing algorithms to each of the services allows us to optimize the resources available to each of the instances of our services.
 
 * Least time algorithm - chooses the instance of the service that has the lowest current response time and continues to route traffic in that manner by continuously updating and monitoring those response times.
 * Least connection algorithm - instance with the fewest connections will receive the next connection
@@ -95,11 +104,11 @@ Service discovery can be achieved by something as simple as DNS based routing us
 
 ## Monolith to Microservices
 
-* Microservices architecture approaches: https://www.nginx.com/blog/introducing-the-nginx-microservices-reference-architecture
+* Microservices architecture approaches: https://www.f5.com/company/blog/nginx/introducing-the-nginx-microservices-reference-architecture
 * Working Effectively With Legacy Code by Michael Feathers       Chapter 4 - The Seam Model
 * Building Microservices by Sam Newman Chapter 5 - Splitting the Monolith
 * https://particular.net/blog/break-that-big-ball-of-mud
-* https://www.nginx.com/blog/refactoring-a-monolith-into-microservices/
+* https://www.f5.com/company/blog/nginx/refactoring-a-monolith-into-microservices
 * What about the UI ?
     * https://www.infoq.com/news/2016/02/tilkov-microxchg-human-users
     * https://www.infoq.com/articles/no-more-mvc-frameworks

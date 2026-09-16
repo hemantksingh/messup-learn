@@ -1,3 +1,18 @@
+---
+title: "Consistency Models"
+summary: "Which writes a read is guaranteed to see, from linearizability down to eventual consistency, and what each level costs."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources:
+  - "Kleppmann, Designing Data-Intensive Applications (2017), ch. 7 and 9"
+  - "Brewer, CAP Twelve Years Later (2012); Gilbert and Lynch, Brewer's Conjecture (2002)"
+  - "Bailis, Linearizability versus Serializability (2014); Kingsbury, Jepsen consistency models"
+  - "Corbett et al., Spanner (OSDI 2012); Brewer, Spanner, TrueTime and the CAP Theorem (2017)"
+  - "Abadi, Consistency Tradeoffs in Modern Distributed Database System Design (2012)"
+  - "Vernon, Effective Aggregate Design (2011)"
+tags: [consistency, linearizability, serializability, cap-theorem, distributed-systems]
+---
 # Consistency Models
 
 A distributed database keeps several copies of the data. The consistency model says which writes a read is guaranteed to see. The strongest, linearizability, behaves like one copy on one machine: a read sees every write that finished before it. The weakest, eventual consistency, only promises that replicas converge once writes stop. Each stronger model costs coordination: latency on every request, unavailability when nodes cannot talk.
@@ -24,16 +39,16 @@ A **total ordering** fixes the exact order of every element. A **partial orderin
 
 The two are independent. Commit a transfer, wait for the reply, then read the balance in a second transaction. A serializable database may pick the order "read, then transfer" and return the old balance; only real time was broken. **Strict serializability** adds the rule that an operation which finished before another started comes first (Bailis). Spanner's **external consistency** is strict serializability: if T1 commits before T2 starts, T2 sees T1's writes.
 
-![Ladder of consistency models from stronger to weaker: strict, sequential, causal, PRAM, read-your-writes, eventual](../images/consistency-models.PNG "Consistency models from stronger to weaker")
+![Ladder of consistency models from strongest at the top to weakest at the bottom: linearizability for single objects with strict serializability for transactions alongside, then sequential, causal, PRAM (read-your-writes, monotonic reads and monotonic writes together) and eventual. Above the ladder, dashed and separate, strict consistency, which needs a perfect shared clock and is not implementable. An arrow on the right pointing up reads more coordination, more latency, less availability.](../images/consistency-ladder.drawio.svg "Consistency models, strong to weak")
 
-The slide's top rung, "strict consistency", means every read returns the latest write by absolute global time. That needs a perfect shared clock, which nothing has. Read that rung as linearizability.
+"Strict consistency" means every read returns the latest write by absolute global time. That needs a perfect shared clock, which nothing has, so it sits outside the ladder. The strongest rung you can build is linearizability.
 
 ## Weaker models
 
 * **Sequential.** Everyone sees all writes in the same order, and each client's own operations in the order it issued them. That order need not match real time.
 * **Causal.** Writes that depend on each other are seen in order: a reply after the comment it answers. Unrelated writes may be seen in different orders. Loosely connected systems like Git use this, with conflict resolution.
 * **Read-your-writes.** After you write, your own later reads see it. Users must see the data they have just changed; a reload served by a lagging replica breaks this.
-* **Monotonic reads.** Once you have seen a value you never see an older one. PRAM on the slide is read-your-writes, monotonic reads and monotonic writes together.
+* **Monotonic reads.** Once you have seen a value you never see an older one. PRAM is read-your-writes, monotonic reads and monotonic writes together.
 * **Eventual.** If writes stop, all replicas converge. No bound on when, no promise about what you see meanwhile. [Asynchronous messaging](../messaging/Messaging%20Fundamentals.md) between services gives you this.
 
 ## CAP

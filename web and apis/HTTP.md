@@ -1,6 +1,21 @@
+---
+title: "HTTP"
+summary: "Why each HTTP version exists: keep alive, multiplexing and QUIC each remove a cost the previous one left on the wire."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources:
+  - "RFC 1945 (HTTP/1.0); RFC 9112 (HTTP/1.1), section 9.3.2 on pipelining"
+  - "RFC 9113 (HTTP/2); RFC 7541 (HPACK)"
+  - "RFC 9218 (Extensible Priorities); RFC 8297 (103 Early Hints)"
+  - "RFC 9000 (QUIC); RFC 9114 (HTTP/3)"
+  - "HAProxy, HTTP keep-alive, pipelining, multiplexing and connection pooling"
+  - "NGINX, 7 tips for faster HTTP/2 performance; Chrome Developers, Removing HTTP/2 Server Push from Chrome"
+tags: [http, http2, http3, quic, multiplexing, head-of-line-blocking]
+---
 # HTTP
 
-HTTP is a layer 7 protocol. HTTP/1.x and HTTP/2 run over TCP; HTTP/3 runs over QUIC, which runs over UDP. It works in a client-server model and follows the [request-response](https://twitter.com/kosamari/status/859958929484337152?lang=en) paradigm. The client sends a request to a server, the server waits till the complete request is received and then replies with a response. The server never starts a message on its own; for the ways round that see [Realtime Web](Realtime%20Web.md).
+HTTP is a layer 7 protocol. HTTP/1.x and HTTP/2 run over TCP; HTTP/3 runs over QUIC, which runs over UDP. It works in a client-server model and follows the [request-response](https://x.com/kosamari/status/859958929484337152) paradigm. The client sends a request to a server, the server waits till the complete request is received and then replies with a response. The server never starts a message on its own; for the ways round that see [Realtime Web](Realtime%20Web.md).
 
 Each version fixed a cost the previous one left on the wire. One term is needed throughout. **Multiplexing** allows several requests and responses to be sent over a single connection by interleaving them without order dependency i.e. the responses can arrive in a different order to the requests.
 
@@ -22,9 +37,9 @@ Browsers work round HOL blocking by opening multiple TCP connections in parallel
 
 With six ordered connections, the number of requests is the bottleneck. So the performance advice for HTTP/1.1 was to make fewer, bigger requests: CSS image sprites (many icons in one image), JS and CSS concatenation (many files in one bundle) and domain sharding (serving assets from `img1.example.com`, `img2.example.com` and so on to get another six connections per hostname).
 
-Under HTTP/2 these [optimisations actually hurt](https://www.nginx.com/blog/7-tips-for-faster-http2-performance/). Sharding splits requests across several connections, each paying its own TCP and TLS handshake and keeping its own header-compression context, and the server cannot prioritise between requests it does not see together. Sprites and bundles make the browser download bytes the page does not use, and a change to one icon or one function invalidates the cache for the whole bundle. With multiplexing, many small requests on one connection are cheap, so the advice reverses: ship small, cacheable files from one origin.
+Under HTTP/2 these [optimisations actually hurt](https://www.f5.com/company/blog/nginx/7-tips-for-faster-http2-performance). Sharding splits requests across several connections, each paying its own TCP and TLS handshake and keeping its own header-compression context, and the server cannot prioritise between requests it does not see together. Sprites and bundles make the browser download bytes the page does not use, and a change to one icon or one function invalidates the cache for the whole bundle. With multiplexing, many small requests on one connection are cheap, so the advice reverses: ship small, cacheable files from one origin.
 
-![Timeline: HTTP/1.1 sends one request and waits for its response before sending the next; HTTP/2 sends several requests at once and receives the responses concurrently over one connection](../images/http-v-http2.jpg "HTTP/1.1 v HTTP/2")
+![Three client-to-server timelines. HTTP/1.1 sends one request and waits for its response before sending the next, so the next request waits behind the previous response (head-of-line blocking). HTTP/2 sends several requests on one TCP connection and the response frames of different streams interleave, but one lost TCP packet stalls all streams. HTTP/3 does the same over independent QUIC streams, so one lost packet stalls only its own stream.](../images/http-multiplexing.drawio.svg "Multiplexing in HTTP/1.1, HTTP/2 and HTTP/3")
 
 ## HTTP/2
 
@@ -50,7 +65,7 @@ HTTP/3 (RFC 9114, 2022) runs over QUIC (RFC 9000, 2021) instead of TCP. QUIC mov
 
 QUIC also builds in TLS 1.3, so HTTP/3 is always encrypted and the transport and TLS handshakes are one round trip instead of two. It supports 0-RTT connection resumption, where a client returning to a server sends its first request in the first packet. QUIC runs over UDP rather than as a new transport because routers, firewalls and operating systems already pass UDP; a new transport would have taken decades to deploy.
 
-![Protocol stacks: HTTP/1.1 over TCP with optional TLS, HTTP/2 over TLS and TCP, HTTP/3 over QUIC (with TLS built in) and UDP; the browser makes several TCP connections for HTTP/1.1 but one connection for HTTP/2 and HTTP/3](../images/http-stacks.PNG "HTTP stacks")
+![Three protocol stacks side by side. HTTP/1.1 over optional TLS over TCP over IP, using several TCP connections. HTTP/2 over TLS (effectively required) over TCP over IP, using one TCP connection with many streams. HTTP/3 over QUIC with TLS 1.3 built in, over UDP over IP, using one QUIC connection with independent streams.](../images/http-protocol-stacks.drawio.svg "HTTP protocol stacks")
 
 ## How to rederive this
 
@@ -69,5 +84,5 @@ QUIC also builds in TLS 1.3, so HTTP/3 is always encrypted and the transport and
 - RFC 8297 (103 Early Hints): https://www.rfc-editor.org/rfc/rfc8297
 - RFC 9000 (QUIC) and RFC 9114 (HTTP/3): https://www.rfc-editor.org/rfc/rfc9000 and https://www.rfc-editor.org/rfc/rfc9114
 - HAProxy, HTTP keep-alive, pipelining, multiplexing and connection pooling (source of the persistent-connections explanation): https://www.haproxy.com/blog/http-keep-alive-pipelining-multiplexing-and-connection-pooling/
-- NGINX, 7 tips for faster HTTP/2 performance: https://www.nginx.com/blog/7-tips-for-faster-http2-performance/
+- NGINX, 7 tips for faster HTTP/2 performance: https://www.f5.com/company/blog/nginx/7-tips-for-faster-http2-performance
 - Chrome Developers, Removing HTTP/2 Server Push from Chrome: https://developer.chrome.com/blog/removing-push

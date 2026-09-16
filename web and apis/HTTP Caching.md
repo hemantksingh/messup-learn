@@ -1,3 +1,12 @@
+---
+title: "HTTP Caching"
+summary: "What Cache-Control, ETag and Vary tell browsers and proxies, and when authenticated responses may be cached."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources: []
+tags: [http, caching, cache-control, etag, reverse-proxy]
+---
 # HTTP Caching
 
 [HTTP Caching](https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching) can be done in the browser/client, at the reverse proxy/CDN or at the origin/server. It supports a bunch of headers:
@@ -24,7 +33,11 @@ Caching API data that is continuosuly being updated in the backend especially if
 
 Caching content at the reverse proxy that is unique to a user, such as API keys, user profile data etc is not advisable because it is meant for that user and only ever going to be requested for that specific user.
 
-![Spectrum of content types: static content (images, CSS, simple HTML) is easy to cache, dynamic content (blog posts, status, API data) is micro-cacheable, user content (shopping cart, account data) cannot be cached](../images/cacheable-content.jpg "Cacheable Content")
+| Content | Examples | Cacheability |
+|---|---|---|
+| Static | Images, CSS, simple HTML | Easy to cache |
+| Dynamic | Blog posts, status pages, some API data | Micro-cacheable for seconds |
+| User-specific | Shopping cart, account data | Do not cache at shared caches |
 
 ### Caching authenticated requests
 

@@ -1,3 +1,17 @@
+---
+title: "The Unix Model"
+summary: "Everything is a file, everything running is a process, and the shell glues them together with pipes and redirection."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources:
+  - "Kernighan and Pike, The UNIX Programming Environment (1984), ch. 1 to 3"
+  - "Raymond, The Art of Unix Programming (2003), ch. 1"
+  - "Filesystem Hierarchy Standard 3.0, Linux Foundation"
+  - "bash manual, Bash Startup Files; zsh manual, Startup/Shutdown Files"
+  - "Apple support, Use zsh as the default shell on your Mac"
+tags: [unix, shell, processes, file-permissions, pipes]
+---
 # The Unix Model
 
 Unix is based on a really simple model. Everything is a file. Everything running is a process. Every file is text or data. Each command does one thing well. Pipelines allow composition.

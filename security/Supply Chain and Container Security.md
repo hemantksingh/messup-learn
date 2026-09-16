@@ -1,3 +1,18 @@
+---
+title: "Supply Chain and Container Security"
+summary: "How to know that what you run is what you built, through signing, SBOMs and SLSA, and how to limit a compromised container."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources:
+  - "Liz Rice, Container Security (O'Reilly)"
+  - "SLSA specification, Build track"
+  - "Sigstore documentation: keyless signing, transparency log"
+  - "The Update Framework specification: roles and key management"
+  - "NIST SP 800-190, Application Container Security Guide"
+  - "Docker, Retiring Docker Content Trust (2025)"
+tags: [supply-chain, container-security, sbom, slsa, sigstore, least-privilege]
+---
 # Supply Chain and Container Security
 
 How do I know that what I run is what I meant to run, and how do I limit the damage if it is not? Before the container starts, every artefact on the path from source to registry carries proof of who built it and what is inside, and anything without proof is refused. After it starts, the process gets so little that a compromise cannot reach far.
@@ -7,6 +22,8 @@ How do I know that what I run is what I meant to run, and how do I limit the dam
 Most of the code you ship is code you did not write: the base image, the runtime, hundreds of packages, the compiler and the CI system. Each step from commit to running container is a place to swap or add something. Your tests run against whatever the pipeline produced, so they will not notice.
 
 SolarWinds was a tampered build: the build system inserted a backdoor and customers installed a correctly signed update. Log4Shell was a vulnerable dependency teams did not know they were running. The first needs provenance and build integrity. The second needs an inventory. Both are described under [Web Application Risks](Web%20Application%20Risks.md).
+
+![Six hops left to right from commit to running process: Source, Dependencies, Build, Registry, Admission, Running container. Under each hop its tamper point in red: code swapped or added at the commit; a vulnerable dependency (Log4Shell); a tampered build (SolarWinds); a tag moved to another image; an image not from the registry or not signed; a privileged container or a kernel bug as a way out. Above each hop the control that closes it in green: reviewed changes; base image pinned by digest and scanning in CI; SLSA provenance with the pipeline protected like production; signature and SBOM stored next to the image with rescans when a new CVE lands; an admission controller allowing only the private registry and a pinned signer identity; non-root, dropped capabilities and a seccomp profile with a gVisor, Kata or Firecracker boundary.](../images/supply-chain-path.drawio.svg "The supply chain path: hops, tamper points and controls")
 
 ## Provenance and signing
 

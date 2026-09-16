@@ -1,3 +1,16 @@
+---
+title: "Web Performance"
+summary: "What the Core Web Vitals measure, how lab and field data differ, and which levers move them."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources:
+  - "web.dev, Web Vitals and the metric articles linked from it"
+  - "Lighthouse performance scoring (Chrome Developers)"
+  - "Google Search Central, page experience"
+  - "Chrome UX Report (CrUX)"
+tags: [web-performance, core-web-vitals, lcp, inp, cls, seo]
+---
 # Web Performance
 
 A page is fast when the user sees what they came for quickly, can act on it without waiting, and nothing jumps around. Three metrics, the Core Web Vitals, measure those three things: LCP, INP and CLS. Everything else in a report is a floor under them (TTFB), a lab stand-in for one of them (TBT), or a legacy event that measured the document, not the user.
@@ -17,6 +30,8 @@ They disagree because the lab is one device and the field is a distribution that
 ## The three Core Web Vitals
 
 "Good" means the p75 field value is under the threshold.
+
+![A page-load timeline from navigation start with TTFB (first byte of the HTML), FCP (first content painted), LCP (largest image or text block painted) and a later layout shift that counts toward CLS marked left to right. Below it a main-thread lane shows two long tasks with the part of each beyond 50 ms shaded and labelled as counting toward TBT. A tap arrives during the first long task and waits; the time from that input to the next painted frame is labelled INP.](../images/web-performance-timeline.drawio.svg "Web performance metrics on a page load")
 
 **Largest Contentful Paint (LCP), good under 2.5 s.** Time from navigation start until the largest image or text block in the viewport is painted. Moved by server response time, render-blocking CSS and scripts in the head, and the LCP image: large, lazy-loaded, or referenced only from CSS or JavaScript means it starts late.
 

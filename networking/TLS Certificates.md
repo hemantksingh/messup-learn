@@ -1,3 +1,12 @@
+---
+title: "TLS Certificates"
+summary: "How X.509 certificates tie a key to a name, how they are issued, encoded, validated and revoked, and what DV, OV and EV mean."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources: []
+tags: [tls, certificates, x509, certificate-authority, acme, revocation]
+---
 # TLS Certificates
 
 In order to secure communication between two devices or machines the following three things are required:
@@ -87,7 +96,7 @@ A thumbprint (or fingerprint) is the SHA-1 or SHA-256 hash of the **whole DER-en
 
 ## SSL certificate for multiple domains
 
-The **Subject Alternative Name** (SAN) field lets you specify additional host names (sites, IP addresses, common names, etc.) to be protected by a single SSL Certificate, such as a Multi-Domain (SAN) or Extend Validation Multi-Domain Certificate. To [request an SSL certificate that supports multiple domains](http://www.jasinskionline.com/technicalwiki/%28X%281%29S%28fdjqoj45vcgk5z225tt5qaey%29%29/Print.aspx?Page=Requesting-an-SSL-Certificate-for-Multiple-Domains), you need to generate a Certificate Signing Request (CSR) for SANs.
+The **Subject Alternative Name** (SAN) field lets you specify additional host names (sites, IP addresses, common names, etc.) to be protected by a single SSL Certificate, such as a Multi-Domain (SAN) or Extend Validation Multi-Domain Certificate. To [request an SSL certificate that supports multiple domains](http://www.jasinskionline.com/technicalwiki/Print.aspx?Page=Requesting-an-SSL-Certificate-for-Multiple-Domains), you need to generate a Certificate Signing Request (CSR) for SANs.
 
 Every publicly trusted certificate is a SAN certificate today, because browsers ignore the CN. The useful distinction is [multi-domain versus wildcard](https://opensrs.com/blog/2012/09/san-and-wildcard-certificates-whats-the-difference): a wildcard (`*.example.com`) covers unlimited subdomains at one level, a multi-domain certificate lists several unrelated names, and one certificate can carry both.
 

@@ -1,4 +1,13 @@
-# AWS Messaging: SNS, SQS and EventBridge
+---
+title: "Messaging"
+summary: "What SNS, SQS and EventBridge each guarantee, how to fan out and dead letter reliably, and when a queue belongs between them."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources: []
+tags: [aws, sns, sqs, eventbridge, messaging, dead-letter-queue]
+---
+# Messaging
 
 Reliable asynchronous messaging in service oriented architectures and event driven systems, requires a messaging system, commonly referred to as a message broker, to establish decoupling among systems. AWS offers many messaging services; this note covers three:
 

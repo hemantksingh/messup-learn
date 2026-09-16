@@ -1,3 +1,12 @@
+---
+title: "Cross Site Request Forgery"
+summary: "How an attacker forges an authenticated request using the victim's cookies, and why tokens remain the primary defence with SameSite behind them."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources: []
+tags: [csrf, cookies, samesite, csrf-token, web-security]
+---
 # Cross Site Request Forgery
 
 [Understanding Cross Site Request Forgery](http://www.troyhunt.com/2016/03/understanding-csrf-video-tutorial.html)
@@ -9,7 +18,7 @@ e.g. you go to securepuppies.com & rather than just displaying cute puppies the 
 * Sending an unsolicited email with HTML content
 * Planting an exploit URL or script on pages that are likely to be visited by the victim while they are on other legitimate sites.
 
-[CSRF Prevention](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet)
+[CSRF Prevention](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html)
 
 State change operations (POST,PUT) that are predictable and make it easy for the attacker to predict a request pattern, allow the attacker to forge a request on the user's behalf. e.g. changing password could be a form action that needs 2 parameters 'new password' & 'confirm password', a POST operation and the URL at which this action is performed. In order to prevent against CSRF we need to add some unpredictability and this is achieved by adding an anti **CSRF token** to the requested form. The server does this by including a hidden input field with a common name such as "CSRFToken" to the form as well as the Cookie.
 

@@ -1,3 +1,18 @@
+---
+title: "IP Addressing"
+summary: "How prefix lengths and masks split an address into network and host, and how routing, ARP, VLANs and NAT follow."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources:
+  - "RFC 4632, Classless Inter-domain Routing (CIDR)"
+  - "RFC 1918, Address Allocation for Private Internets"
+  - "RFC 826, An Ethernet Address Resolution Protocol"
+  - "RFC 2663, IP Network Address Translator (NAT) Terminology and Considerations"
+  - "RFC 4291, IP Version 6 Addressing Architecture; RFC 4861, Neighbor Discovery for IPv6"
+  - "Kurose and Ross, Computer Networking: A Top-Down Approach, ch. 4 and 6"
+tags: [ip-addressing, subnets, cidr, nat, arp, vlan]
+---
 # IP Addressing
 
 An IP address names one interface on a network. It has two parts: a network part shared by everyone on the same link, and a host part unique on that link. A subnet is the set of addresses that share a network part. Subnets divide a network into smaller networks just as a partition divides a room into smaller rooms. Hosts inside one subnet talk directly. A router carries traffic between subnets.
@@ -20,6 +35,8 @@ To get the network address, logically AND the address with the mask. The zeros i
 
 So for `192.168.21.17/24` the network is `192.168.21.0`, the host is `.17` and the mask is `255.255.255.0`.
 
+![The address 192.168.21.17 written as four octets in binary (11000000, 10101000, 00010101, 00010001), with a bracket over the first three octets labelled network part (/24) and over the last octet labelled host part. Beneath it the mask 255.255.255.0 as 11111111, 11111111, 11111111, 00000000. ANDing the two gives the network address 192.168.21.0, shown as a third row where the last octet is 00000000.](../images/ipv4-prefix-and-mask.drawio.svg "Prefix length, mask and network address")
+
 Two addresses in every subnet are not hosts: all host bits zero is the network address, all host bits one is the broadcast address. So a `/n` gives `2^(32-n) - 2` usable hosts: 254 for a `/24`, 65,534 for a `/16`, 14 for a `/28`. `10.10.20.0/24` is not a host; it is the network address. `10.10.20.3/24` is a host.
 
 ## Classes are history
@@ -39,6 +56,8 @@ The gateway is a configured router address on the subnet. In AWS it is implicit:
 A subnet is a layer-3 idea. Delivery inside it happens at layer 2 with MAC addresses, so an on-link sender still needs the destination's MAC. ARP (RFC 826) gets it: the host broadcasts "who has `10.10.20.4`?" to the whole link and the owner replies with its MAC. ARP maps IP to MAC, never the other way round.
 
 A VLAN is a layer-2 segment. A switch assigns each port to a VLAN (an IEEE 802.1Q tag carries the number between switches) and forwards a frame only to ports in that VLAN, so a broadcast stays inside it. So the usual rule: one VLAN, one subnet. A subnet spanning two VLANs breaks because ARP broadcasts do not cross; two subnets on one VLAN still hear each other, so the separation is cosmetic. A router (or a layer-3 switch) forwards between subnets.
+
+![One switch drawn as a dashed box holding two VLANs: VLAN 10 carrying 10.10.20.0/24 with hosts 10.10.20.3, .4 and .5, and VLAN 20 carrying 10.10.30.0/24 with hosts 10.10.30.3 and .4. Host 10.10.20.3 sends the ARP broadcast who has 10.10.20.4, shown as dashed red arrows reaching every port in VLAN 10 and ending at a box marked broadcast stops at the VLAN boundary; 10.10.20.4 replies with its MAC. Below the switch a router (or layer-3 switch) forwards between the two subnets. Caption: ARP maps IP to MAC; the VLAN is where the broadcast stops.](../images/vlan-subnet-arp.drawio.svg "One VLAN, one subnet: where ARP stops")
 
 ## Private ranges and NAT
 

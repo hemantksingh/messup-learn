@@ -1,3 +1,18 @@
+---
+title: "Code Quality"
+summary: "What makes code hard to change, and how coupling, cohesion, cyclomatic complexity and coverage measure it."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources:
+  - "McCabe, A Complexity Measure, IEEE TSE, 1976"
+  - "Stevens, Myers and Constantine, Structured Design, IBM Systems Journal, 1974"
+  - "Yourdon and Constantine, Structured Design, 1979"
+  - "Chidamber and Kemerer, A Metrics Suite for Object Oriented Design, IEEE TSE, 1994"
+  - "Fowler, Anemic Domain Model (bliki); Refactoring (feature envy)"
+  - "Seemann, From Primitive Obsession to Domain Modelling"
+tags: [code-quality, coupling, cohesion, cyclomatic-complexity, test-coverage]
+---
 # Code Quality
 
 What makes code hard to change, and how do I measure it?

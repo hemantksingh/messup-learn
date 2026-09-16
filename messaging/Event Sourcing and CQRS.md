@@ -1,3 +1,12 @@
+---
+title: "Event Sourcing and CQRS"
+summary: "Why storing every change as an event lets you rebuild, replay and project state, and how CQRS separates the write model from reads."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources: []
+tags: [event-sourcing, cqrs, event-store, projections, messaging]
+---
 # Event Sourcing and CQRS
 
 Event Sourcing is not an over arching architecture but applied to a specific part of the system. Event sourcing is useful when history matters, suitable for transactional write heavy systems that need to maintain an audit log of the transactions. It allows you to deterministically bring up the state of a system at a given time using the audit log. You never really query the log but construct denormalized read models that chase the audit log. These read only views are also called projections of the audit log.

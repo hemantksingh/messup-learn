@@ -1,4 +1,13 @@
-# AWS Identity and Access Management
+---
+title: "Identity"
+summary: "How IAM decides who can do what in AWS, through users, roles and the policy types that grant or only restrict."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources: []
+tags: [aws, iam, iam-roles, iam-policies, permission-boundaries, arn]
+---
+# Identity
 
 Identity and Access Management is used for
 
@@ -11,7 +20,7 @@ Identity and Access Management is used for
 * monitoring and auditing access to specific resources e.g. by enabling AWS CloudTrail
 * federate access into AWS by integrating with corporate identity providers like Microsoft Active Directory when the users have identities defined outside of AWS
 
-![AWS federated identity: corporate users authenticate with their identity provider, assume an IAM role and receive temporary credentials](../../images/aws-federated-identity.png "AWS federated identity")
+![Federated access to AWS: corporate developers and administrators authenticate with the corporate identity provider, which passes their federated identity to AWS STS inside the AWS account; STS issues temporary security credentials and each user assumes the matching IAM role, developer or administrator](../../images/aws-federated-access.drawio.svg "Federated access to AWS")
 
 |Users (Who)            |Groups (Who)       |Roles (Who)    | Policies (What) |
 |:---------------------|:------------------|:--------------|:---------------|

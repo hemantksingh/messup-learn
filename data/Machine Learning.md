@@ -1,3 +1,12 @@
+---
+title: "Machine Learning"
+summary: "Supervised, unsupervised and reinforcement learning, the model families that serve them, and how linear regression fits a line."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources: []
+tags: [machine-learning, supervised-learning, unsupervised-learning, reinforcement-learning, neural-networks, linear-regression]
+---
 # Machine Learning
 
 There are two ways of programming computer systems. The traditional way is by defining the steps to achieve an outcome e.g. providing a recipie to the computer to perform a task. The other way is by providing the computer lots and lots of data and the computer learns to classify this data by ingesting this data. This method didn't catch on until recently because three things were missing: enough data, enough compute (GPUs) and algorithms that train well at scale. With the advent of the smart phones, social media we now collect lots and lots of data. 
@@ -8,7 +17,7 @@ A model is a mathematical relationship derived from data that an ML system uses 
 
 ## Machine learning and data science
 
-One framing (from Analytics Vidhya): data science and machine learning [share a lot of common ground](https://www.analyticsvidhya.com/blog/2019/10/mathematics-behind-machine-learning/) but there are subtle differences in their focus on mathematics. In data science our primary goal is to explore and analyse the data, generate hypotheses and test them. On the other hand, machine learning focuses more on the concepts of [Linear algebra](https://www.analyticsvidhya.com/blog/2017/05/comprehensive-guide-to-linear-algebra/?utm_source=blog&utm_medium=mathematics-behind-machine-learning) as it serves as the main stage for all the complex processes to take place. Multivariate calculus, or partial differentiation to be more precise - the driving force behind most machine learning algorithms is used for the mathematical optimisation of a given function (mostly convex).
+One framing (from Analytics Vidhya): data science and machine learning [share a lot of common ground](https://www.analyticsvidhya.com/blog/2019/10/mathematics-behind-machine-learning/) but there are subtle differences in their focus on mathematics. In data science our primary goal is to explore and analyse the data, generate hypotheses and test them. On the other hand, machine learning focuses more on the concepts of [Linear algebra](https://www.analyticsvidhya.com/blog/2017/05/comprehensive-guide-to-linear-algebra/) as it serves as the main stage for all the complex processes to take place. Multivariate calculus, or partial differentiation to be more precise - the driving force behind most machine learning algorithms is used for the mathematical optimisation of a given function (mostly convex).
 
 Mathematical optimization - maximizing or minimizing a real function by systematically choosing input values from within an allowed set and computing the value of the function.
 

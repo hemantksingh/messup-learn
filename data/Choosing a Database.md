@@ -1,3 +1,18 @@
+---
+title: "Choosing a Database"
+summary: "Choose a datastore by workload shape: what sharding costs, what aggregate stores trade, and where relational still wins."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources:
+  - "Sadalage and Fowler, NoSQL Distilled"
+  - "Kleppmann, Designing Data-Intensive Applications, ch. 2, 5 and 6"
+  - "Robinson, Webber and Eifrem, Graph Databases"
+  - "MongoDB docs, default write concern"
+  - "Redis docs, persistence; Redis FAQ on fork and vm.overcommit_memory; Redis licences"
+  - "Brewer, Spanner, TrueTime and the CAP Theorem"
+tags: [databases, nosql, sharding, replication, aggregates, graph-databases]
+---
 # Choosing a Database
 
 Choose a datastore by the shape of the workload: how you write, how you read, how wrong an answer you can tolerate, how much you can lose. No store removes work. Each one decides which work it does for you (joins, transactions, consistency, durability) and which moves into your application.

@@ -1,3 +1,17 @@
+---
+title: "Containers"
+summary: "Why a container is a process with a restricted view, not a small virtual machine, and what namespaces, cgroups and layers each decide."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources:
+  - "Julia Evans, What even is a container; How Containers Work zine"
+  - "Docker documentation: storage drivers, bridge networking, pull policy, BuildKit and multi-stage builds"
+  - "Open Container Initiative, Image Format Specification and Runtime Specification"
+  - "Liz Rice, Container Security (O'Reilly, 2020)"
+  - "Kubernetes blog, Dockershim removed from Kubernetes 1.24"
+tags: [containers, docker, namespaces, cgroups, oci, container-images]
+---
 # Containers
 
 A container is not a small virtual machine. It is an ordinary [process](../computing/The%20Unix%20Model.md) (or process tree) on the host's kernel with a restricted view. No second kernel, no virtual hardware, no boot sequence: hence millisecond start-up and weaker isolation than a VM.
@@ -5,6 +19,8 @@ A container is not a small virtual machine. It is an ordinary [process](../compu
 ## VM versus container
 
 *Take a physical machine and carve it up into multiple virtual machines where each virtual machine looks, feels and tastes just like the physical machine.* A hypervisor intercepts CPU, memory and device access so each **guest**, an unmodified OS with its own kernel, believes it owns the **host** hardware. Bringing its own kernel lets a guest run a different OS, and costs CPU, memory, disk, patching and sometimes a licence.
+
+![Two stacks side by side. Left, virtual machines: hardware at the bottom, a hypervisor above it, and two dashed VM (guest) boxes each holding its own guest kernel and an app. Right, containers: the same hardware, one host kernel shared by every container, and two dashed boxes labelled namespaces + cgroup each holding an app that is just a process, with a note that there is no second kernel and no virtual hardware. Caption: the kernel is the trust boundary difference.](../images/vm-vs-container.drawio.svg "VM versus container: where the kernel sits")
 
 A container skips that: the kernel is the host's and the container is a process it fences in, whether the image is a whole distribution's userland or one static binary (`scratch`). "Bare minimum Linux machine" is wrong: there is no machine.
 
@@ -29,11 +45,15 @@ A container skips that: the kernel is the host's and the container is a process 
 
 An **image** is read-only layers plus metadata (command, environment, ports). A **container** is a running instance: the same layers, a fresh writable layer, the namespaces and cgroup. Ten containers from one image share its layers on disk; only their top layers differ.
 
+![A stack of three wide read-only image layers, base image at the bottom, then dependencies, then app (source). On top sit two thin writable layers side by side, one for container A and one for container B, both sharing the same lower layers. Container A's process writes and the written file lands in its writable layer; its read falls through the layers to the base image. Container B's process deletes a file and a red marker in its writable layer hides the lower file while the bytes stay below. Caption: two containers from one image share its read-only layers on disk; only their writable layers differ.](../images/image-layers-overlay2.drawio.svg "Image layers and the writable container layer (overlay2)")
+
 A **tag** is a name pointing at an image. `latest` is just the default tag, not "the newest version"; publishers need not keep it current. `docker run` uses the local image under that tag without checking the registry (pull policy `missing`); `docker pull` or `--pull always` refreshes it, so two machines on "the same" tag can differ. Pin a tag, or better a digest (`image@sha256:...`), which names exact content.
 
 ## The runtime stack
 
 The `docker` CLI talks to the daemon (`dockerd`) over a socket. The daemon manages images, networks and volumes and hands running a container to **containerd**, which calls **runc** to create the namespaces and cgroup and exec the process.
+
+![Two paths to the same runtime. Bottom row: docker CLI talks to dockerd over a socket, dockerd hands the container to containerd, containerd calls runc across the OCI runtime spec boundary, and runc creates the namespaces and cgroup and execs the process. Top row: kubelet talks to CRI (Container Runtime Interface), which joins at containerd or goes to CRI-O; CRI-O also calls runc across the OCI runtime spec. Between the rows an OCI image from the registry feeds both containerd and CRI-O across the OCI image spec boundary. Caption: Kubernetes dropped Docker (dockershim removed in 1.24) and Docker-built images still run because they are OCI images.](../images/container-runtime-stack.drawio.svg "The container runtime stack and the OCI boundaries")
 
 The boundaries are the open OCI image and runtime specs, so [Kubernetes](Kubernetes.md) dropped Docker (the dockershim went in 1.24): the kubelet talks to containerd or CRI-O through its Container Runtime Interface, and Docker-built images still run because they are OCI images.
 

@@ -1,6 +1,20 @@
+---
+title: "Observability"
+summary: "How to tell what the software is doing for real users from logs, metrics and traces alone, and which alerts deserve a page."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources:
+  - "Google, Site Reliability Engineering, chapters on monitoring distributed systems and service level objectives"
+  - "OpenTelemetry documentation"
+  - "Prometheus documentation"
+  - "Sigelman et al., Dapper, a Large-Scale Distributed Systems Tracing Infrastructure, Google, 2010"
+  - "Jay Kreps, The Log: What every software engineer should know about real-time data's unifying abstraction, 2013"
+tags: [observability, logging, metrics, tracing, opentelemetry, slo]
+---
 # Observability
 
-Distributed systems give scalability and resilience but add complexity. [Monitoring](https://www.catchpoint.com/observability-vs-monitoring) began as watching a server's CPU and memory; it grew into observing user experience and finding the root cause of slowdowns with traces and logs.
+Distributed systems give scalability and resilience but add complexity. Monitoring began as watching a server's CPU and memory; it grew into observing user experience and finding the root cause of slowdowns with traces and logs.
 
 Knowing the `what`, `when` and `why` of something happening in a running system is hard. The question the page answers:
 
@@ -38,7 +52,7 @@ OTel superseded two earlier projects, OpenTracing and OpenCensus, both now archi
 
 ## Logging
 
-Error logs tell developers what went wrong in their applications. User event logs give product managers insights on usage. (Jay Kreps' essay [The Log](https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying) is about a different log, the append-only record behind databases and brokers.)
+Error logs tell developers what went wrong in their applications. User event logs give product managers insights on usage. (Jay Kreps' essay [The Log](https://www.linkedin.com/blog/engineering/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying) is about a different log, the append-only record behind databases and brokers.)
 
 For application logging in distributed systems:
 
@@ -62,6 +76,8 @@ A **SIEM** is a security application first: real-time threat analysis over logs,
 ### Log shipping
 
 Getting logs off hosts is a small data pipeline (see [Data Pipelines](../data/Data%20Pipelines.md)) with a fixed shape: a **shipper** on each host tails files or reads journald and forwards; an **aggregator** parses, enriches and buffers; a **store** indexes; a dashboard **visualises**.
+
+![Log shipping pipeline: three hosts each run a shipper that tails files or reads journald; the shippers send to an aggregator that parses, enriches and buffers; the aggregator writes to a store that indexes; a query and visualise dashboard sits above the store and queries it. A caption gives examples: shippers Fluent Bit, Beats and the OpenTelemetry Collector; aggregators Logstash and Fluentd; stores Elasticsearch, OpenSearch and Loki; dashboards Kibana and Grafana](../images/log-pipeline.drawio.svg "Log shipping: shipper, aggregator, store, dashboard")
 
 * Logstash and Fluentd receive Syslog and collect, filter, buffer and route logs between many sources and destinations. On Kubernetes the common shippers are Fluent Bit (the lighter sibling of Fluentd, both CNCF projects) and the OpenTelemetry Collector, which carries logs alongside metrics and traces (see [OpenTelemetry](#opentelemetry)).
 * Durability is a setting: Logstash defaults to an in-memory queue, so switch on its persistent on-disk queue if you cannot afford to lose logs on a crash. It does not need Redis in front for that.
@@ -142,4 +158,4 @@ Open source: Prometheus for metrics, the Grafana stack (Loki for logs, Tempo for
 * [OpenTelemetry documentation](https://opentelemetry.io/docs/).
 * [Prometheus documentation](https://prometheus.io/docs/introduction/overview/).
 * Sigelman et al., [Dapper, a Large-Scale Distributed Systems Tracing Infrastructure](https://research.google.com/pubs/pub36356.html), Google, 2010.
-* Jay Kreps, [The Log: What every software engineer should know about real-time data's unifying abstraction](https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying), 2013.
+* Jay Kreps, [The Log: What every software engineer should know about real-time data's unifying abstraction](https://www.linkedin.com/blog/engineering/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying), 2013.

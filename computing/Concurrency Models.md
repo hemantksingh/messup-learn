@@ -1,10 +1,24 @@
-# Concurrency models
+---
+title: "Concurrency Models"
+summary: "Shared memory threads, CSP channels and actors as three ways to structure concurrent code, and when each fits."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources:
+  - "c2 wiki, Actors Model"
+  - "Vaughn Vernon, Reactive Messaging Patterns with the Actor Model"
+  - "Akka documentation; Apache Pekko"
+  - "Chris Stucchio, Actors vs futures, 2013"
+  - "Stack Overflow, When to use actors instead of messaging solutions"
+tags: [concurrency, csp, actors, message-passing, shared-memory]
+---
+# Concurrency Models
 
 Languages like *Java* *C++* *C#* *Python* use a **shared memory** model using threads for concurrency. Threads work on shared memory (shared mutable state) using locks to access/write to it at the same time. Locking means threads contend for data access and need synchronization. This typically leads to race conditions and limited fault tolerance - on crashing, a thread can leave other threads in an inconsistent state and sometimes bring the entire process down.
 
 ## Communicating Sequential Processes (CSP)
 
-There are other models of [concurrent computing](https://en.wikipedia.org/wiki/Concurrent_computing), such as [Communicating Sequential Processes](http://www.usingcsp.com/cspbook.pdf) based on **message passing** which tend to be far easier to reason about than shared-memory concurrency, and is typically considered a more robust form of concurrent programming.
+There are other models of [concurrent computing](https://en.wikipedia.org/wiki/Concurrent_computing), such as [Communicating Sequential Processes](https://www.cs.ox.ac.uk/ucs/hoarebook.pdf) based on **message passing** which tend to be far easier to reason about than shared-memory concurrency, and is typically considered a more robust form of concurrent programming.
 
 *Do not communicate by sharing memory, instead share memory by communicating*
 
@@ -17,7 +31,7 @@ CSP is [highly influential](http://www.minaandrawos.com/2015/12/06/concurrency-i
 * statically typed, compiles to a single binary.
 * mainly used for backend services and tooling. It is not a natural fit for browser scripting, though a WebAssembly target has existed since Go 1.11 (2018).
 
-*Nodejs* uses a single threaded [event loop](https://blog.sessionstack.com/how-javascript-works-event-loop-and-the-rise-of-async-programming-5-ways-to-better-coding-with-2f077c4438b5) that dispatches events to handlers executing asynchronously. It is a proven model for I/O-bound work. [Nested callbacks](https://joearms.github.io/published/2013-04-02-Red-and-Green-Callbacks.html) were the original style; promises and `async`/`await` (Node 8, 2017) replaced them. For CPU-bound work Node offers `worker_threads` (stable in Node 12, 2019) and the `cluster` module to use more than one core.
+*Nodejs* uses a single threaded [event loop](https://medium.com/sessionstack-blog/how-javascript-works-event-loop-and-the-rise-of-async-programming-5-ways-to-better-coding-with-2f077c4438b5) that dispatches events to handlers executing asynchronously. It is a proven model for I/O-bound work. [Nested callbacks](https://joearms.github.io/published/2013-04-02-Red-and-Green-Callbacks.html) were the original style; promises and `async`/`await` (Node 8, 2017) replaced them. For CPU-bound work Node offers `worker_threads` (stable in Node 12, 2019) and the `cluster` module to use more than one core.
 
 *Erlang* is based on the Actor model and has similar semantics to an OS process. In order words it's completely isolated. If it crashes all resources are released and the other processes around it are unaffected to the same degree as an OS process. It has well established design patterns for fault tolerance. Joe Armstrong [explains](https://www.youtube.com/watch?v=bo5WL5IQAd0) how Erlang is well suited to run programs on multicore machines.
 
@@ -76,7 +90,7 @@ Messaging is better fit if you have long running tasks blocking for IO (frequent
 
 In theory you could use a messaging transport like AMQP to enable communication between actors but Actors do have their own [remoting](https://doc.akka.io/libraries/akka-core/current/remoting-artery.html) capability with a TCP transport.
 
-## Further reading
+## Sources
 
 * http://wiki.c2.com/?ActorsModel
 * https://www.amazon.co.uk/Reactive-Messaging-Patterns-Actor-Model/dp/0133846830

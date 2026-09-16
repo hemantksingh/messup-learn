@@ -1,3 +1,12 @@
+---
+title: "Rendering Patterns"
+summary: "Server side, client side and static rendering compared, where each fits, and the frameworks that implement them."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources: []
+tags: [rendering, server-side-rendering, client-side-rendering, static-site-generation, micro-frontends, progressive-web-apps]
+---
 # Rendering Patterns
 
 You need to manipulate HTML and CSS to create interactive websites. There are libraries and frameworks that allow you to manage the interactions between the HTML, CSS, and JavaScript according to their own rules.

@@ -1,3 +1,18 @@
+---
+title: "Web Application Risks"
+summary: "What goes wrong in web applications, how the main OWASP risks work, and which layer of defence slows each attack."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources:
+  - "OWASP Top 10:2021 and OWASP Top 10:2025"
+  - "OWASP Application Security Verification Standard"
+  - "DevOpsSec, ch. 4, From gates to guardrails; Netflix talk on the same shift"
+  - "Java Brains, Log4j vulnerability explained"
+  - "Cloudflare, NTP amplification DDoS attack"
+  - "OWASP ModSecurity, OWASP Core Rule Set and OWASP Coraza"
+tags: [owasp, injection, web-security, waf, ddos, defence-in-depth]
+---
 # Web Application Risks
 
 What goes wrong in web applications, how does each attack work, and what stops it? An application is a gateway to servers, networks and data, so it is the attack path of choice. Securing it is not a single pronged approach. **Defence in depth** puts several layers in the way so that an attack loses momentum at each one and you gain time to respond. It is often compared to a castle with multiple walls. The aim is to raise the cost and effort of an attack, not to make one impossible.
@@ -31,7 +46,7 @@ Security theatre is spending on countermeasures that give the feeling of improve
 
 ## Finding the weaknesses
 
-Security testing has two modes. Assessment finds vulnerabilities without exploiting them. Testing finds them and tries to exploit them. The [OWASP Application Security Verification Standard](https://owasp.org/www-project-application-security-verification-standard/) is the open standard for what to verify. Known vulnerabilities in the software you depend on are catalogued in the [National Vulnerability Database](https://nvd.nist.gov/) and [CVE](https://www.cve.org/).
+Security testing has two modes. Assessment finds vulnerabilities without exploiting them. Testing finds them and tries to exploit them. The [OWASP Application Security Verification Standard](https://owasp.org/projects/asvs) is the open standard for what to verify. Known vulnerabilities in the software you depend on are catalogued in the [National Vulnerability Database](https://nvd.nist.gov/) and [CVE](https://www.cve.org/).
 
 The tools fall into four categories. Static analysis (SAST) reads source code without running it. It is good at well known patterns such as SQL injection and buffer overflows, produces many false positives, and is weak on authentication, access control and misuse of cryptography; CodeQL is one example. Dynamic analysis (DAST) tests the running application from outside by sending requests and inspecting responses, with no access to source; OWASP ZAP is one example, and it can run headless in CI. Interactive analysis (IAST) puts an agent inside the running application so it can point at the exact line a dynamic test triggers, at the cost of setup complexity. Software composition analysis (SCA) ignores your code and checks your third party dependencies against the vulnerability databases; OWASP Dependency-Check is one example. Penetration testing is a person attacking the system, usually out of band; Burp Suite is the common toolkit. It has fewer false positives than the automated categories but takes longer. Fuzzing feeds random or malformed input to find crashes and complements all of the above.
 
@@ -78,7 +93,7 @@ subprocess.run([cmd, user_input])
 # hello world && ls -al
 ```
 
-Injection can end in **remote code execution (RCE)**. Log injection on its own is a nuisance. The [Log4Shell](https://www.youtube.com/watch?v=uyq8yxWO1ls&ab_channel=JavaBrains) vulnerability in Log4j turned it into RCE because the logger performed lookups inside the message it was asked to log. A `${jndi:...}` lookup made the logger fetch and run an object from a server the attacker controls.
+Injection can end in **remote code execution (RCE)**. Log injection on its own is a nuisance. The [Log4Shell](https://www.youtube.com/watch?v=uyq8yxWO1ls) vulnerability in Log4j turned it into RCE because the logger performed lookups inside the message it was asked to log. A `${jndi:...}` lookup made the logger fetch and run an object from a server the attacker controls.
 
 ```java
 final Logger logger = LogManager.getLogger(...);
@@ -144,9 +159,9 @@ Each of these only works if there is a vulnerability behind it: an API without a
 ## Sources
 
 * [OWASP Top 10:2021](https://owasp.org/Top10/2021/) and [OWASP Top 10:2025](https://owasp.org/Top10/2025/)
-* [OWASP Application Security Verification Standard](https://owasp.org/www-project-application-security-verification-standard/)
+* [OWASP Application Security Verification Standard](https://owasp.org/projects/asvs)
 * DevOpsSec, ch. 4, [From gates to guardrails](https://www.oreilly.com/library/view/devopssec/9781491971413/ch04.html), and Netflix's talk on [the same shift](https://www.youtube.com/watch?v=geumLjxtc54)
-* Java Brains, [Log4j vulnerability explained](https://www.youtube.com/watch?v=uyq8yxWO1ls&ab_channel=JavaBrains)
+* Java Brains, [Log4j vulnerability explained](https://www.youtube.com/watch?v=uyq8yxWO1ls)
 * Cloudflare, [NTP amplification DDoS attack](https://www.cloudflare.com/en-gb/learning/ddos/ntp-amplification-ddos-attack)
-* [OWASP ModSecurity](https://owasp.org/www-project-modsecurity/), [OWASP Core Rule Set](https://coreruleset.org/) and [OWASP Coraza](https://coraza.io/)
-* Practice targets: [OWASP Juice Shop](https://owasp.org/www-project-juice-shop), [Google firing range](https://github.com/google/firing-range), Troy Hunt's [Hack yourself first](https://www.troyhunt.com/hack-yourself-first-how-to-go-on/), and [Open Bug Bounty](https://www.openbugbounty.org) for responsible disclosure against live sites
+* [OWASP ModSecurity](https://owasp.org/projects/modsecurity), [OWASP Core Rule Set](https://coreruleset.org/) and [OWASP Coraza](https://coraza.io/)
+* Practice targets: [OWASP Juice Shop](https://owasp.org/projects/juice-shop), [Google firing range](https://github.com/google/firing-range), Troy Hunt's [Hack yourself first](https://www.troyhunt.com/hack-yourself-first-how-to-go-on/), and [Open Bug Bounty](https://www.openbugbounty.org) for responsible disclosure against live sites

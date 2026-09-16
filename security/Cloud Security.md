@@ -1,3 +1,18 @@
+---
+title: "Cloud Security"
+summary: "How the cloud security frameworks stack from threat model to provider assurance, and what each layer answers that the others do not."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources:
+  - "NIST Cybersecurity Framework 2.0 (February 2024)"
+  - "NIST SP 800-53 Rev 5, Security and Privacy Controls for Information Systems and Organizations"
+  - "Cloud Security Alliance: Cloud Controls Matrix, STAR registry, CAIQ"
+  - "CIS Benchmarks and CIS Hardened Images, Center for Internet Security"
+  - "MITRE ATT&CK, Enterprise and Cloud matrices"
+  - "NCSC, The cloud security principles"
+tags: [cloud-security, nist-csf, cis-benchmarks, cspm, siem, security-controls]
+---
 # Cloud Security
 
 Overall view of the control domains reviewed and assessed for public cloud adoption. Over time new controls can be added to attain a maturity level optimal for the organisational needs.

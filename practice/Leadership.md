@@ -1,3 +1,18 @@
+---
+title: "Leadership"
+summary: "What a leader does to help others succeed: build culture and safety, delegate, communicate, motivate and handle politics."
+kind: opinion
+status: current
+last_reviewed: 2026-09-16
+sources:
+  - "Daniel Coyle, The Culture Code"
+  - "Dale Carnegie, How to Win Friends and Influence People"
+  - "Daniel Pink, Drive"
+  - "Simon Sinek, Start With Why"
+  - "Chris Voss, Never Split the Difference"
+  - "Center for Creative Leadership (CCL): DAC, SBI feedback"
+tags: [leadership, culture, delegation, feedback, motivation, communication]
+---
 # Leadership
 The foundations of strong leadership is in seeing others get better and helping them succeed. How do you empower others to achieve their best - their true potential? 
 

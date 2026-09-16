@@ -1,3 +1,12 @@
+---
+title: "Roles and Hiring"
+summary: "What engineering leaders, architects and engineers are for, which competencies to probe for in an interview, and how to sell the role."
+kind: opinion
+status: current
+last_reviewed: 2026-09-16
+sources: []
+tags: [hiring, interviewing, architect, engineering-roles, competencies]
+---
 # Roles and Hiring
 
 ## Engineering Leadership

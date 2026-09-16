@@ -1,3 +1,18 @@
+---
+title: "TLS"
+summary: "What the TLS 1.3 handshake does, why RSA key transport was dropped, and what the certificate actually proves."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources:
+  - "RFC 8446, The Transport Layer Security (TLS) Protocol Version 1.3"
+  - "RFC 8996, Deprecating TLS 1.0 and TLS 1.1"
+  - "RFC 6066, TLS Extensions: Extension Definitions (Server Name Indication)"
+  - "Mozilla, Server Side TLS guidelines"
+  - "Cloudflare Learning Center, What happens in a TLS handshake?; Cloudflare blog on post-quantum key agreement"
+  - "SPIFFE project, spiffe.io"
+tags: [tls, https, handshake, forward-secrecy, certificates, mutual-tls]
+---
 # TLS
 
 HTTPS is HTTP inside TLS, which gives a connection three properties, each from a different primitive (table in [Cryptography Basics](../security/Cryptography%20Basics.md)):
@@ -19,9 +34,9 @@ TLS wraps HTTP transparently: in the four-layer model of [Network Layers](Networ
 
 ## The handshake, rederived for TLS 1.3
 
-Browser ----------------> website (e.g. `example.com`)
-
 The client speaks first: its versions and cipher suites plus an **ephemeral key share**, a fresh Diffie-Hellman public value for this connection only.
+
+![Sequence diagram of the TLS 1.3 handshake between a client and a server: the client sends ClientHello with its versions, cipher suites, ephemeral key share and SNI; the server replies with ServerHello carrying its key share plus the encrypted Certificate, CertificateVerify (a signature over the transcript with the certificate's private key) and Finished; both sides derive session keys from the shared secret and the transcript; the client sends its Finished and application data flows in both directions](../images/tls-1-3-handshake.drawio.svg "TLS 1.3 handshake")
 
 The server replies with its own key share, its certificate chain, a **signature over the handshake so far** by the certificate's private key, and a Finished message, an HMAC over the transcript that catches any alteration.
 

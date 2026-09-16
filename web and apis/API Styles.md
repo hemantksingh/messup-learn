@@ -1,3 +1,12 @@
+---
+title: "API Styles"
+summary: "REST, RPC (SOAP, Thrift, gRPC) and GraphQL compared, and how to choose between resources, procedures and queries."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources: []
+tags: [api-design, rest, rpc, grpc, graphql, soap]
+---
 # API Styles
 
 Gregor Hohpe and Bobby Woolf provide 65 [integration patterns](http://www.enterpriseintegrationpatterns.com/patterns/messaging/) for integration and coordination between disparate services. These include shared database, file transfer and [messaging](http://www.enterpriseintegrationpatterns.com/patterns/messaging/toc.html) but here we look at synchronous request/response based integration where services are often built as APIs - https://blog.apisyouwonthate.com/
@@ -136,7 +145,7 @@ GraphQL devloves power to clients by allowing them to write their own queries - 
 
 Your API I/O mechanism can be REST, GraphQL or RPC but you can fulfill requests coming through each I/O channel with the same business logic layer
 
-![REST, GraphQL and RPC front-ends sharing one business layer](../images/business-layer.png "Shared business layer")
+![REST, GraphQL and RPC (gRPC) front-ends across the top each send requests into one shared business logic layer, which contains an authorisation band, and the business logic layer talks to one persistence layer below.](../images/api-styles-shared-core.drawio.svg "REST, GraphQL and RPC sharing one business logic layer")
 
 ### Disadvantages of GraphQL
 

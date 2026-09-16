@@ -1,3 +1,12 @@
+---
+title: "Cross Site Scripting"
+summary: "How injected script runs in a victim's page, and why context aware output encoding is the defence that filters and headers only back up."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources: []
+tags: [xss, output-encoding, content-security-policy, injection, web-security]
+---
 # Cross Site Scripting
 
 Cross-site scripting (also known as XSS) is a web security vulnerability that allows an attacker to run malicious scripts while a user visits or interacts with a vulnerable website or app. The malicious script can originate from various sources:
@@ -10,7 +19,7 @@ XSS allows an attacker to circumvent the same origin policy, which is designed t
 
 ## Preventing XSS attacks
 
-* Encode untrusted data for the context it is rendered into (HTML body, attribute, JavaScript, URL, CSS) at output time. This **context-aware output encoding** is the primary defence; XSS vulnerabilities come from a [lack of data escaping](https://blog.sqreen.com/reflected-xss/) when user input is written into a page. Input validation is defence in depth and cannot be relied on alone.
+* Encode untrusted data for the context it is rendered into (HTML body, attribute, JavaScript, URL, CSS) at output time. This **context-aware output encoding** is the primary defence; XSS vulnerabilities come from a lack of data escaping when user input is written into a page. Input validation is defence in depth and cannot be relied on alone.
 
     ```text
     html_escape('is a > 0 & a < 10?')
@@ -24,7 +33,7 @@ XSS allows an attacker to circumvent the same origin policy, which is designed t
     <img src=x onerror=alert(1)>
     ```
 
-    OWASP [XSS Filter Evasion cheat sheet](https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet) has more examples of filter evasion techniques.
+    OWASP [XSS Filter Evasion cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/XSS_Filter_Evasion_Cheat_Sheet.html) has more examples of filter evasion techniques.
 * Flag Cookies as `HttpOnly`. Reduce the attack surface by preventing javascript access to sensitive cookies, otherwise scripting attack can get access to user session info in the cookie and perform operations as a logged in user. Flagging cookies as Http only can be read by the server as usual but are not accessible to client javascript. Cookie attributes are covered in [Browser Security Model](Browser%20Security%20Model.md).
 * Treat everything as suspicious. Any untrusted data source rendered into HTML, including DNS TXT records or log lines, can carry an XSS payload.
 * Other mitigations, each of which limits the damage when encoding is missed:

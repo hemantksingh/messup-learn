@@ -1,3 +1,17 @@
+---
+title: "Algorithms and Complexity"
+summary: "How to read Big O, what common data structures cost, and what P, NP and NP-complete actually mean."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources:
+  - "Cormen, Leiserson, Rivest and Stein, Introduction to Algorithms"
+  - "Sipser, Introduction to the Theory of Computation, ch. 7"
+  - "Skiena, The Algorithm Design Manual"
+  - "Yato and Seta, 2003 (sudoku); Fraenkel and Lichtenstein, 1981 (chess)"
+  - "CS50, Hash Tables (video)"
+tags: [algorithms, complexity, big-o, data-structures, p-vs-np]
+---
 # Algorithms and Complexity
 
 An algorithm's speed is the growth rate of its step count as the input grows. A problem's hardness is the class of the best possible algorithm for it: P if it can be solved in polynomial time, NP if an answer can be checked in polynomial time, NP-complete if it is the hardest kind of checkable problem. Whether solving is harder than checking, P vs NP, is unproven.

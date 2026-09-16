@@ -1,3 +1,17 @@
+---
+title: "Kubernetes"
+summary: "How one reconciliation loop explains Kubernetes, from control plane and workload objects to pod networking, Services and the Gateway API."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources:
+  - "Kubernetes docs, Concepts"
+  - "Burns, Beda, Hightower and Evenson, Kubernetes: Up and Running, 3rd ed., O'Reilly, 2022"
+  - "Gateway API documentation"
+  - "Kubernetes blog on the ingress-nginx retirement"
+  - "cert-manager docs"
+tags: [kubernetes, reconciliation, pod-networking, kubernetes-services, gateway-api, helm]
+---
 # Kubernetes
 
 Kubernetes runs many containers across many machines without anyone placing them, restarting them or rewiring the network by hand. Applications needn't care about the infrastructure they run on. You say what you want and the cluster makes it so and keeps it so.
@@ -11,6 +25,8 @@ This one loop explains most of Kubernetes. A node dies and three pods vanish; th
 ## Architecture
 
 A control plane decides. Nodes do.
+
+![Kubernetes architecture: a control plane containing the API server (the only door), etcd behind it, the scheduler and the controller manager, above two nodes each running kubelet, kube-proxy, a container runtime spoken to through CRI, and pods; every arrow from the scheduler, controller manager, kubelets and kube-proxies points at the API server, and only the API server talks to etcd](../images/kubernetes-architecture.drawio.svg "Kubernetes architecture: control plane and nodes")
 
 **Control plane.** The API server is the only door: everything talks to it and nothing writes to the store directly. Behind it is `etcd`, a key-value store and the only stateful component of the cluster; back it up and run it as an odd-numbered quorum. The scheduler picks a node for each new pod from resource requests, affinity rules and taints. The controller manager runs the reconciliation loops, such as the ReplicaSet controller. The term is "control plane", not "master".
 
@@ -43,6 +59,8 @@ So there is no port mapping between pods; they find each other by real IPs regis
 
 * **Routed.** Each node owns a block of pod addresses (its `PodCIDR`) and the node's or the cloud's route table says "10.244.1.0/24 lives on node B". `kubenet` works this way; in Azure the routes are User Defined Routes the platform maintains. Pods do talk pod-IP to pod-IP; the route table is just how a packet finds the right node.
 * **Overlay.** Pod packets travel in a node-to-node tunnel (VXLAN, for example), so the underlying network only routes between nodes.
+
+![Pod networking on two nodes: on each node two pods with their own IPs connect through veth pairs to a bridge; between the nodes the cross-node path is drawn twice, once Routed through a route table entry saying 10.244.1.0/24 lives on node B, and once Overlay through a node-to-node VXLAN tunnel; a caption lists the three rules a CNI plugin must satisfy](../images/pod-networking-paths.drawio.svg "Pod networking: routed and overlay paths between nodes")
 
 ### Services
 

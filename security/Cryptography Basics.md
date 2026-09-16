@@ -1,3 +1,17 @@
+---
+title: "Cryptography Basics"
+summary: "Which primitive gives confidentiality, integrity, authenticity or non-repudiation, and why the others cannot."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources:
+  - "Ferguson, Schneier and Kohno, Cryptography Engineering"
+  - "OWASP Password Storage Cheat Sheet"
+  - "NIST SP 800-57 Part 1, Recommendation for Key Management"
+  - "RFC 8446, TLS 1.3"
+  - "Auth0, How secure are encryption, hashing, encoding and obfuscation (starting point for the table, corrected)"
+tags: [cryptography, hashing, mac, digital-signatures, password-hashing, encryption]
+---
 # Cryptography Basics
 
 Ask two things of a primitive: who holds the key, and can it be reversed.
@@ -59,6 +73,8 @@ The same message and key always give the same HMAC, so a captured message could 
 
 Hash the message, apply the private key to the digest; anyone with the public key can verify. One party holds the private key, so a valid signature proves that party produced the message, to a third party, not just the receiver: non-repudiation, which a MAC cannot give. It holds only while the private key stays private and the verifier trusts the binding of key to identity.
 
+![Two panels side by side. MAC: the sender computes a tag over the message with a shared key and sends message plus tag; the receiver recomputes the tag with the same key and compares; both parties hold the key, so either side could have made the tag and there is no non-repudiation. Digital signature: the sender hashes the message and signs the digest with the private key, which never leaves its owner, and sends message plus signature; the receiver verifies with the published public key; only the key holder could have made it, so a third party can check and non-repudiation holds](../images/digital-signature.drawio.svg "MAC versus digital signature")
+
 ## Password hashing is a different job
 
 A password is only checked, never read back, so hash it. The attacker has stolen the table and guesses offline: the user pays one hash per login, the attacker one per guess. So password hashes are deliberately slow and memory-hard; memory-hard because GPUs and ASICs have cheap compute but expensive memory.
@@ -67,7 +83,7 @@ A **salt** is a random value, unique per password, mixed in before hashing and s
 
 Use a dedicated password hashing function, not plain SHA-256. OWASP Password Storage Cheat Sheet, as of 2024: Argon2id (19 MiB memory, 2 iterations, parallelism 1) first; scrypt (N=2^17, r=8, p=1) if Argon2id is unavailable; bcrypt (work factor 10 or more) for legacy systems; PBKDF2-HMAC-SHA256 with 600,000 iterations where FIPS compliance is required.
 
-![Password creation: the password and a random salt go through the hash and the salt is stored with the hash. Verification: the entered password and the stored salt go through the same hash and the result is compared with the stored hash](../images/password-hashing.png "Password hashing with a per-password salt")
+![Two panels. Creation: the password and a random salt, unique per password, go into Argon2id, a slow memory-hard hash; the resulting hash is stored and the salt is stored next to it. Verification: the entered password and the stored salt go into the same Argon2id hash and the result is compared with the stored hash](../images/password-hashing.drawio.svg "Password hashing with a per-password salt")
 
 ## Encoding is not encryption
 

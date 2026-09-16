@@ -1,0 +1,764 @@
+# Phase 5 frontmatter manifest, batch 1: computing/, networking/, web and apis/, data/
+# 23 pages. Sources copied from each page's "## Sources" section; [] where the page has none.
+
+- path: "computing/Algorithms and Complexity.md"
+  title: Algorithms and Complexity
+  summary: >
+    How to read Big O, what common data structures cost, and what P, NP and NP-complete actually mean.
+  kind: concept
+  status: current
+  tags: [algorithms, complexity, big-o, data-structures, p-vs-np]
+  sources:
+    - "Cormen, Leiserson, Rivest and Stein, Introduction to Algorithms"
+    - "Sipser, Introduction to the Theory of Computation, ch. 7"
+    - "Skiena, The Algorithm Design Manual"
+    - "Yato and Seta, 2003 (sudoku); Fraenkel and Lichtenstein, 1981 (chess)"
+    - "CS50, Hash Tables (video)"
+
+- path: "computing/Code Quality.md"
+  title: Code Quality
+  summary: >
+    What makes code hard to change, and how coupling, cohesion, cyclomatic complexity and coverage measure it.
+  kind: concept
+  status: current
+  tags: [code-quality, coupling, cohesion, cyclomatic-complexity, test-coverage]
+  sources:
+    - "McCabe, A Complexity Measure, IEEE TSE, 1976"
+    - "Stevens, Myers and Constantine, Structured Design, IBM Systems Journal, 1974"
+    - "Yourdon and Constantine, Structured Design, 1979"
+    - "Chidamber and Kemerer, A Metrics Suite for Object Oriented Design, IEEE TSE, 1994"
+    - "Fowler, Anemic Domain Model (bliki); Refactoring (feature envy)"
+    - "Seemann, From Primitive Obsession to Domain Modelling"
+
+- path: "computing/Concurrency Models.md"
+  title: Concurrency Models
+  summary: >
+    Shared memory threads, CSP channels and actors as three ways to structure concurrent code, and when each fits.
+  kind: concept
+  status: current
+  tags: [concurrency, csp, actors, message-passing, shared-memory]
+  sources:
+    - "c2 wiki, Actors Model"
+    - "Vaughn Vernon, Reactive Messaging Patterns with the Actor Model"
+    - "Akka documentation; Apache Pekko"
+    - "Chris Stucchio, Actors vs futures, 2013"
+    - "Stack Overflow, When to use actors instead of messaging solutions"
+
+- path: "computing/Functional and Reactive Programming.md"
+  title: Functional and Reactive Programming
+  summary: >
+    Functional programming is about side effects, reactive programming about values over time, and why the two answer different questions.
+  kind: concept
+  status: current
+  tags: [functional-programming, reactive-programming, pure-functions, immutability, observables]
+  sources:
+    - "Fowler, Collection Pipeline"
+    - "ReactiveX, Introduction and Observable documentation"
+    - "RxJS documentation"
+    - "Elliott and Hudak, Functional Reactive Animation, ICFP 1997"
+
+- path: "computing/The Unix Model.md"
+  title: The Unix Model
+  summary: >
+    Everything is a file, everything running is a process, and the shell glues them together with pipes and redirection.
+  kind: concept
+  status: current
+  tags: [unix, shell, processes, file-permissions, pipes]
+  sources:
+    - "Kernighan and Pike, The UNIX Programming Environment (1984), ch. 1 to 3"
+    - "Raymond, The Art of Unix Programming (2003), ch. 1"
+    - "Filesystem Hierarchy Standard 3.0, Linux Foundation"
+    - "bash manual, Bash Startup Files; zsh manual, Startup/Shutdown Files"
+    - "Apple support, Use zsh as the default shell on your Mac"
+
+- path: "networking/DNS.md"
+  title: DNS
+  summary: >
+    How name resolution and caching work, why TTL delays a change, and what each DNS record type is for.
+  kind: concept
+  status: current
+  tags: [dns, dns-records, ttl, caching]
+  sources: []
+
+- path: "networking/IP Addressing.md"
+  title: IP Addressing
+  summary: >
+    How prefix lengths and masks split an address into network and host, and how routing, ARP, VLANs and NAT follow.
+  kind: concept
+  status: current
+  tags: [ip-addressing, subnets, cidr, nat, arp, vlan]
+  sources:
+    - "RFC 4632, Classless Inter-domain Routing (CIDR)"
+    - "RFC 1918, Address Allocation for Private Internets"
+    - "RFC 826, An Ethernet Address Resolution Protocol"
+    - "RFC 2663, IP Network Address Translator (NAT) Terminology and Considerations"
+    - "RFC 4291, IP Version 6 Addressing Architecture; RFC 4861, Neighbor Discovery for IPv6"
+    - "Kurose and Ross, Computer Networking: A Top-Down Approach, ch. 4 and 6"
+
+- path: "networking/Local IPC.md"
+  title: Local IPC
+  summary: >
+    Pipes, sockets and shared memory for processes on one machine, and why Unix domain sockets beat loopback TCP.
+  kind: concept
+  status: current
+  tags: [ipc, unix-sockets, named-pipes, shared-memory, grpc]
+  sources: []
+
+- path: "networking/Network Layers.md"
+  title: Network Layers
+  summary: >
+    The four layer TCP/IP model this wiki uses, mapped against OSI, with the protocols and PDUs at each layer.
+  kind: concept
+  status: current
+  tags: [network-layers, osi, tcp-ip, tcp, udp, ssh]
+  sources: []
+
+- path: "networking/TLS Certificates.md"
+  title: TLS Certificates
+  summary: >
+    How X.509 certificates tie a key to a name, how they are issued, encoded, validated and revoked, and what DV, OV and EV mean.
+  kind: concept
+  status: current
+  tags: [tls, certificates, x509, certificate-authority, acme, revocation]
+  sources: []
+
+- path: "networking/TLS.md"
+  title: TLS
+  summary: >
+    What the TLS 1.3 handshake does, why RSA key transport was dropped, and what the certificate actually proves.
+  kind: concept
+  status: current
+  tags: [tls, https, handshake, forward-secrecy, certificates, mutual-tls]
+  sources:
+    - "RFC 8446, The Transport Layer Security (TLS) Protocol Version 1.3"
+    - "RFC 8996, Deprecating TLS 1.0 and TLS 1.1"
+    - "RFC 6066, TLS Extensions: Extension Definitions (Server Name Indication)"
+    - "Mozilla, Server Side TLS guidelines"
+    - "Cloudflare Learning Center, What happens in a TLS handshake?; Cloudflare blog on post-quantum key agreement"
+    - "SPIFFE project, spiffe.io"
+
+- path: "web and apis/API Styles.md"
+  title: API Styles
+  summary: >
+    REST, RPC (SOAP, Thrift, gRPC) and GraphQL compared, and how to choose between resources, procedures and queries.
+  kind: concept
+  status: current
+  tags: [api-design, rest, rpc, grpc, graphql, soap]
+  sources: []
+
+- path: "web and apis/HTTP Caching.md"
+  title: HTTP Caching
+  summary: >
+    What Cache-Control, ETag and Vary tell browsers and proxies, and when authenticated responses may be cached.
+  kind: concept
+  status: current
+  tags: [http, caching, cache-control, etag, reverse-proxy]
+  sources: []
+
+- path: "web and apis/HTTP.md"
+  title: HTTP
+  summary: >
+    Why each HTTP version exists: keep alive, multiplexing and QUIC each remove a cost the previous one left on the wire.
+  kind: concept
+  status: current
+  tags: [http, http2, http3, quic, multiplexing, head-of-line-blocking]
+  sources:
+    - "RFC 1945 (HTTP/1.0); RFC 9112 (HTTP/1.1), section 9.3.2 on pipelining"
+    - "RFC 9113 (HTTP/2); RFC 7541 (HPACK)"
+    - "RFC 9218 (Extensible Priorities); RFC 8297 (103 Early Hints)"
+    - "RFC 9000 (QUIC); RFC 9114 (HTTP/3)"
+    - "HAProxy, HTTP keep-alive, pipelining, multiplexing and connection pooling"
+    - "NGINX, 7 tips for faster HTTP/2 performance; Chrome Developers, Removing HTTP/2 Server Push from Chrome"
+
+- path: "web and apis/Realtime Web.md"
+  title: Realtime Web
+  summary: >
+    How a server pushes data to a browser: polling, long polling, WebSockets and Server-Sent Events, and how they scale.
+  kind: concept
+  status: current
+  tags: [websockets, server-sent-events, long-polling, realtime, http]
+  sources:
+    - "RFC 6455, The WebSocket Protocol, sections 1.3 and 10.2"
+    - "WHATWG HTML Standard, Server-sent events"
+    - "NGINX, WebSocket proxying; InfoQ, WebSocket and HTTP/2 coexist"
+    - "Stack Overflow, resources held for 1,000,000 open WebSockets"
+    - "Ably, WebSockets vs HTTP"
+    - "ASP.NET Core SignalR introduction and scaling (Microsoft Learn)"
+
+- path: "web and apis/Rendering Patterns.md"
+  title: Rendering Patterns
+  summary: >
+    Server side, client side and static rendering compared, where each fits, and the frameworks that implement them.
+  kind: concept
+  status: current
+  tags: [rendering, server-side-rendering, client-side-rendering, static-site-generation, micro-frontends, progressive-web-apps]
+  sources: []
+
+- path: "web and apis/REST.md"
+  title: REST
+  summary: >
+    What makes an API RESTful: resources, HTTP semantics, idempotency and hypermedia, and how PUT, PATCH and POST differ.
+  kind: concept
+  status: current
+  tags: [rest, http, hypermedia, hateoas, idempotency, api-design]
+  sources: []
+
+- path: "web and apis/Web Performance.md"
+  title: Web Performance
+  summary: >
+    What the Core Web Vitals measure, how lab and field data differ, and which levers move them.
+  kind: concept
+  status: current
+  tags: [web-performance, core-web-vitals, lcp, inp, cls, seo]
+  sources:
+    - "web.dev, Web Vitals and the metric articles linked from it"
+    - "Lighthouse performance scoring (Chrome Developers)"
+    - "Google Search Central, page experience"
+    - "Chrome UX Report (CrUX)"
+
+- path: "data/Choosing a Database.md"
+  title: Choosing a Database
+  summary: >
+    Choose a datastore by workload shape: what sharding costs, what aggregate stores trade, and where relational still wins.
+  kind: concept
+  status: current
+  tags: [databases, nosql, sharding, replication, aggregates, graph-databases]
+  sources:
+    - "Sadalage and Fowler, NoSQL Distilled"
+    - "Kleppmann, Designing Data-Intensive Applications, ch. 2, 5 and 6"
+    - "Robinson, Webber and Eifrem, Graph Databases"
+    - "MongoDB docs, default write concern"
+    - "Redis docs, persistence; Redis FAQ on fork and vm.overcommit_memory; Redis licences"
+    - "Brewer, Spanner, TrueTime and the CAP Theorem"
+
+- path: "data/Consistency Models.md"
+  title: Consistency Models
+  summary: >
+    Which writes a read is guaranteed to see, from linearizability down to eventual consistency, and what each level costs.
+  kind: concept
+  status: current
+  tags: [consistency, linearizability, serializability, cap-theorem, distributed-systems]
+  sources:
+    - "Kleppmann, Designing Data-Intensive Applications (2017), ch. 7 and 9"
+    - "Brewer, CAP Twelve Years Later (2012); Gilbert and Lynch, Brewer's Conjecture (2002)"
+    - "Bailis, Linearizability versus Serializability (2014); Kingsbury, Jepsen consistency models"
+    - "Corbett et al., Spanner (OSDI 2012); Brewer, Spanner, TrueTime and the CAP Theorem (2017)"
+    - "Abadi, Consistency Tradeoffs in Modern Distributed Database System Design (2012)"
+    - "Vernon, Effective Aggregate Design (2011)"
+
+- path: "data/Data Pipelines.md"
+  title: Data Pipelines
+  summary: >
+    How data moves from where it is produced to where it is wanted: batch or stream, ETL or ELT, CDC and idempotent steps.
+  kind: concept
+  status: current
+  tags: [data-pipelines, etl, streaming, batch, change-data-capture, orchestration]
+  sources:
+    - "Kleppmann, Designing Data-Intensive Applications, ch. 10 and 11"
+    - "Kreps, The Log: What every software engineer should know about real-time data's unifying abstraction (2013)"
+    - "Reis and Housley, Fundamentals of Data Engineering"
+    - "Akidau, Chernyak and Lax, Streaming Systems"
+
+- path: "data/Data Platforms.md"
+  title: Data Platforms
+  summary: >
+    How to organise data across an organisation: data mesh and data contracts, and lake versus warehouse versus lakehouse.
+  kind: concept
+  status: current
+  tags: [data-platforms, data-mesh, data-lake, data-warehouse, lakehouse, data-contracts]
+  sources:
+    - "Dehghani, How to Move Beyond a Monolithic Data Lake to a Distributed Data Mesh (2019); Data Mesh Principles and Logical Architecture (2020)"
+    - "Helland, Data on the Outside versus Data on the Inside (CIDR 2005)"
+    - "Stopford, The Data Dichotomy (Confluent, 2016)"
+    - "Kreps, The Log (2013)"
+    - "Kleppmann, Designing Data-Intensive Applications, ch. 10"
+    - "Armbrust et al., Lakehouse: A New Generation of Open Platforms that Unify Data Warehousing and Advanced Analytics (CIDR 2021)"
+
+- path: "data/Machine Learning.md"
+  title: Machine Learning
+  summary: >
+    Supervised, unsupervised and reinforcement learning, the model families that serve them, and how linear regression fits a line.
+  kind: concept
+  status: current
+  tags: [machine-learning, supervised-learning, unsupervised-learning, reinforcement-learning, neural-networks, linear-regression]
+  sources: []
+# Phase 5 frontmatter manifest, batch 2: messaging/, security/, platform/, cloud/, practice/
+# 40 pages (the folders hold 40, not 38). Titles equal the filename without .md; README maps to AWS.
+
+# ---------------------------------------------------------------- messaging
+
+- path: messaging/Event Sourcing and CQRS.md
+  title: Event Sourcing and CQRS
+  summary: >-
+    Why storing every change as an event lets you rebuild, replay and project state, and how CQRS separates the write model from reads.
+  kind: concept
+  status: current
+  tags: [event-sourcing, cqrs, event-store, projections, messaging]
+  sources: []
+
+- path: messaging/Message Brokers.md
+  title: Message Brokers
+  summary: >-
+    What a broker does, how queue brokers and log brokers differ, and when ordering makes Kafka the better choice.
+  kind: concept
+  status: current
+  tags: [message-brokers, kafka, rabbitmq, amqp, ordering, messaging]
+  sources:
+    - "RabbitMQ, AMQP 0-9-1 model explained; Native AMQP 1.0 in RabbitMQ 4.0"
+    - "Martin Kleppmann, Turning the database inside out, Oredev 2015"
+    - "Apache Kafka, protocol guide"
+    - "STOMP specification"
+    - "Stack Overflow, Is there any reason to use RabbitMQ over Kafka"
+    - "DZone, Understanding when to use RabbitMQ or Apache Kafka"
+
+- path: messaging/Messaging Fundamentals.md
+  title: Messaging Fundamentals
+  summary: >-
+    Why send a message instead of making a call, which coupling it removes, and how the outbox and idempotent consumers make delivery reliable.
+  kind: concept
+  status: current
+  tags: [messaging, coupling, transactional-outbox, idempotency, at-least-once]
+  sources:
+    - "Pat Helland, Life beyond Distributed Transactions, CIDR 2007"
+    - "Jonathan Oliver, Idempotency patterns; How I avoid two-phase commit"
+    - "Particular Software, Messaging versus RPC, store-and-forward messaging"
+    - "Kamil Grzybek, The Outbox pattern"
+    - "Webber, Parastatidis and Robinson, REST in Practice (2010), on Atom feeds for events"
+
+- path: messaging/Sagas and Process Managers.md
+  title: Sagas and Process Managers
+  summary: >-
+    How a business process stays consistent across services without a distributed transaction, using compensation, orchestration and durable timeouts.
+  kind: concept
+  status: current
+  tags: [sagas, process-manager, orchestration, choreography, compensation, messaging]
+  sources:
+    - "Hector Garcia-Molina and Kenneth Salem, Sagas, SIGMOD 1987"
+    - "Bernd Rücker, Avoiding puristic event chains; What are long running processes"
+    - "Udi Dahan, Saga persistence and event driven architectures"
+    - "Jonathan Oliver, CQRS sagas with event sourcing"
+    - "Roy Fielding, on transactions and REST, rest-discuss mailing list"
+
+- path: messaging/Service Orientation.md
+  title: Service Orientation
+  summary: >-
+    Where to draw service boundaries, and why distributing for isolation rather than availability builds a monolith over a network.
+  kind: opinion
+  status: current
+  tags: [soa, microservices, bounded-contexts, service-discovery, coupling, deployment]
+  sources: []
+
+# ---------------------------------------------------------------- security
+
+- path: security/Browser Security Model.md
+  title: Browser Security Model
+  summary: >-
+    Which rules the browser enforces by origin and which by site, and why cookies ride along on requests the page cannot read.
+  kind: concept
+  status: current
+  tags: [same-origin-policy, cors, cookies, samesite, web-storage, web-security]
+  sources:
+    - "MDN: Same-origin policy, CORS, HTTP cookies, Web Storage API"
+    - "RFC 6265 and the RFC 6265bis draft"
+    - "web.dev: SameSite cookies explained; Schemeful Same-Site"
+    - "Chrome Privacy Sandbox announcements, July 2024 and April 2025"
+    - "OWASP Session Management Cheat Sheet"
+
+- path: security/Cloud Security.md
+  title: Cloud Security
+  summary: >-
+    How the cloud security frameworks stack from threat model to provider assurance, and what each layer answers that the others do not.
+  kind: concept
+  status: current
+  tags: [cloud-security, nist-csf, cis-benchmarks, cspm, siem, security-controls]
+  sources:
+    - "NIST Cybersecurity Framework 2.0 (February 2024)"
+    - "NIST SP 800-53 Rev 5, Security and Privacy Controls for Information Systems and Organizations"
+    - "Cloud Security Alliance: Cloud Controls Matrix, STAR registry, CAIQ"
+    - "CIS Benchmarks and CIS Hardened Images, Center for Internet Security"
+    - "MITRE ATT&CK, Enterprise and Cloud matrices"
+    - "NCSC, The cloud security principles"
+
+- path: security/Cross Site Request Forgery.md
+  title: Cross Site Request Forgery
+  summary: >-
+    How an attacker forges an authenticated request using the victim's cookies, and why tokens remain the primary defence with SameSite behind them.
+  kind: concept
+  status: current
+  tags: [csrf, cookies, samesite, csrf-token, web-security]
+  sources: []
+
+- path: security/Cross Site Scripting.md
+  title: Cross Site Scripting
+  summary: >-
+    How injected script runs in a victim's page, and why context aware output encoding is the defence that filters and headers only back up.
+  kind: concept
+  status: current
+  tags: [xss, output-encoding, content-security-policy, injection, web-security]
+  sources: []
+
+- path: security/Cryptography Basics.md
+  title: Cryptography Basics
+  summary: >-
+    Which primitive gives confidentiality, integrity, authenticity or non-repudiation, and why the others cannot.
+  kind: concept
+  status: current
+  tags: [cryptography, hashing, mac, digital-signatures, password-hashing, encryption]
+  sources:
+    - "Ferguson, Schneier and Kohno, Cryptography Engineering"
+    - "OWASP Password Storage Cheat Sheet"
+    - "NIST SP 800-57 Part 1, Recommendation for Key Management"
+    - "RFC 8446, TLS 1.3"
+    - "Auth0, How secure are encryption, hashing, encoding and obfuscation (starting point for the table, corrected)"
+
+- path: security/Data Privacy.md
+  title: Data Privacy
+  summary: >-
+    What makes data personally identifiable, how fingerprinting tracks you without cookies, and what GDPR demands, including when data leaves the EU or UK.
+  kind: concept
+  status: current
+  tags: [data-privacy, pii, gdpr, fingerprinting, international-transfers, pci-dss]
+  sources:
+    - "Peter Eckersley, How Unique Is Your Web Browser?, EFF Panopticlick, PETS 2010"
+    - "ICO, A guide to lawful basis"
+    - "GDPR Article 83; Data Protection Act 2018; Data (Use and Access) Act 2025"
+    - "CJEU, C-311/18 Schrems II (16 July 2020)"
+    - "Commission Decision 2021/914 (new SCCs); ICO, International Data Transfer Agreement and Addendum (2022)"
+    - "Commission Decision 2023/1795 (EU-US Data Privacy Framework)"
+
+- path: security/Endpoint Security.md
+  title: Endpoint Security
+  summary: >-
+    How antivirus, EPP and EDR differ, how to read a VirusTotal verdict, and how YARA turns a malware description into a detector.
+  kind: concept
+  status: current
+  tags: [endpoint-security, edr, antivirus, malware, yara, threat-hunting]
+  sources:
+    - "eSecurity Planet, Antivirus vs EPP vs EDR"
+    - "VirusTotal documentation: How it works, API, Livehunt"
+    - "YARA documentation; mandiant/capa README"
+    - "security.stackexchange.com, How to interpret VirusTotal scan"
+
+- path: security/Secrets Management.md
+  title: Secrets Management
+  summary: >-
+    Where a secret can live, why each step from repo to store to workload identity moves the problem, and how to sign your work.
+  kind: concept
+  status: current
+  tags: [secrets-management, vault, workload-identity, rotation, code-signing, gpg]
+  sources:
+    - "OWASP Secrets Management Cheat Sheet"
+    - "HashiCorp Vault documentation (secret zero, dynamic secrets, Vault Agent)"
+    - "Git documentation, git-config; GitHub Docs, About commit signature verification"
+    - "SOPS README"
+    - "Sigstore and gitsign documentation"
+
+- path: security/Security Headers.md
+  title: Security Headers
+  summary: >-
+    What each HTTP security header makes the browser do, which are obsolete, and why adding them blindly teaches you nothing.
+  kind: concept
+  status: current
+  tags: [security-headers, content-security-policy, hsts, clickjacking, cross-origin-isolation, web-security]
+  sources: []
+
+- path: security/Security Principles and Threat Modelling.md
+  title: Security Principles and Threat Modelling
+  summary: >-
+    How to find and rank the threats to a system with four questions and STRIDE, and the principles good mitigations follow.
+  kind: concept
+  status: current
+  tags: [threat-modelling, stride, security-principles, attack-surface, least-privilege]
+  sources: []
+
+- path: security/Standards and Compliance.md
+  title: Standards and Compliance
+  summary: >-
+    What ISO 27001, SOC 2, PCI DSS and FIPS 140 each certify, and why FIPS validated cryptography is not the same as secure.
+  kind: concept
+  status: current
+  tags: [compliance, iso-27001, soc2, pci-dss, fips, certifications]
+  sources: []
+
+- path: security/Supply Chain and Container Security.md
+  title: Supply Chain and Container Security
+  summary: >-
+    How to know that what you run is what you built, through signing, SBOMs and SLSA, and how to limit a compromised container.
+  kind: concept
+  status: current
+  tags: [supply-chain, container-security, sbom, slsa, sigstore, least-privilege]
+  sources:
+    - "Liz Rice, Container Security (O'Reilly)"
+    - "SLSA specification, Build track"
+    - "Sigstore documentation: keyless signing, transparency log"
+    - "The Update Framework specification: roles and key management"
+    - "NIST SP 800-190, Application Container Security Guide"
+    - "Docker, Retiring Docker Content Trust (2025)"
+
+- path: security/Web Application Risks.md
+  title: Web Application Risks
+  summary: >-
+    What goes wrong in web applications, how the main OWASP risks work, and which layer of defence slows each attack.
+  kind: concept
+  status: current
+  tags: [owasp, injection, web-security, waf, ddos, defence-in-depth]
+  sources:
+    - "OWASP Top 10:2021 and OWASP Top 10:2025"
+    - "OWASP Application Security Verification Standard"
+    - "DevOpsSec, ch. 4, From gates to guardrails; Netflix talk on the same shift"
+    - "Java Brains, Log4j vulnerability explained"
+    - "Cloudflare, NTP amplification DDoS attack"
+    - "OWASP ModSecurity, OWASP Core Rule Set and OWASP Coraza"
+
+# ---------------------------------------------------------------- platform
+
+- path: platform/Configuration Management.md
+  title: Configuration Management
+  summary: >-
+    How a configuration management tool converges machines to a declared state, using Ansible's push over SSH model as the example.
+  kind: concept
+  status: current
+  tags: [configuration-management, ansible, ssh, playbooks, inventory]
+  sources: []
+
+- path: platform/Containers.md
+  title: Containers
+  summary: >-
+    Why a container is a process with a restricted view, not a small virtual machine, and what namespaces, cgroups and layers each decide.
+  kind: concept
+  status: current
+  tags: [containers, docker, namespaces, cgroups, oci, container-images]
+  sources:
+    - "Julia Evans, What even is a container; How Containers Work zine"
+    - "Docker documentation: storage drivers, bridge networking, pull policy, BuildKit and multi-stage builds"
+    - "Open Container Initiative, Image Format Specification and Runtime Specification"
+    - "Liz Rice, Container Security (O'Reilly, 2020)"
+    - "Kubernetes blog, Dockershim removed from Kubernetes 1.24"
+
+- path: platform/DevOps and Delivery.md
+  title: DevOps and Delivery
+  summary: >-
+    What DevOps means beyond the acronym, which metrics tell you delivery is improving, and why deployment and release are separate acts.
+  kind: concept
+  status: current
+  tags: [devops, dora-metrics, ci-cd, feature-flags, continuous-delivery]
+  sources: []
+
+- path: platform/Infrastructure as Code.md
+  title: Infrastructure as Code
+  summary: >-
+    What infrastructure as code gives you, how Terraform's providers, resources and modules fit together, and why state must be remote and locked.
+  kind: concept
+  status: current
+  tags: [infrastructure-as-code, terraform, terraform-state, terraform-modules, azure]
+  sources:
+    - "HashiCorp, Terraform language documentation"
+    - "HashiCorp, Infrastructure as Code tutorial"
+    - "Terraform for the Azure Admin slide (ARM to Terraform mapping)"
+    - "Gruntwork, Terragrunt documentation"
+    - "HashiCorp, BSL announcement; OpenTofu"
+
+- path: platform/Kubernetes Security.md
+  title: Kubernetes Security
+  summary: >-
+    How the API server authenticates callers, how roles and bindings scope what they may do, and what hardens pods and the cluster.
+  kind: concept
+  status: current
+  tags: [kubernetes, rbac, authentication, service-accounts, pod-security, cis-benchmarks]
+  sources: []
+
+- path: platform/Kubernetes.md
+  title: Kubernetes
+  summary: >-
+    How one reconciliation loop explains Kubernetes, from control plane and workload objects to pod networking, Services and the Gateway API.
+  kind: concept
+  status: current
+  tags: [kubernetes, reconciliation, pod-networking, kubernetes-services, gateway-api, helm]
+  sources:
+    - "Kubernetes docs, Concepts"
+    - "Burns, Beda, Hightower and Evenson, Kubernetes: Up and Running, 3rd ed., O'Reilly, 2022"
+    - "Gateway API documentation"
+    - "Kubernetes blog on the ingress-nginx retirement"
+    - "cert-manager docs"
+
+- path: platform/Load Balancing and Proxies.md
+  title: Load Balancing and Proxies
+  summary: >-
+    What a reverse proxy or load balancer does for you, layer 4 against layer 7, and how Nginx and HAProxy differ in doing it.
+  kind: concept
+  status: current
+  tags: [load-balancing, reverse-proxy, nginx, haproxy, health-checks, scaling]
+  sources:
+    - "AWS, Architecting for the Cloud: AWS Best Practices whitepaper, 2018"
+    - "Nginx docs and the changelog entries for the stream module"
+    - "Apache MPM docs"
+    - "HAProxy configuration manual"
+    - "HAProxy blog"
+    - "F5, NGINX ModSecurity WAF Is Transitioning to End-of-Life, 2022"
+
+- path: platform/Observability.md
+  title: Observability
+  summary: >-
+    How to tell what the software is doing for real users from logs, metrics and traces alone, and which alerts deserve a page.
+  kind: concept
+  status: current
+  tags: [observability, logging, metrics, tracing, opentelemetry, slo]
+  sources:
+    - "Google, Site Reliability Engineering, chapters on monitoring distributed systems and service level objectives"
+    - "OpenTelemetry documentation"
+    - "Prometheus documentation"
+    - "Sigelman et al., Dapper, a Large-Scale Distributed Systems Tracing Infrastructure, Google, 2010"
+    - "Jay Kreps, The Log: What every software engineer should know about real-time data's unifying abstraction, 2013"
+
+- path: platform/Resilience Patterns.md
+  title: Resilience Patterns
+  summary: >-
+    How a system keeps working when a dependency is slow or down, by bounding every wait, capping what it sends and stopping calls.
+  kind: concept
+  status: current
+  tags: [resilience, circuit-breaker, retries, timeouts, back-pressure, health-checks]
+  sources:
+    - "Nygard, Release It!, 2nd ed., Pragmatic Bookshelf, 2018"
+    - "Brooker, Exponential Backoff and Jitter, AWS Architecture Blog, 2015"
+    - "Beyer et al., Site Reliability Engineering, O'Reilly, 2016, ch. 21 Handling Overload and ch. 22 Addressing Cascading Failures"
+    - "HAProxy configuration manual"
+    - "Kubernetes docs, Liveness, Readiness and Startup Probes"
+
+# ---------------------------------------------------------------- cloud
+
+- path: cloud/aws/Disaster Recovery.md
+  title: Disaster Recovery
+  summary: >-
+    How disaster recovery differs from high availability, what RTO and RPO mean, and which of the four AWS strategies each budget buys.
+  kind: concept
+  status: current
+  tags: [aws, disaster-recovery, high-availability, rto-rpo, dynamodb, multi-region]
+  sources: []
+
+- path: cloud/aws/EKS.md
+  title: EKS
+  summary: >-
+    What AWS runs and what you still own on EKS, why pods run out of IP addresses, and how IAM becomes the cluster authenticator.
+  kind: concept
+  status: current
+  tags: [aws, eks, kubernetes, fargate, vpc-cni, iam]
+  sources:
+    - "AWS, EKS User Guide and EKS Best Practices Guide"
+    - "Kubernetes documentation: cluster networking model"
+
+- path: cloud/aws/Identity.md
+  title: Identity
+  summary: >-
+    How IAM decides who can do what in AWS, through users, roles and the policy types that grant or only restrict.
+  kind: concept
+  status: current
+  tags: [aws, iam, iam-roles, iam-policies, permission-boundaries, arn]
+  sources: []
+
+- path: cloud/aws/Key Management.md
+  title: Key Management
+  summary: >-
+    Where KMS key material lives, how envelope encryption gets round the 4 KB limit, who may use a key and why deletion waits.
+  kind: concept
+  status: current
+  tags: [aws, kms, envelope-encryption, hsm, key-rotation, encryption]
+  sources: []
+
+- path: cloud/aws/Messaging.md
+  title: Messaging
+  summary: >-
+    What SNS, SQS and EventBridge each guarantee, how to fan out and dead letter reliably, and when a queue belongs between them.
+  kind: concept
+  status: current
+  tags: [aws, sns, sqs, eventbridge, messaging, dead-letter-queue]
+  sources: []
+
+- path: cloud/aws/README.md
+  title: AWS
+  summary: >-
+    Index of the AWS pages, built on one idea: every action is an API call that IAM, KMS and VPC control and CloudTrail records.
+  kind: index
+  status: current
+  tags: [aws, cloud-security, iam, kms, vpc, shared-responsibility]
+  sources:
+    - "AWS Well-Architected Framework, Security Pillar"
+    - "AWS Shared Responsibility Model"
+    - "AWS security documentation, per service best practices"
+    - "AWS, Security Hub unified service GA (December 2025)"
+    - "AWS, Amazon Inspector Classic end of support"
+
+- path: cloud/aws/VPC Networking.md
+  title: VPC Networking
+  summary: >-
+    How route tables, NACLs and security groups decide what reaches a VPC resource, and how traffic to AWS services and on premises stays private.
+  kind: concept
+  status: current
+  tags: [aws, vpc, security-groups, nacl, vpc-endpoints, privatelink]
+  sources: []
+
+- path: "cloud/azure/Tenants, Subscriptions and RBAC.md"
+  title: "Tenants, Subscriptions and RBAC"
+  summary: >-
+    How an Entra ID tenant, its subscriptions and RBAC role assignments relate, what moving a subscription breaks, and how identities reach resources.
+  kind: concept
+  status: current
+  tags: [azure, entra-id, subscriptions, rbac, managed-identity, iam]
+  sources: []
+
+# ---------------------------------------------------------------- practice
+
+- path: practice/Influence and Negotiation.md
+  title: Influence and Negotiation
+  summary: >-
+    How to move people towards a goal by knowing theirs first, and the four Getting to Yes principles behind it.
+  kind: opinion
+  status: current
+  tags: [influence, negotiation, listening, psychological-safety, stakeholders]
+  sources:
+    - "Dale Carnegie, How to Win Friends and Influence People"
+    - "Roger Fisher and William Ury, Getting to Yes"
+    - "Chris Voss, Never Split the Difference"
+    - "IDEO / Stanford d.school, the How might we reframing question"
+    - "Amy Edmondson, psychological safety; Daniel Coyle, The Culture Code"
+
+- path: practice/Leadership.md
+  title: Leadership
+  summary: >-
+    What a leader does to help others succeed: build culture and safety, delegate, communicate, motivate and handle politics.
+  kind: opinion
+  status: current
+  tags: [leadership, culture, delegation, feedback, motivation, communication]
+  sources:
+    - "Daniel Coyle, The Culture Code"
+    - "Dale Carnegie, How to Win Friends and Influence People"
+    - "Daniel Pink, Drive"
+    - "Simon Sinek, Start With Why"
+    - "Chris Voss, Never Split the Difference"
+    - "Center for Creative Leadership (CCL): DAC, SBI feedback"
+
+- path: practice/Roles and Hiring.md
+  title: Roles and Hiring
+  summary: >-
+    What engineering leaders, architects and engineers are for, which competencies to probe for in an interview, and how to sell the role.
+  kind: opinion
+  status: current
+  tags: [hiring, interviewing, architect, engineering-roles, competencies]
+  sources: []
+
+- path: practice/Self Awareness.md
+  title: Self Awareness
+  summary: >-
+    What self awareness means as an inner practice: how the mind works, how to concentrate, and how to find and share a goal.
+  kind: opinion
+  status: current
+  tags: [self-awareness, concentration, purpose, reflection, mindfulness]
+  sources: []
+
+- path: practice/Testing Strategy.md
+  title: Testing Strategy
+  summary: >-
+    What a test is for, why the I/O boundary matters more than the unit or integration label, and how to test performance.
+  kind: opinion
+  status: current
+  tags: [testing, tdd, bdd, unit-tests, integration-tests, performance-testing]
+  sources: []

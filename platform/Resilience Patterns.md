@@ -1,3 +1,17 @@
+---
+title: "Resilience Patterns"
+summary: "How a system keeps working when a dependency is slow or down, by bounding every wait, capping what it sends and stopping calls."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources:
+  - "Nygard, Release It!, 2nd ed., Pragmatic Bookshelf, 2018"
+  - "Brooker, Exponential Backoff and Jitter, AWS Architecture Blog, 2015"
+  - "Beyer et al., Site Reliability Engineering, O'Reilly, 2016, ch. 21 Handling Overload and ch. 22 Addressing Cascading Failures"
+  - "HAProxy configuration manual"
+  - "Kubernetes docs, Liveness, Readiness and Startup Probes"
+tags: [resilience, circuit-breaker, retries, timeouts, back-pressure, health-checks]
+---
 # Resilience Patterns
 
 How does a system keep working when a dependency is slow or down?
@@ -17,6 +31,8 @@ Retry only requests that can be repeated without harm, or make them so with an i
 ## Circuit breakers
 
 A breaker is a state machine around a call. **Closed** is normal: calls go through and outcomes are counted. When failures cross a threshold, an error rate or a run of consecutive failures over a window, the breaker **opens** and calls fail without touching the dependency. After a cool-off it goes **half-open** and lets one probe through. Success closes it; failure opens it for another cool-off.
+
+![State machine of a circuit breaker with three states. Closed is normal, calls go through and outcomes are counted; when failures cross the threshold it moves to Open, where calls fail without touching the dependency; after a cool-off it moves to Half-open and lets one probe through; if the probe succeeds it returns to Closed, if the probe fails it returns to Open. Caption: a timeout bounds one call; a breaker stops calling.](../images/circuit-breaker-states.drawio.svg "Circuit breaker states")
 
 A timeout bounds one call. A fallback replaces one result with a cached or default one. A breaker stops calling at all, which frees your threads and gives the dependency room to recover. Returning stale data when a call passes 100 ms is a timeout with a fallback; a breaker is what stops you making the attempt for the next thirty seconds. The usual placement is between backend services; at the edge an open breaker turns one slow page into a blank one for everyone.
 

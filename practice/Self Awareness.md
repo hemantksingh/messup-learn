@@ -1,4 +1,13 @@
-# Self awareness
+---
+title: "Self Awareness"
+summary: "What self awareness means as an inner practice: how the mind works, how to concentrate, and how to find and share a goal."
+kind: opinion
+status: current
+last_reviewed: 2026-09-16
+sources: []
+tags: [self-awareness, concentration, purpose, reflection, mindfulness]
+---
+# Self Awareness
 
 Personal reflections, drawing mainly on Dandapani and Swami Parthasarathy; not engineering guidance.
 

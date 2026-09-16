@@ -1,3 +1,12 @@
+---
+title: "Local IPC"
+summary: "Pipes, sockets and shared memory for processes on one machine, and why Unix domain sockets beat loopback TCP."
+kind: concept
+status: current
+last_reviewed: 2026-09-16
+sources: []
+tags: [ipc, unix-sockets, named-pipes, shared-memory, grpc]
+---
 # Local IPC
 
 Windows and Unix-variant operating systems provide different approaches to inter process communication (IPC) that facilitate communications and data sharing between applications. [This](http://cs.brown.edu/people/slewando/files/IPCWinNTUNIX.pdf) paper discusses some of the IPC options that are available to programmers using UNIX and describe the corresponding techniques available to programmers writing for Windows.
